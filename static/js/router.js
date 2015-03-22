@@ -1,4 +1,4 @@
-var sys = angular.module('syscat',['ngRoute'])
+var sys = angular.module('syscat' , ['ngRoute'])
 sys.config([ '$routeProvider', 
 	function($routeProvider){
 		$routeProvider
@@ -6,11 +6,12 @@ sys.config([ '$routeProvider',
 			{
 				templateUrl: 'static/templates/busqueda.html'
 			})
-		.when('/index.html',
+		.when('/registro',
 			{
-				redirectTo: '/'
+				templateUrl: 'static/templates/registro.html'
 			})
 		.otherwise({
 			redirectTo: '/'
 		})
+        //$locationProvider.html5Mode(true)
 	}])
