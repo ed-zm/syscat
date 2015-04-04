@@ -1,6 +1,6 @@
-var sys = angular.module('syscat' , ['ngRoute'])
+var sys = angular.module('syscat', ['ngRoute']);
 sys.config([ '$routeProvider', 
-	function($routeProvider){
+	function ($routeProvider) {
 		$routeProvider
 		.when('/busqueda',
 			{
@@ -12,6 +12,6 @@ sys.config([ '$routeProvider',
 			})
 		.otherwise({
 			redirectTo: '/'
-		})
-        //$locationProvider.html5Mode(true)
-	}])
+		});
+        $locationProvider.html5Mode(true);
+	}]);
