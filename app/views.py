@@ -7,17 +7,21 @@ from django.views.generic import View
 from .users import *
 import pymongo
 
-def post(request):
+def auth(request):
 	if request.method == 'POST':
 		form = LoginForm(request.POST)
-		print (username, password)
+		a = Users()
+		usuario = a.find_user()
+		usuario_post = request.POST['usuario']
 		if form.is_valid():
-			return HttpResponseRedirect('/')
+			if usuario_post == usuario:
+				print (request.POST['usuario'])
+				return HttpResponseRedirect('/')
 	else: 
-		form = LoginForm
-	return HttpResponse('hola')
+		form = LoginForm()
+	return HttpResponse('Error Pagina no encontrada')
 def home(request):
 	a = Users()
-	usuario = a.show_user();
+	usuario = a.find_user();
 	print (usuario)
 	return render_to_response('index.html', {'usuario' : usuario['_id']})

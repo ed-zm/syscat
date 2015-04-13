@@ -25,6 +25,6 @@ class Users:
 			print ("oops, username is already taken")
 			return False
 		return True
-	def show_user(self):
+	def find_user(self):
 		u = self.users.find_one()
 		return u

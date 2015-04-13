@@ -18,7 +18,8 @@
 					<div class="head">
 						<img src="{% static "img/user.png" %}" alt=""/>
 					</div>
-				<form method="post" action="/post/">{% csrf_token %}
+				<form method="post" action="/auth/">{% csrf_token %}
+						<label for = "usuario"></label>
 						<input id = "usuario" name="usuario" type="text" class="text" placeholder= "ingrese su usuario" >
 						<input id = "password" name="password" type="password" Placeholder="Ingrese su contraseña" >
 						<div class="submit">
