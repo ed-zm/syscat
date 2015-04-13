@@ -18,11 +18,11 @@
 					<div class="head">
 						<img src="{% static "img/user.png" %}" alt=""/>
 					</div>
-				<form>
-						<input type="text" class="text" placeholder= "ingrese su usuario" >
-						<input type="password" Placeholder="Ingrese su contraseña" >
+				<form method="post" action="/post/">{% csrf_token %}
+						<input id = "usuario" name="usuario" type="text" class="text" placeholder= "ingrese su usuario" >
+						<input id = "password" name="password" type="password" Placeholder="Ingrese su contraseña" >
 						<div class="submit">
-							<input type="submit" onclick="myFunction()" value="Iniciar Sesion" >
+							<input type="submit" value="Iniciar Sesion" >
 					</div>	
 					<p><a href="#">Olvidó su contraseña?</a></p>
 				</form>

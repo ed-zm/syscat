@@ -9,10 +9,11 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, sys 
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-
+from mongoengine import register_connection
+from mongoengine import connect
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
 )
@@ -37,12 +38,15 @@ INSTALLED_APPS = (
     'suit',
     'django.contrib.admin',
     'django.contrib.auth',
+    'mongoengine.django.mongo_auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app',
 )
+AUTH_USER_MODEL = 'mongo_auth.MongoUser'
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -61,11 +65,23 @@ WSGI_APPLICATION = 'SYSCAT.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'app.mongoconnect',
-#    }
-#}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.dummy'
+    }
+}
+AUTHENTICATION_BACKENDS = (
+    'mongoengine.django.auth.MongoEngineBackend',
+)
+
+#try:
+register_connection(alias='default',name='syscat')
+connection = connect('default', alias='syscat')
+    #print "Conectado"
+#connection.disconnect();
+#except Exception as e:
+    #print "Error al Conectar con la base de datos", type(e), e
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.6/topics/i18n/
