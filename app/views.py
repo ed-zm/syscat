@@ -13,10 +13,11 @@ def auth(request):
 		a = Users()
 		usuario = a.find_user()
 		usuario_post = request.POST['usuario']
-		if form.is_valid():
-			if usuario_post == usuario:
-				print (request.POST['usuario'])
-				return HttpResponseRedirect('/')
+		#password _post = request.POST['password']
+		print (usuario['_id'])
+		if usuario_post == usuario['_id']:
+			#print (request.POST['usuario'])
+			return HttpResponseRedirect('/')
 	else: 
 		form = LoginForm()
 	return HttpResponse('Error Pagina no encontrada')
@@ -25,3 +26,6 @@ def home(request):
 	usuario = a.find_user();
 	print (usuario)
 	return render_to_response('index.html', {'usuario' : usuario['_id']})
+
+def pagos(request):
+	pass
