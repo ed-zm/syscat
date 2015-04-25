@@ -1,31 +1,51 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.template.loader import get_template
-from django.template import Context
+from django.template import Context, RequestContext
 from django.shortcuts import render_to_response
-from .forms import *
 from django.views.generic import View
+from django.core.context_processors import csrf
 from .users import *
 import pymongo
 
+users = Users()
+def admin(request):
+	usuario = users.find_user();
+	usuario_id = usuario['_id']
+	return render_to_response('index.html', {'usuario' : usuario_id})
+
 def auth(request):
 	if request.method == 'POST':
-		form = LoginForm(request.POST)
-		a = Users()
-		usuario = a.find_user()
-		usuario_post = request.POST['usuario']
-		#password _post = request.POST['password']
-		print (usuario['_id'])
-		if usuario_post == usuario['_id']:
-			#print (request.POST['usuario'])
-			return HttpResponseRedirect('/')
+		usuario = users.find_user()
+		usuario_id = usuario['_id']
+		usuario_login = request.POST['usuario']
+		#password _login = request.POST['pass']
+		print (request.POST['pass'], '=' ,{'usuario' : usuario_id})
+		if usuario_id == usuario_login:
+			print("este formulario es valido")
+			return HttpResponseRedirect('/admin')
+		else: 
+			return HttpResponse('Pagina no encontrada')
 	else: 
-		form = LoginForm()
-	return HttpResponse('Error Pagina no encontrada')
-def home(request):
-	a = Users()
-	usuario = a.find_user();
-	print (usuario)
-	return render_to_response('index.html', {'usuario' : usuario['_id']})
+		return HttpResponse('Error Pagina no encontrada')
+	
+def busqueda(request):
+	usuario = users.find_user()
+	usuario_id = usuario['_id']
+	return render_to_response('static/templates/busqueda.html', {'usuario' : usuario_id})
+
+def home(request): 
+	return HttpResponseRedirect('/login')
+
+def login(request):
+	c = {}
+	c.update(csrf(request))
+	return render_to_response('login.html', c)
 
 def pagos(request):
 	pass
+
+def registro(request):
+	usuario = users.find_user()
+	usuario_id = usuario['_id']
+	print ("estoy en registro")
+	return render_to_response ('static/templates/registro.html',{'usuario' : usuario_id})
+
