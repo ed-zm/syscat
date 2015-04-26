@@ -6,39 +6,60 @@ from django.core.context_processors import csrf
 from .users import *
 import pymongo
 
+
 users = Users()
 def admin(request):
-	usuario = users.find_user();
-	usuario_id = usuario['_id']
-	return render_to_response('index.html', {'usuario' : usuario_id})
+	global active
+	if active == True:
+		return render_to_response('index.html', {'usuario' : user})
+	else: 
+		return HttpResponseRedirect('/login')
+
 
 def auth(request):
 	if request.method == 'POST':
-		usuario = users.find_user()
-		usuario_id = usuario['_id']
 		usuario_login = request.POST['usuario']
-		#password _login = request.POST['pass']
-		print (request.POST['pass'], '=' ,{'usuario' : usuario_id})
-		if usuario_id == usuario_login:
-			print("este formulario es valido")
+		password_login = request.POST['pass']
+		usuario = users.find_user(usuario_login, password_login)
+		if usuario:
+			global active
+			global user
+			active = True
+			user = usuario[1]
 			return HttpResponseRedirect('/admin')
-		else: 
-			return HttpResponse('Pagina no encontrada')
+		else:
+			global active
+			active = False
+			return HttpResponse("Usuario Inválido")
+			#return HttpResponseRedirect('/login')"""
 	else: 
 		return HttpResponse('Error Pagina no encontrada')
 	
 def busqueda(request):
-	usuario = users.find_user()
-	usuario_id = usuario['_id']
-	return render_to_response('static/templates/busqueda.html', {'usuario' : usuario_id})
+	if active == True:
+		usuario = users.find_user()
+		usuario_id = usuario['_id']
+		return render_to_response('static/templates/busqueda.html')
+	else: 
+		return HttpResponseRedirect('/login')
 
 def home(request): 
+	global init
+	init = True
 	return HttpResponseRedirect('/login')
 
 def login(request):
 	c = {}
 	c.update(csrf(request))
 	return render_to_response('login.html', c)
+
+def logout(request):
+	global active
+	active = False
+	if active == False:
+	 	return HttpResponseRedirect('/login')
+	else: 
+	 	return HttpResponse('página no encontrada')
 
 def pagos(request):
 	pass

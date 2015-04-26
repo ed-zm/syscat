@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^busqueda/','app.views.busqueda', name = 'busqueda'),
     url(r'^login/', 'app.views.login', name = 'login'),
    	url(r'^pagos/', 'app.views.pagos', name = "pagos"),
-    url(r'^auth/', 'app.views.auth', name = "auth"), 
+    url(r'^auth/', 'app.views.auth', name = "auth"),
+    url(r'^logout/', 'app.views.logout', name = "logout"), 
     #url(r'^admin/', include(admin.site.urls)),
 )
