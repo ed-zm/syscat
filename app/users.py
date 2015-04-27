@@ -1,7 +1,7 @@
 import pymongo
 class Users:
 	def __init__(self):
-		connection_string = "mongodb://localhost:28002"
+		connection_string = "mongodb://localhost"
 		connection = pymongo.MongoClient(connection_string)
 		db = connection.syscat
 		self.db = db

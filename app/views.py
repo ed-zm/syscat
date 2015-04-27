@@ -37,11 +37,13 @@ def auth(request):
 	
 def busqueda(request):
 	if active == True:
-		usuario = users.find_user()
-		usuario_id = usuario['_id']
-		return render_to_response('static/templates/busqueda.html')
+		return render_to_response('static/templates/busqueda.html', {"usuario" : user})
 	else: 
 		return HttpResponseRedirect('/login')
+
+def exitoso(request):
+	if active == True:
+		return render_to_response('static/templates/exitoso.html', {"usuario" : user})
 
 def home(request): 
 	global init
@@ -65,8 +67,12 @@ def pagos(request):
 	pass
 
 def registro(request):
-	usuario = users.find_user()
-	usuario_id = usuario['_id']
-	print ("estoy en registro")
-	return render_to_response ('static/templates/registro.html',{'usuario' : usuario_id})
+	if active == True:
+		return render_to_response ('static/templates/registro.html',{"usuario" : user})
+	else:
+		return HttpResponseRedirect('/login')
 
+def registro_guardar(request):
+	c = {}
+	c.update(csrf(request))
+	HttpResponseRedirect('/exitoso')

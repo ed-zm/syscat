@@ -7,7 +7,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-9">
-		<form role="form">
+		<form action ="/registro_guardar/" method = "POST">{% csrf_token%}
 
 			<!-- DATOS GENERALES -->
 			<h2>Datos Generales</h2>
@@ -1358,7 +1358,169 @@
 						<input class="form-control">
 	 					<p class="help-block">Ayuda.</p>
 	 				</div>
-            </div>            	
+                </div>
+                <div class="form-group">
+                    <label>2.- Acabado </label>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Sin Friso
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Friso Liso 
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Friso Rústico
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Obra Limpia
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Cemento Blanco
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Cerámica
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Vidrio Molido
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Yeso Cal
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Otro</label>
+                        <input class="form-control">
+                        <p class="help-block">Ayuda.</p>
+                    </div>
+                </div>
+                    <div class="form-group">
+                    <label>3.- Pintura </label>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Caucho
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Óleo
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Lechada
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Pasta
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Asbestina
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Sin Pintura
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Papel Tapíz
+                        </label>
+                    </div>
+                                        <div class="form-group">
+                    <label>4.- Instalaciones Eléctricas </label>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Embutidas
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Externa
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Industrial
+                        </label>
+                    </div>
+                </div>
+                <h3>Pisos</h3>       
+                <div class="form-group">
+                    <label>1.- Tipo </label>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Cemento Pulido
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Cemento Rústico
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Sin Piso
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Cerámica
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Granito
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Ladrillos
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Parqué
+                        </label>
+                    </div><div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Mármol
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Vinil
+                        </label>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                        <input type="checkbox" value="">Mosaico
+                        </label>
+                    </div>
+                     <div class="form-group">
+                        <label>Otro</label>
+                        <input class="form-control">
+                        <p class="help-block">Ayuda.</p>
+                    </div>
+                </div>
+                 <button type="submit" class="btn btn-lg btn-default">Guardar</button>
  		</form>
 	</div>
 </div>
