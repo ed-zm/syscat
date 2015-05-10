@@ -19,7 +19,7 @@
 					<div class="head">
 						<img src="{% static "img/user.png" %}" alt=""/>
 					</div>
-				<form method="post" action="/auth/">{% csrf_token %}
+				<form method="post" action="/auth/">
 					{%if active%}
 					 <div class="alert alert-danger">
                     	<strong>Usuario inválido, Por favor Ingrese Nuevamente.</strong>

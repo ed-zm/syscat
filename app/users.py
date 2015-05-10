@@ -6,25 +6,6 @@ class Users:
 		db = connection.syscat
 		self.db = db
 		self.users = self.db.users
-	def validate_login(self, username, password):
-		user = ''
-		try:
-			user = self.users.find_one({'_id': username})
-		except:
-			print ("Unable to query database for user")
-	def add_user(self, username, password, email):
-		user = {'_id': username, 'password': password}
-		if email != "":
-			user['email'] = email
-		try:
-			self.users.insert_one(user)
-		except pymongo.errors.OperationFailure:
-			print ("oops, mongo error")
-			return False
-		except pymongo.errors.DuplicateKeyError as e:
-			print ("oops, username is already taken")
-			return False
-		return True
 	def find_user(self, usuario_login, password_login):
 		try: 
 			u = None
@@ -35,3 +16,4 @@ class Users:
 				return False , None, None
 		except:
 			print ("No se pudo encontrar usuario")
+	#def insert_document(self, document)

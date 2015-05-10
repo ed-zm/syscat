@@ -51,9 +51,7 @@ def home(request):
 	return HttpResponseRedirect('/login')
 
 def login(request):
-	c = {}
-	c.update(csrf(request))
-	return render_to_response('login.html', c)
+	return render_to_response('login.html')
 
 def logout(request):
 	global active
@@ -64,8 +62,10 @@ def logout(request):
 	 	return HttpResponse('página no encontrada')
 
 def pagos(request):
-	pass
-
+	if active == True:
+		return render_to_response('static/templates/pagos.html', {"usuario" : user})
+	else: 
+		return HttpResponseRedirect('/login')
 def registro(request):
 	if active == True:
 		return render_to_response ('static/templates/registro.html',{"usuario" : user})
@@ -73,6 +73,4 @@ def registro(request):
 		return HttpResponseRedirect('/login')
 
 def registro_guardar(request):
-	c = {}
-	c.update(csrf(request))
-	HttpResponseRedirect('/exitoso')
+	return HttpResponseRedirect('/exitoso')
