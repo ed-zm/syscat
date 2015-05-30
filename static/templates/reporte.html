@@ -1,0 +1,13 @@
+{% extends "index.html" %}
+{% block content %}
+<div class="col-lg-12">
+	<h1 class="page-header">
+		<p>Generar Reporte<p>
+	<small>Presione el Botón para generar reporte</small>
+	<form action = "/generar_reporte">
+		<div class = "form-group col-sm-12">
+			<button type="submit" class="btn btn-lg btn-default">Generar</button>
+	    </div>
+	</form>
+</div>
+{% endblock %}

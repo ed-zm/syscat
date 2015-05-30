@@ -6,6 +6,7 @@ class Users:
 		db = connection.syscat
 		self.db = db
 		self.users = self.db.users
+		self.ficha_catastral = self.db.ficha_catastral
 	def find_user(self, usuario_login, password_login):
 		try: 
 			u = None
@@ -16,4 +17,15 @@ class Users:
 				return False , None, None
 		except:
 			print ("No se pudo encontrar usuario")
+
+	def find_document(self, iden):
+		try:
+			u = None
+			u = self.ficha_catastral.find_one({"numero_inscripcion" : iden})
+			if u['numero_inscripcion'] == iden:
+				return True, u
+			else:
+				return False , None
+		except:
+			print ("No se pudo encontrar Numero")
 	#def insert_document(self, document)

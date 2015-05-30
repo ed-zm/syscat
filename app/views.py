@@ -1,9 +1,17 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import Context, RequestContext
 from django.shortcuts import render_to_response
+from django.template.loader import get_template
 from django.views.generic import View
 from django.core.context_processors import csrf
 from .users import *
+import pymongo
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+from io import StringIO
+import io
+#from io import cStringIO
+from rlextra import rml2pdf
 import pymongo
 
 
@@ -74,3 +82,58 @@ def registro(request):
 
 def registro_guardar(request):
 	return HttpResponseRedirect('/exitoso')
+
+def resultado(request):
+	if request.method == 'POST':
+		iden = request.POST['texto_busqueda']
+		busqueda = users.find_document(iden)
+		b = busqueda[1]
+		#print (z)
+		if busqueda:
+			z = b['datos_propietario']
+			ubicacion_del_inmueble = b['ubicacion_del_inmueble']
+			direccion_del_inmueble = ubicacion_del_inmueble['direccion']
+			return render_to_response('static/templates/resultados.html', {"direccion_del_inmueble" : direccion_del_inmueble})
+		else:
+			return HttpResponse("Numero no encontrado")
+			#return HttpResponseRedirect('/login')"""
+	else: 
+		return HttpResponse('Error Pagina no encontrada')
+
+def resultado_pago(request):
+	if request.method == 'POST':
+		iden = request.POST['texto_pago']
+		connection_string = "mongodb://localhost"
+		connection = pymongo.MongoClient(connection_string)
+		db = connection.syscat
+		pagos = db.pagos	
+		for p in pagos.find({"numero_inscripcion" : iden}).sort({"ano" : "1"}):
+			print (p)
+		"""if u['numero_inscripcion'] == iden:
+			return HttpResponse("Encontrado")
+		else:
+			return HttpResponse("pagina no encontrada")
+	except:
+		print ("No se pudo encontrar Numero")"""
+
+def reporte(request):
+	if active == True:
+		return render_to_response('static/templates/reporte.html', {"usuario" : user})
+	else: 
+		return HttpResponseRedirect('/login')
+def generar_reporte(request):
+	a = 0 
+	b = [0]
+	connection_string = "mongodb://localhost"
+	connection = pymongo.MongoClient(connection_string)
+	db = connection.syscat
+	ficha_catastral = db.ficha_catastral
+	t = get_template('r.rml')
+	for n in ficha_catastral.find():
+		b.append(n)
+		a = a + 1
+	c = Context({"reporte": b, "total" : a})  
+	rml = t.render(c)
+	response = HttpResponse(rml, content_type='application/pdf')  
+	response['Content-Disposition'] = 'attachment; filename=output.pdf'  
+	return response 

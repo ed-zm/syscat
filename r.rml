@@ -1,0 +1,25 @@
+REPORTE DEL DEPARTAMENTO DE CATASTRO DE LA ALCALDIA DEL MUNICIPIO LOS TAQUES
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+{% for r in reporte%}
+	
+
+	==========================================
+	Numero de Inscripcion: {{r.numero_inscripcion}}
+	Cedula o Rif del Propietario : {{r.datos_propietario.cedula_o_rif}}
+	Nombre o Razon Social: {{r.datos_propietario.nombre_o_razon}}
+	Direccion del Propietario : {{r.datos_propietario.direccion_propietario}}
+	Direccion del Inmueble : {{r.ubicacion_del_inmueble.direccion}}
+	Tamano del Terreno : {{r.ubicacion_del_inmueble.tamaño}}
+	Datos Del Registro Publico:
+	Doc: {{r.datos_Registro_publico.doc}}
+	Ano: {{r.datos_Registro_publico.ano}}
+	Trimestre: {{r.datos_Registro_publico.trimestre}}
+	Protocolo: {{r.datos_Registro_publico.protocolo}}
+	Tomo: {{r.datos_Registro_publico.tomo}}
+	Folio: {{r.datos_Registro_publico.folio}}
+	Fecha:  {{r.datos_Registro_publico.fecha}}
+
+	==========================================
+{% endfor %}
+
+	TOTAL DE REGISTROS : {{total}}
