@@ -101,14 +101,20 @@ def resultado(request):
 		return HttpResponse('Error Pagina no encontrada')
 
 def resultado_pago(request):
+	b = [0]
 	if request.method == 'POST':
 		iden = request.POST['texto_pago']
 		connection_string = "mongodb://localhost"
 		connection = pymongo.MongoClient(connection_string)
 		db = connection.syscat
-		pagos = db.pagos	
-		for p in pagos.find({"numero_inscripcion" : iden}).sort({"ano" : "1"}):
+		pagos = db.pagos 	
+		for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",1):
+			b.append(p)
 			print (p)
+		if b is not None:
+			return render_to_response ('static/templates/resultado_pago.html', {"resultados" : b})
+		else: 
+			return HttpResponse("No encontrado") 
 		"""if u['numero_inscripcion'] == iden:
 			return HttpResponse("Encontrado")
 		else:

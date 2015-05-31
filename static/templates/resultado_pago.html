@@ -1,0 +1,50 @@
+{% extends "static/templates/pagos.html" %}
+{% block resultados %}
+	<div class="form-group">
+		<label><h2>Pagos Realizados:</h2></label>
+			<p>======================================================================================================================</p>
+			{% for resultado in resultados%}
+			<p><label>Numero de Inscripción :</label> 
+			{{resultado.numero_inscripcion}}</p>
+			<p><label>Año :</label> 
+			{{resultado.ano}}</p>
+			<p><label><h3>Primer Trimestre :</h3></label>
+			<p><label>Monto Pagado : </label> 
+			{{resultado.trimestre.primero.monto}}</p>
+			<p><label>Fecha :</label>
+			{{resultado.trimestre.primero.fecha}}</p>
+			<p><label>Estatus :</label> 
+			{{resultado.trimestre.primero.status}}</p>
+			<p><label>Numero de Factura :</label> 
+			{{resultado.trimestre.primero.numero_factura}}</p>
+			<p><label><h3>Segundo Trimestre :</h3></label>
+			<p><label>Monto Pagado : </label>
+			{{resultado.trimestre.segundo.monto}}</p>
+			<p><label>Fecha :</label>
+			{{resultado.trimestre.segundo.fecha}}</p>
+			<p><label>Estatus :</label>
+			{{resultado.trimestre.segundo.status}}</p>
+			<p><label>Numero de Factura :</label>
+			{{resultado.trimestre.segundo.numero_factura}}</p>
+			<p><label><h3>Tercer Trimestre :</h3></label>
+			<p><label>Monto Pagado : </label>
+			{{resultado.trimestre.tercer.monto}}</p>
+			<p><label>Fecha :</label>
+			{{resultado.trimestre.tercero.fecha}}</p>
+			<p><label>Estatus :</label>
+			{{resultado.trimestre.tercero.status}}</p>
+			<p><label>Numero de Factura :</label>
+			{{resultado.trimestre.tercero.numero_factura}}</p>
+			<p><label><h3>Cuarto Trimestre :</h3></label>
+			<p><label>Monto Pagado : </label> 
+			{{resultado.trimestre.cuarto.monto}}</p>
+			<p><label>Fecha :</label>
+			{{resultado.trimestre.cuarto.fecha}}</p>
+			<p><label>Estatus :</label>
+			{{resultado.trimestre.cuarto.status}}</p>
+			<p><label>Numero de Factura :</label>
+			{{resultado.trimestre.cuarto.numero_factura}}</p>
+			<p>======================================================================================================================</p>
+			{% endfor %}
+ 	</div>
+{% endblock %}
