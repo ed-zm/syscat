@@ -1,50 +1,151 @@
 {% extends "static/templates/pagos.html" %}
 {% block resultados %}
 	<div class="form-group">
+		<p><label><h3>Dirección : </h3></label>
+			{{direccion}}</p>
+		<p><label><h3>Número de Inscripción : </h3></label>
+			{{numero_inscripcion}}</p>
 		<label><h2>Pagos Realizados:</h2></label>
 			<p>======================================================================================================================</p>
+			
 			{% for resultado in resultados%}
-			<p><label>Numero de Inscripción :</label> 
-			{{resultado.numero_inscripcion}}</p>
-			<p><label>Año :</label> 
+
+			<p><label><h4>Año :</h4></label> 
 			{{resultado.ano}}</p>
 			<p><label><h3>Primer Trimestre :</h3></label>
 			<p><label>Monto Pagado : </label> 
-			{{resultado.trimestre.primero.monto}}</p>
+			{{resultado.trimestre.primero.monto}}BsF</p>
 			<p><label>Fecha :</label>
 			{{resultado.trimestre.primero.fecha}}</p>
 			<p><label>Estatus :</label> 
-			{{resultado.trimestre.primero.status}}</p>
+			{{resultado.trimestre.primero.status}}
+			</p>
 			<p><label>Numero de Factura :</label> 
 			{{resultado.trimestre.primero.numero_factura}}</p>
+			{% if resultado.trimestre.primero.status == "Solvente" %}
+				<form>
+					<div class = "form-group col-sm-12">
+						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
+	    			</div>
+				</form>
+			{%else %}
+				<form action = "/pagoexitoso/" method = "post">
+					<div class = "form-group col-sm-12">
+						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "trimestre" id = "trimestre" value = "primero">
+						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+	    			</div>
+				</form>
+			{% endif%}
 			<p><label><h3>Segundo Trimestre :</h3></label>
 			<p><label>Monto Pagado : </label>
-			{{resultado.trimestre.segundo.monto}}</p>
+			{{resultado.trimestre.segundo.monto}}BsF</p>
 			<p><label>Fecha :</label>
 			{{resultado.trimestre.segundo.fecha}}</p>
 			<p><label>Estatus :</label>
 			{{resultado.trimestre.segundo.status}}</p>
 			<p><label>Numero de Factura :</label>
 			{{resultado.trimestre.segundo.numero_factura}}</p>
+			{% if resultado.trimestre.segundo.status == "Solvente" %}
+				<form>
+					<div class = "form-group col-sm-12">
+						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
+	    			</div>
+				</form>
+			{%else %}
+				<form action = "/pagoexitoso/" method = "post">
+					<div class = "form-group col-sm-12">
+						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "trimestre" id = "trimestre" value = "segundo">
+						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+	    			</div>
+				</form>
+			{% endif%}
 			<p><label><h3>Tercer Trimestre :</h3></label>
 			<p><label>Monto Pagado : </label>
-			{{resultado.trimestre.tercer.monto}}</p>
+			{{resultado.trimestre.tercer.monto}}BsF</p>
 			<p><label>Fecha :</label>
 			{{resultado.trimestre.tercero.fecha}}</p>
 			<p><label>Estatus :</label>
 			{{resultado.trimestre.tercero.status}}</p>
 			<p><label>Numero de Factura :</label>
 			{{resultado.trimestre.tercero.numero_factura}}</p>
+			{% if resultado.trimestre.tercero.status == "Solvente" %}
+				<form>
+					<div class = "form-group col-sm-12">
+						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
+	    			</div>
+				</form>
+			{%else %}
+				<form action = "/pagoexitoso/" method = "post">
+					<div class = "form-group col-sm-12">
+						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "trimestre" id = "trimestre" value = "tercero">
+						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+	    			</div>
+				</form>
+			{% endif%}
 			<p><label><h3>Cuarto Trimestre :</h3></label>
 			<p><label>Monto Pagado : </label> 
-			{{resultado.trimestre.cuarto.monto}}</p>
+			{{resultado.trimestre.cuarto.monto}}BsF</p>
 			<p><label>Fecha :</label>
 			{{resultado.trimestre.cuarto.fecha}}</p>
 			<p><label>Estatus :</label>
 			{{resultado.trimestre.cuarto.status}}</p>
 			<p><label>Numero de Factura :</label>
 			{{resultado.trimestre.cuarto.numero_factura}}</p>
+			{% if resultado.trimestre.cuarto.status == "Solvente" %}
+				<form>
+					<div class = "form-group col-sm-12">
+						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
+	    			</div>
+				</form>
+			{%else %}
+				<form action = "/pagoexitoso/" method = "post">
+					<div class = "form-group col-sm-12">
+						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "trimestre" id = "trimestre" value = "cuarto">
+						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+	    			</div>
+				</form>
+			{% endif%}
+
+			{% if resultado.trimestre.primero.status != "Solvente" or resultado.trimestre.segundo.status != "Solvente" or resultado.trimestre.tercero.status != "Solvente" or resultado.trimestre.cuarto.status != "Solvente"   %}
+				<form action = "/pagoexitoso/" method="post">
+					<div class = "form-group col-sm-12">
+						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "trimestre" id = "trimestre" value = "varios">
+						<button type="submit" class="btn btn-lg btn-danger" onclick = "pendiente()">Pagar Todo</button>
+	    			</div>
+				</form>
+			{%else %}
+				<form action = "/pagoexitoso/">
+					<div class = "form-group col-sm-12">
+						<button type="submit" class="btn btn-lg btn-success" onclick = "pendiente()" disabled>Todo Pago</button>
+	    			</div>
+				</form>
+			{% endif%}
 			<p>======================================================================================================================</p>
+			
 			{% endfor %}
+
+
+
  	</div>
+ 	<script type = "application/js">
+ 		function pendiente(){
+ 			var r = confirm("Press a button");
+				if (r == true) {
+    			location.href = "/pagoexitoso"
+			} 
+			else {
+    			x = "Vuelve a Intentarlo";
+			} 
+ 		}
+ 	</script>
 {% endblock %}

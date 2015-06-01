@@ -1,7 +1,42 @@
 {% extends "static/templates/busqueda.html" %}
 {% block resultados %}
 	<div class="form-group">
-		<label>Dirección del Inmueble:</label>
-		<p>{{direccion_del_inmueble}}</p>
+		<p><h2>Datos Generales: </h2></p>
+		<p><label>Número de Inscripción :</label>
+			{{datos.numero_inscripcion}}</p>
+		<p><label>Cedula o Rif :</label>
+			{{datos.datos_propietario.cedula_o_rif}}</p>
+		<p><label>Nombre o Razón Social :</label>
+			{{datos.datos_propietario.nombre_o_razon}}</p>
+		<p><label>Dirección del Propietario :</label>
+			{{datos.datos_propietario.direccion_propietario}}</p>
+		<p><label>Dirección del Inmueble:</label>
+			{{datos.ubicacion_del_inmueble.direccion}}
+		</p>
+		<!--<p><label>Tamaño :</label>
+			{{datos.ubicación_del_inmueble.tamaño}}
+		</p>-->
+		<p><h2>Datos del Registro Público: </h2></p>
+		<p><label>Doc :</label>
+			{{datos.datos_Registro_publico.doc}}
+		</p>
+		<p><label>Año :</label>
+			{{datos.datos_Registro_publico.ano}}
+		</p>
+		<p><label>Trimestre :</label>
+			{{datos.datos_Registro_publico.trimestre}}
+		</p>
+		<p><label>Protocolo :</label>
+			{{datos.datos_Registro_publico.protocolo}}
+		</p>
+		<p><label>Tomo :</label>
+			{{datos.datos_Registro_publico.tomo}}
+		</p>
+		<p><label>Folio :</label>
+			{{datos.datos_Registro_publico.folio}}
+		</p>
+		<p><label>Fecha :</label>
+			{{datos.datos_Registro_publico.fecha}}
+		</p>
  	</div>
 {% endblock %}

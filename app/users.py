@@ -7,6 +7,7 @@ class Users:
 		self.db = db
 		self.users = self.db.users
 		self.ficha_catastral = self.db.ficha_catastral
+		self.pagos = self.db.pagos
 	def find_user(self, usuario_login, password_login):
 		try: 
 			u = None
@@ -28,4 +29,20 @@ class Users:
 				return False , None
 		except:
 			print ("No se pudo encontrar Numero")
-	#def insert_document(self, document)
+			return False
+	
+	def update_document(self, ano, inscripcion, trimestre, ahora):
+			if trimestre == "primero":
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.primero.fecha' : ahora}})
+				return True
+			elif trimestre == "segundo":
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.segundo.status' : "Solvente", 'trimestre.segundo.fecha' : ahora}})
+				return True
+			elif trimestre == "tercero":
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.tercero.status' : "Solvente", 'trimestre.tercero.fecha' : ahora}})
+				return True
+			elif trimestre == "cuarto":
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.cuarto.status' : "Solvente", 'trimestre.cuarto.fecha' : ahora}})
+				return True
+			else:
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.segundo.status' : "Solvente", 'trimestre.tercero.status' : "Solvente", 'trimestre.cuarto.status' : "Solvente"}})

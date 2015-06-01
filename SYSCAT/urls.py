@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^resultado/', 'app.views.resultado', name = "resultado"),
     url(r'^resultado_pago/', 'app.views.resultado_pago', name = "resultado_pago"),
     url(r'^reporte/', 'app.views.reporte', name = "reporte"),
-    url(r'^generar_reporte/', 'app.views.generar_reporte', name = "generar_reporte"), 
+    url(r'^generar_reporte/', 'app.views.generar_reporte', name = "generar_reporte"),
+    url(r'^pagoexitoso/', 'app.views.pagoexitoso', name = "pagoexitoso"), 
     #url(r'^admin/', include(admin.site.urls)),
 )

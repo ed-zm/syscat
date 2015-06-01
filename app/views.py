@@ -9,12 +9,12 @@ import pymongo
 from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 from io import StringIO
-import io
-#from io import cStringIO
+import io, calendar
+from datetime import datetime, date, time, timedelta
 from rlextra import rml2pdf
-import pymongo
 
-
+global active
+active = False
 users = Users()
 def admin(request):
 	global active
@@ -39,7 +39,6 @@ def auth(request):
 			global active
 			active = False
 			return HttpResponse("Usuario Inválido")
-			#return HttpResponseRedirect('/login')"""
 	else: 
 		return HttpResponse('Error Pagina no encontrada')
 	
@@ -74,6 +73,18 @@ def pagos(request):
 		return render_to_response('static/templates/pagos.html', {"usuario" : user})
 	else: 
 		return HttpResponseRedirect('/login')
+def pagoexitoso(request):
+	if active == True:
+		if request.method == 'POST':
+			hoy = datetime.now()
+			ahora = hoy.strftime("%d/%m/%Y")
+			ano = request.POST['ano']
+			inscripcion = request.POST['inscripcion']
+			trimestre = request.POST['trimestre']
+			documento = users.update_document(ano, inscripcion, trimestre, ahora)
+			return render_to_response('static/templates/pagoexitoso.html', {"usuario" : user})
+	else: 
+		return HttpResponseRedirect('/login')
 def registro(request):
 	if active == True:
 		return render_to_response ('static/templates/registro.html',{"usuario" : user})
@@ -84,43 +95,58 @@ def registro_guardar(request):
 	return HttpResponseRedirect('/exitoso')
 
 def resultado(request):
-	if request.method == 'POST':
-		iden = request.POST['texto_busqueda']
-		busqueda = users.find_document(iden)
-		b = busqueda[1]
-		#print (z)
-		if busqueda:
-			z = b['datos_propietario']
-			ubicacion_del_inmueble = b['ubicacion_del_inmueble']
-			direccion_del_inmueble = ubicacion_del_inmueble['direccion']
-			return render_to_response('static/templates/resultados.html', {"direccion_del_inmueble" : direccion_del_inmueble})
-		else:
-			return HttpResponse("Numero no encontrado")
-			#return HttpResponseRedirect('/login')"""
+	if active == True:
+		if request.method == 'POST':
+			iden = request.POST['texto_busqueda']
+			busqueda = users.find_document(iden)
+			if busqueda:
+				b = busqueda[1]
+				return render_to_response('static/templates/resultados.html', {"datos" : b, "usuario" : user})
+			else:
+				return render_to_response("static/templates/noencontrobusqueda.html", {"usuario": user})
+		else: 
+			return HttpResponse('Error Pagina no encontrada')
 	else: 
-		return HttpResponse('Error Pagina no encontrada')
+		HttpResponseRedirect('/login')
 
 def resultado_pago(request):
-	b = [0]
-	if request.method == 'POST':
-		iden = request.POST['texto_pago']
-		connection_string = "mongodb://localhost"
-		connection = pymongo.MongoClient(connection_string)
-		db = connection.syscat
-		pagos = db.pagos 	
-		for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",1):
-			b.append(p)
-			print (p)
-		if b is not None:
-			return render_to_response ('static/templates/resultado_pago.html', {"resultados" : b})
+	if active == True:
+		ac = False
+		b = []
+		if request.method == 'POST':
+			iden = request.POST['texto_pago']
+			connection_string = "mongodb://localhost"
+			connection = pymongo.MongoClient(connection_string)
+			db = connection.syscat
+			pagos = db.pagos
+			busqueda = users.find_document(iden)
+			if busqueda is not False:
+				m = busqueda[1]
+				d= m['ubicacion_del_inmueble']['direccion']
+				ni = m['numero_inscripcion']
+			hoy = datetime.now()
+			ano_actual = hoy.year
+			for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",1):
+				if iden == p['numero_inscripcion']:
+					ac = True
+					ultimo = p
+					ultimo_ano = p['ano']
+
+			if ac == True:
+				ano_ultimo = datetime.strptime(ultimo_ano, "%Y")
+				an = ano_ultimo.year
+				#print (an, ano_actual)
+				while(ano_actual>an):
+					pagos.insert
+					an = an + 1
+					#print (an)
+				for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",-1):
+					b.append(p)
+				return render_to_response ('static/templates/resultado_pago.html', {"resultados" : b, "usuario" : user, "direccion" : d, "numero_inscripcion": ni})
+			else: 
+				return render_to_response('static/templates/noencontropago.html', {"usuario" : user})
 		else: 
-			return HttpResponse("No encontrado") 
-		"""if u['numero_inscripcion'] == iden:
-			return HttpResponse("Encontrado")
-		else:
-			return HttpResponse("pagina no encontrada")
-	except:
-		print ("No se pudo encontrar Numero")"""
+			return HttpResponseRedirect('/login')
 
 def reporte(request):
 	if active == True:
@@ -129,12 +155,12 @@ def reporte(request):
 		return HttpResponseRedirect('/login')
 def generar_reporte(request):
 	a = 0 
-	b = [0]
+	b = []
 	connection_string = "mongodb://localhost"
 	connection = pymongo.MongoClient(connection_string)
 	db = connection.syscat
 	ficha_catastral = db.ficha_catastral
-	t = get_template('r.rml')
+	t = get_template('r.html')
 	for n in ficha_catastral.find():
 		b.append(n)
 		a = a + 1
