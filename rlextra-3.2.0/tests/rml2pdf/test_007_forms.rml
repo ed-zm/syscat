@@ -1,0 +1,312 @@
+<!-- edited with XML Spy v4.0 U (http://www.xmlspy.com) by Andy Robinson (Reportlab Inc.) -->
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_007_forms.pdf">
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main" pageSize="a4 portrait">
+		<pageGraphics>
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 12: Forms</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		</pageGraphics>
+		
+		
+		<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+	<pageTemplate id="main2" pageSize="a4 portrait">
+		<pageGraphics>
+		  <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 0: Catchforms</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />  
+		</pageGraphics>
+		
+		<frame id="second" x1="35" y1="45" width="525" height="685"/>
+	</pageTemplate>
+	</template>
+	<stylesheet>
+		<initialize>
+			<alias id="style.normal" value="style.Normal"/>
+		</initialize>
+		<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12" spaceAfter="10"/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+		<boxStyle name="special" labelTextColor="green" textColor="green" boxFillColor="paleturquoise"/>
+		<boxStyle name="special2" parent="special" labelTextColor="red" boxFillColor="None"/>
+		
+	</stylesheet>
+	<story>
+	<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+<setNextTemplate name="main"/>
+		<para style="normal">
+		Some decent checkboxes and letterboxes
+	</para>
+		<para style="normal">
+		Checkboxes width default behaviour, checked and unchecked.
+	</para>
+		<blockTable rowHeights="1cm" colWidths="3cm, 3cm">
+			<tr>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" checked="1"/>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" checked="0"/>
+					</illustration>
+				</td>
+			</tr>
+		</blockTable>
+		<spacer length="1cm"/>
+
+		<para style="normal">
+		Checkboxes width custom size, checked and unchecked.
+	</para>
+		<blockTable rowHeights="1.5cm" colWidths="3cm, 3cm">
+			<tr>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="1cm" boxHeight="1cm" lineWidth="2" checked="1"/>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="0.5cm" boxHeight="1cm" boxStrokeColor="chartreuse" boxFillColor="lemonchiffon" checked="0"/>
+					</illustration>
+				</td>
+			</tr>
+		</blockTable>
+		<spacer length="1cm"/>
+
+		<para style="normal">
+		Checkboxes with user-provided bitmap files.  The 'graphicOn' and 'graphicOff' attributes
+        must refer to existing image files (we may extend this to vector ones in future). One hopes
+        professional users have better icon-design skills than me :-)
+	</para>
+		<blockTable rowHeights="1.5cm" colWidths="3cm, 3cm">
+			<tr>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="1cm" boxHeight="1cm" 
+                            checked="1" graphicOn="checkbox_tick.png" graphicOff="checkbox_cross.png"/>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="1cm" boxHeight="1cm" 
+                            checked="0" graphicOn="checkbox_tick.png" graphicOff="checkbox_cross.png"/>
+					</illustration>
+				</td>
+			</tr>
+		</blockTable>
+		<spacer length="1cm"/>
+
+
+
+		<para style="normal">
+		Checkboxes width varying amount of label text.
+	</para>
+		<blockTable rowHeights="1.5cm" colWidths="3cm, 3cm, 3cm">
+			<tr>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="1cm" boxHeight="1cm" checked="0" line1="desc 1"/>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="1cm" boxHeight="1cm" checked="0" line1="desc 1" line2="desc 2"/>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="3cm" height="1cm">
+						<checkBox x="0" y="0" boxWidth="1cm" boxHeight="1cm" checked="0" line1="desc 1" line2="desc 2" line3="and more"/>
+					</illustration>
+				</td>
+			</tr>
+		</blockTable>
+		<spacer length="1cm"/>
+		<para style="normal">
+		Various Letterboxes.
+	</para>
+		<illustration width="8cm" height="2cm">
+			<letterBoxes x="1cm" y="0" count="15">letters &amp; stuff</letterBoxes>
+		</illustration>
+		<para style="normal">The next two test whether style inheritance works for formStyles</para>
+		<illustration width="8cm" height="3cm">
+			<letterBoxes style="special" x="1cm" y="1.5cm" count="25" label="I should be green">Uses style "special"</letterBoxes>
+			<letterBoxes style="special2" x="1cm" y="0" count="25" label="I should be red with transparent background">Uses style 'special2'</letterBoxes>
+		</illustration>
+
+		<para style="normal">Fancy comb marks..</para>
+		<illustration width="8cm" height="2cm">
+			<letterBoxes x="1cm" y="0" count="15" boxWidth="0.4cm" boxHeight="1cm" label="This has fancy combs on" combHeight="0.25">Uses combHeight</letterBoxes>
+		</illustration>
+		
+
+		<nextPage/>
+		<para style="normal">Spaces between boxes: regular using boxGap, and variable spacing with boxExtraGaps.
+		These are used to overlay forms designed by others.  Common cases include day/month/year, currency boxes
+		with a space for the decimal point (nnn.pp), or boxes for national insurance numbers which like to 
+		break things up e.g. AA-11-11-11-B.
+		boxGap adds extra horizontal space between every box.  boxExtraGaps takes a string containing multiple,
+		comma-separated structures such as <i>3:5</i> to add 5 points after box 3, or <i> 2:5,4:5,6:4</i> to add 5 points
+		after boxes 2 and 4 and 4 points after box 6.
+		
+		</para>
+		<illustration width="8cm" height="8cm">
+			<letterBoxes 
+				x="1cm" 
+				y="6cm" 
+				count="8" 
+				boxWidth="0.4cm" 
+				boxGap="0.1cm" 
+				boxHeight="0.6cm"
+				boxExtraGaps="2:0.2cm,4:0.2cm"
+				label="custom spacing for a date field"
+				>23082007</letterBoxes>
+
+			<letterBoxes 
+				x="1cm" 
+				y="4.9cm" 
+				count="6" 
+				boxWidth="0.4cm" 
+				boxGap="0.1cm" 
+				boxExtraGaps="4:0.2cm"
+				boxHeight="0.6cm" 
+				label="custom spacing for currency fields"
+				alignment="right"
+				>123499</letterBoxes>
+
+			<letterBoxes 
+				x="1cm" 
+				y="4.2cm" 
+				count="6" 
+				boxWidth="0.4cm" 
+				boxGap="0.1cm" 
+				boxExtraGaps="4:0.2cm"
+				boxHeight="0.6cm" 
+				alignment="right"
+				>45675</letterBoxes>
+		
+			<letterBoxes 
+				x="1cm" 
+				y="3cm" 
+				count="9" 
+				boxWidth="0.4cm" 
+				boxGap="0.1cm" 
+				boxExtraGaps="2:0.2cm,4:0.1cm,6:0.1cm,8:0.2cm"
+				boxHeight="0.6cm" 
+				label="custom spacing for UK N.I. numbers"
+				>AB123456A</letterBoxes>
+
+			<letterBoxes 
+				x="1cm" 
+				y="1cm" 
+				count="9" 
+				boxWidth="0.4cm" 
+				boxExtraGaps="2:0.2cm,4:0.1cm,6:0.1cm,8:0.2cm"
+				boxHeight="0.6cm" 
+				label="quick check that non-gap ones draw OK too; create extra lines if needed."
+				>AB123456A</letterBoxes>
+
+
+		</illustration>
+
+		<spacer length="1cm"/>
+
+		<illustration width="8cm" height="2cm">
+			<letterBoxes x="1cm" y="0" count="15" boxWidth="0.4cm" boxHeight="1cm" 
+			boxStrokeColor="chartreuse" boxFillColor="lemonchiffon" textColor="pink" lineWidth="2" 
+			labelFontName="Helvetica-BoldOblique" labelTextColor="purple" labelFontSize="16"
+			label="Label in big purple italic font">veryLongletterBoxes</letterBoxes>
+		</illustration>
+		<nextPage/>
+		<para style="normal">
+		Various Textboxes.
+	</para>
+		<blockTable rowHeights="2cm" colWidths="7cm, 7cm, 7cm">
+			<tr>
+				<td>
+					<illustration width="6cm" height="2cm">
+						<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" fontSize="14" label="some label">a textBox</textBox>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="6cm" height="2cm">
+						<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" shrinkToFit="1" fontSize="14">now a squeezed textBox</textBox>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="6cm" height="2cm">
+						<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" fontSize="14" label="some label" labelOffsetY="-0.3cm">a textBox</textBox>
+					</illustration>
+				</td>
+			</tr>
+		</blockTable>
+		<blockTable rowHeights="2cm" colWidths="7cm, 7cm, 7cm">
+			<tr>
+				<td>
+					<illustration width="6cm" height="2cm">
+						<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" fontSize="14" label="some label" vAlign="bottom">a textBox</textBox>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="6cm" height="2cm">
+						<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" shrinkToFit="1" fontSize="14" vAlign="middle">now a squeezed textBox</textBox>
+					</illustration>
+				</td>
+				<td>
+					<illustration width="6cm" height="2cm">
+						<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" fontSize="14" label="some label" labelOffsetY="-0.3cm" vAlign="top">a textBox</textBox>
+					</illustration>
+				</td>
+			</tr>
+		</blockTable>
+		<spacer length="1cm"/>
+		<para style="normal">
+		Multi-line <font color="red">Textboxes</font>. Note that, so far, squeezing is only done horizontally.
+	</para>
+		<illustration width="6cm" height="2cm">
+			<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" fontSize="14" label="some label">some multi-line
+textBox</textBox>
+		</illustration>
+		<illustration width="6cm" height="2cm">
+			<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" shrinkToFit="1" fontSize="14" boxFillColor="(0,1,0,0)">now some multi-multi-line
+textBox</textBox>
+		</illustration>
+		<illustration width="6cm" height="2cm">
+			<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" shrinkToFit="1" fontSize="14">some even longer 
+multi-multi-line
+textBox</textBox>
+		</illustration>
+		<illustration width="6cm" height="2cm">
+			<textBox x="1cm" y="0" boxWidth="5cm" boxHeight="1cm" shrinkToFit="1" fontSize="14">some multi-line textBox with special characters:
+&amp;, &gt;, &lt;</textBox>
+		</illustration>
+		<illustration width="0" height="0">
+			<textBox x="5cm" y="-2cm" boxWidth="2cm" boxHeight="0.6cm" fontSize="8" vAlign="top" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2">vAlign Top</textBox>
+		</illustration>
+		<illustration width="0" height="0">
+			<textBox x="5cm" y="-3cm" boxWidth="2cm" boxHeight="0.6cm" fontSize="8" vAlign="middle" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2">vAlign Middle</textBox>
+		</illustration>
+		<illustration width="0" height="0">
+			<textBox x="5cm" y="-4cm" boxWidth="2cm" boxHeight="0.6cm" fontSize="8" vAlign="Bottom" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2">vAlign Bottom</textBox>
+		</illustration>
+		<nextPage/>
+		<illustration width="0" height="0"><textBox x="5cm" y="-2cm" boxWidth="6cm" boxHeight="0.6cm" fontSize="8" vAlign="Bottom" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" borderSpec="under">borderSpec="under"</textBox></illustration>
+		<illustration width="0" height="0"><textBox x="5cm" y="-3cm" boxWidth="6cm" boxHeight="0.6cm" fontSize="8" vAlign="Bottom" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" borderSpec="over">borderSpec="over"</textBox></illustration>
+		<illustration width="0" height="0"><textBox x="5cm" y="-4cm" boxWidth="6cm" boxHeight="0.6cm" fontSize="8" vAlign="Bottom" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" borderSpec="left">borderSpec="left"</textBox></illustration>
+		<illustration width="0" height="0"><textBox x="5cm" y="-5cm" boxWidth="6cm" boxHeight="0.6cm" fontSize="8" vAlign="Bottom" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" borderSpec="right">borderSpec="right"</textBox></illustration>
+		<illustration width="0" height="0"><textBox x="5cm" y="-6cm" boxWidth="6cm" boxHeight="0.6cm" fontSize="8" vAlign="Bottom" align="center" shrinkToFit="1" boxStrokeColor="blue" boxFillColor="yellow" lineWidth="2" borderSpec="right=-.2cm,0 left=0,.2cm under=-.2cm,0 over=0,.2cm">Prince Harry!</textBox></illustration>
+	</story>
+</document>

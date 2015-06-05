@@ -1,0 +1,49 @@
+{{script}}
+import travel
+from rlextra.radxml.xmlutils import xml2doctree
+params = request.params
+oYMD = params['oYMD']
+rYMD = params['rYMD']
+checkinYMD = params['checkinYMD']
+checkoutYMD = params['checkoutYMD'] 
+orig = params['orig']
+dest = params['dest']
+ticket_id = params['ticket_id']
+chosenHotel = params['chosenHotel']
+numOfAdults = params['numOfAdults']
+step3XML = travel.getStep3XML(orig, dest, checkinYMD, checkoutYMD, ticket_id,chosenHotel) 
+open('step3xml.xml','w').write(step3XML)
+step3Tree = xml2doctree(step3XML,0)
+ticket = step3Tree.tickets.airTicket
+hotels = step3Tree.hotels
+hotel = hotels.hotel
+{{endscript}}
+{{app.doHeader()}}
+	<div id="main">
+		<div id="main2">
+<h2>Hotel</h2>
+<p>Your chosen hotel. Now choose the room type.</p>
+<form name="room">
+<input type="hidden" name="action" value="step4">
+<input type="hidden" name="tripTitle" value="{{tripTitle}}"/>				
+<input type="hidden" name="subtitle" value="{{subtitle}}"/>				
+<input type="hidden" name="customerName" value="{{customerName}}"/>				
+<input type="hidden" name="ticket_id" value="{{ticket_id}}">
+<input type="hidden" name="numOfAdults" value="{{numOfAdults}}">
+<input type="hidden" name="roomBooking_id" value="">
+{{include('views/hotelbooking.prep', dictionary=dictionary, hotels=hotels, step='3')}}
+</form>
+		</div>
+	</div>
+	<div id="sidebar">	<!-- Begin .box -->
+		<div class="box">
+			<div class="box2">
+				<div class="box3"><h2 class="sidebar-title">Step 3 - room choice</h2>
+                <p>This should be self-explanatory.  The real world may offer a lot more
+                options and packages, of course...</p>
+				</div>
+			</div>
+		</div>	<!-- End .box -->
+	</div>	
+{{app.doFooter()}}
+

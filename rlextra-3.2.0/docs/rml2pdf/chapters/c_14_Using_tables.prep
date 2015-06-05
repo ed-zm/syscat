@@ -1,0 +1,1328 @@
+<!-- partName "Part III - Tables" -->
+<!-- chapterName "Using tables" -->
+
+<!--
+<condPageBreak height="144"/>
+<h2>
+<name id="chapterNumber" value="10"/>
+<getName id="chapterNumber"/>
+<seqReset id="sectionNumber"/>.
+Using tables
+</h2>
+-->
+
+<!-- sectionName "Block tables" -->
+
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+BlockTable
+</h3>
+-->
+
+<para>
+If you are familiar with HTML, you will understand the basic tags for use with tables in RML.
+Just as in HTML, you use a tag to tell rml2pdf that a table is on the way
+(in this case <font face="Courier">&lt;blockTable&gt;</font>; rather than &lt;table&gt;), and another one to end it.
+Within the <font face="Courier">&lt;blockTable&gt;</font> and <font face="Courier">&lt;/blockTable&gt;</font>
+tags, <font face="Courier">&lt;tr&gt;</font> and <font face="Courier">&lt;/tr&gt;</font> enclose the
+rows (from <b>T</b>able <b>R</b>ow); and within each table row, <font face="Courier">&lt;td&gt;</font>
+and <font face="Courier">&lt;/td&gt;</font> enclose each individual cell (from <b>T</b>able <b>D</b>ata).
+</para>
+
+<para>
+So, the simplest <font face="Courier">blockTable</font> in RML will look something like this:</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+
+<blockTable>
+    <tr>
+        <td>This</td><td>is</td>
+    </tr>
+    <tr>
+        <td>a</td><td>blockTable.</td>
+    </tr>
+</blockTable>
+
+]]>
+</codesnippet>
+
+<spacer length="15"/>
+<para>This produces a table that looks like this:</para>
+
+<spacer length="15"/>
+
+<blockTable>
+<tr>
+<td>This</td><td>is</td>
+</tr>
+<tr>
+<td>a</td><td>blockTable.</td>
+</tr>
+</blockTable>
+
+<spacer length="15"/>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: A very simple blockTable
+</para>
+
+<para>
+In this short example, we are just using plain old vanilla text in the
+table cells. But we can do more. <font face="Courier">&lt;blocktable&gt;</font>
+allows you to use paragraphs and the <font face="Courier">&lt;para&gt;</font>
+tag. This means that you can use bold, italics, colors, fonts, greek...
+anything you can use in a paragraph. And you can use multiple paragraphs
+inside a table cell.
+</para>
+
+<blockTable
+rowHeights="1.25cm,1.25cm"
+colWidths="4cm,4cm"
+>
+<tr>
+<td>
+<para>This is a <b>more</b> complex <font color="red">blockTable</font>.</para>
+</td>
+<td>
+<para>This is a more <i>complex</i> blockTable.</para>
+</td>
+</tr>
+<tr>
+<td>
+<para><font face="Helvetica">This is a more complex blockTable.</font></para>
+</td>
+<td>
+<para>This is <greek>a</greek> more <font color="blue"><i>complex</i></font> blockTa<greek>b</greek>le.</para>
+</td>
+</tr>
+</blockTable>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: A slightly more complex blockTable
+</para>
+
+<para>
+The main thing that makes this slightly more complex than a very
+simple table is the fact that you must give <font face="Courier">rowHeights</font>
+and <font face="Courier">colWidths</font> to the <font face="Courier">&lt;blockTable&gt;</font>
+to use <font face="Courier">para</font>s. This makes sense - paragraphs fit into
+the available space on a page. In a table, they must fit into the available
+space in that cell. If you haven't defined how high and wide that cell
+will be, then there is no way for rml2pdf to know how to make it flow
+in that cell. (If you get an error message saying "Flowables cell can't
+have auto width", then this is the thing to check - you have probably
+omitted the <font face="Courier">rowHeights</font> or
+<font face="Courier">colWidths</font>).
+</para>
+<para>
+When you are using paragraphs inside a table,
+you must not put any text outside the <font face="Courier">&lt;para&gt;...&lt;/para&gt;</font>
+tags. The only exception to this rule is whitespace - you can put spaces and tabs outside the
+<font face="Courier">&lt;para&gt;</font> tag, but nothing else.
+</para>
+<para>
+One other thing to be aware of is that if you use a <font face="Courier">para</font>
+inside a table, it will ignore the text attributes you have used for that table and instead
+use the attributes for paragraphs. This can be a plus, (since it allows you to use
+already defined paragraph styles) but can take you by surprise if weren't
+expecting it.
+</para>
+
+<para>
+As an example, here is the RML that generated the above table:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<blockTable
+     rowHeights="1.25cm,1.25cm"
+     colWidths="4cm,4cm"
+     >
+    <tr>
+        <td>
+            <para>
+                This is a <b>more</b> complex <font color="red">blocktable</font>.
+            </para>
+        </td>
+        <td>
+            <para>
+                This is a more <i>complex</i> blocktable.
+            </para>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <para>
+                <font face="Helvetica">This is a more complex blockTable.</font>
+            </para>
+        </td>
+        <td>
+            <para>
+                This is <greek>a</greek> more <font color="blue"><i>complex</i></font>
+                blockta<greek>b</greek>le.
+            </para>
+        </td>
+    </tr>
+</blockTable>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<!-- sectionName "Block table attributes" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Using blockTable's optional attributes
+</h3>
+-->
+
+<para>
+This is useful, but there's a lot more to <font face="Courier">blockTable</font>s
+than that! The actual <font face="Courier">&lt;blockTable&gt;</font> tag can have
+a number of optional attributes:
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>style</i>
+</para>
+<para style="bulletList" bulletText="">
+<font face="Courier">blockTables</font> can have a style set in the stylesheet in the same way as paragraphs can. If
+you have set a style for your <font face="Courier">blockTable</font>, you can refer to it by name with this attribute
+and apply it to your table. (More details on how to do it appear in the section on the
+<font face="Courier">&lt;blockTableStyle&gt;</font> tag below).
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>colWidths</i>
+</para>
+<para style="bulletList" bulletText="">
+If you use this attribute, it takes a comma-separated list of the width of each column in your
+<font face="Courier">blockTable</font>.
+This allows you to vary the widths to match the width of the content of each column. If you do use it,
+you should be careful to make sure that there is one width given for <i>every</i> column in your table.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>rowHeights</i>
+</para>
+<para style="bulletList" bulletText="">
+As colWidths is to columns, rowHeights is to rows. It also takes a comma-separated list, in this case
+for the heights of the rows in your table.
+</para>
+
+<!-- Can't get this one to work... -->
+<!--
+<para style="bulletNospace" bulletText="l">
+<i>splitByRow</i>
+</para>
+<para style="bulletList" bulletText="">
+
+</para>
+-->
+
+<para style="bulletNospace" bulletText="l">
+<i>repeatRows</i>
+</para>
+<para style="bulletList" bulletText="">
+If you have a large table that splits over multiple pages, you may well want certain information appearing on all of them.
+Column headers are one example of this sort of information. The <font face="Courier">repeatRows</font>
+attribute allows you to do this.
+</para>
+<para style="bulletList" bulletText="">
+<font face="Courier">repeatRows</font> takes a single number as an argument or a ',' separated list of numbers. In the case of a single number the rows up to and including
+this row are repeated as "headers" on each section of the table that appears on a new page. If a list of rows is given then this is a zero based list of rows to repeat.
+So if the list (1,) is given then the first table header will have rows 0 &amp; 1 and any succeeding split table will have the original second row as header. This allows for
+the first appearance of a table to have additional rows which may be unwanted later.
+</para>
+
+
+<!-- sectionName "Block table styles" -->
+
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+BlockTableStyle
+</h3>
+-->
+
+<para>
+<font face="Courier">blockTables</font> are a flowable, so the actual <font face="Courier">&lt;blockTable&gt;</font>
+tag will appear in the story section of your RML document. You can use the <font face="Courier">&lt;blockTableStyle&gt;</font>
+tag to set the appearance of your <font face="Courier">blockTable</font>. This appears in the stylesheet section
+of your document, and can be used for more than one table. You can set up how all the
+<font face="Courier">blockTable</font>s in your document will look in one
+<font face="Courier">blockTableStyle</font> tag if you want.
+</para>
+<para>
+The <font face="Courier">&lt;blockTableStyle&gt;</font> tag is a container for a number of other tags, and needs
+to be paired with a terminal <font face="Courier">&lt;/blockTableStyle&gt;</font> tag. This works in the same way as
+<font face="Courier">&lt;styleSheet&gt;&lt;/styleSheet&gt;</font>,
+<font face="Courier">&lt;pageGraphics&gt;&lt;/pageGraphics&gt;</font>, and other
+tags of that sort.
+</para>
+<para>
+For all of the attributes in <font face="Courier">blockTableStyle</font>, they refer to a square or rectangular
+"block" inside the table. This can be as many or as few cells as you want - not necessarily a single cell.
+This "block" aspect to the attributes is reflected in their names, and gave the table style its name for
+consistency. (It was felt that since most of these attributes started with "block...", the table tag should itself
+be called <font face="Courier">blockTable</font> to keep things simple).
+</para>
+<para>
+The way the block is described may seem unusual to you if you are not used to programming. The x and y co-ordinates
+are still given as X,Y (or if you like "Row,Column", rather than the spreadsheet "A1" model), but the numbering starts
+from 0 rather than 1. This makes the top left-hand cell (0,0). As well as this, the numbers may also be negative. If this
+is the case, then rml2pdf will count <i>backwards</i> from the end of the last cell. So (-1,-1) is the bottom right hand
+cell in a table, (-2,-2) is the one up and to the left of that, and so on.
+</para>
+
+<para>
+The tags that <font face="Courier">blockTableStyle</font> can contain are:
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockFont</i>
+</para>
+<para style="bulletNospace" bulletText="">
+<font face="Courier">blockfont</font> sets the font to be used in a block of your table.
+</para>
+<para style="bulletNospace" bulletText="">
+It has one mandatory attribute: <font face="Courier">name</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has four optional attributes:
+<font face="Courier">size</font>,
+<font face="Courier">leading</font>,
+<font face="Courier">start</font> and
+<font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockTextColor</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the color that will be used for the text in a block of your table.
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">colorName</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font>
+and <font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockLeading</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the leading that will be used for the text in a block of your table.
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">length</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and
+<font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockAlignment</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the alignment of the text in a block of your table.
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">value</font>.
+(This can be
+<font face="Courier">LEFT</font>,
+<font face="Courier">RIGHT</font>,
+<font face="Courier">CENTER</font>, or
+<font face="Courier">CENTRE</font>).
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and <font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockValign</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets how the contents of a block of cells in your table are aligned in the vertical direction.
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">value</font>.
+(This can be
+<font face="Courier">TOP</font>,
+<font face="Courier">MIDDLE</font>, or
+<font face="Courier">BOTTOM</font>, and defaults to
+<font face="Courier">BOTTOM</font>).
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and
+<font face="Courier">stop</font>.
+</para>
+
+
+<para style="bulletNospace" bulletText="l">
+<i>blockLeftPadding</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the padding (i.e. blank space) between the contents of a cell and left-hand edge of the cell
+(for a block of cells in your table).
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">length</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font>
+and <font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockRightPadding</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the padding between the contents of a cell and right-hand edge of the cell
+(for a block of cells in your table).
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">length</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and
+<font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockBottomPadding</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the padding between the contents of a cell and bottom edge of the cell (for a block of cells).
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">length</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and <font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockTopPadding</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the padding between the contents of a cell and top edge of the cell (for a block of cells).
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">length</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and
+<font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>blockBackground</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This sets the color to be used for the background for a block of cells in your table.
+</para>
+<para style="bulletNospace" bulletText="">
+It has one required attribute: <font face="Courier">colorName</font>.
+</para>
+<para style="bulletList" bulletText="">
+It has two optional attributes: <font face="Courier">start</font> and
+<font face="Courier">stop</font>.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+<i>lineStyle</i>
+</para>
+<para style="bulletNospace" bulletText="">
+This allows you to use lines to border your table.
+</para>
+<para style="bulletNospace" bulletText="">
+It has two required attributes:
+<font face="Courier">kind</font> (with the options of
+<font face="Courier">GRID</font>,
+<font face="Courier">BOX</font>,
+<font face="Courier">OUTLINE</font>,
+<font face="Courier">INNERGRID</font>,
+<font face="Courier">LINEBELOW</font>,
+<font face="Courier">LINEABOVE</font>,
+<font face="Courier">LINEBEFORE</font> and
+<font face="Courier">LINEAFTER</font>), and
+<font face="Courier">colorName</font> (which must be the name of a color).
+
+</para>
+<para style="bulletList" bulletText="">
+It has three optional attributes: <font face="Courier">thickness</font>,
+<font face="Courier">start</font> and <font face="Courier">stop</font>.
+</para>
+
+<!-- sectionName "More about block tables" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+A couple of cautions about blockTables
+</h3>
+-->
+
+<para>
+A few final things to be aware about when using tables: in RML,
+table cells (as contained by the <font face="Courier">&lt;td&gt;</font> and
+<font face="Courier">&lt;/td&gt;</font> tags) can only contain one of two different sets of
+data. Either a table cell can contain string forms (text and the
+<font face="Courier">&lt;getName&gt;</font> and <font face="Courier">&lt;pageNumber&gt;</font> tags)
+<i>or</i> it can contain a sequence of flowables (tags such as <font face="Courier">&lt;pre&gt;</font>,
+<font face="Courier">&lt;para&gt;</font> and the various heading tags). It is <i>not</i> possible
+to mix both of these forms in the same cell (though you can mix them in the same table).
+</para>
+
+<para>
+Putting strings into table cells is quicker than using paragraphs.
+Paragraphs need to work out when to 'wrap' text, strings don't. So you
+should avoid using paragraphs inside tables unless you really need to
+(or you don't mind things slowing down).
+</para>
+
+<para>
+When you are doing a big database report, wherever possible use
+separate smaller tables to contain parts of your data rather than one
+huge table. If you don't use many 'mini-tables' to contain small
+groups of rows but instead decide to do a big 1,000-row table, you
+will notice a significant loss of speed in the generation of your
+output PDF.
+</para>
+
+<para>
+This also makes it much easier to design complex grouped reports;
+for each group header, footer or detail block you can design
+one table style and keep them all independent of each other.
+</para>
+
+<!-- sectionName "Using block table styles" -->
+
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Using blockTableStyle
+</h3>
+-->
+
+<para>
+Now that we have seen what the <font face="Courier">blockTable</font>'s attributes are, and seen a
+summary of <font face="Courier">&lt;blockTableStyle&gt;</font>,
+here are some examples that show you how they can be used together.
+</para>
+<para>
+The following few pages show a number of examples of <font face="Courier">blockTable</font>s.
+Each one shows a page with the RML listing, followed by a separate page with the result of
+that table. Each listing contains comments to point out what each tag involved with the
+<font face="Courier">blockTable</font> is doing.
+</para>
+
+<nextFrame/>
+
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Example 10 - Colors and fonts in tables
+</h3>
+
+<para>
+This example show various ways of setting the text color (<font face="Courier">blockTextColor</font>),
+font (<font face="Courier">blockFont</font>) and background color (<font face="Courier">blockBackground</font>)
+for regions in a <font face="Courier">blockTable</font>.
+</para>
+
+<para>
+Notice the various ways of specifying a region within the table. Also notice the way we have defined heights
+for the rows and widths for the columns in the blocktable tag.
+</para>
+
+<para style="figureCaption">EXAMPLE 10</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "../rml.dtd">
+<document filename="example_10.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+
+            </pageGraphics>
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <blockTableStyle id="myBlockTableStyle">
+            <!-- This sets a font for every cell from the start of the -->
+            <!-- second row down to the bottom right hand corner       -->
+            <blockFont name="Courier-Bold" start="0,1" stop="-1,-1"/>
+            <!-- This sets a font for the first row  -->
+            <blockFont name="Helvetica-BoldOblique" size="24" start="0,0" stop="3,0"/>
+
+            <!-- This sets a textColor for all the text in the table -->
+            <blockTextColor colorName="black"/>
+
+            <!-- This sets a textColor for the first row  -->
+            <!-- (Since it comes after the above setting, -->
+            <!-- it overides it for this row) -->
+            <blockTextColor colorName="white" start="0,0" stop="3,0"/>
+
+            <!-- This sets a textColor a column - also overiding  -->
+            <!-- the first textColor setting for this row         -->
+            <blockTextColor colorName="blue" start="1,1" stop="1,6"/>
+
+            <!-- This sets a background color for the first row  -->
+            <blockBackground colorName="red" start="0,0" stop="3,0"/>
+
+            <!-- This sets a background color for the rest of the table -->
+            <blockBackground colorName="cornsilk" start="0,1" stop="-1,-1"/>
+
+            <!-- This sets a background color for an individual cell     -->
+            <!-- This has to go AFTER the above blockBackground,         -->
+            <!-- otherwise it would be overpainted by the cornsilk color -->
+            <blockBackground colorName="lightcoral" start="3,3" stop="3,3"/>
+
+        </blockTableStyle>
+    </stylesheet>
+
+    <story>
+        <title>Example 10 - colors and fonts in tables</title>
+        <spacer length="1cm"/>
+
+        <blockTable style="myBlockTableStyle"
+                    rowHeights="3.5cm,2cm,2cm,2cm,2cm,2cm,2cm"
+                    colWidths="4cm,4cm,4cm,4cm">
+            <tr>
+                <td>Cell 0,0</td><td>Cell 1,0</td><td>Cell 2,0</td><td>Cell 3,0</td>
+            </tr>
+            <tr>
+                <td>Cell 0,1</td><td>Cell 1,1</td><td>Cell 2,1</td><td>Cell 3,1</td>
+            </tr>
+            <tr>
+                <td>Cell 0,2</td><td>Cell 1,2</td><td>Cell 2,2</td><td>Cell 3,2</td>
+            </tr>
+            <tr>
+                <td>Cell 0,3</td><td>Cell 1,3</td><td>Cell 2,3</td><td>Cell 3,3</td>
+            </tr>
+            <tr>
+                <td>Cell 0,4</td><td>Cell 1,4</td><td>Cell 2,4</td><td>Cell 3,4</td>
+            </tr>
+            <tr>
+                <td>Cell 0,5</td><td>Cell 1,5</td><td>Cell 2,5</td><td>Cell 3,5</td>
+            </tr>
+            <tr>
+                <td>Cell 0,6</td><td>Cell 1,6</td><td>Cell 2,6</td><td>Cell 3,6</td>
+            </tr>
+        </blockTable>
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+<nextFrame/>
+
+<condPageBreak height="144"/>
+<h2>Example 10 - colors and fonts in tables</h2>
+<spacer length="1cm"/>
+
+<blockTable style="myBlockTableStyle1"
+rowHeights="3.5cm,2cm,2cm,2cm,2cm,2cm,2cm"
+colWidths="4cm,4cm,4cm,4cm"
+>
+<tr><td>Cell 0,0</td><td>Cell 1,0</td><td>Cell 2,0</td><td>Cell 3,0</td></tr>
+<tr><td>Cell 0,1</td><td>Cell 1,1</td><td>Cell 2,1</td><td>Cell 3,1</td></tr>
+<tr><td>Cell 0,2</td><td>Cell 1,2</td><td>Cell 2,2</td><td>Cell 3,2</td></tr>
+<tr><td>Cell 0,3</td><td>Cell 1,3</td><td>Cell 2,3</td><td>Cell 3,3</td></tr>
+<tr><td>Cell 0,4</td><td>Cell 1,4</td><td>Cell 2,4</td><td>Cell 3,4</td></tr>
+<tr><td>Cell 0,5</td><td>Cell 1,5</td><td>Cell 2,5</td><td>Cell 3,5</td></tr>
+<tr><td>Cell 0,6</td><td>Cell 1,6</td><td>Cell 2,6</td><td>Cell 3,6</td></tr>
+</blockTable>
+
+<spacer length="15"/>
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output table from EXAMPLE 10
+</para>
+
+<nextFrame/>
+
+<h3><getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Colors and fonts in table cells</h3>
+
+<para>
+As an alternative to specifying cell properties using block table styles, RML also allows
+some cell styles to be specified as attributes of the &lt;td&gt; tag.
+</para>
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<blockTable colWidths="5cm,5cm" style="myBlockTableStyle1">
+    <tr><td>fontName</td><td fontName="Courier">Courier</td></tr>
+    <tr><td>fontName</td><td fontName="Helvetica">Helvetica</td></tr>
+    <tr><td>fontSize</td><td fontSize="8">8</td></tr>
+    <tr><td>fontSize</td><td fontSize="14">14</td></tr>
+    <tr><td>fontColor</td><td fontColor="red">red</td></tr>
+    <tr><td>fontColor</td><td fontColor="blue">blue</td></tr>
+    <tr><td>leading</td><td leading="16">leading
+            is
+            16</td></tr>
+    <tr><td>leading</td><td leading="12">leading
+            is
+            12</td></tr>
+    <tr><td>leftPadding</td><td leftPadding="10">10</td></tr>
+    <tr><td>leftPadding</td><td leftPadding="16">16</td></tr>
+    <tr><td>rightPadding</td><td rightPadding="10" align="right">10</td></tr>
+    <tr><td>rightPadding</td><td rightPadding="24" align="right">24</td></tr>
+    <tr><td>topPadding</td><td topPadding="10">10</td></tr>
+    <tr><td>topPadding</td><td topPadding="24">24</td></tr>
+    <tr><td>bottomPadding</td><td bottomPadding="10">10</td></tr>
+    <tr><td>bottomPadding</td><td bottomPadding="24">24</td></tr>
+    <tr><td>background</td><td background="pink">pink</td></tr>
+    <tr><td>background</td><td background="lightblue">lightblue</td></tr>
+    <tr><td>align</td><td align="left">left</td></tr>
+    <tr><td>align</td><td align="center">center</td></tr>
+    <tr><td>align</td><td align="right">right</td></tr>
+    <tr><td>-
+            vAlign
+            -</td><td vAlign="top">top</td></tr>
+    <tr><td>-
+            vAlign
+            -</td><td vAlign="middle">middle</td></tr>
+    <tr><td>-
+            vAlign
+            -</td><td vAlign="bottom">bottom</td></tr>
+</blockTable>
+]]>
+</codesnippet>
+<spacer length="12"/>
+<para>produces</para>
+<spacer length="12"/>
+<blockTable colWidths="5cm,5cm" style="simpleStyle">
+<tr><td>fontName</td><td fontName="Courier">Courier</td></tr>
+<tr><td>fontName</td><td fontName="Helvetica">Helvetica</td></tr>
+<tr><td>fontSize</td><td fontSize="8">8</td></tr>
+<tr><td>fontSize</td><td fontSize="14">14</td></tr>
+<tr><td>fontColor</td><td fontColor="red">red</td></tr>
+<tr><td>fontColor</td><td fontColor="blue">blue</td></tr>
+<tr><td>leading</td><td leading="16">leading
+is
+16</td></tr>
+<tr><td>leading</td><td leading="12">leading
+is
+12</td></tr>
+<tr><td>leftPadding</td><td leftPadding="10">10</td></tr>
+<tr><td>leftPadding</td><td leftPadding="16">16</td></tr>
+<tr><td>rightPadding</td><td rightPadding="10" align="right">10</td></tr>
+<tr><td>rightPadding</td><td rightPadding="24" align="right">24</td></tr>
+<tr><td>topPadding</td><td topPadding="10">10</td></tr>
+<tr><td>topPadding</td><td topPadding="24">24</td></tr>
+<tr><td>bottomPadding</td><td bottomPadding="10">10</td></tr>
+<tr><td>bottomPadding</td><td bottomPadding="24">24</td></tr>
+<tr><td>background</td><td background="pink">pink</td></tr>
+<tr><td>background</td><td background="lightblue">lightblue</td></tr>
+<tr><td>align</td><td align="left">left</td></tr>
+<tr><td>align</td><td align="center">center</td></tr>
+<tr><td>align</td><td align="right">right</td></tr>
+<tr><td>-
+vAlign
+-</td><td vAlign="top">top</td></tr>
+<tr><td>-
+vAlign
+-</td><td vAlign="middle">middle</td></tr>
+<tr><td>-
+vAlign
+-</td><td vAlign="bottom">bottom</td></tr>
+</blockTable>
+<spacer length="15"/>
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output table from EXAMPLE 10
+</para>
+<nextFrame/>
+
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Example 11 - lines and alignment in tables
+</h3>
+
+<para>
+This example shows the various vertical and horizontal alignments you can give text in a
+table, as well as a few ways to use lines.
+</para>
+
+<para style="figureCaption">EXAMPLE 11</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "../rml.dtd">
+<document filename="example_11.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+
+            </pageGraphics>
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <blockTableStyle id="myBlockTableStyle">
+            <!-- Set fonts -->
+            <blockFont name="Courier-Bold" size="10" start="0,1" stop="-1,-1"/>
+            <blockFont name="Helvetica-BoldOblique" size="10" start="0,0" stop="3,0"/>
+
+            <!-- This sets a textColor for all the text in the table -->
+            <blockTextColor colorName="black"/>
+
+            <!-- Another example of blockTextColor  -->
+            <blockTextColor colorName="green" start="2,2" stop="3,3"/>
+
+            <!-- This sets a blockAlignment for the whole table  -->
+            <blockAlignment value="CENTER"/>
+
+            <!-- These overrides the above  -->
+            <blockAlignment value="RIGHT" start="3,0" stop="3,-1"/>
+            <blockAlignment value="LEFT" start="0,1" stop="0,-1"/>
+
+            <!-- This sets the vertical alignment for one row  -->
+            <blockValign value="TOP" start="0,0" stop="-1,0"/>
+
+            <!-- This sets the vertical alignment for one cell  -->
+            <blockValign value="MIDDLE" start="2,2" stop="2,2"/>
+
+            <!-- Use of linestyles  -->
+            <lineStyle kind="GRID" colorName="silver"/>
+            <lineStyle kind="LINEBELOW" colorName="orangered" start="0,0"
+                       stop="-1,0" thickness="5"/>
+            <lineStyle kind="LINEAFTER" colorName="maroon" start="1,1"
+                       stop="1,6" thickness="1"/>
+
+        </blockTableStyle>
+    </stylesheet>
+
+    <story>
+        <title>Example 11 - lines and alignment in tables</title>
+        <spacer length="1cm"/>
+
+        <blockTable style="myBlockTableStyle"
+                    rowHeights="2cm,2cm,2cm,2cm,2cm,2cm,2cm"
+                    colWidths="4cm,3cm,3cm,4cm"
+                    >
+            <tr>
+                <td>(a=LEFT)(VA=TOP)</td>
+                <td>(VA=TOP)</td>
+                <td>(VA="TOP")</td>
+                <td>(a=RIGHT)(VA=TOP)</td>
+            </tr>
+            <tr>
+                <td>(a=LEFT)</td>
+                <td>1,1</td>
+                <td>Cell 2,1</td>
+                <td>(a=RIGHT)</td>
+            </tr>
+            <tr>
+                <td>(a=LEFT)</td>
+                <td>1,2</td>
+                <td>(VA=MIDDLE)</td>
+                <td>(a=RIGHT)</td>
+            </tr>
+            <tr>
+                <td>(a=LEFT)</td>
+                <td>1,3</td>
+                <td>(VA=MIDDLE)</td>
+                <td>(VA=MDL)(a=RIGHT)</td>
+            </tr>
+            <tr>
+                <td>(a=LEFT)</td>
+                <td>1,4</td>
+                <td>2,4</td>
+                <td>(a=RIGHT)</td>
+            </tr>
+            <tr>
+                <td>(a=LEFT)</td>
+                <td>1,5</td>
+                <td>2,5</td>
+                <td>(a=RIGHT)</td>
+            </tr>
+            <tr>
+                <td>(a=LEFT)</td>
+                <td>1,6</td>
+                <td>2,6</td>
+                <td>(a=RIGHT)</td>
+            </tr>
+        </blockTable>
+
+        <spacer length="15"/>
+        <para>a=value for <i>blockAlignment</i></para>
+        <para>VA=value for <i>blockValign</i></para>
+        <para><i>MDLE=MIDDLE for VA in cells 3,2 and 3,3</i></para>
+
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+<nextFrame/>
+
+<h2>Example 11 - lines and alignment in tables</h2>
+<spacer length="1cm"/>
+
+<blockTable style="myBlockTableStyle2"
+rowHeights="2cm,2cm,2cm,2cm,2cm,2cm,2cm"
+colWidths="4cm,3cm,3cm,4cm"
+>
+<tr><td>(a=LEFT)(VA=TOP)</td><td>(VA=TOP)</td><td>(VA="TOP")</td><td>(a=RIGHT)(VA=TOP)</td></tr>
+<tr><td>(a=LEFT)</td><td>1,1</td><td>Cell 2,1</td><td>(a=RIGHT)</td></tr>
+<tr><td>(a=LEFT)</td><td>1,2</td><td>(VA=MIDDLE)</td><td>(VA=MDL)(a=RIGHT)</td></tr>
+<tr><td>(a=LEFT)</td><td>1,3</td><td>(VA=MIDDLE)</td><td>(VA=MDL)(a=RIGHT)</td></tr>
+<tr><td>(a=LEFT)</td><td>1,4</td><td>2,4</td><td>(a=RIGHT)</td></tr>
+<tr><td>(a=LEFT)</td><td>1,5</td><td>2,5</td><td>(a=RIGHT)</td></tr>
+<tr><td>(a=LEFT)</td><td>1,6</td><td>2,6</td><td>(a=RIGHT)</td></tr>
+</blockTable>
+
+<spacer length="15"/>
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output table from EXAMPLE 11
+</para>
+
+<spacer length="15"/>
+<para>a=value for <i>blockAlignment</i></para>
+<para>VA=value for <i>blockValign</i></para>
+<para><i>MDLE=MIDDLE for VA in cells 3,2 and 3,3</i></para>
+
+
+<nextFrame/>
+
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Example 12 - images and padding in tables
+</h3>
+
+<para>This example shows images in a table and the way to use the various padding attributes.</para>
+<para style="nospace"><b>For comparison purposes:</b></para>
+<para style="nospace">The cells that contain pictures in this table are all 166 pixels in height and 161 pixels in width.</para>
+<para>Where padding is used, it has a value of 20 pixels horizontally or 40 pixels vertically.</para>
+
+<para style="figureCaption">EXAMPLE </para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_12.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+            </pageGraphics>
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <blockTableStyle id="myBlockTableStyle">
+            <blockBackground colorName="silver" start="0,0" stop="-1,0"/>
+            <blockBackground colorName="darkslategray" start="0,1" stop="-1,1"/>
+            <blockBackground colorName="silver" start="0,2" stop="-1,2"/>
+            <blockBackground colorName="darkslategray" start="0,3" stop="-1,3"/>
+            <blockBackground colorName="silver" start="0,4" stop="-1,4"/>
+            <blockBackground colorName="darkslategray" start="0,5" stop="-1,5"/>
+            <blockAlignment value="CENTER"/>
+            <blockValign value="MIDDLE"/>
+
+            <!-- Set fonts -->
+            <blockFont name="Helvetica-BoldOblique" size="10"/>
+
+            <!-- set the left and right padding for cells in first and  -->
+            <!-- third columns remember, cell numbering starts from ZERO, not ONE  -->
+            <blockLeftPadding length="20" start="0,0" stop="0,-1"/>
+            <blockRightPadding length="20" start="2,0" stop="2,-1"/>
+
+            <!-- set the top and bottom padding for cells in first and third rows -->
+            <blockBottomPadding length="40" start="0,0" stop="-1,0"/>
+            <blockTopPadding length="40" start="0,2" stop="-1,2"/>
+
+            <!-- set the top and bottom padding for the last row -->
+            <blockBottomPadding length="40" start="-1,4" stop="-1,4"/>
+            <blockTopPadding length="40" start="0,4" stop="0,4"/>
+
+            <!-- Use of linestyles  -->
+            <lineStyle kind="GRID" colorName="darkblue"/>
+
+        </blockTableStyle>
+
+        <paraStyle name="paddingTableStyle"
+                   fontName="Helvetica-BoldOblique"
+                   fontSize="10"
+                   textColor="white"
+                   alignment="CENTER"
+                   />
+    </stylesheet>
+
+    <story>
+        <title>Example 12 - images and padding in tables</title>
+        <spacer length="1cm"/>
+
+        <blockTable style="myBlockTableStyle"
+                    rowHeights="166,28,166,28,166,28"
+                    colWidths="161,161,161"
+                    >
+            <tr>
+                <td>
+                    <illustration width="141" height="90">
+                        <image file="images/replogo.gif" 
+                               x="0" y="0" 
+                               width="141" height="90"/>
+                        <stroke color="deepskyblue"/>
+                        <lineMode width="3"/>
+                        <lines>
+                            0 0 141 0
+                            141 0 141 90
+                            141 90 0 90
+                            0 90 0 0
+                        </lines>
+                    </illustration>
+                </td>
+                <td>
+                    <illustration width="141" height="90">
+                        <image file="images/replogo.gif" 
+                               x="0" y="0" 
+                               width="141" height="90"/>
+                        <stroke color="deepskyblue"/>
+                        <lineMode width="3"/>
+                        <lines>
+                            0 0 141 0
+                            141 0 141 90
+                            141 90 0 90
+                            0 90 0 0
+                        </lines>
+                    </illustration>
+                </td>
+                <td>
+                    <illustration width="141" height="90">
+                        <image file="images/replogo.gif" 
+                               x="0" y="0" 
+                               width="141" height="90"/>
+                        <stroke color="deepskyblue"/>
+                        <lineMode width="3"/>
+                        <lines>
+                            0 0 141 0
+                            141 0 141 90
+                            141 90 0 90
+                            0 90 0 0
+                        </lines>
+                    </illustration>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <para style="paddingTableStyle">
+                        <b>blockLeftPadding</b> with <b>blockBottomPadding
+                    </para>
+                </td>
+                <td>
+                    <para style="paddingTableStyle">
+                        just blockBottomPadding
+                    </para>
+                </td>
+                <td>
+                    <para style="paddingTableStyle">
+                        <b>blockRightPadding</b> with <b>blockBottomPadding</b>
+                    </para>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <illustration width="141" height="90">
+                        <image file="images/replogo.gif" 
+                               x="0" y="0" 
+                               width="141" height="90"/>
+                        <stroke color="deepskyblue"/>
+                        <lineMode width="3"/>
+                        <lines>
+                            0 0 141 0
+                            141 0 141 90
+                            141 90 0 90
+                            0 90 0 0
+                        </lines>
+                    </illustration>
+                </td>
+                <td>
+                    <illustration width="141" height="90">
+                        <image file="images/replogo.gif" 
+                               x="0" y="0" 
+                               width="141" height="90"/>
+                        <stroke color="deepskyblue"/>
+                        <lineMode width="3"/>
+                        <lines>
+                            0 0 141 0
+                            141 0 141 90
+                            141 90 0 90
+                            0 90 0 0
+                        </lines>
+                    </illustration>
+                </td>
+                <td>
+                    <illustration width="141" height="90">
+                        <image file="images/replogo.gif" 
+                               x="0" y="0" 
+                               width="141" height="90"/>
+                        <stroke color="deepskyblue"/>
+                        <lineMode width="3"/>
+                        <lines>
+                            0 0 141 0
+                            141 0 141 90
+                            141 90 0 90
+                            0 90 0 0
+                        </lines>
+                    </illustration>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <para style="paddingTableStyle">
+                        <b>blockLeftPadding</b> with <b>blockTopPadding
+                    </para>
+                </td>
+</td>
+<td>
+    <para style="paddingTableStyle">
+        just blockTopPadding
+    </para>
+</td>
+<td>
+    <para style="paddingTableStyle">
+        <b>blockRightPadding</b> with <b>blockTopPadding</b>
+    </para>
+</td>
+</tr>
+<tr>
+    <td>
+        <illustration width="141" height="90">
+            <image file="images/replogo.gif" 
+                   x="0" y="0" 
+                   width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+                0 0 141 0
+                141 0 141 90
+                141 90 0 90
+                0 90 0 0
+            </lines>
+        </illustration>
+    </td>
+    <td>
+        <illustration width="141" height="90">
+            <image file="images/replogo.gif" 
+                   x="0" y="0" 
+                   width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+                0 0 141 0
+                141 0 141 90
+                141 90 0 90
+                0 90 0 0
+            </lines>
+        </illustration>
+    </td>
+    <td>
+        <illustration width="141" height="90">
+            <image file="images/replogo.gif" 
+                   x="0" y="0" 
+                   width="141" height="90"/>
+            <stroke color="deepskyblue"/>
+            <lineMode width="3"/>
+            <lines>
+                0 0 141 0
+                141 0 141 90
+                141 90 0 90
+                0 90 0 0
+            </lines>
+        </illustration>
+    </td>
+</tr>
+<tr>
+    <td>
+        <para style="paddingTableStyle">
+            blockLeftPadding with blockTopPadding
+        </para>
+    </td>
+    <td>
+        <para style="paddingTableStyle">
+            no padding
+        </para>
+    </td>
+    <td>
+        <para style="paddingTableStyle">
+            blockRightPadding with blockBottomPadding
+        </para>
+    </td>
+</tr>
+</blockTable>
+
+</story>
+
+</document>
+]]></codesnippet>
+
+
+<nextFrame/>
+
+<h2>Example 12 - images and padding in tables</h2>
+<spacer length="1cm"/>
+
+<blockTable style="myBlockTableStyle3"
+rowHeights="166,28,166,28,166,28"
+colWidths="161,161,161"
+>
+<tr>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+</tr>
+<tr>
+<td>
+<para style="paddingTableStyle"><b>blockLeftPadding</b> with <b>blockBottomPadding</b></para>
+</td>
+<td><para style="paddingTableStyle">just blockBottomPadding</para></td>
+<td><para style="paddingTableStyle"><b>blockRightPadding</b> with <b>blockBottomPadding</b></para></td>
+</tr>
+<tr>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+</tr>
+<tr>
+<td><para style="paddingTableStyle"><b>blockLeftPadding</b> with <b>blockTopPadding</b></para>
+</td>
+<td><para style="paddingTableStyle">just blockTopPadding</para></td>
+<td><para style="paddingTableStyle"><b>blockRightPadding</b> with <b>blockTopPadding</b></para></td>
+</tr>
+<tr>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+<td><illustration width="141" height="90">
+<image file="images/replogo.gif" x="0" y="0" width="141" height="90"/>
+<stroke color="deepskyblue"/>
+<lineMode width="3"/>
+<lines>
+0 0 141 0
+141 0 141 90
+141 90 0 90
+0 90 0 0
+</lines>
+</illustration>
+</td>
+</tr>
+<tr>
+<td><para style="paddingTableStyle">blockLeftPadding with blockTopPadding</para></td>
+<td><para style="paddingTableStyle">no padding</para></td>
+<td><para style="paddingTableStyle">blockRightPadding with blockBottomPadding</para></td>
+</tr>
+</blockTable>
+
+<spacer length="15"/>
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output from EXAMPLE 12
+</para>
+

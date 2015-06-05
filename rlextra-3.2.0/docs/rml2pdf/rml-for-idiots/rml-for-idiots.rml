@@ -1,0 +1,2805 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+
+
+
+
+
+<document filename="rml-for-idiots.pdf">
+  <!-- THIS RML FILE WAS AUTOMATICALLY GENERATED FROM A PREPPY PREPROCESSOR SOURCE. -->
+  <!-- DO NOT EDIT THE GENERATED RML DIRECTLY. -->
+
+	<docinit useCropMarks="no">
+		<cropMarks markColor="green" markWidth="0.5" markLength="18" borderWidth="36"/>
+		<!--here is how to set values for the first template to see -->
+		<name id="chapterColor" value="grey"/>
+		<name id="title" value="Examples of long document features"/>
+		<!-- now we register font -->
+		<registerTTFont faceName="Vera" fileName="Vera.ttf" />
+		<registerTTFont faceName="VeraBold" fileName="VeraBd.ttf" />
+		<startIndex/>
+
+	</docinit>
+
+  <template pageSize="(595, 842)"
+			leftMargin="72"
+			showBoundary="0"
+			title="RML for Idiots"
+			author="Reportlab Inc"
+			>
+
+	<pageTemplate id="cover">
+	  <pageGraphics>
+		
+		<fill color="darkred"/>
+		<setFont name="Helvetica-BoldOblique" size="48"/>
+		<fill color="indigo"/>
+		
+		<drawCentredString x="297" y="516">RML for Idiots</drawCentredString>
+		<setFont name="Times-Bold" size="14"/>
+		<drawCentredString x="297" y="434">An easy introduction to</drawCentredString>
+		<setFont name="Times-Bold" size="16"/>
+		<drawCentredString x="297" y="414">Report Markup Language</drawCentredString>
+
+		
+		<fill color="firebrick"/>
+		
+
+		<lines>
+		  72 132 523 132
+		</lines>
+
+		<image file="images/replogo.gif" x="155" y="626"/>
+
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="110">ReportLab Europe Ltd.</drawString>
+		<drawString x="72" y="98">Thornton House</drawString>
+		<drawString x="72" y="86">Thornton Road</drawString>
+		<drawString x="72" y="74">Wimbledon</drawString>
+		<drawString x="72" y="62">London SW19 4NG, UK</drawString>
+		
+		<translate dx="297" dy="273"/>
+		<scale sx="2.0" sy="1.0"/>
+		<fill color="goldenrod"/>
+		<circle x="0" y="0" radius="3cm" fill="1" stroke="0"/>
+		<fill color="darkorange"/>
+		<stroke color="indianred"/>
+		<path x="0.7499999999999999cm" y="1.299038105676658cm" fill="1" stroke="1"> <curvesto>
+0.7499999999999999cm 1.299038105676658cm
+1.7499999999999998cm 3.0310889132455356cm
+0.0cm 3.5cm
+0.0cm 1.5cm
+0.7499999999999999cm 1.299038105676658cm
+1.7499999999999998cm 3.0310889132455356cm
+0.0cm 3.5cm
+0.0cm 1.5cm
+0.7499999999999999cm 1.299038105676658cm
+1.7499999999999998cm 3.0310889132455356cm
+0.0cm 3.5cm
+0.0cm 1.5cm
+0.7499999999999999cm 1.299038105676658cm
+1.7499999999999998cm 3.0310889132455356cm
+0.0cm 3.5cm
+0.0cm 1.5cm
+0.7499999999999999cm 1.299038105676658cm
+1.299038105676658cm 0.7500000000000002cm
+3.031088913245535cm 1.7500000000000004cm
+1.7499999999999998cm 3.0310889132455356cm
+0.7499999999999999cm 1.299038105676658cm
+1.299038105676658cm 0.7500000000000002cm
+3.031088913245535cm 1.7500000000000004cm
+1.7499999999999998cm 3.0310889132455356cm
+0.7499999999999999cm 1.299038105676658cm
+1.299038105676658cm 0.7500000000000002cm
+3.031088913245535cm 1.7500000000000004cm
+1.7499999999999998cm 3.0310889132455356cm
+0.7499999999999999cm 1.299038105676658cm
+1.299038105676658cm 0.7500000000000002cm
+3.031088913245535cm 1.7500000000000004cm
+1.7499999999999998cm 3.0310889132455356cm
+0.7499999999999999cm 1.299038105676658cm
+1.299038105676658cm 0.7500000000000002cm
+1.5cm 9.184850993605148e-17cm
+3.5cm 2.143131898507868e-16cm
+3.031088913245535cm 1.7500000000000004cm
+1.299038105676658cm 0.7500000000000002cm
+1.5cm 9.184850993605148e-17cm
+3.5cm 2.143131898507868e-16cm
+3.031088913245535cm 1.7500000000000004cm
+1.299038105676658cm 0.7500000000000002cm
+1.5cm 9.184850993605148e-17cm
+3.5cm 2.143131898507868e-16cm
+3.031088913245535cm 1.7500000000000004cm
+1.299038105676658cm 0.7500000000000002cm
+1.5cm 9.184850993605148e-17cm
+3.5cm 2.143131898507868e-16cm
+3.031088913245535cm 1.7500000000000004cm
+1.299038105676658cm 0.7500000000000002cm
+1.5cm 9.184850993605148e-17cm
+1.299038105676658cm -0.7499999999999997cm
+3.0310889132455356cm -1.7499999999999991cm
+3.5cm 2.143131898507868e-16cm
+1.5cm 9.184850993605148e-17cm
+1.299038105676658cm -0.7499999999999997cm
+3.0310889132455356cm -1.7499999999999991cm
+3.5cm 2.143131898507868e-16cm
+1.5cm 9.184850993605148e-17cm
+1.299038105676658cm -0.7499999999999997cm
+3.0310889132455356cm -1.7499999999999991cm
+3.5cm 2.143131898507868e-16cm
+1.5cm 9.184850993605148e-17cm
+1.299038105676658cm -0.7499999999999997cm
+3.0310889132455356cm -1.7499999999999991cm
+3.5cm 2.143131898507868e-16cm
+1.5cm 9.184850993605148e-17cm
+1.299038105676658cm -0.7499999999999997cm
+0.7500000000000004cm -1.2990381056766578cm
+1.750000000000001cm -3.0310889132455348cm
+3.0310889132455356cm -1.7499999999999991cm
+1.299038105676658cm -0.7499999999999997cm
+0.7500000000000004cm -1.2990381056766578cm
+1.750000000000001cm -3.0310889132455348cm
+3.0310889132455356cm -1.7499999999999991cm
+1.299038105676658cm -0.7499999999999997cm
+0.7500000000000004cm -1.2990381056766578cm
+1.750000000000001cm -3.0310889132455348cm
+3.0310889132455356cm -1.7499999999999991cm
+1.299038105676658cm -0.7499999999999997cm
+0.7500000000000004cm -1.2990381056766578cm
+1.750000000000001cm -3.0310889132455348cm
+3.0310889132455356cm -1.7499999999999991cm
+1.299038105676658cm -0.7499999999999997cm
+0.7500000000000004cm -1.2990381056766578cm
+1.8369701987210297e-16cm -1.5cm
+4.286263797015736e-16cm -3.5cm
+1.750000000000001cm -3.0310889132455348cm
+0.7500000000000004cm -1.2990381056766578cm
+1.8369701987210297e-16cm -1.5cm
+4.286263797015736e-16cm -3.5cm
+1.750000000000001cm -3.0310889132455348cm
+0.7500000000000004cm -1.2990381056766578cm
+1.8369701987210297e-16cm -1.5cm
+4.286263797015736e-16cm -3.5cm
+1.750000000000001cm -3.0310889132455348cm
+0.7500000000000004cm -1.2990381056766578cm
+1.8369701987210297e-16cm -1.5cm
+4.286263797015736e-16cm -3.5cm
+1.750000000000001cm -3.0310889132455348cm
+0.7500000000000004cm -1.2990381056766578cm
+1.8369701987210297e-16cm -1.5cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.7499999999999991cm -3.0310889132455356cm
+4.286263797015736e-16cm -3.5cm
+1.8369701987210297e-16cm -1.5cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.7499999999999991cm -3.0310889132455356cm
+4.286263797015736e-16cm -3.5cm
+1.8369701987210297e-16cm -1.5cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.7499999999999991cm -3.0310889132455356cm
+4.286263797015736e-16cm -3.5cm
+1.8369701987210297e-16cm -1.5cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.7499999999999991cm -3.0310889132455356cm
+4.286263797015736e-16cm -3.5cm
+1.8369701987210297e-16cm -1.5cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.2990381056766576cm -0.7500000000000007cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.7499999999999991cm -3.0310889132455356cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.2990381056766576cm -0.7500000000000007cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.7499999999999991cm -3.0310889132455356cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.2990381056766576cm -0.7500000000000007cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.7499999999999991cm -3.0310889132455356cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.2990381056766576cm -0.7500000000000007cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.7499999999999991cm -3.0310889132455356cm
+-0.7499999999999996cm -1.2990381056766582cm
+-1.2990381056766576cm -0.7500000000000007cm
+-1.5cm -2.755455298081545e-16cm
+-3.5cm -6.429395695523604e-16cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.2990381056766576cm -0.7500000000000007cm
+-1.5cm -2.755455298081545e-16cm
+-3.5cm -6.429395695523604e-16cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.2990381056766576cm -0.7500000000000007cm
+-1.5cm -2.755455298081545e-16cm
+-3.5cm -6.429395695523604e-16cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.2990381056766576cm -0.7500000000000007cm
+-1.5cm -2.755455298081545e-16cm
+-3.5cm -6.429395695523604e-16cm
+-3.0310889132455343cm -1.7500000000000016cm
+-1.2990381056766576cm -0.7500000000000007cm
+-1.5cm -2.755455298081545e-16cm
+-1.2990381056766584cm 0.749999999999999cm
+-3.0310889132455365cm 1.7499999999999978cm
+-3.5cm -6.429395695523604e-16cm
+-1.5cm -2.755455298081545e-16cm
+-1.2990381056766584cm 0.749999999999999cm
+-3.0310889132455365cm 1.7499999999999978cm
+-3.5cm -6.429395695523604e-16cm
+-1.5cm -2.755455298081545e-16cm
+-1.2990381056766584cm 0.749999999999999cm
+-3.0310889132455365cm 1.7499999999999978cm
+-3.5cm -6.429395695523604e-16cm
+-1.5cm -2.755455298081545e-16cm
+-1.2990381056766584cm 0.749999999999999cm
+-3.0310889132455365cm 1.7499999999999978cm
+-3.5cm -6.429395695523604e-16cm
+-1.5cm -2.755455298081545e-16cm
+-1.2990381056766584cm 0.749999999999999cm
+-0.7500000000000007cm 1.2990381056766576cm
+-1.7500000000000016cm 3.0310889132455343cm
+-3.0310889132455365cm 1.7499999999999978cm
+-1.2990381056766584cm 0.749999999999999cm
+-0.7500000000000007cm 1.2990381056766576cm
+-1.7500000000000016cm 3.0310889132455343cm
+-3.0310889132455365cm 1.7499999999999978cm
+-1.2990381056766584cm 0.749999999999999cm
+-0.7500000000000007cm 1.2990381056766576cm
+-1.7500000000000016cm 3.0310889132455343cm
+-3.0310889132455365cm 1.7499999999999978cm
+-1.2990381056766584cm 0.749999999999999cm
+-0.7500000000000007cm 1.2990381056766576cm
+-1.7500000000000016cm 3.0310889132455343cm
+-3.0310889132455365cm 1.7499999999999978cm
+-1.2990381056766584cm 0.749999999999999cm
+-0.7500000000000007cm 1.2990381056766576cm
+-3.6739403974420594e-16cm 1.5cm
+-8.572527594031472e-16cm 3.5cm
+-1.7500000000000016cm 3.0310889132455343cm
+-0.7500000000000007cm 1.2990381056766576cm
+-3.6739403974420594e-16cm 1.5cm
+-8.572527594031472e-16cm 3.5cm
+-1.7500000000000016cm 3.0310889132455343cm
+-0.7500000000000007cm 1.2990381056766576cm
+-3.6739403974420594e-16cm 1.5cm
+-8.572527594031472e-16cm 3.5cm
+-1.7500000000000016cm 3.0310889132455343cm
+-0.7500000000000007cm 1.2990381056766576cm
+-3.6739403974420594e-16cm 1.5cm
+-8.572527594031472e-16cm 3.5cm
+-1.7500000000000016cm 3.0310889132455343cm
+-0.7500000000000007cm 1.2990381056766576cm
+-3.6739403974420594e-16cm 1.5cm
+</curvesto></path>
+		
+	  </pageGraphics>
+	  <frame id="first" x1="72" y1="72" width="451" height="698"/>
+	</pageTemplate>
+
+	<pageTemplate id="contents">
+	  <pageGraphics>
+	  </pageGraphics>
+	  <frame id="first" x1="72" y1="72" width="451" height="698"/>
+	</pageTemplate>
+
+	<pageTemplate id="inside">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">2015-06-03</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/></drawCentredString>
+	  </pageGraphics>
+	  <frame id="first" x1="72" y1="72" width="451" height="698"/>
+	</pageTemplate>
+
+	<pageTemplate id="ColorsAppendix">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">2015-06-03</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/></drawCentredString>
+	  </pageGraphics>
+	  <frame id="title" x1="72" y1="717" width="451" height="66"/>
+	  <frame id="columnOne" x1="72" y1="72" width="212" height="641"/>
+	  <frame id="columnTwo" x1="311" y1="72" width="212" height="641"/>
+	</pageTemplate>
+
+	<pageTemplate id="ColorsAppendixTwo">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">2015-06-03</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/></drawCentredString>
+	  </pageGraphics>
+	  <frame id="columnOne" x1="72" y1="72" width="212" height="707"/>
+	  <frame id="columnTwo" x1="311" y1="72" width="212" height="707"/>
+	</pageTemplate>
+
+
+	<pageTemplate id="GreekAppendix">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">2015-06-03</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/> </drawCentredString>
+	  </pageGraphics>
+	  <frame id="title" x1="72" y1="747" width="451" height="36"/>
+	  <frame id="columnOne" x1="45" y1="72" width="106" height="671"/>
+	  <frame id="columnTwo" x1="151" y1="72" width="106" height="671"/>
+	  <frame id="columnThree" x1="281" y1="72" width="106" height="671"/>
+	  <frame id="columnFour" x1="387" y1="72" width="106" height="671"/>
+	</pageTemplate>
+
+  </template>
+
+  <stylesheet>
+	<initialize>
+	  <name id="RMLVersionNumber" value="&RMLVersionNumber;"/>
+	  <name id="RMLDTDFileName" value="&RMLDTDFileName;"/>
+	  <name id="RMLVersionString" value="&RMLVersionString;"/>
+	  <alias id="style.normal" value="style.Normal"/>
+	  <alias id="pre.defaultStyle" value="preStyle"/>
+	</initialize>
+
+    <blockTableStyle id="tocTableStyle">
+      <blockTopPadding length="3"/>
+      <blockBottomPadding length="3"/>
+      <blockLeftPadding length="0"/>
+      <blockRightPadding length="0"/>
+      <blockFont name="VeraBold" size="12"/>
+      <blockTextColor colorName="black"/>
+	  <blockValign value="MIDDLE"/>
+    </blockTableStyle>
+
+	<blockTableStyle id="colorsTableStyle">
+	  <blockValign value="TOP" stop="(1,89)"/>
+	  <blockAlignment value="LEFT" stop="1,89"/>
+	  <blockFont name="Courier" size="8" leading="1"/>
+	  <blockLeading length="1" start="(1,1)" stop="(1,1)"/>
+	  <blockFont name="Courier-Bold" size="12" leading="12" start="(0, 0)" stop="(1, 0)"/>
+	  <blockFont name="Courier-Bold" size="12" leading="12" start="(0, 45)" stop="(1, 45)"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="colorsTableStylePageTwo">
+	  <blockValign value="TOP" stop="(1,27)"/>
+	  <blockAlignment value="LEFT" stop="1,27"/>
+	  <blockFont name="Courier" size="8" leading="1"/>
+	  <blockLeading length="1" start="(1,1)" stop="(1,1)"/>
+	  <blockFont name="Courier-Bold" size="12" leading="12" start="(0, 0)" stop="(1, 0)"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="simpleStyle">
+	  <lineStyle kind="GRID" colorName="black"/>
+	  <blockAlignment value="LEFT"/>
+	  <blockValign value="TOP"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="myBlockTableStyle1">
+	  <!-- Used in Example 10                                      -->
+	  <!-- for comments look in the annotated version later in doc -->
+	  <blockFont name="Courier-Bold" start="0,1" stop="-1,-1"/>
+	  <blockFont name="Helvetica-BoldOblique" size="24" start="0,0" stop="3,0"/>
+	  <blockTextColor colorName="black"/>
+	  <blockTextColor colorName="white" start="0,0" stop="3,0"/>
+	  <blockTextColor colorName="blue" start="1,1" stop="1,6"/>
+	  <blockBackground colorName="red" start="0,0" stop="3,0"/>
+	  <blockBackground colorName="cornsilk" start="0,1" stop="-1,-1"/>
+	  <blockBackground colorName="lightcoral" start="3,3" stop="3,3"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="myBlockTableStyle2">
+	  <!-- This is for EXAMPLE 11 -->
+	  <blockFont name="Courier-Bold" size="10" start="0,1" stop="-1,-1"/>
+	  <blockFont name="Helvetica-BoldOblique" size="10" start="0,0" stop="3,0"/>
+	  <blockTextColor colorName="black"/>
+	  <blockTextColor colorName="green" start="2,2" stop="3,3"/>
+	  <blockAlignment value="CENTER"/>
+	  <blockAlignment value="RIGHT" start="3,0" stop="3,-1"/>
+	  <blockAlignment value="LEFT" start="0,1" stop="0,-1"/>
+	  <blockValign value="TOP" start="0,0" stop="-1,0"/>
+	  <blockValign value="MIDDLE" start="2,2" stop="3,3"/>
+	  <lineStyle kind="GRID" colorName="silver"/>
+	  <lineStyle kind="LINEBELOW" colorName="orangered" start="0,0" stop="-1,0" thickness="5"/>
+	  <lineStyle kind="LINEAFTER" colorName="maroon" start="1,1" stop="1,6" thickness="1"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="myBlockTableStyle3">
+	  <!-- For use with EXAMPLE 12 -->
+	  <blockBackground colorName="silver" start="0,0" stop="-1,0"/>
+	  <blockBackground colorName="darkslategray" start="0,1" stop="-1,1"/>
+	  <blockBackground colorName="silver" start="0,2" stop="-1,2"/>
+	  <blockBackground colorName="darkslategray" start="0,3" stop="-1,3"/>
+	  <blockBackground colorName="silver" start="0,4" stop="-1,4"/>
+	  <blockBackground colorName="darkslategray" start="0,5" stop="-1,5"/>
+	  <blockAlignment value="CENTER"/>
+	  <blockValign value="MIDDLE"/>
+	  <blockFont name="Helvetica-BoldOblique" size="10"/>
+	  <blockLeftPadding length="20" start="0,0" stop="0,-1"/>
+	  <blockRightPadding length="20" start="2,0" stop="2,-1"/>
+	  <blockBottomPadding length="40" start="0,0" stop="-1,0"/>
+	  <blockTopPadding length="40" start="0,2" stop="-1,2"/>
+	  <blockBottomPadding length="40" start="-1,4" stop="-1,4"/>
+	  <blockTopPadding length="40" start="0,4" stop="0,4"/>
+	  <lineStyle kind="GRID" colorName="darkblue"/>
+	</blockTableStyle>
+
+
+	<boxStyle name="special1"
+			  labelFontName="Helvetica"
+			  fontSize="10"
+			  alignment="RIGHT"
+			  textColor="red"
+			  fontName="Helvetica"
+			  labelFontSize="10"
+			  labelAlignment="RIGHT"
+			  labelTextColor="blue"
+			  boxStrokeColor="red"
+			  boxFillColor="pink"/>
+
+	<boxStyle name="special2"
+			  parent="special1"
+			  fontName="Courier"
+			  fontSize="11"
+			  textColor="green"
+			  labelFontName="Courier"
+			  labelFontSize="11"
+			  labelTextColor="green"
+			  boxFillColor="yellow"
+			  boxStrokeColor="red"/>
+
+	<paraStyle name="style.h1"
+			   fontName="Times-Bold"
+			   fontSize="20"
+			   leading="36"
+			   />
+
+	<paraStyle name="style.h2"
+			   fontName="Times-Bold"
+			   fontSize="20"
+			   leading="36"
+			   />
+
+	<paraStyle name="style.h3"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   leading="15"
+			   />
+
+	<paraStyle name="contents"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   />
+
+	<paraStyle name="contents2"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="20"
+			   />
+
+	<paraStyle name="contents2a"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="20"
+			   spaceAfter="12"
+			   />
+
+	<paraStyle name="contents2h"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   leftIndent="20"
+			   />
+
+	<paraStyle name="contents3"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="40"
+			   />
+
+	<paraStyle name="contents3a"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="40"
+			   spaceAfter="12"
+			   />
+
+	<paraStyle name="contents3h"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   leftIndent="40"
+			   />
+
+	<paraStyle name="style.Normal"
+			   fontName="Times-Roman"
+			   fontSize="10"
+			   leading="12"
+			   spaceAfter="12"
+			   firstLineIndent="0"
+			   />
+
+	<paraStyle name="programListing"
+			   parent="style.Normal"
+			   fontName="Courier-Bold"
+			   fontSize="8"
+			   leading="10"
+			   spaceBefore="0"
+			   spaceAfter="0"
+			   textColor="darkblue"
+			   leftIndent="1.2cm"
+			   />
+
+	<paraStyle name="programListingConventionLabel"
+			   parent="programListing"
+			   spaceAfter="0"
+			   leftIndent="0"
+			   />
+
+	<paraStyle name="bulletList"
+			   parent="style.Normal"
+			   bulletFontName="ZapfDingbats"
+			   bulletFontSize="5"
+			   bulletIndent="20"
+			   leftIndent="35"
+			   spaceAfter="6"
+			   />
+
+	<paraStyle name="bulletNospace"
+			   parent="bulletList"
+			   spaceAfter="0"
+			   />
+
+	<paraStyle name="nospace"
+			   spaceAfter="0"
+			   parent="style.Normal"
+			   />
+
+	<paraStyle name="preStyle"
+			   parent="style.Code"
+			   firstLineIndent="35"
+			   leftIndent="35"
+			   spaceBefore="10"
+			   spaceAfter="10"
+			   />
+
+	<paraStyle name="figureCaption"
+			   spaceBefore="0"
+			   spaceAfter="15"
+			   alignment="CENTER"
+			   fontSize="8"
+			   fontName="Times-Italic"
+			   />
+
+	<paraStyle name="GreekPara"
+			   parent="style.normal"
+			   alignment="CENTER"
+			   />
+
+	<paraStyle name="paddingTableStyle"
+			   fontName="Helvetica-BoldOblique"
+			   fontSize="10"
+			   textColor="white"
+			   alignment="CENTER"
+			   />
+
+	<paraStyle name="code"
+			   fontName="Courier"
+			   fontSize="8"
+			   textColor="blue"
+			   backColor="cornsilk"
+			   borderColor="gray"
+			   borderPadding="6"
+			   borderWidth="1"
+			   spaceBefore="12"
+			   spaceAfter="12"
+			   />
+
+  </stylesheet>
+
+  <story>
+
+	<namedString id="LASTPAGENO"><pageNumber/></namedString>
+	<namedString id="chapterNumber"><pageNumber/></namedString>
+	<setNextTemplate name="inside"/>
+		<namedString id="title">Table of Contents</namedString>
+		<nextFrame/>
+		<outlineAdd>Table of Contents</outlineAdd>
+		<spacer length="10"/>    
+		
+		<!-- for the master table of contents, we make a first pass -->
+		<!-- creating a table with a row for each section.  This will have -->
+		<!-- 3 columns:  number, name, color,  page  -->
+		<blockTable style="tocTableStyle" colWidths="10%,27%,60%,5%">
+
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_part_Before_You_Start"></td>
+				<td destination="bookmark_part_Before_You_Start">Before You Start</td>
+				<td destination="bookmark_part_Before_You_Start">
+				</td>
+				<td destination="bookmark_part_Before_You_Start" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_part_Before_You_Start"/>
+					</illustration>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_1">1.</td>
+				<td destination="bookmark_chapter_1">Introduction</td>
+				<td destination="bookmark_chapter_1">
+				</td>
+				<td destination="bookmark_chapter_1" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_1"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_About_RML">1.1.</td>
+				<td destination="bookmark_section_About_RML">About RML</td>
+				<td destination="bookmark_section_About_RML">
+				</td>
+				<td destination="bookmark_section_About_RML" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_About_RML"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_About_this_document">1.2.</td>
+				<td destination="bookmark_section_About_this_document">About this document</td>
+				<td destination="bookmark_section_About_this_document">
+				</td>
+				<td destination="bookmark_section_About_this_document" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_About_this_document"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_Running_the_examples">1.3.</td>
+				<td destination="bookmark_section_Running_the_examples">Running the examples</td>
+				<td destination="bookmark_section_Running_the_examples">
+				</td>
+				<td destination="bookmark_section_Running_the_examples" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_Running_the_examples"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_Reference_Help">1.4.</td>
+				<td destination="bookmark_section_Reference_Help">Reference Help</td>
+				<td destination="bookmark_section_Reference_Help">
+				</td>
+				<td destination="bookmark_section_Reference_Help" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_Reference_Help"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_Using_the_DTD">1.5.</td>
+				<td destination="bookmark_section_Using_the_DTD">Using the DTD</td>
+				<td destination="bookmark_section_Using_the_DTD">
+				</td>
+				<td destination="bookmark_section_Using_the_DTD" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_Using_the_DTD"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_2">2.</td>
+				<td destination="bookmark_chapter_2">Essential concepts</td>
+				<td destination="bookmark_chapter_2">
+				</td>
+				<td destination="bookmark_chapter_2" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_2"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_The_structure_of_a_document_">2.1.</td>
+				<td destination="bookmark_section_The_structure_of_a_document_">The structure of a document.</td>
+				<td destination="bookmark_section_The_structure_of_a_document_">
+				</td>
+				<td destination="bookmark_section_The_structure_of_a_document_" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_The_structure_of_a_document_"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td destination="bookmark_section_Common_Conventions_in_RML">2.2.</td>
+				<td destination="bookmark_section_Common_Conventions_in_RML">Common Conventions in RML</td>
+				<td destination="bookmark_section_Common_Conventions_in_RML">
+				</td>
+				<td destination="bookmark_section_Common_Conventions_in_RML" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_Common_Conventions_in_RML"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_part_Lessons"></td>
+				<td destination="bookmark_part_Lessons">Lessons</td>
+				<td destination="bookmark_part_Lessons">
+				</td>
+				<td destination="bookmark_part_Lessons" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_part_Lessons"/>
+					</illustration>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_3">3.</td>
+				<td destination="bookmark_chapter_3">Lesson 1: Hello World : One simple frame on a page</td>
+				<td destination="bookmark_chapter_3">
+				</td>
+				<td destination="bookmark_chapter_3" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_3"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_4">4.</td>
+				<td destination="bookmark_chapter_4">Lesson 2: Two frames, text flowing between them.</td>
+				<td destination="bookmark_chapter_4">
+				</td>
+				<td destination="bookmark_chapter_4" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_4"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_5">5.</td>
+				<td destination="bookmark_chapter_5">Lesson 3: Adding text in fixed positions</td>
+				<td destination="bookmark_chapter_5">
+				</td>
+				<td destination="bookmark_chapter_5" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_5"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_6">6.</td>
+				<td destination="bookmark_chapter_6">Lesson 4: First steps in styling fixed and flowing text</td>
+				<td destination="bookmark_chapter_6">
+				</td>
+				<td destination="bookmark_chapter_6" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_6"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_7">7.</td>
+				<td destination="bookmark_chapter_7">Lesson 5: Inserting images</td>
+				<td destination="bookmark_chapter_7">
+				</td>
+				<td destination="bookmark_chapter_7" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_7"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_8">8.</td>
+				<td destination="bookmark_chapter_8">Lesson 6: Drawing lines and shapes</td>
+				<td destination="bookmark_chapter_8">
+				</td>
+				<td destination="bookmark_chapter_8" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_8"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_9">9.</td>
+				<td destination="bookmark_chapter_9">Lesson 7: Tables</td>
+				<td destination="bookmark_chapter_9">
+				</td>
+				<td destination="bookmark_chapter_9" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_9"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_10">10.</td>
+				<td destination="bookmark_chapter_10">Lesson 8: Table Styles - pt. 1: the basics</td>
+				<td destination="bookmark_chapter_10">
+				</td>
+				<td destination="bookmark_chapter_10" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_10"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_11">11.</td>
+				<td destination="bookmark_chapter_11">Lesson 9: Table Styles - pt. 2: styling blocks of cells</td>
+				<td destination="bookmark_chapter_11">
+				</td>
+				<td destination="bookmark_chapter_11" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_11"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_12">12.</td>
+				<td destination="bookmark_chapter_12">Lesson 10: Table Styles - pt. 3: fixed columns and rows</td>
+				<td destination="bookmark_chapter_12">
+				</td>
+				<td destination="bookmark_chapter_12" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_12"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_13">13.</td>
+				<td destination="bookmark_chapter_13">Lesson 11: Controlling the flow</td>
+				<td destination="bookmark_chapter_13">
+				</td>
+				<td destination="bookmark_chapter_13" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_13"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_14">14.</td>
+				<td destination="bookmark_chapter_14">Lesson 12: Different pages with different layouts</td>
+				<td destination="bookmark_chapter_14">
+				</td>
+				<td destination="bookmark_chapter_14" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_14"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_15">15.</td>
+				<td destination="bookmark_chapter_15">Lesson 13: Putting it all together - "The Daily Planet"</td>
+				<td destination="bookmark_chapter_15">
+				</td>
+				<td destination="bookmark_chapter_15" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_15"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_16">16.</td>
+				<td destination="bookmark_chapter_16">Lesson 14: An introduction to dynamic documents.</td>
+				<td destination="bookmark_chapter_16">
+				</td>
+				<td destination="bookmark_chapter_16" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_16"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+			
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_17">17.</td>
+				<td destination="bookmark_chapter_17">Frequently Asked Questions</td>
+				<td destination="bookmark_chapter_17">
+				</td>
+				<td destination="bookmark_chapter_17" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_17"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			
+			
+
+			
+
+		</blockTable>
+
+		
+		<nextPage/>
+
+		
+		<outlineAdd level="0" closed="1">Before You Start</outlineAdd>
+		<bookmark  name="bookmark_part_Before_You_Start"/>		
+		<illustration width="0" height="0">
+			<form name="pagenum_part_Before_You_Start">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		
+
+ 		<namedString id="chapterName">Introduction</namedString>
+
+		<outlineAdd level="1">Introduction</outlineAdd>
+		<bookmark name="bookmark_chapter_1"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_1">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Introduction</h2>
+
+		
+		
+
+		
+		
+		<bookmark name="bookmark_section_About_RML"/>		
+		<outlineAdd level="2">About RML</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_About_RML">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>About RML</h3>
+		
+		
+<para style="nospace">• Report Markup Language is an XML-style language for describing the layout of documents.</para>
+<para style="nospace">• You define and manipulate any aspect of a document, including the content and the styling, by using tags.  Many of the tags are similar to HTML.</para>
+<para style="nospace">• The PDF document output is generated from the RML using the python module 'rml2pdf'.</para>
+
+
+		
+
+		
+		<bookmark name="bookmark_section_About_this_document"/>		
+		<outlineAdd level="2">About this document</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_About_this_document">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>About this document</h3>
+		
+		
+<para>This document is designed to get you up and running with RML quickly. It demonstrates the basics of laying out simple documents and formatting the contents, with examples throughout.  The idea is to show you how to do the stuff you are most likely to want to do, without getting bogged down in complexities; so each example presents a basic concept but doesn't go into too much detail about the niceties - for that, you can use the User Guide and the test documents. Work through this guide from start to finish, and you will cover all the major concepts, and end up with some nice looking pdf output.</para>
+
+
+		
+
+		
+		<bookmark name="bookmark_section_Running_the_examples"/>		
+		<outlineAdd level="2">Running the examples</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_Running_the_examples">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>Running the examples</h3>
+		
+		
+<para>You need a text editor and a working ReportLab PLUS setup - if you don't already have this, follow the installation instructions on our website, or ask a Reportlab employee.  At the command line, create a directory where you want to keep your code, and cd into it.  Cut and paste each example from this document into a text file, save it in the directory you just created, then run it through rml2pdf.pyc like this:</para>
+
+<para>UNIX:</para>
+<para style="code">user@computer:~/rml-for-idiots$ python ~/path/to/rml2pdf.pyc example_xx.rml</para>
+<para>WINDOWS:</para>
+<para style="code">C:\rml-for-idiots> C:\path\to\rml2pdf.pyc example_xx.rml</para>
+
+<para>The result should be a document in the same directory called 'example_xx.pdf'.</para>
+
+<para>The python module rml2pdf.pyc can also be used inside python scripts, like any other module.  Import the module, read your RML into a string, and pass it into the 'go' method as follows:</para>
+<codesnippet style="code"><![CDATA[
+    >>> from rlextra.rml2pdf import rml2pdf
+    >>> rml=open('inputfile.rml','r').read()
+    >>> rml2pdf.go(rml,'outputfile.pdf')
+]]>
+</codesnippet>
+
+<para>A pdf named 'outputfile.pdf' will be created in the current directory.</para>
+
+
+		
+
+		
+		<bookmark name="bookmark_section_Reference_Help"/>		
+		<outlineAdd level="2">Reference Help</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_Reference_Help">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>Reference Help</h3>
+		
+		
+<para style="nospace">• Use the rml2pdf-userguide.pdf located in rlextra/rml2pdf/doc to expand on what is presented here.</para>
+<para style="nospace">• Browse the test cases in rlextra/rml2pdf/test/ for a huge range of examples of RML functionality.</para>
+<para style="nospace">• The ultimate reference document for the RML tags is the Document Type Definition; located in 'rlextra/rml2pdf/rml.dtd'.  This tells you about all the available RML tags, and their required and optional parameters.  See the next section for more details.</para>
+
+
+		
+
+		
+		<bookmark name="bookmark_section_Using_the_DTD"/>		
+		<outlineAdd level="2">Using the DTD</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_Using_the_DTD">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>Using the DTD</h3>
+		
+		
+<para>A 'Document Type Definition' is the standard way to define an XML dialect.  It formally sets out the building blocks of an XML document, with a list of legal elements and attributes.  You can find plenty of information on the web about how to read a DTD - a good place to start is http://www.w3schools.com/DTD/default.asp</para>
+
+<para>Every tag available in RML is defined and described in rlextra/rml2pdf/rml.dtd - so if you're unsure about a tag or its parameters, search in this document for the tag name and you will see it's definition.  There's more information about how to read the DTD in the FAQ at the end of this document.</para>
+
+		
+
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Essential concepts</namedString>
+
+		<outlineAdd level="1">Essential concepts</outlineAdd>
+		<bookmark name="bookmark_chapter_2"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_2">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Essential concepts</h2>
+
+		
+		
+
+		
+		
+		<bookmark name="bookmark_section_The_structure_of_a_document_"/>		
+		<outlineAdd level="2">The structure of a document.</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_The_structure_of_a_document_">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>The structure of a document.</h3>
+		
+		
+<para>When designing a document in RML, the main concept to grasp is the difference between the static elements on the page, and 'flowables'.</para>
+
+<para>The component parts that make up a document, ie. text, pictures, or primitives (like lines, rectangles and circles) can be either static or flowable, depending on whereabouts in the RML document they are described.</para>
+
+<para>A static element is fixed into position on a page.  You specify the x and y coordinates and the element appears at that position.</para>
+
+<para>With flowables, however, you specify the position of a 'frame', which can be thought of as a box which contains flowable elements.  The elements then flow into the frame until that frame is full.  Then they start filling up the next frame.  So the frames are static elements, but what the frames contain is 'flowable'.</para>
+
+<para>The other main element of a document is the styling: the fonts, line weights and colours, etc..</para>
+
+<para>These three elements are defined in the three main sections of a basic RML document like this:</para>
+
+<codesnippet language="xml" style="code"><![CDATA[
+<template>
+    this section contains the STATIC elements of the document, and the layout of the
+    frames on each page.
+</template>
+<stylesheet>
+    this section contains the STYLE information for formatting text and tables.
+</stylesheet>
+<story>
+    this section contains the FLOWABLE elements of the document.  This is
+    usually where most of the text goes.  This content will flow into
+    the frames specified in the <template> section.
+</story>
+]]></codesnippet>
+
+<para>As an example of the above concepts, imagine the front page of a newspaper.  In terms of RML, the masthead (eg. "The Times") would be a static, fixed element - it's always the same text in the same place.  There might be a solid line under the top banner, along with the price and the date, all of which would be fixed position elements.  Most of the centre of the page would then be divided into frames containing text in various styles: headlines, subsection headings, and plain text.  The text of these stories would 'fill up' each of these frames from top to bottom, in a series of paragraphs.  Finally there might be an advert in a fixed position at the bottom of the page.  </para>
+
+<para>So, the &lt;template&gt; section would contain details about the masthead and the position of the frames, the &lt;stylesheet&gt; section would define the fonts used for headlines and body text, and the actual text of the news would be in the &lt;story&gt; section.  The news would flow from top to bottom, left to right, into each frame on the page.</para>
+
+<para>This is a simplified version of the truth, and there are exceptions to all this, but that comes later...</para>
+
+
+		
+
+		
+		<bookmark name="bookmark_section_Common_Conventions_in_RML"/>		
+		<outlineAdd level="2">Common Conventions in RML</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_Common_Conventions_in_RML">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>Common Conventions in RML</h3>
+		
+		
+
+<para>1. Colours can be specified in three ways in RML: as html-style 'named' colours (eg. "red"); as rgb values (eg. "#004A8D") or as CMYK (eg. "#ff99001f")</para>
+
+<para>2. X &amp; Y co-ordinates generally refer to the bottom left corner of an element.</para>
+
+<para>3. Measurements default to points, but can be millimetres(mm), centimetres(cm), or inches(in).  They can be mixed and matched as you like eg(x="5" y="10mm" height="2cm" width="1in").</para>
+
+		
+
+		
+
+		
+		<nextPage/>
+
+		
+		<outlineAdd level="0" closed="1">Lessons</outlineAdd>
+		<bookmark  name="bookmark_part_Lessons"/>		
+		<illustration width="0" height="0">
+			<form name="pagenum_part_Lessons">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		
+
+ 		<namedString id="chapterName">Lesson 1: Hello World : One simple frame on a page</namedString>
+
+		<outlineAdd level="1">Lesson 1: Hello World : One simple frame on a page</outlineAdd>
+		<bookmark name="bookmark_chapter_3"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_3">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 1: Hello World : One simple frame on a page</h2>
+
+		
+		
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_01.pdf">
+
+    <template>
+        <!--this section contains elements of the document -->
+        <!--which are FIXED into position.                 -->
+        <pageTemplate id="main">
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <!--this section contains the STYLE information for            -->
+        <!--the document, but there isn't any yet.  The tags still     -->
+        <!--have to be present, however, or the document won't compile.-->
+    </stylesheet>
+
+    <story>
+            <!--this section contains the FLOWABLE elements of the -->
+            <!--document.  These elements will fill up the frames  -->
+            <!--defined in the <template> section above.           -->
+        <para>
+            Welcome to RML!
+        </para>
+        <para>
+             This is the "story". This is the part of the RML document where
+             your text is placed.
+        </para>
+        <para>
+             It should be enclosed in "para" and "/para" tags to turn it into
+             paragraphs.
+        </para>
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+
+<para>Run the above example as outlined in the section above called 'Running the examples'.  Open the output file ('example_01.pdf') and you will see a basic document with some text in the middle of the page.  Note the following about the RML:</para>
+
+<para>The &lt;template&gt; section is where the layout is defined.  In this case it defines one &lt;frame&gt; by giving it an id ("main"), followed by the x and y coordinates of the bottom left corner of the frame, and then its width and height.</para>
+
+<para>All these values are specified in points, which is the default unit of measurement in RML, but you can mix and match mm, cm, inches and points like this:
+&lt;x="10mm" y="2cm" width="5in" height="50"&gt;.</para>
+
+<para>This frame is the fixed 'box' into which the text from the &lt;story&gt; section will flow.  Remember, coordinates in RML refer to the bottom left corner of the element.  However, the text starts flowing from the top of the frame, so if you change the height of the frame, the text will start further up the page.</para>
+
+<para>As it says in the comments, the &lt;stylesheet&gt; section is empty.  It has to be there because the document won't compile without it.</para>
+
+<para>The &lt;story&gt; section contains three paragraphs, each of which is contained inside &lt;para&gt; tags.  Note that the whitespace is ignored in the PDF output.</para>
+
+<para>So for a basic bit of text on a page, you define a frame in a position you like, and then the text in the &lt;story&gt; section fills up the frame.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 2: Two frames, text flowing between them.</namedString>
+
+		<outlineAdd level="1">Lesson 2: Two frames, text flowing between them.</outlineAdd>
+		<bookmark name="bookmark_chapter_4"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_4">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 2: Two frames, text flowing between them.</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_02.pdf">
+
+    <template showBoundary="1"> <!--Debugging is now turned on, frame outlines -->
+                                <!--will appear on the page                    -->
+        <pageTemplate id="main">
+            <!-- two frames are defined here: -->
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <!-- still empty...-->
+    </stylesheet>
+
+    <story>
+        <para>
+             Welcome to RML.
+        </para>
+        <para>
+             This is the part of the RML document where
+             your text is placed.
+        </para>
+        <para>
+             It should be enclosed in &lt;para&gt; and &lt;/para&gt; tags to turn
+             it into paragraphs.
+        </para>
+        <para>
+             You should now be able to see borders around the two frames on this
+             page, because showBoundary="1" in the template section at the top.
+             Set it to 0 and the black borders will disappear.
+        </para>
+        <para>
+             This is an extra paragraph which is a bit longer.  It is supposed to
+             fill up the rest of the current frame, and demonstrates what happens
+             when a frame fills up with text. It should start flowing into the next
+             frame. blah blah waffle waffle lorem ipsum etc etc
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>Lesson number two demonstrates two new features.  </para>
+
+<para>Firstly, the &lt;template&gt; tag now has an attribute, showBoundary, set to 1.  This draws an outline around the frames on the page, which is useful for debugging.</para>
+<para>Secondly, we have added another frame tag which defines a second frame, next to the first.  The extra &lt;para&gt; tag in the &lt;story&gt; section contains more text, which overflows from the first frame into the second.</para>
+
+<para>So now you see how text flows from one frame to the next.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 3: Adding text in fixed positions</namedString>
+
+		<outlineAdd level="1">Lesson 3: Adding text in fixed positions</outlineAdd>
+		<bookmark name="bookmark_chapter_5"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_5">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 3: Adding text in fixed positions</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_03.pdf">
+
+    <template showBoundary="0">
+        <pageTemplate id="main">
+            <pageGraphics>
+                <!-- Use drawString to place a fixed title on the page -->
+                <drawString x="100" y="700"> Hello!</drawString>
+            </pageGraphics>
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+        <para>
+             Welcome to RML.
+        </para>
+        <para>
+             This is the part of the RML document where
+             your text is placed.
+        </para>
+        <para>
+             It should be enclosed in &lt;para&gt; and &lt;/para&gt; tags to turn
+             it into paragraphs.
+        </para>
+        <para>
+             You can no longer see borders around the two frames on this
+             page, because showBoundary="0" in the template section at the top.
+             Set it to 1 and the black borders will reappear.
+        </para>
+        <para>
+             This is an extra paragraph which is a bit longer.  It is supposed to
+             fill up the rest of the current frame, and demonstrates what happens
+             when a frame fills up with text. It should start flowing into the next
+             frame. blah blah waffle waffle lorem ipsum etc etc
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>The &lt;pageTemplate&gt; tag now contains a new section, &lt;pageGraphics&gt;, inside which we have used the &lt;drawString&gt; tag to draw some text in a fixed position on the page.  Again, the coordinates are defined in points, and represent the bottom left corner of the text string itself.  The &lt;pageGraphics&gt; tag is the place where you define the directly drawn, fixed elements, which can be lines or circles, text or images.</para>
+
+<para>Now you have seen the two ways of laying out text on the page: flowing in frames, or fixed in position in the &lt;pageTemplate&gt;.  But they look rather plain, so let's see how to style them.
+</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 4: First steps in styling fixed and flowing text</namedString>
+
+		<outlineAdd level="1">Lesson 4: First steps in styling fixed and flowing text</outlineAdd>
+		<bookmark name="bookmark_chapter_6"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_6">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 4: First steps in styling fixed and flowing text</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_04.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+                <fill color="red"/>
+                <setFont name="Times-Roman" size="24"/>
+                <drawString x="100" y="700">
+                    Different types of Text Styling
+                </drawString>
+            </pageGraphics>
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <paraStyle name="textstyle1" fontName="Helvetica" fontSize="9" leading="10"/>
+    </stylesheet>
+
+    <story>
+        <para>
+             Welcome to RML.  This paragraph has not been styled.
+        </para>
+        <para style="textstyle1">
+            This paragraph HAS been styled, using a style defined in the
+            &lt;stylesheet&gt; section.
+        </para>
+        <para style="textstyle1" fontSize="12">
+            This paragraph uses the same style as the first paragraph, but the
+            fontsize has been overridden.  paraStyles can inherit from each other.
+            You can also use html-style <b>bold</b> and <i>italic</i> tags.
+        </para>
+        <para textColor="blue">
+             This paragraph has been styled, but not using the stylesheet.
+             It just uses style attributes inside it's own &lt;para&gt; tag.
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>The new tags in the &lt;pageGraphics&gt; section demonstrate how to change the font and its colour for fixed elements, using &lt;setFont&gt; and &lt;fill&gt; tags.  The code demonstrates an important new concept: the pageGraphics section acts like a 'state machine' when you start changing the style of the text.  This means that you set the 'pen' to draw in a particular way, and it stays in that state until you change it.</para>
+
+<para>The other new section is the &lt;paraStyle&gt; tag in the &lt;stylesheet&gt; section.  Styles are defined here, and then used in the &lt;para&gt; tags in the &lt;story&gt; section.  Any element of a &lt;paraStyle&gt; tag can be overridden inside the &lt;para&gt; tag itself.  You can also style a paragraph by just adding to it's &lt;para&gt; tag, as in paragraph four.</para>
+
+<para>Note also that although the style has been changed in the &lt;pageGraphics&gt; section, the changes we made to the font there do not affect the style of the text in the story, which begins, unstyled, with the default font and text size, until you change it.</para>
+
+<para>Now you know how to style fixed and flowable text.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 5: Inserting images</namedString>
+
+		<outlineAdd level="1">Lesson 5: Inserting images</outlineAdd>
+		<bookmark name="bookmark_chapter_7"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_7">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 5: Inserting images</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_05.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+            <pageGraphics>
+                <image file="files/logo_bg.gif" x="300" y="700"/>
+                <fill color="red"/>
+                <setFont name="Times-Roman" size="24"/>
+                <drawString x="100" y="700"> Hello!</drawString>
+            </pageGraphics>
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+        <para>
+            This is a paragraph above an illustration.
+        </para>
+
+        <!-- The <illustration> tag below defines a box (with a border turned -->
+        <!-- on, for visibility)  inside which an image is placed.            -->
+        <illustration width="50" height="100" borderStrokeWidth="1"
+                      borderStrokeColor="black">
+        <!-- x and y coordinates are from the bottom left corner              -->
+        <!-- of the containing illustration                                   -->
+            <image file="files/rml2pdf.gif" x="10" y="10"/>
+        </illustration>
+        <para>
+            This paragraph is below the illustration.  Note that if you
+            change the height and width of the illustration, the text
+            in the first paragraph may become hidden by the graphic image,
+            which overflows the borders of the illustration in which it is
+            contained.
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>You will frequently want to include images in your documents.  RML can use images in most popular formats, including EPS and PDF.  The images can be shrunk and expanded, and the aspect ratio can be fixed, using various attributes of the tags - see the &lt;image&gt; tag in the RML DTD for a list of these.</para>
+
+<para>Lesson 5 shows two images.  The ReportLab logo is added to the &lt;pageGraphics&gt; section with an x and y coordinate, and so is fixed at the top right of the page.</para>
+
+<para>The second logo, however, is included in the story section as a flowable element.  In order for it to be treated as a flowable, the image has to be surrounded by an &lt;illustration&gt; tag, and this is also the case when drawing graphics primitives like lines and circles.</para>
+
+<para>The &lt;illustration&gt; tag is like another &lt;pageGraphics&gt; section, but specified as a 'flowable'; i.e the entire contents of the &lt;illustration&gt; tag are one flowable element in the &lt;story&gt;.  This means that the positions of the graphics specified inside it are relative to the bottom left corner of the illustration itself, not the whole page.</para>
+
+<para>One thing to note about this example is that the image can be bigger than the illustration containing it.  The illustration is narrower than the image inside it (the border of the illustration is visible in the background) but the image overflows the boundaries.  If you change the sample so that the height is also smaller than that of the image, you will see that the text in the paragraph above the picture disappears.  That is because it is now hidden behind the image. </para>
+
+<para>Now you have seen how to include images: fixed in the &lt;pageTemplate&gt;, or included as a flowable in the story.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 6: Drawing lines and shapes</namedString>
+
+		<outlineAdd level="1">Lesson 6: Drawing lines and shapes</outlineAdd>
+		<bookmark name="bookmark_chapter_8"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_8">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 6: Drawing lines and shapes</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_06.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+            <pageGraphics>
+                <fill color="red"/>
+                <stroke color="purple"/>
+                <lines> 50 50 100 100</lines>
+                <lineMode width="20"/>
+                <stroke color="blue"/>
+                <circle x="150" y="650" radius="25" fill="yes" stroke="yes"/>
+                <lineMode width="5"/>
+                <stroke color="green"/>
+                <rect x="300" y="625" width="25" height="60" fill="yes" stroke="yes"/>
+            </pageGraphics>
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+        <para>
+            The two illustrations above, and the diagonal line at the bottom of
+            the page, are fixed position graphics drawn in the pageGraphics
+            section of the pageTemplate.  Note that rml operates like a 'state
+            machine': you set the state of the pen, and it remains in that
+            state until you change it.  The two shapes both have very fat stroke
+            settings.
+        </para>
+        <para>
+            However, the black square below is defined inside an illustration tag
+            in the story.  The 'pen state' set in the pageTemplate doesn't
+            apply here.
+        </para>
+        <!-- The <illustration> tag below defines a box -->
+        <!-- inside which a rectangle is drawn.         -->
+        <illustration width="50" height="100">
+            <!-- note that we didn't define a pen or stroke colour in the <story>
+            yet, so they have defaulted to black-->
+            <rect x="0" y="0" width="25" height="60" fill="yes" stroke="yes"/>
+        </illustration>
+        <para>
+            This paragraph is below the illustration.  Try increasing and
+            decreasing the height of the illustration tag above, and see
+            how it affects the flow of the elements in the story.
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>This example introduces the drawing of graphics primitives like lines, circles and squares.  </para>
+
+<para>Several of the concepts already introduced apply here.  Firstly, as with included images, graphics primitives can be either fixed into position in the &lt;pageTemplate&gt; section, or included in the &lt;story&gt; as a flowable element by wrapping them in the &lt;illustration&gt; tag.  Secondly, graphics primitives have the same styling principles as with text - you set the colour, line style etc., and the pen stays like that until you change it.  Like text state, they are also set seperately within the &lt;story&gt; and the &lt;pageTemplate&gt;.</para>
+
+<para>The sample code draws two shapes at the top of the page and a diagonal line at the bottom.  These are defined in the &lt;pageGraphics&gt; section.  Shapes use the concept of 'stroke' and 'fill' - the stroke is the outline of the shape and the fill is the area within the stroke.  Stroke and fill are switched on and off using the parameters in the shape tags (eg fill="yes"), and the colour is set using the &lt;stroke&gt; and &lt;fill&gt; tags. </para>
+
+<para>The &lt;lines&gt; tag uses four values which represent the x and y co-ordinates of the start and end of the line.</para>
+
+<para>The black square within the &lt;story&gt; has to be surrounded by an &lt;illustration&gt; tag, and it is then treated as a flowable.  As with the image in the &lt;story&gt; in Lesson 5, the &lt;illustration&gt; can be smaller than the graphic it contains, and this will have an effect on the flow of the elements in the frame.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 7: Tables</namedString>
+
+		<outlineAdd level="1">Lesson 7: Tables</outlineAdd>
+		<bookmark name="bookmark_chapter_9"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_9">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 7: Tables</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_07.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+
+            <pageGraphics>
+                <place x="300" y="500" width="250" height="250">
+                    <blockTable>
+                        <tr>
+                             <td>A block </td><td>table</td>
+                        </tr>
+                        <tr>
+                             <td>inside </td><td>a place tag.</td>
+                        </tr>
+                    </blockTable>
+                </place>
+            </pageGraphics>
+
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+
+        <blockTable>
+            <tr>
+                <td>A block</td>
+                <td>table</td>
+            </tr>
+            <tr>
+                <td>inside </td>
+                <td>the story tag.  This is a long string of text
+                    which won't wrap by default.</td>
+            </tr>
+        </blockTable>
+
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>Tables are drawn in RML using the &lt;blockTable&gt; tag.  They are very similar to HTML tables.</para>
+
+<para>An important thing to note is that by default, the text in a cell will not wrap.  The output from the example above probably doesn't look like you'd expect: that's because the table in the &lt;story&gt; has a long string of text, and the entire table is centred inside the containing frame.  To make the table fit inside the frame, you have to set the width of the columns in the &lt;blockTable&gt; tag (see lesson 10).</para>
+
+<para>This example also introduces the &lt;place&gt; tag.  This tag allows you to insert a 'flowable' section inside the pageTemplate section, (it is the converse of the &lt;illustration&gt; tag, which allows you to include static elements in the 'flowable' section).  To use a table, or other flowable element like a &lt;para&gt;, inside the pageTemplate section, wrap it inside a &lt;place&gt; tag; the contents of the &lt;place&gt; tag are then treated like a single block inside which elements will be 'flowable'.</para>
+
+<para>Now you know the basics of tables and how to place them.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 8: Table Styles - pt. 1: the basics</namedString>
+
+		<outlineAdd level="1">Lesson 8: Table Styles - pt. 1: the basics</outlineAdd>
+		<bookmark name="bookmark_chapter_10"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_10">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 8: Table Styles - pt. 1: the basics</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_08.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+
+            <pageGraphics>
+                <place x="10" y="500" width="600" height="250">
+                    <blockTable style="blocktablestyle1">
+                        <tr>
+                             <td>This table</td><td>is defined</td>
+                        </tr>
+                        <tr>
+                             <td>inside a place tag in the graphics section,</td>
+                             <td>
+                                <para style="textstyle1">
+                                    and can be styled using blockTableStyles
+                                    and para tags.
+                                </para>
+                             </td>
+                        </tr>
+                    </blockTable>
+                </place>
+            </pageGraphics>
+
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+        <!-- A blockTableStyle tag for styling a table-->
+        <blockTableStyle id="blocktablestyle1">
+            <blockFont name="Courier-Bold"/>
+            <blockFont name="Helvetica-BoldOblique" size="8"/>
+            <blockTextColor colorName="green"/>
+        </blockTableStyle>
+        <paraStyle name="textstyle1"
+                   fontName="Helvetica"
+                   fontSize="9"
+                   textColor="blue"/>
+    </stylesheet>
+
+    <story>
+
+        <!-- a table styled using only blockTableStyle>-->
+        <blockTable>
+            <tr>
+                <td><para textColor="green">A block</para></td>
+                <td>table</td>
+            </tr>
+            <tr>
+                <td>inside </td>
+                <td>
+                    the story tag.  This is a long string of text
+                    which won't wrap by default.
+                </td>
+            </tr>
+        </blockTable>
+
+        <!-- a table styled using both blockTableStyle from -->
+        <!-- the stylesheet, and parastyles in table cells. -->
+        <blockTable style="blocktablestyle1">
+            <tr>
+                <td><para textColor="red">This is </para></td>
+                <td>the same table</td>
+            </tr>
+            <tr>
+                <td>but with</td>
+                <td>
+                    <para style="textstyle1">
+                        &lt;para&gt; tags inside the table cells, so the
+                        long string of text is wrapped!
+                    </para>
+                </td>
+            </tr>
+        </blockTable>
+
+    </story>
+</document>
+
+
+]]></codesnippet>
+
+
+<para>By default, as in example 7, tables are unstyled with invisible borders, and text doesn't wrap.  This is the default because it can be rendered very fast. However, styles can be applied to tables using the &lt;blockTableStyle&gt; tag in the &lt;stylesheet&gt; section.</para>
+
+<para>You can also style the text in individual cells using &lt;para&gt; tags inside the &lt;td&gt; tags.</para>
+
+<para>In this example, the table at the top right is from the &lt;pageGraphics&gt; section.  Because it is inside a set of &lt;place&gt; tags, it can use styles from the stylesheet in exactly the same way as a flowable element in the &lt;story&gt;.</para>
+
+<para>The second table is a default, unstyled table.  Note that it's centred inside it's containing &lt;frame&gt; and the text doesn't wrap inside the cells.  It uses the default PDF styling.</para>
+
+<para>The third table demonstrates the use of the &lt;blockTableStyle&gt; tag.  Again, it's centred inside it's containing &lt;frame&gt;, and the text doesn't wrap inside the cells; however, the text is styled according to "blocktablestyle1" which is defined in the stylesheet.</para>
+<para>The third table also demonstrates how you can mix blockTableStyles and &lt;para&gt; tags.  The &lt;para&gt; tag in the bottom right cell causes the text to wrap.  You can use &lt;paraStyle&gt; tags from the stylesheet and override their properties in exactly the same way you would outside a table.</para>
+
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 9: Table Styles - pt. 2: styling blocks of cells</namedString>
+
+		<outlineAdd level="1">Lesson 9: Table Styles - pt. 2: styling blocks of cells</outlineAdd>
+		<bookmark name="bookmark_chapter_11"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_11">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 9: Table Styles - pt. 2: styling blocks of cells</h2>
+
+		
+		
+<codesnippet language="xml" style="code" ><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_09.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+
+            <pageGraphics>
+
+            </pageGraphics>
+
+            <frame id="first" x1="200" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+        <blockTableStyle id="blocktablestyle3">
+            <!-- This sets a font for the second row -->
+            <blockFont name="Helvetica-BoldOblique" size="16" start="0,1" stop="2,1"/>
+
+            <!-- This sets a textColor for all the text in the table ...-->
+            <blockTextColor colorName="purple"/>
+            <!-- ...and this overrides it for the second column -->
+            <!-- using -1 to refer to the last item.            -->
+            <blockTextColor colorName="black" start="1,0" stop="1,-1"/>
+            <!-- Use of linestyles for left, right, top and bottom gridlines -->
+            <lineStyle kind="LINEBELOW" colorName="red" start="0,3" stop="-1,3" thickness="2"/>
+            <lineStyle kind="LINEAFTER" colorName="maroon" start="0,3" stop="-1,3" thickness="2"/>
+            <lineStyle kind="LINEBEFORE" colorName="black" start="0,3" stop="-1,3" thickness="2"/>
+            <lineStyle kind="LINEABOVE" colorName="yellow" start="0,3" stop="-1,3" thickness="2"/>
+            <!-- Use of grid lineStyle, for 'all in one' formatting-->
+            <lineStyle kind="GRID" colorName="green" thickness="1" start="0,0" stop="-1,0" />
+        </blockTableStyle>
+    </stylesheet>
+
+    <story>
+
+        <blockTable style="blocktablestyle3">
+            <tr>
+                <td>This is </td>
+                <td>a table with</td>
+                <td>three columns</td>
+            </tr>
+            <tr>
+                <td>demonstrating how</td>
+                <td>to style each cell</td>
+                <td>differently.</td>
+            </tr>
+            <tr>
+                <td>Have a look </td>
+                <td>at blocktablestyle3 </td>
+                <td>to see how it works.</td>
+            </tr>
+            <tr>
+                <td>Use line styles for different</td>
+                <td>table borders; note that </td>
+                <td>padding is on by default.</td>
+            </tr>
+        </blockTable>
+
+    </story>
+</document>
+
+]]></codesnippet>
+
+<para>This example demonstrates the use of start and stop values in the &lt;blockTableStyle&gt; element tags.  These can be used to specify particular 'blocks' of rows or columns to which you want to apply a style.</para>
+
+<para>The 'start' and 'stop' tags are used to describe the beginning and end of 'blocks' of cells within the table, where the style should be applied, using an (column,row) notation with the numbering starting from zero. So, for example, the top left-hand cell is referred to as (0,0), and (2,1) refers to the third column on the second row.  Negative numbers can also be used to count cells backwards from the end of the last cell, so (-1,-1) always refers to the bottom right hand cell, and e.g. (-1,1) refers to the last column on the second row.</para>
+
+<blockTable style="simpleStyle">
+    <tr>
+        <td>(0,0)</td>
+        <td>(1,0)</td>
+        <td>(2,0)</td>
+    </tr>
+    <tr>
+        <td>(0,1)</td>
+        <td>(1,1)</td>
+        <td>(2,1)</td>
+    </tr>
+    <tr>
+        <td>(0,2)</td>
+        <td>(1,2)</td>
+        <td>(2,2)</td>
+    </tr>
+</blockTable>
+
+
+<para spaceBefore="10">So, to apply a style to the second row of the above table, you would specify start="0,1" stop="2,1".</para>
+
+<para>Another important point to note about tables is that cell padding is on by default.  You have to explicitly set it to zero using blockTableStyles -otherwise, it is set to 5 points in all directions.  This can be a source of confusion when using the start/stop notation, because if you set padding for a particular range of cells, it will revert to the default values outside of that range - not go to zero as you might expect.</para>
+
+<para>This example also shows how to apply styles to the gridlines, using lineStyles.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 10: Table Styles - pt. 3: fixed columns and rows</namedString>
+
+		<outlineAdd level="1">Lesson 10: Table Styles - pt. 3: fixed columns and rows</outlineAdd>
+		<bookmark name="bookmark_chapter_12"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_12">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 10: Table Styles - pt. 3: fixed columns and rows</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_10.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+
+            <pageGraphics>
+            </pageGraphics>
+            <frame id="first" x1="200" y1="400" width="150" height="400"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+        <blockTableStyle id="blocktablestyle4">
+            <!-- show a grid: this also comes in handy for debugging your tables.-->
+            <lineStyle kind="GRID" colorName="green" thickness="1" start="0,0" stop="-1,-1" />
+        </blockTableStyle>
+        <paraStyle name="textstyle1" fontName="Helvetica" fontSize="9" textColor="blue"/>
+    </stylesheet>
+
+    <story>
+
+        <blockTable style="blocktablestyle4">
+            <tr>
+                <td>This is </td>
+                <td>a table with</td>
+                <td>three columns</td>
+            </tr>
+            <tr>
+                <td>demonstrating how automatic </td>
+                <td>cell sizes </td>
+                <td>work</td>
+            </tr>
+            <tr>
+                <td>Have a look </td>
+                <td>at blocktablestyle4</td>
+                <td><para style="textstyle1">to see how it works. This is yet more long text to
+                demonstrate wrapping etc. And supercalifragilistic is a long word</para></td>
+            </tr>
+        </blockTable>
+        <spacer length="1cm"/>
+        <para>Below is the same table, with fixed row heights and column widths.</para>
+        <spacer length="1cm"/>
+
+        <blockTable style="blocktablestyle4" rowHeights="2cm,2cm,2cm" colWidths="2cm,2cm,2cm">
+            <tr>
+                <td>This is </td>
+                <td>another table </td>
+                <td>with three columns</td>
+            </tr>
+            <tr>
+                <td>demonstrating how </td>
+                <td>rowHeight and colWidth</td>
+                <td>affect the cells.</td>
+            </tr>
+            <tr>
+                <td>Have a look </td>
+                <td>at lesson 10</td>
+                <td><para style="textstyle1">to see how it works. This is yet more long text to
+                demonstrate wrapping etc. And supercalifragilistic is a long word</para></td>
+            </tr>
+        </blockTable>
+
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>Now you know how to add a table, and style the cell contents and gridlines.  But what about column and row sizes?  Up until now, these have been automatic.  If you dont use any &lt;para&gt; tags in any of the cells in a column, then the width of the column will expand to fit the longest piece of text in the column.  If any cell in a column does have a &lt;para&gt; tag, (which causes text in the cell to wrap), then the column will expand to the width of whichever is longer - the longest piece of text which isn't in a &lt;para&gt; tag, or the longest word in a column with &lt;para&gt; tags.</para>
+
+<para>You can also fix the row heights and column widths using rowHeights and colWidths elements in the &lt;blockTable&gt; tag.  You will get an error if you add more rows or columns than are declared.  Text in fixed rows and columns will simply overflow if it doesn't fit.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 11: Controlling the flow</namedString>
+
+		<outlineAdd level="1">Lesson 11: Controlling the flow</outlineAdd>
+		<bookmark name="bookmark_chapter_13"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_13">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 11: Controlling the flow</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_11.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="Layout1">
+            <!-- three frames are defined here: -->
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+            <frame id="third" x1="100" y1="100" width="150" height="200"/>
+            <frame id="fourth" x1="300" y1="100" width="150" height="200"/>
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+        <!-- empty...-->
+    </stylesheet>
+
+    <story>
+
+        <nextFrame name="second"/>
+
+        <para>
+             ..this text will appear in the second frame, even though the first frame isn't full yet.
+        </para>
+        <para>
+            It also appears first in the RML file, before the text in the frame on the left.
+        </para>
+        <para>
+             Don't forget that you would normally see output without borders around the frames.
+             This has been set to appear just to clarify where the frames are.
+        </para>
+        <para>
+            When I use the &lt;nextFrame&gt; tag without specifying a frame name....
+        </para>
+
+        <nextFrame/>
+
+        <para>
+            ...we just move into the next frame listed in the &lt;pageTemplate&gt; section.
+        </para>
+
+        <nextFrame name="first"/>
+
+        <para>
+             Welcome to RML.
+        </para>
+        <para>
+             This is a paragraph of 'flowing' text.
+        </para>
+        <para>
+             I've used the &lt;nextFrame&gt; tag to force this text to appear in this frame, by
+             specifying the frame id.
+        </para>
+
+        <!-- use <keepInFrame> to force text to stay in a particular frame. -->
+        <!-- In this case, it's set to shrink the text to fit. -->
+        <keepInFrame frame="fourth" onOverflow="shrink">
+            <para>
+                 This frame demonstrates how to force text to stay inside a frame.  Use the
+                 &lt;keepInFrame&gt; tag to either shrink the text to fit, truncate it,
+                 overflow the frame, or raise an error.
+            </para>
+            <para>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </para>
+            <para>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </para>
+        </keepInFrame>
+
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>You can force flowable text to flow into particular frames as you wish.  Use the &lt;nextFrame&gt; tag, in between your paragraphs, to force the text to move into the next frame.  This doesn't have to be the next frame listed in the &lt;pageTemplate&gt; ; use the name="" element to specify the id of the frame you want to use.</para>
+
+<para>You can also force text to stay inside a particular frame - and then shrink it to fit, let it overflow, truncate it, or raise an error (to see how to do each one, look up the tag in the DTD).  Use &lt;keepInFrame&gt; tags to surround the relevant text.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 12: Different pages with different layouts</namedString>
+
+		<outlineAdd level="1">Lesson 12: Different pages with different layouts</outlineAdd>
+		<bookmark name="bookmark_chapter_14"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_14">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 12: Different pages with different layouts</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_12.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="Layout1">
+            <pageGraphics>
+                <image file="files/logo_bg.gif" x="300" y="100"/>
+                <fill color="red"/>
+                <setFont name="Helvetica-Bold" size="24"/>
+                <drawString x="100" y="100"> This is Layout #1</drawString>
+            </pageGraphics>
+            <!-- two frames: -->
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+        </pageTemplate>
+        <pageTemplate id="Layout2">
+            <pageGraphics>
+                <image file="files/logo_bg.gif" x="300" y="700"/>
+                <fill color="red"/>
+                <setFont name="Helvetica-Bold" size="24"/>
+                <drawString x="100" y="700"> This is Layout #2</drawString>
+            </pageGraphics>
+            <!-- two frames: -->
+            <frame id="first" x1="100" y1="100" width="150" height="200"/>
+            <frame id="second" x1="500" y1="100" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <!-- empty...-->
+    </stylesheet>
+
+    <story firstPageTemplate="Layout1">
+        <para>
+             Welcome to RML.
+        </para>
+        <para>
+             This is page layout number 1.
+        </para>
+        <para>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+            non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+        </para>
+        <para>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+        </para>
+        <para>
+             We will now set the next page template to layout 2, and use nextFrame to force
+             text into the next frame, thereby creating page 2.
+        </para>
+        <setNextTemplate name="Layout2"/>
+        <nextFrame/>
+
+        <para>
+            In this example, there is more than one frame in the template for page one.  If there
+            hadn't been enough text to fill up all the frames, we might have needed more than
+            one &lt;nextFrame&gt; tag to push the text onto a new page.  That's because the
+            &lt;setNextTemplate&gt; doesn't actually start using the next template immediately;
+            you have to either fill up the frames with text, or specify enough &lt;nextFrame&gt;
+            tags to account for any empty frames, before a new page will be created.
+        </para>
+
+    </story>
+</document>
+
+
+]]></codesnippet>
+
+<para>You can easily use different layouts for different pages in your document.  Declare each different layout as a &lt;pageTemplate&gt; with an id in the &lt;template&gt; section.  Normally, the flowables will fill up the frames on a page and then flow into a new page with the same layout.  However, you can set the layout of the next page using the &lt;setNextTemplate name="templateID"/&gt; tag.  This will ensure that once the current page is full, the next page will have the layout specified.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 13: Putting it all together - "The Daily Planet"</namedString>
+
+		<outlineAdd level="1">Lesson 13: Putting it all together - "The Daily Planet"</outlineAdd>
+		<bookmark name="bookmark_chapter_15"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_15">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 13: Putting it all together - "The Daily Planet"</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="planet.pdf">
+
+    <docinit>
+        <registerTTFont faceName="ClassizismAntiqua" fileName="files/ClassizismAntiquaBook.ttf"/>
+    </docinit>
+    <template showBoundary="0">
+        <pageTemplate id="frontpage">
+            <pageGraphics>
+                <setFont name="ClassizismAntiqua" size="48"/>
+                <drawString x="125" y="700"> The Daily Planet</drawString>
+                <lineMode width="5"/>
+                <lines> 50 675 545 675</lines>
+                <lines> 50 775 545 775</lines>
+                <lines> 50 25 545 25</lines>
+                <lineMode width="1"/>
+                <lines> 178 30 178 340</lines>
+                <setFont name="ClassizismAntiqua" size="12"/>
+                <drawString x="50" y="650">$1.50</drawString>
+                <drawString x="225" y="650">13 December 2003</drawString>
+                <drawString x="415" y="650"> Quality News since 1972</drawString>
+                <setFont name="ClassizismAntiqua" size="8"/>
+                <drawString x="445" y="10"> Published in Metropolis City</drawString>
+            </pageGraphics>
+            <frame id="first" x1="50" y1="340" width="250" height="275"/>
+            <frame id="second" x1="50" y1="40" width="125" height="300"/>
+            <frame id="third" x1="180" y1="40" width="125" height="300"/>
+        </pageTemplate>
+            <pageTemplate id="page2">
+            <pageGraphics>
+                <lineMode width="5"/>
+                <lines> 50 770 545 770</lines>
+                <lines> 50 25 545 25</lines>
+                <lineMode width="1"/>
+                <lines> 178 30 178 750</lines>
+                <setFont name="ClassizismAntiqua" size="8"/>
+                <drawString x="50" y="775">13 December 2003</drawString>
+                <drawString x="475" y="775">The Daily Planet</drawString>
+                <drawString x="50" y="10">Page 2</drawString>
+            </pageGraphics>
+            <frame id="first" x1="50" y1="20" width="125" height="740"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+       <paraStyle name="headline" alignment="LEFT" fontSize="40"/>
+       <paraStyle name="strapline" alignment="LEFT"/>
+       <paraStyle name="normal" alignment="LEFT" spaceBefore="5"/>
+       <paraStyle name="caption" alignment="LEFT" fontSize="8"/>
+    </stylesheet>
+
+    <story>
+        <para style="headline" leading="40">
+            REPORTLAB RELEASE MARKUP LANGUAGE!
+        </para>
+
+        <para style="strapline">
+            <b>LONDON - </b>Reportlab Inc, the software company, today announced the release of
+            a new markup language promising to revolutionise the production of documents
+            across the known world.
+        </para>
+
+        <para style="normal">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book.
+        </para>
+
+        <para>
+            It has survived not only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+            software like Aldus PageMaker including versions of Lorem Ipsum.
+        </para>
+
+        <illustration width="125" height="140" align="CENTER">
+            <image file="files/bob.jpg" x="20" y="0"/>
+            <setFont name="Times-Roman" size="6"/>
+            <drawString x="20" y="-20"> Bob Dobbs, CEO of ReportLab Inc.</drawString>
+        </illustration>
+
+        <para>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+            Lorem Ipsum passages, and more recently with desktop publishing software like Aldus
+            PageMaker including versions of Lorem Ipsum.
+        </para>
+
+        <para>
+            Why do we use it?
+        </para>
+        <setNextTemplate name="page2"/>
+
+        <para>
+            It is a long established fact that a reader will be distracted by the readable content
+            of a page when looking at its layout. The point of using Lorem Ipsum is that it has a
+            more-or-less normal distribution of letters, as opposed to using 'Content here, content
+            here', making it look like readable English. Many desktop publishing packages and web
+            page editors now use Lorem Ipsum astheir default model text, and a search for 'lorem
+            ipsum' will uncover many web sites still in their infancy. Various versions have
+            evolved over the years, sometimes by accident, sometimes on purpose (injected humour
+            and the like).
+        </para>
+
+    </story>
+</document>
+]]></codesnippet>
+
+
+<para>The RML code above shows how to use most of the main concepts we've discussed, in a single document layout.  It contains fixed elements - the masthead, date, etc. , and a set of frames into which the text and images from the &lt;story&gt; section flow.  It also demonstrates graphics primitives (the horizontal lines), how to use custom fonts, and using different templates for different pages.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Lesson 14: An introduction to dynamic documents.</namedString>
+
+		<outlineAdd level="1">Lesson 14: An introduction to dynamic documents.</outlineAdd>
+		<bookmark name="bookmark_chapter_16"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_16">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Lesson 14: An introduction to dynamic documents.</h2>
+
+		
+		
+<codesnippet language="xml" style="code"><![CDATA[
+<!-- Paste the following into a text file named 'example_14.prep'-->
+<!-- Look inside the file 'example_14.py' to see how this   -->
+<!-- template is merged with values in a csv file to create -->
+<!-- a series of dynamic documents.  The values in curly    -->
+<!-- brackets are dynamically substituted by ReportLab's    -->
+<!-- templating system, 'preppy'.                           -->
+
+{{def(name,location)}}
+
+<!DOCTYPE document SYSTEM "rml.dtd">
+<!-- this filename isn't used - instead the filename -->
+<!-- is created dynamically inside 'example_14.py'   -->
+<document filename="example_14.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+                <setFont name="Helvetica-Oblique" size="16"/>
+                <drawString x="100" y="700">Using RML with a templating system.</drawString>
+
+                <setFont name="Helvetica" size="16"/>
+
+                <!-- this demonstrates how to use python code directly inside your rml template. -->
+                {{script}}
+                    import datetime
+                    today=datetime.datetime.today()
+                    today=today.strftime("%A %B %d, %Y")
+                {{endscript}}
+
+                <drawString x="350" y="650">{{today}}</drawString>
+
+            </pageGraphics>
+
+            <frame id="first" x1="100" y1="400" width="400" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <paraStyle name="textstyle1" fontName="Helvetica" fontSize="16" leading="16" spaceBefore="16"/>
+    </stylesheet>
+
+    <story>
+
+        <para style="textstyle1">
+            Hi {{name}},
+        </para>
+
+        <para style="textstyle1">
+            How are things in {{location}}?
+        </para>
+
+        <para style="textstyle1">
+            All the best, from ReportLab
+        </para>
+
+    </story>
+
+</document>
+]]></codesnippet>
+
+<spacer length="20"/>
+
+<codesnippet language="python" style="code"><![CDATA[
+# Paste the following into a text file named 'example_14.py'
+# This python script loops through
+# the lines in a csv file, and merges the
+# values into an rml template named 'example_14.prep'
+#
+# This results in pure rml, which is then
+# run through rml2pdf to create pdf files.
+
+import csv
+import preppy
+from rlextra.rml2pdf import rml2pdf
+
+def main():
+
+    #get the csv file into a python csv reader object
+    csvdata  = open('names.csv')
+    reader = csv.reader(csvdata)
+
+    # The rml template is loaded into preppy
+    template = preppy.getModule('example_14.prep')
+
+    # loop through the lines in the csv file
+    for row in reader:
+        name= row[0]
+        location=row[1]
+
+        # Now merge the variables into the template.
+        # you can pass in any Python objects or variables
+        # as long as they evaluate.
+        rmlText = template.get(name,location)
+
+        #convert to PDF
+        pdfFileName = name + '.pdf'
+        rml2pdf.go(rmlText, outputFileName=pdfFileName)
+
+        print 'saved %s' % pdfFileName
+
+
+if __name__=='__main__':
+
+    main()
+
+]]></codesnippet>
+
+<spacer length="20"/>
+
+<para>Copy the following into a text file called 'names.csv'</para>
+
+<codesnippet language="python" style="code"><![CDATA[
+Mrs. Brown,Birmingham
+Mr. White,London
+Ms. Green,Manchester
+Mr. Pink,Brighton
+]]></codesnippet>
+
+
+
+<para>While RML can be used to create static documents like the Daily Planet example you've already seen, it's most useful as part of a dynamic document templating system.  In its simplest terms, you can think of it like a 'mail merge' function writ large - a simple real life example is a 'direct mail' sales letter, which typically uses fixed text for most of the body of the letter,  with custom text for each particular recipient - e.g. 'Dear Mr. X'.</para>
+
+<para>A simple but very powerful templating system is bundled with ReportLab PLUS.  It's a python module called 'preppy', which can be found in /rlextra/preppy/.  Preppy is very simple to use - the dynamic parts of the document, and any python code you might need, are enclosed in double curly brackets inside your template.  The template is loaded into preppy along with any dynamic data.  Preppy then evaluates any python expressions and substitutes any variables, and outputs the result as text - so in this case, you are left with complete rml text which only has to be run through rml2pdf to create a pdf document.</para>
+
+<para>To use the example above, paste the first part into a text file named 'example_14.prep' and the second part into a text file name 'example_14.py'.  Then create a file called 'names.csv' containing the names and towns ,as shown above.  Run 'python example_14.py' at the command line and you should see a number of dynamic pdfs being created.  Read the comments inside 'example_14.py' to see how preppy and rml2pdf are used inside python programs.</para>
+
+		
+		
+
+		
+		<nextPage/>
+
+		
+
+ 		<namedString id="chapterName">Frequently Asked Questions</namedString>
+
+		<outlineAdd level="1">Frequently Asked Questions</outlineAdd>
+		<bookmark name="bookmark_chapter_17"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_17">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>Frequently Asked Questions</h2>
+
+		
+		
+<para><b>Q.</b>  When I try to run the rml file through RML2PDF, I get errors.  Help!</para>
+<para><b>A.</b>  Most errors should have a reasonably self-explanatory error message.  The most common cause of compilation errors is failing to close tags properly; e.g. a &lt;para&gt; without a &lt;/para&gt;.  Another common mistake is failing to escape certain characters within your &lt;para&gt; tags - e.g. left and right angle brackets (substitute with &amp;lt; and &amp;gt;), ampersands (substitute with &amp;amp;) etc. - refer to Google for how to escape other characters in XML.  Also, you will frequently find yourself using the wrong elements in a tag - refer to the DTD for the correct tag syntax, and remember that tags are case sensitive.</para>
+
+<para><b>Q.</b>  I specified a table/ some text / an image in my rml document, but when I compile it to PDF, it's not there.</para>
+<para><b>A.</b>  This is a common problem for beginners.  If the document complies into PDF without errors, the element is probably not visible because it's hidden behind another element, or the frame containing it is too small.  Try changing the x/y co-ordinates of the element, or expanding the size of the frames, or shrinking the size of the fonts/images/text etc, then recompile until the element becomes visible.  You can sometimes see if a hidden element is present at all by selecting the whole page with the mouse in Acrobat reader.</para>
+
+<para><b>Q.</b>  My image/frame/table is in the wrong place.  Why?</para>
+<para><b>A.</b>  Remember that in RML, co-ordinates are specified from the bottom left corner of any element, including the page itself.  This is in line with the way PostScript works, but it may be somewhat unfamiliar.</para>
+
+<para><b>Q.</b>  I'm having trouble making sense of the DTD.  Can you help?</para>
+<para><b>A.</b>  A (partial) sample entry for the image tag is as follows:</para>
+<codesnippet language="xml" style="code"><![CDATA[
+<!ELEMENT image EMPTY>
+<!ATTLIST image
+    file CDATA #REQUIRED
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
+    showBoundary (yes | no | 0 | 1) #IMPLIED
+>
+]]></codesnippet>
+<para>From this entry, you can see the following:</para>
+<para style="nospace">• using this tag requires a filename, along with x and y coordinates (these are marked as CDATA #REQUIRED).</para>
+<para style="nospace">• the width and height are optional 'chardata' parameters (marked as CDATA #IMPLIED).</para>
+<para style="nospace">• the showBoundary parameter is optional (#IMPLIED) and shows a list of the permitted values.</para>
+
+<para>So a sample use of this tag would be &lt;image file="pic.jpg" x="0" y="0" showBoundary="yes"&gt;, which would place the a picture 'pic.jpg' at the bottom left corner of a document, with a surrounding border.</para>
+
+<para><b>Q.</b>  How do I specify the page size &amp; orientation?</para>
+<para><b>A.</b>  The page size defaults to A4, portrait.  You can change it for the whole document within the &lt;template&gt; tag, and you can override it for individual pages using the &lt;pageTemplate&gt; tag.</para>
+
+<para><b>Q.</b> How can I use my own fonts?</para>
+<para><b>A.</b> By default, you can use the 14 standard fonts supplied with Acrobat Reader.  However, RML also accepts TrueType and Type1 fonts.  Examples of how to use them are in test_005_fonts.rml and test_023_ttfonts.rml in the rml2pdf/tests/ directory.</para>
+
+<para><b>Q.</b> Sorry, I still don't get it.</para>
+<para><b>A.</b> Try reading the manual in rml2pdf/docs; look at the test cases in rml2pdf/test/ , or have a look at the code snippets on the ReportLab website.</para>
+
+<para><b>Q.</b> I'm a bit confused about how to use 'feature X'</para>
+<para><b>A.</b> Try reading the manual in rml2pdf/docs; look at the test cases in rml2pdf/test/ , or have a look at the code snippets on the ReportLab website.</para>
+
+<para><b>Q.</b> I really need to use 'feature Y'.  Does RML support it?</para>
+<para><b>A.</b> Try reading the manual in rml2pdf/docs; look at the test cases in rml2pdf/test/ , or have a look at the code snippets on the ReportLab website.</para>
+
+<para><b>Q.</b> I've discovered how to do something amazing in RML.  How can I tell the world?</para>
+<para><b>A.</b> Post a code snippet on the ReportLab website!  Go to http://www.reportlab.com/snippets </para>
+
+		
+		
+
+		
+		
+
+  </story>
+
+</document>

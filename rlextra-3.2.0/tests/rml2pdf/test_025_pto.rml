@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_025_pto.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 26: pto</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+	</pageGraphics>
+	<frame id="F1" x1="2.5cm" y1="12.5cm" width="6cm" height="10cm"/>
+	<frame id="F2" x1="11.5cm" y1="12.5cm" width="6cm" height="10cm"/>
+	<frame id="F3" x1="2.5cm" y1="2cm" width="6cm" height="10cm"/>
+	<frame id="F4" x1="11.5cm" y1="2cm" width="6cm" height="10cm"/>
+	</pageTemplate>
+	<pageTemplate id="main2">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 26: pto</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+	</pageGraphics>
+	<frame id="F1" x1="2.5cm" y1="15.5cm" width="6cm" height="10cm"/>
+	<frame id="F2" x1="11.5cm" y1="15.5cm" width="6cm" height="10cm"/>
+	<frame id="F3" x1="2.5cm" y1="2.5cm" width="6cm" height="10cm"/>
+	<frame id="F4" x1="11.5cm" y1="2.5cm" width="6cm" height="10cm"/>
+	</pageTemplate>
+    <pageTemplate id="OrderSheet"><pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 26: pto</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+	</pageGraphics><frame id="orders" x1="2.5in" y1="2.2in" width="5.5in" height="3.0in"/></pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+		<alias id="bt" value="style.BodyText"/>
+	</initialize>
+	<paraStyle
+		name="h1"
+		parent="style.Normal"
+		fontName="Times-Bold"
+		fontSize="18"
+		leading="22"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+	<paraStyle
+		name="pto"
+		parent="bt"
+		fontSize="9"
+		alignment="right"
+		/>
+
+	<!--this style used for a tablerow example later on in document-->
+		<blockTableStyle id="simple">
+			<blockValign start="0,0" stop="-1,-1" value="TOP"/>
+			<blockFont name="Helvetica" size="6" leading="7"/>
+			<blockBottomPadding length="1"/>	
+			<blockTopPadding length="1"/>	
+			<lineStyle kind="INNERGRID" colorName="gray" start="0,0" stop="-1,-1" thickness="0.25"/>
+			<lineStyle kind="BOX" colorName="black" start="0,0" stop="-1,-1" thickness="0.25"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="summary" parent="simple">
+			<blockBackground colorName="cyan"/>
+			<blockFont name="Helvetica-Bold" size="6" leading="7"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="continuation" parent="simple">
+			<blockBackground colorName="silver"/>
+			<blockFont name="Helvetica-Oblique" size="6" leading="7"/>
+		</blockTableStyle>
+    <paraStyle name="sheetIdBox"
+                fontName="Helvetica"
+                fontSize="12"
+                spaceBefore = "0.2in"
+                alignment = "CENTER"
+                />
+ 
+    <paraStyle name="orderText"
+               parent="bt"
+               fontName="Helvetica"
+               fontSize="12"
+               leftIndent = "0.4in"
+               firstLineIndent="-0.2in"
+               spaceBefore = "0.2in"
+               />
+ 
+    <paraStyle name="orderWarn"
+               parent="bt"
+               fontName="Helvetica-BoldOblique"
+               fontSize="12"
+               spaceBefore = "0.1in"
+               alignment = "CENTER"
+               />
+               <paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+
+</stylesheet>
+
+<story>
+<setNextTemplate name="main2"/>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">Please turn over</para></pto_trailer>
+		<pto_header><para textColor="blue" style="pto">Continued from previous page</para></pto_header>
+		<para style="h1">First Try at a PTO</para>
+		<namedString id="pto_body" default="CCC"><pageNumber/></namedString>
+		<para style="bt">
+			pto_body="<getName id="pto_body" default="CCC1"/>"
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</pto>
+	<nextFrame/>
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">Please turn over</para></pto_trailer>
+		<pto_header><para textColor="blue" style="pto">Continued from previous page</para></pto_header>
+		<para style="h1">PTO with a table inside</para>
+		<blockTable>
+			<blockTableStyle id="tablestyle_000">
+				<blockValign start="0,0" stop="-1,-1" value="TOP"/>
+				<lineStyle kind="INNERGRID" colorName="black" start="0,0" stop="-1,-1" thickness="0.25"/>
+				<lineStyle kind="BOX" colorName="black" start="0,0" stop="-1,-1" thickness="0.25"/>
+			</blockTableStyle>
+			<tr><td>alignment</td><td>align
+alignment</td></tr>
+			<tr><td>bulletColor</td><td>bulletcolor
+bcolor</td></tr>
+			<tr><td>bulletFontName</td><td>bfont
+bulletfontname</td></tr>
+			<tr><td>bulletFontSize</td><td>bfontsize
+bulletfontsize</td></tr>
+			<tr><td>bulletIndent</td><td>bindent
+bulletindent</td></tr>
+			<tr><td>firstLineIndent</td><td>findent
+firstlineindent</td></tr>
+			<tr><td>fontName</td><td>face
+fontname
+font</td></tr>
+			<tr><td>fontSize</td><td>size
+fontsize</td></tr>
+			<tr><td>leading</td><td>leading</td></tr>
+			<tr><td>leftIndent</td><td>leftindent
+lindent</td></tr>
+			<tr><td>rightIndent</td><td>rightindent
+rindent</td></tr>
+			<tr><td>spaceAfter</td><td>spaceafter
+spacea</td></tr>
+			<tr><td>spaceBefore</td><td>spacebefore
+spaceb</td></tr>
+			<tr><td>textColor</td><td>fg
+textcolor
+color</td></tr>
+		</blockTable>
+	</pto>
+	<nextFrame/>
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">Please turn over</para></pto_trailer>
+		<pto_header><para textColor="blue" style="pto">Continued from previous page</para></pto_header>
+		<para style="h1">A long PTO</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+			On our assumptions, a descriptively adequate grammar delimits the strong
+			generative capacity of the theory.	For one thing, the fundamental error
+			of regarding functional notions as categorial is to be regarded as a
+			corpus of utterance tokens upon which conformity has been defined by the
+			paired utterance test.	A majority	of informed linguistic specialists
+			agree that the appearance of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction is necessary to impose an
+			interpretation on the requirement that branching is not tolerated within
+			the dominance scope of a complex symbol.  It may be, then, that the
+			speaker-hearer's linguistic intuition appears to correlate rather
+			closely with the ultimate standard that determines the accuracy of any
+			proposed grammar.  Analogously, the notion of level of grammaticalness
+			may remedy and, at the same time, eliminate a general convention
+			regarding the forms of the grammar.
+		</para>
+	</pto>
+	<nextFrame/>
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">Please turn over</para></pto_trailer>
+		<pto_header><para textColor="blue" style="pto">Continued from previous page</para></pto_header>
+		<para style="h1">2 PTO (inner split)</para>
+		<para style="bt" textColor="pink">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<pto>
+			<pto_trailer><para textColor="red" style="pto">Please turn over(inner)</para></pto_trailer>
+			<pto_header><para textColor="red" style="pto">Continued from previous page(inner)</para></pto_header>
+			<para style="h1">Inner Starts</para>
+			<para style="bt" textColor="yellow">
+				On our assumptions, a descriptively adequate grammar delimits the strong
+				generative capacity of the theory.	For one thing, the fundamental error
+				of regarding functional notions as categorial is to be regarded as a
+				corpus of utterance tokens upon which conformity has been defined by the
+				paired utterance test.	A majority	of informed linguistic specialists
+				agree that the appearance of parasitic gaps in domains relatively
+				inaccessible to ordinary extraction is necessary to impose an
+				interpretation on the requirement that branching is not tolerated within
+				the dominance scope of a complex symbol.  It may be, then, that the
+				speaker-hearer's linguistic intuition appears to correlate rather
+				closely with the ultimate standard that determines the accuracy of any
+				proposed grammar.  Analogously, the notion of level of grammaticalness
+				may remedy and, at the same time, eliminate a general convention
+				regarding the forms of the grammar.
+			</para>
+			<para style="h1">Inner Ends</para>
+		</pto>
+		<para style="bt" textColor="magenta">
+			We have already seen that the natural general principle that will
+			subsume this case cannot be arbitrary in the requirement that branching
+			is not tolerated within the dominance scope of a complex symbol.
+			Notice, incidentally, that the speaker-hearer's linguistic intuition is
+			to be regarded as the strong generative capacity of the theory.  A
+			consequence of the approach just outlined is that the descriptive power
+			of the base component does not affect the structure of the levels of
+			acceptability from fairly high (e.g. (99a)) to virtual gibberish (e.g.
+			(98d)).  By combining adjunctions and certain deformations, a
+			descriptively adequate grammar cannot be arbitrary in the strong
+			generative capacity of the theory.
+		</para>
+	</pto>
+	<nextFrame/>
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">Just another frame</para></pto_trailer>
+		<pto_header><para textColor="blue" style="pto">This should not be seen</para></pto_header>
+		<para style="h1">This PTO does nothing</para>
+		<para style="bt">
+			Many vast star fields in the plane of our Milky Way Galaxy
+			are rich in clouds of dust, and gas. First and foremost,
+			visible in the above picture are millions of stars, many
+			of which are similar to our Sun. Next huge filaments of
+			dark interstellar dust run across the image and block the
+			light from millions of more stars yet further across our Galaxy.
+		</para>
+	</pto>
+
+	<nextFrame/>
+	<para style="h1">Table Slice Continuation</para>
+		<para style="bt">
+			THere is a common need to continue tables intelligently with a continuation trailer
+			and header which visually match the table.  This can be done by implementing
+			the continuation header and trailer as separate table-lets.  However, you will
+			have to manually set their widths as there is no way for them to pick up
+			the width of the table they occur in.  See below...
+		</para>
+		<spacer length="6"/>
+		
+	<pto>
+		<pto_trailer>
+			<!--make our 'trailer table-let' which shows the 'to be continued' slab in something
+			whose widths are coded to match the table it will interrupt...-->
+
+		<blockTable colWidths="25,100,25" style="continuation">
+			<tr><td>-</td><td>to be continued</td><td>-</td></tr>
+		</blockTable>	
+		</pto_trailer>
+		<pto_header>
+		<blockTable colWidths="25,100,25" style="continuation">
+			<tr><td>-</td><td>Continued from previous page</td><td>-</td></tr>
+		</blockTable>	
+		</pto_header>
+		
+		<!-- put your main table rows here, with their header, middle and footer...-->
+		<!-- header...-->
+		<blockTable colWidths="25,50,25,25,25" style="summary">
+			<tr><td>Date</td><td>Comment</td><td>Debit</td><td>Credit</td><td>Total</td></tr>
+		</blockTable>
+
+		<!-- body rows...can be separate slices or tables-->
+		<blockTable colWidths="25,50,25,25,25" style="simple">
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>100.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>99.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>98.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>97.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>96.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>95.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>94.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>93.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>92.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>91.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>90.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>89.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>88.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>87.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>86.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>85.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>84.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>83.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>82.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>81.00</td></tr>
+			<tr><td>21/9/04</td><td>Parking</td><td></td><td>1.00</td><td>80.00</td></tr>
+		</blockTable>
+
+		<!-- footer...-->
+		<blockTable colWidths="25,100,25" style="summary">
+			<tr><td></td><td>Final Balance</td><td>80.00</td></tr>
+		</blockTable>
+
+	</pto>
+
+	<spacer length="6"/>
+	<para style="bt">
+		At present RML has no understanding of table content, so there's no easy way
+		to do running or interim totals.  We'd probably need smarter tables which knew
+		that columns were numeric, and a formula language or variable namespace.  Not hard,
+		but needs some thought to do it right!
+	</para>
+	<setNextTemplate name="OrderSheet"/>
+	<nextPage/>
+  <storyPlace x="1in" y="7in" width="4in" height="1in" origin="page"><para><font face="Helvetica" color="red" size="14">Example 1</font></para></storyPlace>
+    <pto>
+      <pto_trailer>
+        <para style="orderWarn">-- these orders continue on following page --</para>
+      </pto_trailer>
+      <pto_header>
+        <para style="orderWarn">-- these orders continued from preceding page --</para>
+      </pto_header>
+      <para style="orderText">
+        <b>1. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>2. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>3. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>4. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>5. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>6. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>7. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>8. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>9. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>10.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>11.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>12.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>13.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>14.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>15.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>16.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>17.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>18.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>19.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>20.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>21.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+    </pto>
+	<nextPage/>
+	<storyPlace x="1in" y="7in" width="4in" height="1in" origin="page" borderStrokeColor='green' borderStrokeWidth="0.5" borderDash="1,1"><para><font face="Helvetica" color="red" size="14">Example 2</font></para></storyPlace>
+    <pto>
+      <pto_trailer>
+        <para style="orderWarn">-- these orders continue on following page --</para>
+      </pto_trailer>
+      <pto_header>
+        <para style="orderWarn">-- these orders continued from preceding page --</para>
+      </pto_header>
+      <para style="orderText">
+        <b>1. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>2. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>3. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>4. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>5. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>6. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>7. </b>Humidified O2 by Partial Rebreathing Mask at 6 l/min, Titrate O2 to keep O2Sat
+ &gt;95% and pO2 &gt;70mmHg, Continuous O2Sat monitor, Decrease O2 to room air, ABG Now and In 20min
+.  make sure he's breathing every morning
+      </para>
+      <para style="orderText">
+        <b>8. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>9. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>10.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>11.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>12.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>13.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>14.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>15.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>16.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>17.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>18.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>19.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>20.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>21.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+    </pto>
+	<nextPage/>
+	<storyPlace x="1in" y="7in" width="4in" height="1in" origin="page"><para><font face="Helvetica" color="red" size="14">Example 3</font></para></storyPlace>
+    <pto>
+      <pto_trailer>
+        <para style="orderWarn">-- these orders continue on following page --</para>
+      </pto_trailer>
+      <pto_header>
+        <para style="orderWarn">-- these orders continued from preceding page --</para>
+      </pto_header>
+      <para style="orderText">
+        <b>1. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>2. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>3. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>4. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>5. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>6. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>7. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>8. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>9. </b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>10.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>11.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>12.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>13.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>14.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>15.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>16.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>17.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>18.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>19.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>20.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+      <para style="orderText">
+        <b>21.</b>Humidified O2 by Partial Rebreathing Mask
+      </para>
+    </pto>
+
+
+	<nextPage/>
+	
+	<pto>
+		<pto_header><para textColor="blue" style="pto">continuation header</para></pto_header>
+		<para style="h1">PTO block without trailer tag</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</pto>
+	<pto>
+		<pto_trailer></pto_trailer>
+		<pto_header><para textColor="blue" style="pto">continuation header</para></pto_header>
+		<para style="h1">PTO block with empty trailer tag</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</pto>
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">continuation footer</para></pto_trailer>
+		<para style="h1">PTO block without header tag</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</pto>
+	<pto>
+		<pto_trailer><para textColor="blue" style="pto">continuation footer</para></pto_trailer>
+		<pto_header></pto_header>
+		<para style="h1">PTO block with empty header tag</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+	</pto>
+
+
+
+
+</story>
+
+</document>

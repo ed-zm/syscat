@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_004_templates.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 9: Templates</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="teal"/>
+		<drawCentredString x="297.5" y="539">1</drawCentredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="4.645in"/>
+	</pageTemplate>
+	<pageTemplate id="secondary">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 0: Catchforms</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="deepskyblue"/>
+		<drawCentredString x="297.5" y="539">2</drawCentredString>
+	</pageGraphics>
+	<frame id="p2-first" x1="1in" y1="1in" width="3in" height="4.645in"/>
+	<frame id="p2-second" x1="4.27in" y1="1in" width="3in" height="4.645in"/>
+	</pageTemplate>
+	<pageTemplate id="one">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">PageTemplate One</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="deepskyblue"/>
+		<drawCentredString x="297.5" y="539">1</drawCentredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.25in" height="5in"/>
+	</pageTemplate>
+	<pageTemplate id="two">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">PageTemplate Two</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="deepskyblue"/>
+		<drawCentredString x="297.5" y="539">2</drawCentredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.25in" height="5in"/>
+	</pageTemplate>
+	<pageTemplate id="three">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">PageTemplate Three</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-Bold" size="144"/>
+		<fill color="deepskyblue"/>
+		<drawCentredString x="297.5" y="539">3</drawCentredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.25in" height="5in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+
+	<paraStyle
+	name="h1"
+	fontName="Helvetica-BoldOblique"
+	fontSize="20"
+	leading="36"
+	/>
+
+	<paraStyle
+	name="normal"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	/>
+
+	<paraStyle
+	name="space below"
+	fontName="Helvetica"
+	fontSize="10"
+	leading="12"
+	spaceAfter="10"
+	/>
+
+	<paraStyle name="bugReport"
+	parent="h1"
+	spaceBefore = "0"
+	textColor = "red"
+	/>
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+		
+</stylesheet>
+
+
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+<para style="h1">This is page 1 - frame 1</para>
+<para style="space below"><b>This test spans two pages (this should be on page 1). It checks to see that using two separate templates works OK. It also tests to see that the "setNextTemplate" tag correctly splits the pages and displays them with the correct template.</b></para>
+<para style="space below"><b>Description of page:</b> This page should have a single frame at the bottom of the page displaying this text, a big teal-coloured number "1" above it, and some header information above that.</para>
+<para style="normal">This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one. This is the text for frame one. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one.
+This is the text for frame 1. This is the text for frame one. This is the text for frame one.
+</para>
+<setNextTemplate name="secondary"/>
+<nextFrame/>
+
+
+
+<para style="h1">This is page2 - frame1</para>
+<para style="space below"><b>This test spans two pages (this should be on page 2). It checks to see that using two separate templates works OK. It also tests to see that the "setNextTemplate" tag correctly splits the pages and displays them with the correct template.</b></para>
+<para style="space below"><b>Description of page:</b> This page should have two different frames at the bottom of the page displaying text, a big deepskyblue-coloured number "2" above it, and some header information above that.</para>
+<para style="normal">This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two. This is the text for frame two. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two.
+This is the text for frame 2. This is the text for frame two. This is the text for frame two.
+</para>
+<nextFrame/>
+
+<para style="h1">This is page2 - frame2</para>
+<para style="space below"><b>This test spans two pages (this should be on page 2). It checks to see that using two separate templates works OK. It also tests to see that the "setNextTemplate" tag correctly splits the pages and displays them with the correct template.</b></para>
+<para style="space below"><b>Description of page:</b> This page should have two different frames at the bottom of the page displaying text, a big deepskyblue-coloured number "2" above it, and some header information above that.</para>
+<para style="normal">This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three. This is the text for frame three. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three.
+This is the text for frame 3. This is the text for frame three. This is the text for frame three.
+</para>
+
+<switchTemplate name="one"/>
+<para style="normal">This should appear on Template One</para>
+<nextPage name="two"/>
+<para style="normal">This should appear on Template Two</para>
+<switchTemplate name="two"/>
+<para style="normal">As should this.</para>
+<nextPageIfNotEmpty name="three"/>
+<para style="normal">This should appear on Template Three</para>
+<nextPage/>
+<nextPageIfNotEmpty name="one"/>
+<para style="normal">Should be on template one without a blankpage preceding.</para>
+</story>
+
+</document>

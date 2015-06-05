@@ -1,0 +1,296 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="gart_funds_sheet.pdf">
+
+<!-- The template tells rml2pdf what should be on the page: 
+		headers, footers, any graphic elements you use as a background. -->
+<template pageSize="(21cm, 29.7cm)"
+			leftMargin="2.5cm"
+			rightMargin="2.5cm"
+			bottomMargin="2.5cm"
+			topMargin="2.5cm"
+			title="Gartmore Fund Fact Sheet"
+			author="Reportlab Inc"
+			showBoundary="0"
+			allowSplitting="20">
+
+	<pageTemplate id="main">
+		<pageGraphics>
+			<!-- Draw a red colored rectangle at position x,y -->
+			<fill color="black"/>
+			<rect x="1.3cm" y="27.7cm" width="18.2cm" height="1.1 cm" fill="yes" stroke="no"/>
+			
+			<fill color="white"/>
+			<!-- Draw the headings of the document  --> 
+			<drawString x="1.5cm" y="28cm">The Gartmore UK Equity High Alpha Fund</drawString>
+			<fill color="red"/>
+			<setFont name="Helvetica" size="9"/>
+			<drawString x="14.6cm" y="28.1cm">Fast Facts as at 31st March 2005</drawString>
+			
+			<fill color="red"/>
+			<rect x="1.3cm" y="26.8cm" width="11.8cm" height="0.5cm" fill="yes" stroke="no"/>
+			<fill color="white"/>
+			<setFont name="Helvetica" size="9"/>
+			<drawString x="1.5cm" y="26.9cm">Fund news</drawString>
+
+			<fill color="red"/>
+			<rect x="1.3cm" y="20.5cm" width="11.8cm" height="0.5cm" fill="yes" stroke="no"/>
+			<fill color="white"/>
+			<setFont name="Helvetica" size="9"/>
+			<drawString x="1.5cm" y="20.6cm">Fund holdings</drawString>
+			<fill color="white"/>
+			<setFont name="Helvetica" size="7"/>
+			<drawString x="3.6cm" y="20.6cm">as at 31st March 2005*</drawString>
+			
+			<fill color="red"/>
+			<rect x="1.3cm" y="12.8cm" width="11.8cm" height="0.5cm" fill="yes" stroke="no"/>
+			<fill color="white"/>
+			<setFont name="Helvetica" size="9"/>
+			<drawString x="1.4cm" y="12.9cm">Performance</drawString>
+			
+			<rect x="1.3cm" y="12.1cm" width="11.8cm" height="0.5cm" stroke="no"/>
+			<fill color="red"/>
+			<setFont name="Helvetica" size="9"/>
+			<drawString x="1.4cm" y="12.3cm">Track record to 31.03.05</drawString>
+			
+
+
+<!-- Fund details section -->
+			<fill color="red"/>
+			<rect x="13.9cm" y="26.8cm" width="5.6cm" height="0.5cm" fill="yes" stroke="no"/>
+			<fill color="white"/>
+			<setFont name="Helvetica" size="9"/>
+			<drawString x="14.1cm" y="26.9cm">Fund details</drawString>
+
+<!-- line separating left and right section -->
+			<lineMode width="0.5"/>
+			<lines>13.7cm 27.2cm 13.7cm 2.2cm</lines>
+		
+<!-- add the Gartmore logo on all pages -->
+		<catchForms pdfFile="logo.pdf" pfx="PF" pages="all"/>
+		<doForm name="PF0"/>
+		</pageGraphics>
+
+		<!-- add frames to the document -->
+		<frame id="fund_news_left" x1="1.3cm" y1="21cm" width="5.8cm" height="5.7cm"/>
+		<frame id="fund_news_right" x1="7.3cm" y1="21cm" width="5.8cm" height="5.7cm"/>
+		<frame id="largest_holdings" x1="1.3cm" y1="13.5cm" width="5.8cm" height="7cm"/>
+		<frame id="sector_weighting" x1="7.3cm" y1="13.5cm" width="5.8cm" height="7cm"/>
+		<frame id="performance" x1="1.3cm" y1="2.5cm" width="11.8cm" height="9.6cm"/>
+		<frame id="fund_details" x1="13.9cm" y1="2.5cm" width="5.6cm" height="24.2cm"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+<!-- style for the bullets -->
+	 <paraStyle name="style.Normal"
+               firstLineIndent="0"
+               rightIndent="0"
+               leftIndent="10"
+               spaceBefore="2"
+               alignment="left"
+               fontName="Times-Roman"
+               fontSize="10"
+               leading="10"
+               textColor="black"/>
+
+    <paraStyle name="bulletList" 
+                parent="style.Normal" 
+                bulletFontName="ZapfDingbats"
+                bulletIndent="5"
+                leftIndent="15"
+                spaceAfter="3"
+                bulletFontSize="5.5"
+                fontSize="6"
+				textColor="red"/>
+	
+	<paraStyle name="news_review_title" 
+		textColor="red" 
+		spaceAfter="2"/>
+	
+	<paraStyle name="news_review_body"
+		fontName="Helvetica"
+		fontSize="7"
+		leftIndent="5"/>
+		
+		<blockTableStyle id="redbg">
+
+			<!-- This sets a background color for the first row -->
+			<blockBackground colorName="red" start="0,0" stop="3,1"/>
+			<blockBackground colorName="0xFFE4E1" start="0,2" stop="3,3"/>
+			<lineStyle kind="GRID" colorName="silver"/>
+			<lineStyle kind="LINEAFTER" colorName="maroon" 
+			start="1,1" stop="1,6" thickness="1"/>
+			<blockAlignment value="RIGHT" start="1,0" stop="3,-1"/>
+			<blockValign value="MIDDLE"/>
+		</blockTableStyle>
+		
+		<blockTableStyle id="style.fds_details">
+			<blockFont name="Times-Roman" size="7"/>	
+			<lineStyle kind="LINEBELOW" colorName="silver" thickness="0.5"/>	
+			<blockValign value="MIDDLE"/>
+			<blockAlignment value="LEFT"/>
+		</blockTableStyle>
+		<blockTableStyle id="style.larg_holds" parent="style.fds_details" >
+			<blockAlignment value="RIGHT" start="1,0" stop="1,0"/>
+			<blockAlignment value="LEFT" start="0,1" stop="0,1"/>
+		</blockTableStyle>
+</stylesheet>
+
+<!-- The story starts below this comment -->
+<story>
+	<para style="news_review_title">Three month review</para>
+	<!-- put here the red bullet -->
+	<para style="bulletList" bulletText="l"><font color="black">The Fund outperformed relative to its benchmark, the FTSE All-Share Index, 			
+		returning 4.5% against a benchmark return of 3.1%. Performance over one year and since inception is below benchmark.</font>
+	</para>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="l"><font color="black">Stock selection contributed significantly to performance through overweights in stocks such 
+		as Spectris which moved ahead firmly in response to a strong upturn in sales to China and India.</font>
+	</para>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="l"><font color="black">Overweights in life assurer Prudential, broadcaster ITV and food producer Premier 
+		Foods also added value.</font>
+	</para>
+	<nextFrame/>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="l"><font color="black">Sector allocation undermined returns, largely through the underweight 
+	in food producers &amp;	processors and an overweight in mining through stocks such as Indian mining group Vedanta.</font>
+	</para>
+	<para style="news_review_title">Outlook</para>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="l"><font color="black">Despite some moderation in consumer activity, we believe that the UK's favourable economic 
+		backdrop should remain supportive for corporate profits growth.</font>
+	</para>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="1"><font color="black">We expect that the prospect of further merger and acquisition 
+		activity across Europe should continue to boost UK equities' valuations.</font>
+	</para>
+	<nextFrame/>
+	<para style="news_review_title">Ten largest holdings</para>
+	
+	<blockTable style="style.larg_holds"
+				rowHeights="0.5cm, 0.3cm, 0.3cm, 0.3cm, 
+								0.3cm, 0.3cm, 0.3cm, 0.3cm, 
+								0.3cm, 0.3cm, 0.3cm"
+				colWidths="5cm, 0.7cm">
+		<tr><td>&nbsp;</td><td fontName="Times-Bold" fontSize="8" align="right">Total assets(%)</td>
+		</tr>
+		<tr><td>Vodafone</td><td>7.6</td></tr>
+		<tr><td>BP</td><td>6.0</td></tr>
+		<tr><td>HSBC Holdings</td><td>5.6</td></tr>
+		<tr><td>Shell Transport &amp; Trading</td><td>5.5</td></tr>
+		<tr><td>Glaxosmithkline</td><td>5.4</td></tr>
+		<tr><td>Royal Bank of Scotland</td><td>5.2</td></tr>
+		<tr><td>HBOS</td><td>3.0</td></tr>
+		<tr><td>Barclays</td><td>2.9</td></tr>
+		<tr><td>Anglo American</td><td>2.3</td></tr>
+		<tr><td>Carnival</td><td>2.1</td></tr>
+	</blockTable>
+	<spacer length="0.1cm"/>
+	<para fontSize="5">*Source:Gartmore/Factset</para>
+	<nextFrame/>
+	<para style="news_review_title">Sector Weighting</para>
+
+	<nextFrame/>
+		<blockTable style="redbg" 
+			rowHeights="0.3cm, 0.3cm, 0.4cm, 0.4cm" 
+			colWidths="7cm, 2cm, 1.1cm, 1.7cm">
+		<tr>
+			<td>&nbsp;</td>
+			<td fontColor="white" fontSize="8">3 months</td>
+			<td fontColor="white" fontSize="8">1 year</td>
+			<td fontColor="white" fontSize="8">Since launch</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td>&nbsp;</td>
+			<td fontColor="white" fontSize="8">p.a</td>
+			<td fontColor="white" fontSize="8">p.a</td>
+		</tr>
+		<tr>
+			<td fontSize="8">Gartmore UK Equity High Alpha Fund</td>
+			<td fontSize="8">4.5</td>
+			<td fontSize="8">14.6</td>
+			<td fontSize="8">15.6</td>
+		</tr>
+		<tr>
+			<td fontSize="8">FTSE All Share</td>
+			<td fontSize="8">3.1</td>
+			<td fontSize="8">15.6</td>
+			<td fontSize="8">17.4</td>
+		</tr>
+	</blockTable>
+	
+	<para fontSize="6">Source:Fund - S&amp;P Micropal, gross of fees, close of business prices for 3 and 12 months, 
+	noon prices used for other periods. Benchmark - S&amp;P Micropal.</para>
+	<spacer length="3.5cm"/>
+	<para fontSize="7">This document was issued as at 31st March 2005 unless otherwise stated. 
+		Risk and performance can change over time. Gartmore is unable to offer personal financial advice. 
+		Please note that nothing in this document should be interpreted as financial advice.
+	</para>
+	<para fontSize="6"><font color="red" size="10">Important information:</font>The value of investments and the income from them may go down as well as up and you
+		may not get back your original investment. The data on this factsheet is for the Institutional Share Class only. If you have
+		any doubt whether this product is suitable for you and you wish to obtain personal advice, please contact an Independent
+		Financial Adviser. Telephone calls may be recorded for monitoring and training purposes. Issued by Gartmore Investment
+		Limited (GIL). Gartmore's authorised unit trusts and OEICs are managed by Gartmore Fund Managers Limited (GFM). Both
+		GIL and GFM are authorised and regulated by the Financial Services Authority. Gartmore House, 8 Fenchurch Place, London
+		EC3M 4PB.
+	</para>
+	
+	
+	<nextFrame/>	
+<!-- The Fund details section -->
+	<spacer length="0.1cm"/>
+	<blockTable style="style.fds_details" 
+			rowHeights="0.3cm, 0.3cm, 0.3cm, 0.3cm, 0.3cm, 0.3cm"
+			colWidths="2.5cm, 3.1cm">
+		<tr>
+			<td>Fund Size</td><td>157.3 million</td>
+		</tr>
+		<tr>
+			<td>Number of Holdings</td><td>49</td>
+		</tr>
+		<tr>
+			<td>Base Currency</td><td>GBP</td>
+		</tr>
+		<tr>
+			<td>Benchmark Index</td><td>FTSE All Share</td>
+		</tr>
+		<tr>
+			<td>Type of Share</td><td>Accumulation and Income</td>
+		</tr>
+		<tr>
+			<td>Valuation Point</td><td>12.00 midday</td>
+		</tr>
+	</blockTable>
+	
+	<spacer length="0.3cm"/>
+	<para style="news_review_title">Investment Objective</para>
+	<para style="news_review_body">The Fund aims to achieve a long-term return, in excess of the long-term return that is typically 
+		achieved from United Kingdom equity markets, by investing in:
+	</para>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="1"><font color="black">companies having their registered office in the United Kingdom</font></para>
+	<!-- put here the red bullet --> 
+	<para style="bulletList" bulletText="1"><font color="black">Companies that do not have their registered office in the United Kingdom but either 
+		(i) carry out a predominant proportion of their business activity in the market, or 
+		(ii) are holding companies which predominantly own companies with registered offices in the United Kingdom.</font>
+	</para>
+	<para style="news_review_body">The return will be a combination of capital and income returns.</para>
+	<spacer length="3"/>
+	<para style="news_review_body">The Fund may also invest at the Manager's discretion in other transferable securities, 
+		money market instruments, cash and near cash, derivative instruments and forward transactions, 
+		deposits and units in collective investment schemes (use may be made of stocklending, borrowing, 
+		cash holdings, hedging and other investment techniques permitted in applicable FSA Rules).
+	</para>
+	<spacer length="4cm"/>
+	<para fontSize="10">For business and professional investors only. Not to be circulated to private investors.</para>
+	<spacer length="1cm"/>
+	<para textColor="red">Contact:</para>
+	<para>Stephen Nimmo</para>
+	<para textColor="red">020 7782 2170</para>
+	<para>stephen.nimmo@gartmore.com</para>
+
+</story>
+
+</document>

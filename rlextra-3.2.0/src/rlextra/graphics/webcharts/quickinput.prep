@@ -1,0 +1,515 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+    <title>ReportLab QuickChart test harness</title>
+{{script}}
+# this is a one-form app.  It sets up defaults for a number of chart
+# parameters; pre-fills an input form; draws the chart; and illustrates
+# to a reader what code they would need to write to make that
+# chart.  First of all, we extract the parameters of interest and
+# ensure they all have defaults.
+from reportlab.lib.colors import toColor, describe
+chartType = request.params.get('chartType','column')
+width = float(request.params.get('width','400'))
+height = float(request.params.get('height','270'))
+data = [[1,2,3],[1,4,9]]
+titleText = request.params.get('titleText','')
+bgColor = toColor(request.params.get('bgColor','cornsilk'))
+bgStrokeColor = toColor(request.params.get('bgStrokeColor','black'))
+showBoundaries = request.params.get('showBoundaries',None)
+legendPos = request.params.get('legendPos', None)
+from rlextra.graphics.quickchart import ALLOWED_CHART_TYPES, ALLOWED_LEGEND_POSITIONS, ALLOWED_MARKERS, mainColours
+{{endscript}}
+
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><!--metasnip--><!--metasnip-->
+<STYLE type=text/css>P {
+    FONT-SIZE: 11px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H1 {
+    FONT-SIZE: 14px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H2 {
+    FONT-WEIGHT: bold; FONT-SIZE: 13px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H3 {
+    FONT-SIZE: 12px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H4 {
+    FONT-SIZE: 12px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+THEAD {
+    FONT-WEIGHT: bold; BACKGROUND: #e0e0e0; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+TH {
+    FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: #19338f; COLOR: white; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+TD {
+    FONT-SIZE: 11px; COLOR: #19338f; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+</STYLE>
+<!--bodysnip-->
+<META content="MSHTML 6.00.2800.1106" name=GENERATOR></HEAD>
+<BODY><!--bodysnip-->
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=white border=0><!--the first row holds the top logo and strapline.  -->
+  <TBODY>
+  <TR bgColor="#4e5688">
+    <TD vAlign=middle align=left>
+      <DIV
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px"><A
+      href="http://server.reportlab.com/index.html"><img src="{{SCRIPT_NAME}}?action=getLogo" border="0" alt="logo">
+    </A></DIV></TD>
+    <TD
+    style="FONT-WEIGHT: bold; FONT-SIZE: 20px; COLOR: #ffffff; FONT-STYLE: italic; FONT-FAMILY: Arial, sans-serif"
+    vAlign=middle align=center>
+      <DIV
+      style="PADDING-RIGHT: 20px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px">ReportLab web charts app</DIV></TD></TR></TBODY></TABLE>
+<P>&nbsp;</P>
+
+<h1>ReportLab QuickChart test harness</h1>
+<p>This lets us test the behaviour of our QuickChart API and
+get rapid feedback from users/customers.  quickChart is a function taking about ??20??
+arguments, allowing rapid creation of standard business charts in a similar style
+to the Excel chart wizard.  It aims to make some sensible layout and sizing
+decisions given the chart type and drawing size. The vast majority of the chart properties
+can be left blank and it will choose sensible, consistent values.</p>
+<hr>
+<h2>Inputs (to be completed):</h2>
+<form action="{{SCRIPT_NAME}}" method="post">
+<input type="hidden" name="action" value="image">
+<table>
+    <tr>
+        <td colspan="4">
+            <center>
+                <input type="submit" name="submit" value="Make Chart">
+            </center>
+        </td>
+    </tr>
+    <tr>
+        <th>Field</th>
+        <th>Value</th>
+        <th>Comments</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td>chartType</td>
+        <td>
+                <select name="chartType" size="1">{{script}}ALLOWED_CHART_TYPES.sort(){{endscript}}{{for typ in ALLOWED_CHART_TYPES}}
+                    <option {{if typ==chartType}}selected{{endif}}>{{typ}}</option> {{endfor}}
+                </select>
+        </td>
+        <td>n.b. subtypes dropdown will be added shortly; for now subtypes are achieved by combinations of properties below</td>
+        <td>Part</td>
+    </tr>
+    <tr>
+        <td>seriesRelation</td>
+        <td>
+                <select name="seriesRelation" size="1">
+                    <option selected>None</option>
+                    <option>sidebyside</option>
+                    <option>stacked</option>
+                    <option>percent</option>
+                </select>
+        </td>
+        <td>Most of the so-called "subtypes" are a combination of a main chart type and this property. Leave it set to None and the subtype will be auto-determined</td>
+        <td>Part</td>
+    </tr>
+
+    <tr>
+        <td>chartColors</td>
+        <td>
+                <input type="text" name="chartColors" value="{{mainColours}}">
+        </td>
+        <td>List of colours separated by spaces or commas. Default are Excel-like colours.</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <td>width</td>
+        <td>
+            <input type="text" name="width" value="{{width}}" >
+        </td>
+        <td>Overall drawing width in points or pixels</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>height</td>
+        <td>
+            <input type="text" name="height" value="{{height}}">
+        </td>
+        <td>Overall drawing height in points or pixels</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>data</td>
+        <td>
+            <textarea rows="5" cols="20" name="data">100 120 140 160
+110 130 150 180</textarea>
+        </td>
+        <td>Leave blank to see default data for this chart.  Otherwise paste in comma- or space or tab-delimited data, separate rows on separate lines</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>textData</td>
+        <td>
+            <textarea rows="5" cols="20" name="textData">110$ 130$ 150$ 180$
+A B C D</textarea>
+        </td>
+        <td>Textual version of the data for use in value labels, leave blank to use str(data) for value labels.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>categoryNames</td>
+        <td>
+            <input type="text" name="categoryNames" value="North South Central Offshore">
+       </td>
+        <td>Space-separated list of category names to plot with the data</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>seriesNames</td>
+        <td>
+            <input type="text" name="seriesNames" value="Widgets Sprockets">
+       </td>
+        <td>Space-separated list of series names to plot with the data</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>markerType</td>
+        <td>
+            <select name="markerType" size="1">{{script}}ALLOWED_MARKERS.sort(){{endscript}}{{for typ in ALLOWED_MARKERS}}
+                <option>{{typ}}</option> {{endfor}}
+            </select>
+        </td>
+        <td>Set markers.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>markerSize</td>
+        <td>
+            <select name="markerSize" size="1" >{{for t in range(2,21)}}
+                {{if t==8}}<option selected>{{t}}</option>{{else}}<option>{{t}}</option>{{endif}}{{endfor}}
+            </select>
+        </td>
+        <td>Size of markers.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <th colspan="4" align="center"><i>Chart title properties</i></th>
+    </tr>
+    <tr>
+        <td>titleText</td>
+        <td><input type="text" name="titleText" value="{{titleText}}"></td>
+        <td>Leave blank and there will be no title</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>titleFontName</td>
+        <td><input type="text" name="titleFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>titleFontSize</td>
+        <td><input type="text" name="titleFontSize" value=""></td>
+        <td>Defaults to a sensible percentage of the drawing's height.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>titleFontColor</td>
+        <td><input type="text" name="titleFontColor" value=""></td>
+        <td>Use any of the standard color formats.</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <th colspan="4" align="center"><i>X Axis Title properties</i></th>
+    </tr>
+    <tr>
+        <td>xTitleText</td>
+        <td><input type="text" name="xTitleText" value=""></td>
+        <td>Leave blank and there will be no title</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xTitleFontName</td>
+        <td><input type="text" name="xTitleFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xTitleFontSize</td>
+        <td><input type="text" name="xTitleFontSize" value=""></td>
+        <td>Defaults to a sensible percentage of the drawing's height.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xTitleFontColor</td>
+        <td><input type="text" name="xTitleFontColor" value=""></td>
+        <td>Use any of the standard color formats.</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <th colspan="4" align="center"><i>X Axis and axis label properties</i></th>
+    </tr>
+    <tr>
+        <td>xAxisVisible</td>
+        <td><input type="checkbox" name="xAxisVisible" checked></td>
+        <td>Should x axis be shown?</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xAxisGridLines</td>
+        <td><input type="checkbox" name="xAxisGridLines"></td>
+        <td>Should vertical gridlines be shown?</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xAxisFontName</td>
+        <td><input type="text" name="xAxisFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xAxisFontSize</td>
+        <td><input type="text" name="xAxisFontSize" value=""></td>
+        <td>Defaults to a sensible percentage of the drawing's height.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xAxisFontColor</td>
+        <td><input type="text" name="xAxisFontColor" value=""></td>
+        <td>Use any of the standard color formats.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>xAxisLabelAngle</td>
+        <td><input type="text" name="xAxisLabelAngle" value=""></td>
+        <td>The angle for the labels.</td>
+        <td>Done</td>
+    </tr>
+
+    <tr><th colspan="4" align="center"><i>Y Axis Title properties</i></th></tr>
+    <tr>
+        <td>yTitleText</td>
+        <td><input type="text" name="yTitleText" value=""></td>
+        <td>Leave blank and there will be no title</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yTitleFontName</td>
+        <td><input type="text" name="yTitleFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yTitleFontSize</td>
+        <td><input type="text" name="yTitleFontSize" value=""></td>
+        <td>Defaults to a sensible percentage of the drawing's height.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yTitleFontColor</td>
+        <td><input type="text" name="yTitleFontColor" value=""></td>
+        <td>Use any of the standard color formats.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <th colspan="4" align="center"><i>Y Axis and axis label properties</i></th>
+    </tr>
+    <tr>
+        <td>yAxisVisible</td>
+        <td><input type="checkbox" name="yAxisVisible" checked></td>
+        <td>Should y axis be shown?</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yAxisGridLines</td>
+        <td><input type="checkbox" name="yAxisGridLines"></td>
+        <td>Should horizontal gridlines be shown?</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yAxisFontName</td>
+        <td><input type="text" name="yAxisFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yAxisFontSize</td>
+        <td><input type="text" name="yAxisFontSize" value=""></td>
+        <td>Defaults to a sensible percentage of the drawing's height.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yAxisFontColor</td>
+        <td><input type="text" name="yAxisFontColor" value=""></td>
+        <td>Use any of the standard color formats.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>yAxisLabelAngle</td>
+        <td><input type="text" name="yAxisLabelAngle" value=""></td>
+        <td>The angle for the labels.</td>
+        <td>Done</td>
+    </tr>
+
+
+    <tr>
+        <th colspan="4" align="center">Labels for each data point</th>
+    </tr>
+    <tr>
+        <td>Data Labels?</td>
+        <td>
+
+                <select name="dataLabelsType" size="1">
+                    <option selected>None</option>
+                    <option>values</option>
+                    <option>percent</option>
+                    <option>percent,1</option>
+                    <option>percent,2</option>
+                    <option>percent,3</option>
+                    <option>%d</option>
+                    <option>%0.2f</option>
+                </select>
+        </td>
+        <td>Supply 'None'; 'Values' to use the exact data values, which must be supplied in
+        string form; 'Percentage'; or a C-style format string e.g. '%0.2f' for 2 decimal places</td>
+        <td>part</td>
+    </tr>
+    <tr>
+        <td>Data Label Font Name</td>
+        <td><input type="text" name="dataLabelsFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>Data Label Font Size</td>
+        <td><input type="text" name="dataLabelsFontSize" value=""></td>
+        <td>Defaults to a sensible percentage of the drawing's height.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>Data Label Font Color</td>
+        <td><input type="text" name="dataLabelsFontColor" value=""></td>
+        <td>Use any of the standard color formats.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>Data Label Alignment</td>
+        <td>
+                <select name="dataLabelsAlignment" size="1">
+                    <option selected>None</option>
+                    <option>top</option>
+                    <option>center</option>
+                    <option>bottom</option>
+                </select>
+        </td>
+        <td><i>top</i> = data labels appear above the bar border in a column chart or to the right in a bar chart (ie outside the bar), <br/>
+        <i>center</i> = data labels appear on the border itself (straddles it), <br/>
+        <i>bottom</i> = data labels appear below the bar border or to the left in a bar chart (ie inside the bar)
+        </td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <th colspan="4" align="center">Plot area</th>
+    </tr>
+    <tr>
+        <td>Plot Color</td>
+        {{script}}colors = ['(default)','None','cornsilk','purple','green','red','blue','yellow','limegreen','black','white','maroon']{{endscript}}
+        <td>
+                <select name="plotColor" size="1">
+                {{for color in colors}}
+                    <option>{{color}}</option>
+                {{endfor}}
+                </select>
+        </td>
+        <td>color of rectangular plot area (transparent white).</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <td>Drawing Background</td>
+        {{script}}colors = ['None', 'cornsilk','purple','green','red','blue','yellow','limegreen','black','white','maroon']{{endscript}}
+        <td>
+                <select name="bgColor" size="1">
+                {{for color in colors}}
+                    <option {{if describe(bgColor,1)[0]==color}}selected{{endif}}>{{color}}</option>
+                {{endfor}}
+                </select>
+        </td>
+        <td>Most charts will not set this, and thus have a transparent background.</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <td>Line Around Drawing Background</td>
+        {{script}}colors = ['None', 'black', 'grey', 'cornsilk','purple','green','red','blue','yellow','limegreen','white','maroon']{{endscript}}
+        <td>
+                <select name="bgStrokeColor" size="1">
+                {{for color in colors}}
+                    <option {{if describe(bgStrokeColor,1)[0]==color}}selected{{endif}}>{{color}}</option>
+                {{endfor}}
+                </select>
+        </td>
+        <td>If you want a line around the background - default is none.</td>
+        <td>Done</td>
+    </tr>
+
+
+    <tr>
+        <td>Legend Position</td>
+        <td>
+                <select name="legendPos" size="1"> {{for pos in ALLOWED_LEGEND_POSITIONS}}
+                    <option {{if pos==legendPos}}selected{{endif}}>{{pos}}</option> {{endfor}}
+                </select>
+        </td>
+        <td>One of:None,  left, right, top, bottom, top-left, top-right, etc.</td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>legendFontName</td>
+        <td><input type="text" name="legendFontName" value=""></td>
+        <td>Defaults to Helvetica if not set</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <td>legendFontSize</td>
+        <td><input type="text" name="legendFontSize" value=""></td>
+        <td></td>
+        <td>Done</td>
+    </tr>
+    <tr>
+        <td>legendFontColor</td>
+        <td><input type="text" name="legendFontColor" value=""></td>
+        <td></td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <td>Show boundaries?</td>
+        <td><input type="checkbox" name="showBoundaries" {{if showBoundaries}}checked{{endif}}></td>
+        <td>Diagnostic utility only - shows how the space is divided up, to help programmers</td>
+        <td>Done</td>
+    </tr>
+
+    <tr>
+        <td colspan="4">
+            <center>
+                <input type="submit" name="submit" value="Make Chart">
+            </center>
+        </td>
+    </tr>
+</table>
+</form>
+<hr>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=white border=0><!--the first row holds the top logo and strapline.  -->
+  <TBODY>
+  <TR bgColor="#4e5688">
+    <TD
+    style="FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-STYLE: italic; FONT-FAMILY: Arial, sans-serif"
+    vAlign=middle align=left>
+      <P><EM>Built by ReportLab for Creo</EM></P><!--logoutsnip--><!--logoutsnip--></TD></TR></TBODY></TABLE></BODY></HTML>

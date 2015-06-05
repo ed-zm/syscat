@@ -31,6 +31,7 @@ INSTALLED_APPS = (
 'django.contrib.messages',
 'django.contrib.staticfiles',
 'app',
+'xhtml2pdf',
 )
 MIDDLEWARE_CLASSES = (
 'django.contrib.sessions.middleware.SessionMiddleware',

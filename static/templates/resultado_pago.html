@@ -9,104 +9,123 @@
 			<p>======================================================================================================================</p>
 			
 			{% for resultado in resultados%}
-
-			<p><label><h4>Año :</h4></label> 
-			{{resultado.ano}}</p>
-			<p><label><h3>Primer Trimestre :</h3></label>
-			<p><label>Monto Pagado : </label> 
-			{{resultado.trimestre.primero.monto}}BsF</p>
-			<p><label>Fecha :</label>
-			{{resultado.trimestre.primero.fecha}}</p>
-			<p><label>Estatus :</label> 
-			{{resultado.trimestre.primero.status}}
-			</p>
-			<p><label>Numero de Factura :</label> 
-			{{resultado.trimestre.primero.numero_factura}}</p>
-			{% if resultado.trimestre.primero.status == "Solvente" %}
+			<div class="col-sm-6">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped">
+                                <thead>
+                                	<tr>
+                                		<th>Año</th>
+                                		<th>{{resultado.ano}}</th>
+                                	</tr>
+                                    <tr>
+                                    	<th>Items</th>
+                                        <th>Primer Trimestre</th>
+                                        <th>Segundo Trimestre</th>
+                                        <th>Tercer Trimestre</th>
+                                        <th>Cuarto Trimestre</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                	<tr>
+                                        <th>Monto</th>
+                                        <td>{{resultado.trimestre.primero.monto}}BsF</td>
+                                        <td>{{resultado.trimestre.segundo.monto}}BsF</td>
+                                        <td>{{resultado.trimestre.tercero.monto}}BsF</td>
+                                        <td>{{resultado.trimestre.cuarto.monto}}BsF</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Fecha</td>
+                                        <td>{{resultado.trimestre.primero.fecha}}</td>
+                                        <td>{{resultado.trimestre.segundo.fecha}}</td>
+                                        <td>{{resultado.trimestre.tercero.fecha}}</td>
+                                        <td>{{resultado.trimestre.cuarto.fecha}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Estatus</td>
+                                        <td>{{resultado.trimestre.primero.status}}</td>
+                                        <td>{{resultado.trimestre.segundo.status}}</td>
+                                        <td>{{resultado.trimestre.tercero.status}}</td>
+                                        <td>{{resultado.trimestre.cuarto.status}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Número de Factura</td>
+                                        <td>{{resultado.trimestre.primero.numero_factura}}</td>
+                                        <td>{{resultado.trimestre.segundo.numero_factura}}</td>
+                                        <td>{{resultado.trimestre.tercero.numero_factura}}</td>
+                                        <td>{{resultado.trimestre.cuarto.numero_factura}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pagar</td>
+                                        <td>
+                                        				{% if resultado.trimestre.primero.status == "Solvente" %}
 				<form>
 					<div class = "form-group col-sm-12">
 						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
 	    			</div>
 				</form>
 			{%else %}
-				<form action = "/pagoexitoso/" method = "post">
+				<form action = "/confirmar_pago/" method = "post">
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
 						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "primero">
 						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
 	    			</div>
 				</form>
 			{% endif%}
-			<p><label><h3>Segundo Trimestre :</h3></label>
-			<p><label>Monto Pagado : </label>
-			{{resultado.trimestre.segundo.monto}}BsF</p>
-			<p><label>Fecha :</label>
-			{{resultado.trimestre.segundo.fecha}}</p>
-			<p><label>Estatus :</label>
-			{{resultado.trimestre.segundo.status}}</p>
-			<p><label>Numero de Factura :</label>
-			{{resultado.trimestre.segundo.numero_factura}}</p>
-			{% if resultado.trimestre.segundo.status == "Solvente" %}
+                                        </td>
+                                        <td>
+                                        	{% if resultado.trimestre.segundo.status == "Solvente" %}
 				<form>
 					<div class = "form-group col-sm-12">
 						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
 	    			</div>
 				</form>
 			{%else %}
-				<form action = "/pagoexitoso/" method = "post">
+				<form action = "/confirmar_pago/" method = "post">
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
 						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "segundo">
 						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
 	    			</div>
 				</form>
-			{% endif%}
-			<p><label><h3>Tercer Trimestre :</h3></label>
-			<p><label>Monto Pagado : </label>
-			{{resultado.trimestre.tercer.monto}}BsF</p>
-			<p><label>Fecha :</label>
-			{{resultado.trimestre.tercero.fecha}}</p>
-			<p><label>Estatus :</label>
-			{{resultado.trimestre.tercero.status}}</p>
-			<p><label>Numero de Factura :</label>
-			{{resultado.trimestre.tercero.numero_factura}}</p>
-			{% if resultado.trimestre.tercero.status == "Solvente" %}
+				{% endif%}
+			
+                                        </td>
+                                        <td>
+                                        	{% if resultado.trimestre.tercero.status == "Solvente" %}
 				<form>
 					<div class = "form-group col-sm-12">
 						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
 	    			</div>
 				</form>
 			{%else %}
-				<form action = "/pagoexitoso/" method = "post">
+				<form action = "/confirmar_pago/" method = "post">
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
 						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "tercero">
 						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
 	    			</div>
 				</form>
 			{% endif%}
-			<p><label><h3>Cuarto Trimestre :</h3></label>
-			<p><label>Monto Pagado : </label> 
-			{{resultado.trimestre.cuarto.monto}}BsF</p>
-			<p><label>Fecha :</label>
-			{{resultado.trimestre.cuarto.fecha}}</p>
-			<p><label>Estatus :</label>
-			{{resultado.trimestre.cuarto.status}}</p>
-			<p><label>Numero de Factura :</label>
-			{{resultado.trimestre.cuarto.numero_factura}}</p>
-			{% if resultado.trimestre.cuarto.status == "Solvente" %}
+                                        </td>
+                                        <td>
+                                        	{% if resultado.trimestre.cuarto.status == "Solvente" %}
 				<form>
 					<div class = "form-group col-sm-12">
 						<button type="submit" class="btn btn-sm btn-success" disabled>Pagado</button>
 	    			</div>
 				</form>
 			{%else %}
-				<form action = "/pagoexitoso/" method = "post">
+				<form action = "/confirmar_pago/" method = "post">
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
 						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "cuarto">
 						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
@@ -114,10 +133,20 @@
 				</form>
 			{% endif%}
 
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.row -->
+			
 			{% if resultado.trimestre.primero.status != "Solvente" or resultado.trimestre.segundo.status != "Solvente" or resultado.trimestre.tercero.status != "Solvente" or resultado.trimestre.cuarto.status != "Solvente"   %}
-				<form action = "/pagoexitoso/" method="post">
+				<form action = "/confirmar_pago/" method="post">
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
+						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
 						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "varios">
 						<button type="submit" class="btn btn-lg btn-danger" onclick = "pendiente()">Pagar Todo</button>

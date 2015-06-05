@@ -1,0 +1,153 @@
+{{script}}
+import datetime
+debug=False
+today = datetime.date.today()
+thisMonth = today.month
+thisYear = today.year
+thisDay = today.day
+strToday = str(today)
+{{endscript}}
+{{app.doHeader(onload="javascript:genMonYearOptions('oMonYear', '"+strToday+"','0000-00-00','l');genMonYearOptions('rMonYear','"+strToday+"','0000-00-00','l');setDayOptions('oDay','"+strToday+"','l');")}}
+	<div id="main">
+		<div id="main2">
+			<div id="main3">
+				<form name="searchForm" onsubmit="return searchValidate()" method="post" action="?">
+					<input type="hidden" name="action" value="step1"/>
+					<table>
+						<tr>
+							<td colspan="2"><b>Your Name:</b></td>
+						</tr>
+						<tr>
+							<td>Title</td>
+							<td>
+								<select name="title" id="title">
+									<option value="Mr" selected="selected">Mr</option>
+									<option value="Mrs">Mrs</option>
+									<option value="Miss">Miss</option>
+									<option value="Ms">Ms</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>First Name</td>
+							<td>
+								<input type="text" name="firstName" id="firstName" value="John" onclick="javascript:document.getElementById('firstName').value=''"/>
+							</td>
+						</tr>
+						<tr>
+							<td>Surname</td>
+							<td>
+								<input type="text" name="surname" id="surname" value="Smith" onclick="javascript:document.getElementById('surname').value=''"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<i>If you wish, you may add a document title and subtitle to customise the resulting brochure</i>
+							</td>
+						</tr>
+						<tr>
+							<td>Trip Title (optional)</td>
+							<td>
+								<input type="text" name="tripTitle" id="tripTitle" value=" " onclick="javascript:document.getElementById('tripTitle').value=''"/>
+							</td>
+						</tr>
+						<tr>
+							<td>Subtitle (optional)</td>
+							<td>
+								<input type="text" name="subtitle" id="subtitle" value=" " onclick="javascript:document.getElementById('subtitle').value=''"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2"><b>Search Options:</b></td>
+						</tr>
+						<tr>
+							<td>From</td>
+							<td>
+								<select name="orig" size="1" id="orig" style="width:225px;">
+									<option value="">From    -&gt;</option>
+									<option value="LONDON">London (All Airports)</option>
+									<option value="LHR">London Heathrow(LHR)</option>
+									<option value="LCY">London City Airport(LCY)</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>To</td>
+							<td>
+								<select name="dest" size="1" id="dest" style="width:225px;">
+									<option value="">-&gt;    To</option>
+									<option value="PARIS">Paris (All Airports)</option>
+									<option value="CDG">Paris Charles de Gaulle (CDG)</option>
+									<option value="PHUKET">Phuket Thailand(All Airports)</option>
+									<option value="HKT">Phuket International Airport(HKT)</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Flying out on</td>
+							<td>
+								<select name="oDay" size="1" id="oDay" style="width:50px;">
+								</select>
+								<select name="oMonYear" size="1" id="oMonYear" onchange="genDayOptions(this.value, 'oDay', '{{strToday}}','0000-00-00','l')" style="width:170px;">
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Returning on</td>
+							<td>
+								<select name="rDay" size="1" id="rDay" style="width:50px;">
+									<option value="00" selected="selected">no,</option>
+								</select>
+								<select name="rMonYear" size="1" id="rMonYear" onchange="genDayOptions(this.value, 'rDay', '{{strToday}}','0000-00-00','l')" style="width:170px;">
+									<option value="000000">Just Oneway</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Flight Class</td>
+							<td>
+								<select name="flightClass">
+									<option value="economy" selected="selected">Economy</option>
+									<option value="business">Business</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>Number of adults</td>
+							<td>
+								<select name="numOfAdults">
+									<option value="1" selected="selected">1</option>{{for i in range(2,11)}}
+									<option value="{{i}}">{{i}}</option>{{endfor}}
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td align="right">
+								<input type="image" value="Submit" src="{{app.getRsrcUrl('search_button.gif')}}" alt="Search Flight+Hotel" name="btn_submitForm"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="sidebar">	<!-- Begin .box -->
+		<div class="box">
+			<div class="box2">
+				<div class="box3"><h2 class="sidebar-title">About this demo</h2>
+                    <p>This is a little demonstration of how ReportLab's dynamic PDF technology
+                    can create personalised documents for the travel industry.  It's under
+                    construction but usable...please check back soon for more features....</p>
+					<img src="/rsrc/travelplan/under-construction.gif" width="150" alt="under construction"/>
+
+                    <p>We're simulating a simple holiday booking site with just enough info
+                    to create a real-time, personalised brochure.  We build the brochure-making
+                    components to go behind YOUR travel or hotel site, accessing its data; for now
+                    you can choose one of two locations for demonstration purposes.</p>
+
+
+				</div>
+			</div>
+		</div>	<!-- End .box -->
+	</div>	{{app.doFooter()}}

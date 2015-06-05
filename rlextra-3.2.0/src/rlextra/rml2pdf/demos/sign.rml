@@ -1,0 +1,33 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="sign.pdf">
+
+<stylesheet>
+</stylesheet>
+
+<pageInfo pageSize="10in,5in"/>
+
+<!-- This example uses only graphics and no "flowable story" -->
+
+<pageDrawing>
+	<fill color="red"/>
+	<rect x="0" y="0" width="10in" height="5in" fill="1" stroke="0"/>
+	<stroke color="white"/>
+	<fill color="white"/>
+	<setFont name="Helvetica" size="1in"/>
+      <drawCentredString x="5in" y="3in">SEXUAL TENSION</drawCentredString>
+	<lineMode width="0.2in" cap="round"/>
+	<rect x="0.3in" y="0.3in" width="9.4in" height="4.4in" round="0.5in"/>
+	<lines>
+      1in 2.2in 9in 2.2in
+      1in 2.2in 1.3in 2.5in
+	1in 2.2in 1.3in 1.9in
+	9in 2.2in 8.7in 2.5in
+	9in 2.2in 8.7in 1.9in
+	</lines>
+	<setFont name="Helvetica" size="0.7in"/>
+	<drawCentredString x="5in" y="1in">MONDAY - SUNDAY</drawCentredString>
+	<setFont name="Courier" size="10"/>
+	<drawRightString x="9.9in" y="0.1in">http://www.reportlab.com</drawRightString>
+</pageDrawing>
+
+</document>

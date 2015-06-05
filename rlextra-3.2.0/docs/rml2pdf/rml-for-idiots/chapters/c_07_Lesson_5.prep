@@ -1,0 +1,61 @@
+<!-- chapterName "Lesson 5: Inserting images" -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_05.pdf">
+
+    <template showBoundary="1"> 
+        <pageTemplate id="main">
+            <pageGraphics>
+                <image file="files/logo_bg.gif" x="300" y="700"/>
+                <fill color="red"/>
+                <setFont name="Times-Roman" size="24"/>
+                <drawString x="100" y="700"> Hello!</drawString>
+            </pageGraphics>
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story> 
+        <para>
+            This is a paragraph above an illustration.
+        </para>
+
+        <!-- The <illustration> tag below defines a box (with a border turned -->
+        <!-- on, for visibility)  inside which an image is placed.            -->
+        <illustration width="50" height="100" borderStrokeWidth="1"
+                      borderStrokeColor="black">
+        <!-- x and y coordinates are from the bottom left corner              -->
+        <!-- of the containing illustration                                   -->
+            <image file="files/rml2pdf.gif" x="10" y="10"/>
+        </illustration>
+        <para>
+            This paragraph is below the illustration.  Note that if you
+            change the height and width of the illustration, the text
+            in the first paragraph may become hidden by the graphic image, 
+            which overflows the borders of the illustration in which it is
+            contained.
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>You will frequently want to include images in your documents.  RML can use images in most popular formats, including EPS and PDF.  The images can be shrunk and expanded, and the aspect ratio can be fixed, using various attributes of the tags - see the &lt;image&gt; tag in the RML DTD for a list of these.</para>
+
+<para>Lesson 5 shows two images.  The ReportLab logo is added to the &lt;pageGraphics&gt; section with an x and y coordinate, and so is fixed at the top right of the page.</para>
+
+<para>The second logo, however, is included in the story section as a flowable element.  In order for it to be treated as a flowable, the image has to be surrounded by an &lt;illustration&gt; tag, and this is also the case when drawing graphics primitives like lines and circles.</para>
+
+<para>The &lt;illustration&gt; tag is like another &lt;pageGraphics&gt; section, but specified as a 'flowable'; i.e the entire contents of the &lt;illustration&gt; tag are one flowable element in the &lt;story&gt;.  This means that the positions of the graphics specified inside it are relative to the bottom left corner of the illustration itself, not the whole page.</para>
+
+<para>One thing to note about this example is that the image can be bigger than the illustration containing it.  The illustration is narrower than the image inside it (the border of the illustration is visible in the background) but the image overflows the boundaries.  If you change the sample so that the height is also smaller than that of the image, you will see that the text in the paragraph above the picture disappears.  That is because it is now hidden behind the image. </para>
+
+<para>Now you have seen how to include images: fixed in the &lt;pageTemplate&gt;, or included as a flowable in the story.</para>

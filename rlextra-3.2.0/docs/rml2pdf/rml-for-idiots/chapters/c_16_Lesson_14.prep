@@ -1,0 +1,128 @@
+<!-- chapterName "Lesson 14: An introduction to dynamic documents." -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!-- Paste the following into a text file named 'example_14.prep'-->
+<!-- Look inside the file 'example_14.py' to see how this   -->
+<!-- template is merged with values in a csv file to create -->
+<!-- a series of dynamic documents.  The values in curly    -->
+<!-- brackets are dynamically substituted by ReportLab's    -->
+<!-- templating system, 'preppy'.                           -->
+
+{{def(name,location)}}
+
+<!DOCTYPE document SYSTEM "rml.dtd">
+<!-- this filename isn't used - instead the filename -->
+<!-- is created dynamically inside 'example_14.py'   -->
+<document filename="example_14.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+                <setFont name="Helvetica-Oblique" size="16"/>
+                <drawString x="100" y="700">Using RML with a templating system.</drawString>
+                
+                <setFont name="Helvetica" size="16"/>
+                
+                <!-- this demonstrates how to use python code directly inside your rml template. -->
+                {{script}}
+                    import datetime
+                    today=datetime.datetime.today()
+                    today=today.strftime("%A %B %d, %Y")
+                {{endscript}}
+                
+                <drawString x="350" y="650">{{today}}</drawString>
+                
+            </pageGraphics>
+
+            <frame id="first" x1="100" y1="400" width="400" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <paraStyle name="textstyle1" fontName="Helvetica" fontSize="16" leading="16" spaceBefore="16"/>
+    </stylesheet>
+
+    <story> 
+
+        <para style="textstyle1">
+            Hi {{name}},
+        </para>
+        
+        <para style="textstyle1">
+            How are things in {{location}}?
+        </para>
+        
+        <para style="textstyle1">
+            All the best, from ReportLab
+        </para>
+        
+    </story>
+
+</document>
+]]></codesnippet>
+
+<spacer length="20"/>
+
+<codesnippet language="python" style="code"><![CDATA[
+# Paste the following into a text file named 'example_14.py'
+# This python script loops through
+# the lines in a csv file, and merges the
+# values into an rml template named 'example_14.prep'
+#
+# This results in pure rml, which is then 
+# run through rml2pdf to create pdf files.
+
+import csv
+import preppy
+from rlextra.rml2pdf import rml2pdf
+
+def main():
+    
+    #get the csv file into a python csv reader object
+    csvdata  = open('names.csv')
+    reader = csv.reader(csvdata)
+    
+    # The rml template is loaded into preppy
+    template = preppy.getModule('example_14.prep')
+    
+    # loop through the lines in the csv file
+    for row in reader:
+        name= row[0]
+        location=row[1]
+        
+        # Now merge the variables into the template.
+        # you can pass in any Python objects or variables
+        # as long as they evaluate.
+        rmlText = template.get(name,location)
+        
+        #convert to PDF
+        pdfFileName = name + '.pdf'
+        rml2pdf.go(rmlText, outputFileName=pdfFileName)
+        
+        print 'saved %s' % pdfFileName
+    
+
+if __name__=='__main__':
+    
+    main()
+    
+]]></codesnippet>
+
+<spacer length="20"/>
+
+<para>Copy the following into a text file called 'names.csv'</para>
+
+<codesnippet language="python" style="code"><![CDATA[
+Mrs. Brown,Birmingham
+Mr. White,London
+Ms. Green,Manchester
+Mr. Pink,Brighton
+]]></codesnippet>
+
+
+
+<para>While RML can be used to create static documents like the Daily Planet example you've already seen, it's most useful as part of a dynamic document templating system.  In its simplest terms, you can think of it like a 'mail merge' function writ large - a simple real life example is a 'direct mail' sales letter, which typically uses fixed text for most of the body of the letter,  with custom text for each particular recipient - e.g. 'Dear Mr. X'.</para>
+
+<para>A simple but very powerful templating system is bundled with ReportLab PLUS.  It's a python module called 'preppy', which can be found in /rlextra/preppy/.  Preppy is very simple to use - the dynamic parts of the document, and any python code you might need, are enclosed in double curly brackets inside your template.  The template is loaded into preppy along with any dynamic data.  Preppy then evaluates any python expressions and substitutes any variables, and outputs the result as text - so in this case, you are left with complete rml text which only has to be run through rml2pdf to create a pdf document.</para>
+
+<para>To use the example above, paste the first part into a text file named 'example_14.prep' and the second part into a text file name 'example_14.py'.  Then create a file called 'names.csv' containing the names and towns ,as shown above.  Run 'python example_14.py' at the command line and you should see a number of dynamic pdfs being created.  Read the comments inside 'example_14.py' to see how preppy and rml2pdf are used inside python programs.</para>

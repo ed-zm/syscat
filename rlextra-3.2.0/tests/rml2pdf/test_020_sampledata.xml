@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<invoice>
+  <customerDetails>
+    <customerName>Bats Ltd.</customerName>
+    <address1>156 The Belfry</address1>
+    <address2>Ghastly</address2>
+    <county>Lincolnshire</county>
+    <postCode>LN1 3FD</postCode>
+  </customerDetails>
+  <totalNet>400.00</totalNet>
+  <totalVat>70.00</totalVat>
+  <totalGross>470.00</totalGross>
+  <invoiceNo>00134</invoiceNo>
+  <dueDate>31 December 2003</dueDate>
+  <lines>
+    <item qty="10" unitPrice="£30.00">sprockets</item>
+    <item qty="10" unitPrice="£4.00">widgets</item>
+    <item qty="5" unitPrice="£12.00">thingummies</item>
+  </lines>
+</invoice>

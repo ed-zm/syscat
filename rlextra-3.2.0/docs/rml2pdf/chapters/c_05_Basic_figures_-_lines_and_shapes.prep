@@ -1,0 +1,673 @@
+<!-- chapterName "Basic figures - lines and shapes" -->
+
+<!-- sectionName "Rect, circle and ellipse" -->
+
+<para>
+As well as allowing you to place text on the page, <font face="Courier">pageGraphics</font>
+also allows you to place shapes and graphics on it.
+</para>
+
+<para style="nospace">
+The basic types of shape that RML allows you to use are:
+</para>
+<para style="bulletList" bulletText="">
+<font face="Courier">rect</font> (rectangle), <font face="Courier">circle</font>,
+and <font face="Courier">ellipse</font>.
+</para>
+
+<para style="nospace">
+A <font face="Courier">rect</font> needs to have a list of attributes passed to it:
+</para>
+<para style="bulletNospace" bulletText="">
+- the co-ordinates for the bottom left hand corner,
+</para>
+<para style="bulletList" bulletText="">
+- its <font face="Courier">width</font> and <font face="Courier">height</font>,
+</para>
+<para>
+It also has optional <font face="Courier">fill</font> and <font face="Courier">stroke</font> attributes,
+and a <font face="Courier">round</font> attribute, which tell it if the corners should be rounded off.
+</para>
+
+<para style="nospace">
+The <font face="Courier">circle</font> needs the following attributes passed to it:
+</para>
+<para style="bulletNospace" bulletText="">
+- the <font face="Courier">x</font> and <font face="Courier">y</font> co-ordinates of the point where its center should be,
+</para>
+<para style="bulletList" bulletText="">
+- its radius
+</para>
+
+<para>
+If you imagine the <font face="Courier">ellipse</font> inside a rectangle, the <font face="Courier">x</font>
+and <font face="Courier">y</font> attributes give the co-ordinates for the bottom left hand corner, and the
+<font face="Courier">width</font> and <font face="Courier">height</font> attributes give the co-ordinates
+for the top right hand corner of the box.
+</para>
+
+<para style="nospace">
+All shapes also have two optional attributes:
+</para>
+<para style="bulletNospace" bulletText="">
+- <font face="Courier">fill</font>, which tells the parser if the shape should be filled in or not, and
+</para>
+<para style="bulletList" bulletText="">
+- <font face="Courier">stroke</font> which tells it if the shape should have its outline displayed.
+</para>
+<para>
+Both these attributes take Boolean values as arguments. You can uses
+either "1" or "yes" to set them as on, or "0" or "no" to set them as
+off.
+</para>
+
+<para>
+The following example shows various combinations of attributes for each of
+the basic shapes. Notice how this example starts with the XML definition -
+you can get away with not using it, but it is still better to make sure it
+is there.
+</para>
+
+<illustration width="228" height="333">
+<image file="images/Example_3a.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output from EXAMPLE 3
+</para>
+
+<para style="figureCaption">EXAMPLE 3</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_3.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+
+                <!-- set the font and fill colour for the title. -->
+                <fill color="red"/>
+                <setFont name="Helvetica" size="24"/>
+                <!-- Use drawCentredString to place a title on the page -->
+                <drawCentredString x="297.5" y="800">
+                    Simple Text and Graphics with RML.
+                </drawCentredString>
+
+                <fill color="red"/>
+                <!-- look at the output - though a fill color is set, no fill -->
+                <!-- is produced, since fill is set to "no" for the circle    -->
+                <circle x="127.5" y="672.75" radius="1 in" fill="no"
+                        stroke="yes"/>
+                <fill color="green"/>
+                <stroke color="black"/>
+                <circle x="297.5" y="672.75" radius="1 in" fill="yes"
+                        stroke="no"/>
+                <fill color="blue"/>
+                <stroke color="black"/>
+                <circle x="467.5" y="672.75" radius="1 in" fill="yes"
+                        stroke="yes"/>
+
+                <fill color="black"/>
+                <setFont name="Helvetica" size="9"/>
+                <drawCentredString x="127.5" y="567.5">
+                    Circle - with stroke, but no fill.
+                </drawCentredString>
+                <drawCentredString x="297.5" y="567.5">
+                    Circle - with fill, but no stroke.
+                </drawCentredString>
+                <drawCentredString x="467.5" y="567.5">
+                    Circle - with both stroke and fill.
+                </drawCentredString>
+
+                <fill color="red"/>
+                <ellipse x="77" y="382.25" width="177" height="552.25"
+                         fill="no" stroke="yes"/>
+                <fill color="green"/>
+                <stroke color="black"/>
+                <ellipse x="247" y="382.25" width="347" height="552.25"
+                         fill="yes" stroke="no"/>
+                <fill color="blue"/>
+                <stroke color="black"/>
+                <ellipse x="417" y="382.25" width="507" height="552.25"
+                         fill="yes" stroke="yes"/>
+
+                <fill color="black"/>
+                <drawCentredString x="127.5" y="357">
+                    Ellipse - with stroke, but no fill.
+                </drawCentredString>
+                <drawCentredString x="297.5" y="357">
+                    Ellipse - with fill, but no stroke.
+                </drawCentredString>
+                <drawCentredString x="467.5" y="357">
+                    Ellipse - with both stroke and fill.
+                </drawCentredString>
+
+                <rect x="84.5" y="214.3" width="1 in" height="1.15 in"
+                      fill="no" stroke="yes"/>
+                <fill color="green"/>
+                <stroke color="black"/>
+                <rect x="254.5" y="214.3" width="1 in" height="1.15 in"
+                      fill="yes" stroke="no"/>
+                <fill color="blue"/>
+                <stroke color="black"/>
+                <rect x="424.5" y="214.3" width="1 in" height="1.15 in"
+                      fill="yes" stroke="yes"/>
+
+                <fill color="black"/>
+                <drawCentredString x="127.5" y="199.1">
+                    Rect - with stroke, but no fill.
+                </drawCentredString>
+                <drawCentredString x="297.5" y="199.1">
+                    Rect - with fill, but no stroke.
+                </drawCentredString>
+                <drawCentredString x="467.5" y="199.1">
+                    Rect - with both stroke and fill.
+                </drawCentredString>
+
+                <rect x="84.5" y="56.5" width="1 in" height="1.15 in"
+                      fill="no" stroke="yes" round="0.15 in"/>
+                <fill color="green"/>
+                <stroke color="black"/>
+                <rect x="254.5" y="56.5" width="1 in" height="1.15 in"
+                      fill="yes" stroke="no" round="0.15 in"/>
+                <fill color="blue"/>
+                <stroke color="black"/>
+                <rect x="424.5" y="56.5" width="1 in" height="1.15 in"
+                      fill="yes" stroke="yes" round="0.15 in"/>
+
+                <fill color="black"/>
+                <drawCentredString x="127.5" y="41.25">
+                    Rect - with stroke and round, but no fill.
+                </drawCentredString>
+                <drawCentredString x="297.5" y="41.25">
+                    Rect - with fill and round, but no stroke.
+                </drawCentredString>
+                <drawCentredString x="467.5" y="41.25">
+                    Rect - with stroke, fill and round.
+                </drawCentredString>
+
+            </pageGraphics>
+            <frame id="first" x1="0.5in" y1="0.5in" width="20cm"
+                   height="28cm"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+        <para></para>
+    </story>
+
+</document>
+
+
+]]></codesnippet>
+
+
+<spacer length="15"/>
+
+<!-- sectionName "Fill and stroke" -->
+
+<para>
+If you look at the example 3, you will see that as well as having
+<font face="Courier">fill</font> and <font face="Courier">stroke</font>
+attributes for the shapes, there are separate <font face="Courier">&lt;fill&gt;</font>
+and <font face="Courier">&lt;stroke&gt;</font> tags.
+</para>
+<para>
+Inside the tag for a shape (such as <font face="Courier">rect</font>),
+<font face="Courier">fill</font> and <font face="Courier">stroke</font>
+simply tell rml2pdf whether those qualities should be turned on. Should
+there be a <font face="Courier">fill</font>, or not? Should there be a
+<font face="Courier">stroke</font>, or not? That is why the
+argument is Boolean - "yes" or "no" (though "1" or "0" are also
+allowed).
+</para>
+<para>
+The <font face="Courier">fill</font> and <font face="Courier">stroke</font>
+tags do a different job. The only argument that these tags are allowed is
+a color. If there are no <font face="Courier">fill</font> or
+<font face="Courier">stroke</font> tags in a document, both the fill and
+the stroke for all shapes default to black. If you have a
+<font face="Courier">fill</font> tag before a shape, it allows you
+to change the color that that shape is filled with. Similarly, a
+<font face="Courier">stroke</font> tag before a shape allows you to set
+the color that the outline of that shape will be drawn in. If there is
+no <font face="Courier">fill</font> or <font face="Courier">stroke</font>
+tag in front of a shape, it will be filled and stroked with the most recently
+defined <font face="Courier">fill</font> or <font face="Courier">stroke</font>
+- or failing that, the default black.
+</para>
+<para>
+This means that you can use one <font face="Courier">fill</font> tag to refer
+to many shapes, while changing the <font face="Courier">stroke</font> for
+each of them. Or vice versa.
+</para>
+
+<para>
+Another brief example of how the <font face="Courier">fill</font> and
+<font face="Courier">stroke</font> tags look:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<fill color="olivedrab"/>
+<stroke color="khaki"/>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<!-- sectionName "Lines and lineMode" -->
+
+<para>
+The other basic drawing element is the line. To draw a simple line,
+you use the <font face="Courier">&lt;lines&gt;</font> tag. For each
+line you want to draw, you pass <font face="Courier">&lt;lines&gt;</font>
+two pairs of X-Y co-ordinates - one pair of co-ordinates for the start
+point of the line, the other for the end point.
+</para>
+
+<para>
+If you want to draw more than one line, you can keep passing
+<font face="Courier">&lt;lines&gt;</font> more sets of 4
+co-ordinates. <font face="Courier">&lt;lines&gt;</font> then draws those
+other separate lines on the page. The lines in a
+<font face="Courier">&lt;lines&gt;</font> command are
+just lumped together in one <font face="Courier">&lt;lines&gt;</font>
+tag for your convenience. (If you want lines that follow on from each
+other, look at the "Advanced figures" section later in this manual).
+</para>
+
+<condPageBreak height="60"/>
+<para>
+For example, this draws a simple line:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<lines>
+    2.5in 10.5in 3.5in 10.5in
+</lines>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<para>
+And this starts with the same line, then draws an extra couple of lines below it:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<lines>
+    2.5in 10.5in 3.5in 10.5in
+    2.5in 10.25in 3.5in 10.25in
+    2.5in 10in 3.5in 10in
+</lines>
+
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<para>
+It doesn't matter how you arrange the sets of co-ordinates, but it
+helps to keep it human-readable if you keep co-ordinates to do with
+the same line on the same line of RML. This second example could have
+been written like this (but it would be much harder to follow):
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<lines>
+    2.5in 10.5in 3.5in 10.5in 2.5in 10.25in 3.5in 10.25in 2.5in 10in 3.5in 10in
+</lines>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<para>
+One more thing to notice before we move on is that these co-ordinates are separated by spaces.
+They are <i>not</i> separated by commas as you might expect.
+</para>
+
+<para>
+As well as just drawing lines, there are a number of attributes you can modify to
+change the appearance of lines. This is done with the
+<font face="Courier">&lt;lineMode&gt;</font> tag.
+</para>
+
+<para>
+The most obvious attribute to <font face="Courier">&lt;lineMode&gt;</font> is
+<font face="Courier">width</font>. You can give
+<font face="Courier">&lt;lineMode&gt;</font> a number
+for the width attribute to change the line width to that number of points.
+</para>
+
+<illustration width="405" height="55">
+<image file="images/Linewidth.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Example of lineMode attribute "width"
+</para>
+
+
+<para>
+The <font face="Courier">join</font> attribute to <font face="Courier">&lt;lineMode&gt;</font>
+adjusts how what happens when lines meet. They can either come to a point, or the vertex can
+be rounded or squared off into a bevelled join. The possible values for join are
+<font face="Courier">round</font>, <font face="Courier">mitered</font>, or
+<font face="Courier">bevelled</font>.
+</para>
+
+<para>
+The <font face="Courier">cap</font> attribute to
+<font face="Courier">&lt;lineMode&gt;</font> adjusts how the ends of lines
+appear. The end of a line can have a square end exactly at the vertex, a square
+end that is extended so it is over the vertex, or a half circle - a rounded cap.
+These possible values for cap are <font face="Courier">default</font>,
+<font face="Courier">square</font> or <font face="Courier">round</font>.
+</para>
+
+<illustration width="307" height="100">
+<image file="images/Linecap.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Example of lineMode attribute "cap"
+</para>
+
+
+<para>
+Both the <font face="Courier">join</font> and <font face="Courier">cap</font> attributes
+for <font face="Courier">&lt;lineMode&gt;</font> are only really visible if the
+line you are applying them to is thick.
+</para>
+
+<para>
+Another attribute to <font face="Courier">&lt;lineMode&gt;</font> is
+<font face="Courier">dash</font>. This allows you to specify if the line
+is dotted or dashed. You supply it a series of numbers (separated by commas),
+and it takes them as a pattern for how many pixels the line is on for, and then
+how many pixels the line is off (i.e. not displayed) for. This can be a simple
+pattern such as "1,2" (which gives you a plain dotted line) or "5,5" (which
+makes the lines sections equal with the spaces), or as complex as
+"1,1,3,3,1,4,4,1" (a complex pattern of dots and dashes).
+</para>
+
+<illustration width="316" height="98">
+<image file="images/Linedash.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Example of lineMode attribute "dash"
+</para>
+
+
+<para>
+The following example shows examples of most of the attributes that you can use
+with <font face="Courier">&lt;lines&gt;</font> and
+<font face="Courier">&lt;lineMode&gt;</font>. Notice how you can use more that one
+attribute to <font face="Courier">&lt;lineMode&gt;</font> at the same time.
+</para>
+
+<para style="figureCaption">EXAMPLE 4</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_4.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+
+                <fill color="red"/>
+
+                <setFont name="Helvetica" size="24"/>
+                <drawCentredString x="297.5" y="800">
+                    Lines in RML.
+                </drawCentredString>
+
+                <!-- notice that each of these "empty" tags are teminated -->
+                <!-- with a slash                                         -->
+                <lineMode width="1"/>
+                <lines>1in 10.5in 2in 10.5in
+                    2in 10.5in 1.5in 10in
+                    1.5in 10in 1.5in 10.75in
+                </lines>
+                <fill color="black"/>
+                <setFont name="Helvetica" size="9"/>
+                <drawCentredString x="1.5 in" y="9.75 in">
+                    width=1
+                </drawCentredString>
+
+                <lineMode width="5"/>
+                <lines>2.5in 10.5in 3.5in 10.5in
+                    3.5in 10.5in 3in 10in
+                    3in 10in 3in 10.75in
+                </lines>
+                <drawCentredString x="3 in" y="9.75 in">
+                    width=5
+                </drawCentredString>
+
+                <lineMode width="10"/>
+                <lines>4in 10.5in 5in 10.5in
+                    5in 10.5in 4.5in 10in
+                    4.5in 10in 4.5in 10.75in
+                </lines>
+                <drawCentredString x="4.5 in" y="9.75 in">
+                    width=10
+                </drawCentredString>
+
+                <lineMode width="15"/>
+                <lines>5.5in 10.5in 6.5in 10.5in
+                    6.5in 10.5in 6in 10in
+                    6in 10in 6in 10.75in
+                </lines>
+                <drawCentredString x="6 in" y="9.75 in">
+                    width=15
+                </drawCentredString>
+
+
+                <!-- examples for the 'join' attribute to 'LineMode' -->
+                <lineMode width="5"/>
+                <lines>1in 9in 2in 9in
+                    2in 9in 1.5in 8.5in
+                    1.5in 8.5in 1.5in 9.25in
+                </lines>
+                <fill color="black"/>
+                <setFont name="Helvetica" size="9"/>
+                <drawCentredString x="1.5 in" y="8.25 in">
+                    width=10
+                </drawCentredString>
+
+                <!-- options for 'join' are "round", "mitered", or "bevelled" -->
+
+                <lineMode width="5" join="round"/>
+                <lines>2.5in 9in 3.5in 9in
+                    3.5in 9in 3in 8.5in
+                    3in 8.5in 3in 9.25in
+                </lines>
+                <drawCentredString x="3 in" y="8.25 in">
+                    width=5, join=round
+                </drawCentredString>
+
+                <lineMode width="5" join="mitered"/>
+                <lines>4in 9in 5in 9in
+                    5in 9in 4.5in 8.5in
+                    4.5in 8.5in 4.5in 9.25in
+                </lines>
+                <drawCentredString x="4.5 in" y="8.25 in">
+                    width=5, join=mitered
+                </drawCentredString>
+
+                <lineMode width="5" join="bevelled"/>
+                <lines>5.5in 9in 6.5in 9in
+                    6.5in 9in 6in 8.5in
+                    6in 8.5in 6in 9.25in
+                </lines>
+                <drawCentredString x="6 in" y="8.25 in">
+                    width=5, join=bevelled
+                </drawCentredString>
+
+
+                <!-- examples for the 'cap' attribute to 'LineMode' -->
+                <lineMode width="10"/>
+                <lines>1in 7.5in 2in 7.5in
+                    2in 7.5in 1.5in 7in
+                    1.5in 7in 1.5in 7.75in
+                </lines>
+                <fill color="black"/>
+                <setFont name="Helvetica" size="9"/>
+                <drawCentredString x="1.5 in" y="6.75 in">
+                    width=10
+                </drawCentredString>
+
+                <!-- options for 'cap' are "default", "round", or "square" -->
+
+                <lineMode width="10" cap="default"/>
+                <lines>2.5in 7.5in 3.5in 7.5in
+                    3.5in 7.5in 3in 7in
+                    3in 7in 3in 7.75in
+                </lines>
+                <drawCentredString x="3 in" y="6.75 in">
+                    width=10, cap=default
+                </drawCentredString>
+
+                <lineMode width="10" cap="round"/>
+                <lines>4in 7.5in 5in 7.5in
+                    5in 7.5in 4.5in 7in
+                    4.5in 7in 4.5in 7.75in
+                </lines>
+                <drawCentredString x="4.5 in" y="6.75 in">
+                    width=10, cap=round
+                </drawCentredString>
+
+                <lineMode width="10" cap="square"/>
+                <lines>5.5in 7.5in 6.5in 7.5in
+                    6.5in 7.5in 6in 7in
+                    6in 7in 6in 7.75in
+                </lines>
+                <drawCentredString x="6 in" y="6.75 in">
+                    width=10, cap=square
+                </drawCentredString>
+
+
+                <lineMode width="5" cap="default"/>
+                <!-- examples for the 'miterLimit' attribute to 'LineMode' -->
+                <lineMode width="5" join="mitered"/>
+                <lines>1in 6in 2in 6in
+                    2in 6in 1.5in 5.5in
+                    1.5in 5.5in 1.5in 6.25in
+                </lines>
+                <fill color="black"/>
+                <setFont name="Helvetica" size="9"/>
+                <drawCentredString x="1.5 in" y="5.25 in">
+                    width=5, join=mitered
+                </drawCentredString>
+
+                <lineMode width="5" join="mitered" miterLimit="10"/>
+                <lines>2.5in 6in 3.5in 6in
+                    3.5in 6in 3in 5.5in
+                    3in 5.5in 3in 6.25in
+                </lines>
+                <drawCentredString x="3 in" y="5.25 in">
+                    width=5, join=mitered
+                </drawCentredString>
+                <drawCentredString x="3 in" y="5.1 in">
+                    miterLimit=10
+                </drawCentredString>
+
+                <lineMode width="10" join="mitered"/>
+                <lines>4in 6in 5in 6in
+                    5in 6in 4.5in 5.5in
+                    4.5in 5.5in 4.5in 6.25in
+                </lines>
+                <drawCentredString x="4.5 in" y="5.25 in">
+                    width=10, join=mitered
+                </drawCentredString>
+
+                <lineMode width="10" join="mitered" miterLimit="20"/>
+                <lines>5.5in 6in 6.5in 6in
+                    6.5in 6in 6in 5.5in
+                    6in 5.5in 6in 6.25in
+                </lines>
+                <drawCentredString x="6 in" y="5.25 in">
+                    width=10, join=mitered
+                </drawCentredString>
+                <drawCentredString x="6 in" y="5.1 in">
+                    miterLimit=20
+                </drawCentredString>
+
+
+                <!-- examples for the 'dash' attribute to 'LineMode' -->
+                <lineMode width="2"/>
+                <lines>1in 4.5in 2in 4.5in
+                    2in 4.5in 1.5in 4in
+                    1.5in 4in 1.5in 4.75in
+                </lines>
+                <fill color="black"/>
+                <setFont name="Helvetica" size="9"/>
+                <drawCentredString x="1.5 in" y="3.75 in">
+                    width=2
+                </drawCentredString>
+
+                <!-- options for 'dash' are sequences of numbers -->
+
+                <lineMode width="2" dash="5,5"/>
+                <lines>2.5in 4.5in 3.5in 4.5in
+                    3.5in 4.5in 3in 4in
+                    3in 4in 3in 4.75in
+                </lines>
+                <drawCentredString x="3 in" y="3.75 in">
+                    width=2, dash=5,5
+                </drawCentredString>
+
+                <lineMode width="2" dash="2,10"/>
+                <lines>4in 4.5in 5in 4.5in
+                    5in 4.5in 4.5in 4in
+                    4.5in 4in 4.5in 4.75in
+                </lines>
+                <drawCentredString x="4.5 in" y="3.75 in">
+                    width=2, dash=2,10
+                </drawCentredString>
+
+                <lineMode width="2" dash="5,5,2,10"/>
+                <lines>5.5in 4.5in 6.5in 4.5in
+                    6.5in 4.5in 6in 4in
+                    6in 4in 6in 4.75in
+                </lines>
+                <drawCentredString x="6 in" y="3.75 in">
+                    width=2, dash=5,5,2,10
+                </drawCentredString>
+
+            </pageGraphics>
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+        <para></para>
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+<spacer length="15"/>
+
+<illustration width="304" height="339">
+<image file="images/Example_4a.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output from EXAMPLE 4
+</para>
+

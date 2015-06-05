@@ -1,0 +1,118 @@
+<!-- chapterName "Lesson 13: Putting it all together - "The Daily Planet"" -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="planet.pdf">
+
+    <docinit>
+        <registerTTFont faceName="ClassizismAntiqua" fileName="files/ClassizismAntiquaBook.ttf"/>
+    </docinit>
+    <template showBoundary="0">
+        <pageTemplate id="frontpage">
+            <pageGraphics>
+                <setFont name="ClassizismAntiqua" size="48"/>
+                <drawString x="125" y="700"> The Daily Planet</drawString>
+                <lineMode width="5"/>
+                <lines> 50 675 545 675</lines>
+                <lines> 50 775 545 775</lines>
+                <lines> 50 25 545 25</lines>
+                <lineMode width="1"/>
+                <lines> 178 30 178 340</lines>
+                <setFont name="ClassizismAntiqua" size="12"/>
+                <drawString x="50" y="650">$1.50</drawString>
+                <drawString x="225" y="650">13 December 2003</drawString>
+                <drawString x="415" y="650"> Quality News since 1972</drawString>
+                <setFont name="ClassizismAntiqua" size="8"/>
+                <drawString x="445" y="10"> Published in Metropolis City</drawString>
+            </pageGraphics>
+            <frame id="first" x1="50" y1="340" width="250" height="275"/>
+            <frame id="second" x1="50" y1="40" width="125" height="300"/>
+            <frame id="third" x1="180" y1="40" width="125" height="300"/>
+        </pageTemplate>
+            <pageTemplate id="page2">
+            <pageGraphics>
+                <lineMode width="5"/>
+                <lines> 50 770 545 770</lines>
+                <lines> 50 25 545 25</lines>
+                <lineMode width="1"/>
+                <lines> 178 30 178 750</lines>
+                <setFont name="ClassizismAntiqua" size="8"/>
+                <drawString x="50" y="775">13 December 2003</drawString>
+                <drawString x="475" y="775">The Daily Planet</drawString>
+                <drawString x="50" y="10">Page 2</drawString>
+            </pageGraphics>
+            <frame id="first" x1="50" y1="20" width="125" height="740"/>
+            
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+       <paraStyle name="headline" alignment="LEFT" fontSize="40"/>
+       <paraStyle name="strapline" alignment="LEFT"/>
+       <paraStyle name="normal" alignment="LEFT" spaceBefore="5"/>
+       <paraStyle name="caption" alignment="LEFT" fontSize="8"/>
+    </stylesheet>
+
+    <story> 
+        <para style="headline" leading="40">
+            REPORTLAB RELEASE MARKUP LANGUAGE!
+        </para>
+        
+        <para style="strapline">
+            <b>LONDON - </b>Reportlab Inc, the software company, today announced the release of 
+            a new markup language promising to revolutionise the production of documents
+            across the known world.  
+        </para>
+        
+        <para style="normal">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum 
+            has been the industry's standard dummy text ever since the 1500s, when an unknown printer 
+            took a galley of type and scrambled it to make a type specimen book. 
+        </para>
+        
+        <para>
+            It has survived not only five centuries, but also the leap into electronic typesetting,
+            remaining essentially unchanged. It was popularised in the 1960s with the release of
+            Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing
+            software like Aldus PageMaker including versions of Lorem Ipsum.
+        </para>
+        
+        <illustration width="125" height="140" align="CENTER">
+            <image file="files/bob.jpg" x="20" y="0"/>
+            <setFont name="Times-Roman" size="6"/>
+            <drawString x="20" y="-20"> Bob Dobbs, CEO of ReportLab Inc.</drawString>
+        </illustration>
+        
+        <para>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
+            has been the industry's standard dummy text ever since the 1500s, when an unknown printer
+            took a galley of type and scrambled it to make a type specimen book. It has survived not
+            only five centuries, but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+            Lorem Ipsum passages, and more recently with desktop publishing software like Aldus 
+            PageMaker including versions of Lorem Ipsum.
+        </para>
+        
+        <para>
+            Why do we use it?
+        </para>
+        <setNextTemplate name="page2"/>
+        
+        <para>
+            It is a long established fact that a reader will be distracted by the readable content 
+            of a page when looking at its layout. The point of using Lorem Ipsum is that it has a 
+            more-or-less normal distribution of letters, as opposed to using 'Content here, content 
+            here', making it look like readable English. Many desktop publishing packages and web 
+            page editors now use Lorem Ipsum astheir default model text, and a search for 'lorem 
+            ipsum' will uncover many web sites still in their infancy. Various versions have 
+            evolved over the years, sometimes by accident, sometimes on purpose (injected humour
+            and the like).
+        </para>
+        
+    </story>
+</document>
+]]></codesnippet>
+
+
+<para>The RML code above shows how to use most of the main concepts we've discussed, in a single document layout.  It contains fixed elements - the masthead, date, etc. , and a set of frames into which the text and images from the &lt;story&gt; section flow.  It also demonstrates graphics primitives (the horizontal lines), how to use custom fonts, and using different templates for different pages.</para>

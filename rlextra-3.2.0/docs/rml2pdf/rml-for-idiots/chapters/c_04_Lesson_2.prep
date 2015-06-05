@@ -1,0 +1,54 @@
+<!-- chapterName "Lesson 2: Two frames, text flowing between them." -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_02.pdf">
+
+    <template showBoundary="1"> <!--Debugging is now turned on, frame outlines -->
+                                <!--will appear on the page                    -->
+        <pageTemplate id="main">
+            <!-- two frames are defined here: -->
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <!-- still empty...-->
+    </stylesheet>
+
+    <story> 
+        <para>
+             Welcome to RML.
+        </para>
+        <para>
+             This is the part of the RML document where
+             your text is placed.
+        </para>
+        <para>
+             It should be enclosed in &lt;para&gt; and &lt;/para&gt; tags to turn
+             it into paragraphs.
+        </para>
+        <para>
+             You should now be able to see borders around the two frames on this 
+             page, because showBoundary="1" in the template section at the top.  
+             Set it to 0 and the black borders will disappear.
+        </para>
+        <para>
+             This is an extra paragraph which is a bit longer.  It is supposed to
+             fill up the rest of the current frame, and demonstrates what happens 
+             when a frame fills up with text. It should start flowing into the next
+             frame. blah blah waffle waffle lorem ipsum etc etc 
+        </para>
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>Lesson number two demonstrates two new features.  </para>
+
+<para>Firstly, the &lt;template&gt; tag now has an attribute, showBoundary, set to 1.  This draws an outline around the frames on the page, which is useful for debugging.</para>
+<para>Secondly, we have added another frame tag which defines a second frame, next to the first.  The extra &lt;para&gt; tag in the &lt;story&gt; section contains more text, which overflows from the first frame into the second.</para>
+
+<para>So now you see how text flows from one frame to the next.</para>

@@ -1,0 +1,375 @@
+/*
+-----------------------------------------------
+Blogger Template Style
+Name:     Rounders 3
+Designer: Douglas Bowman
+URL:      www.stopdesign.com
+Date:     27 Feb 2004
+----------------------------------------------- */
+
+
+body {
+  background:#E5EBF7;
+  margin:0;
+  padding:20px 10px;
+  text-align:center;
+  font:x-small/1.5em Arial,"Trebuchet MS",Verdana,Sans-serif;
+  color:#ccc;
+  font-size/* */:/**/small;
+  font-size: /**/small;
+  }
+
+
+/* Page Structure
+----------------------------------------------- */
+/* The images which help create rounded corners depend on the
+   following widths and measurements. If you want to change
+   these measurements, the images will also need to change.
+   */
+#content {
+  background:#FFFFFF;
+  width:702px;
+  margin:0 auto;
+  text-align:left;
+  padding: 19px;
+  border:1px solid #CCCCCC;
+  }
+#main {
+  width:437px;
+  float:left;
+  margin-top:19px;
+  padding:0;
+  color:#333;
+  line-height:1.5em;
+  }
+
+  pre {
+      line-height:140%;
+  }
+
+#main2 {
+  float:left;
+  width:100%;
+  padding:0;
+  }
+
+#sidebar {
+  width:240px;
+  float:right;
+  margin-right: 0px;
+  margin-top: 39px;
+  border:1px solid #CCCCCC;
+  background: #e6e8e5 url("http://dirtsimple.org/sidebar-background.gif");
+  font-size: 97%;
+  }
+
+
+/* Links
+----------------------------------------------- */
+a:link {
+  font-weight: bold;
+  color:#370c08;
+  text-decoration: None;
+  }
+a:visited {
+  font-weight: bold;
+  text-decoration: None;
+  color:#584830;
+  }
+a:hover {
+  text-decoration: underline;
+  }
+a img {
+  border-width:0;
+  margin:0
+  padding:0
+  }
+#main a:link {
+  color:#347;
+  text-decoration: underline;
+  }
+#main a:visited {
+  color:#666;
+  text-decoration: underline;
+  }
+#main a:hover {
+  color:#68a
+  }
+
+
+/* Blog Header
+----------------------------------------------- */
+#header {
+  margin:0;
+  height: 58px;
+  width:702px;
+  padding:0 0 0;
+  vertical-align:middle;
+  }
+
+#blog-title {
+  margin:0;
+  padding:10px 30px 5px;
+  font-size:200%;
+  line-height:1.2em;
+  }
+#blog-title a {
+  text-decoration:none;
+  color:#fff;
+  }
+#description {
+  margin:0;
+  padding:5px 30px 10px;
+  font-size:94%;
+  line-height:1.5em;
+  color:#abc;
+  }
+
+
+/* Posts
+----------------------------------------------- */
+.date-header {
+  margin:0 0 5px;
+  padding-bottom: 5px;
+  font-size:85%;
+  text-transform:lowercase;
+  text-align: right;
+  color:#a0a4a9;
+  line-height:100%;
+  border:1px solid #000000;
+  border-width:0 0 1px;
+  }
+.post {
+  margin:.3em 0 10px;
+  padding:0 0 20px 0;
+  border:1px dotted #bb9;
+  border-width:0 0 0 0;
+  }
+.post-title {
+  margin:0;
+  font-size:150%;
+  line-height:100%;
+  display:block;
+  padding:5px 0;
+  color:#c6aa85;
+  }
+#main a.title-link, .post-title strong {
+  text-decoration:none;
+  display:block;
+  }
+#main a.title-link:hover {
+  background-color:#fff;
+  color:#000;
+  }
+.post-body {
+  padding:0;
+  }
+html>body .post-body {
+  border-bottom-width:0;
+  }
+.post p {
+  margin:0 0 .75em;
+  }
+p.post-footer {
+  background:#fff;
+  margin-top:12px;
+  padding:0;
+  padding-bottom: 5px;
+  border-bottom:1px solid #000;
+  font-size:100%;
+  line-height:1.5em;
+  color:#666;
+  text-align:right;
+  }
+p.post-footer em {
+  display:block;
+  float:left;
+  text-align:left;
+  font-style:normal;
+  }
+a.comment-link {
+  /* IE5.0/Win doesn't apply padding to inline elements,
+     so we hide these two declarations from it */
+  background/* */:/**/;
+  padding-left:14px;
+  }
+html>body a.comment-link {
+  /* Respecified, for IE5/Mac's benefit */
+  padding-left:14px;
+  }
+.post img {
+  margin:0 0 5px 0;
+  padding:4px;
+  border:1px solid #586;
+  }
+blockquote {
+  margin:.75em 0;
+  padding:5px 15px;
+  }
+.post blockquote p {
+  margin:.5em 0;
+  }
+.post h4 {
+  margin:0;
+  padding-top:10px;
+  padding-bottom:10px;
+  font-size:120%;
+  line-height:100%;
+  color:#c6aa85;
+  }
+
+
+/* Comments
+----------------------------------------------- */
+#comments {
+  margin:-10px 0 0;
+  padding:0 0 0 0;
+  }
+#comments h4 {
+  margin:0;
+  margin-left:20px;
+  padding-bottom:10px;
+  font-size:110%;
+  line-height:100%;
+  color:#c6aa85;
+  text-transform: lowercase;
+  }
+#comments-block {
+  margin:0;
+  margin-left:20px;
+  }
+.comment-data {
+  margin:0 0;
+  padding:5px 0;
+  color:#666;
+  border:1px dotted #c0c0c0;
+  border-width: 1px 0 0 0;
+  }
+.comment-poster {
+  font-weight:bold;
+  }
+.comment-body {
+  margin:0 0 1.25em;
+  padding:0 0 0 0px;
+  }
+.comment-body p {
+  margin:0 0 .5em;
+  }
+.comment-timestamp {
+  margin:0 0 .5em;
+  padding:0 0 .75em 20px;
+  color:#fff;
+  }
+.comment-timestamp a:link {
+  color:#fff;
+  }
+.deleted-comment {
+  font-style:italic;
+  color:gray;
+  }
+
+
+/* Profile
+----------------------------------------------- */
+#profile-container {
+  background:#586;
+  margin:0 0 15px;
+  padding:0 0 10px;
+  color:#fff;
+  display: None;
+  }
+#profile-container h2 {
+  padding:10px 15px .2em;
+  margin:0;
+  border-width:0;
+  font-size:115%;
+  line-height:1.5em;
+  color:#fff;
+  }
+.profile-datablock {
+  margin:0 15px .5em;
+  border-top:1px dotted #7a8;
+  padding-top:8px;
+  }
+.profile-img {display:inline;}
+.profile-img img {
+  float:left;
+  margin:0 10px 5px 0;
+  border:4px solid #bec;
+  }
+.profile-data strong {
+  display:block;
+  }
+#profile-container p {
+  margin:0 15px .5em;
+  }
+#profile-container .profile-textblock {
+  clear:left;
+  }
+#profile-container a {
+  color:#fff;
+
+  }
+.profile-link a {
+  padding-left:15px;
+  font-weight:bold;
+  }
+ul.profile-datablock {
+  list-style-type:none;
+  }
+
+
+/* Sidebar Boxes
+----------------------------------------------- */
+.box {
+  margin:0;
+  padding:10px 0 0;
+  color:#93867E;
+  }
+.box2 {
+  padding:0 13px 8px;
+  }
+.sidebar-title {
+  margin:0;
+  padding:2px 0 6px;
+  font-size:140%;
+  font-weight: bold;
+  line-height:1em;
+  color:#93867E;
+  text-transform:lowercase;
+  }
+.box ul {
+  margin:0 0 1.25em;
+  padding:0 0px;
+  list-style:none;
+  }
+.box ul li {
+  margin-left:20px;
+  padding:0 0 3px 0;
+  margin-bottom:3px;
+  line-height:120%;
+  text-indent: -10px;
+  }
+.box p {
+  margin:0 0 .6em;
+  }
+
+
+/* Footer
+----------------------------------------------- */
+#footer {
+  clear:both;
+  margin:19px 0 0;
+  padding:15px 0 0;
+  }
+#footer div {
+  background:#223D98;
+  padding:8px 0 0;
+  color:#fff;
+  }
+#footer div div {
+  padding:0 15px 8px;
+  }
+#footer hr {display:none;}
+#footer p {margin:0;}
+#footer a {color:#fff;}

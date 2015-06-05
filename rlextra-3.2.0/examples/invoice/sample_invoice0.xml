@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE invoices SYSTEM "invoice.dtd">
+<invoices>
+	<invoice
+			id="001"
+			payee="Dragan Ltd."
+			date="22.12.2008"
+			number="82828"
+			ref="Some ref"
+			terms="14 days">
+
+		<address line1="22 Acacia avenue" line2="London E14" line3="UK"/>
+
+		<body>
+			<item units="1" description="Stuff"	price="10.00"/>
+			<item units="1" description="Stuff"	price="12.00"/>
+
+		</body>
+
+		<notes>
+			<note>The original proposal sets out 2 stages.  The first is fixed-price - process the new XML feed end-to-end.  The second phase will be time based - investigations, changes and support as we test the data quality and supervise promotion through to live release in mid-October.</note>
+			<note>We prefer payments via BACS</note>
+			<note>If this is not possible, please make cheques payable to "Wimbledon Europe Ltd" and post to the London address above.</note>
+			<note>Please note that this is due to 14 days.  If payment is not received within 30 days, we will begin to charge interest at 4% above the Bank of England base rate.</note>
+			<note>In case of questions, contact me.</note>
+		</notes>
+
+		</invoice>
+	<invoice
+			id="002"
+			payee="Stephen Ltd."
+			date="22.12.2008"
+			number="498585"
+			ref="Ref:"
+			terms="7 days">
+
+		<address line1="52 Wimbledon Avenue" line2="London E14" line3="UK"/>
+
+		<body>
+			<item units="3" description="Stuff"	price="23.00"/>
+			<item units="1" description="Stuff"	price="43.00"/>
+			<item units="2" description="Stuff"	price="53.00"/>
+			<item units="1" description="Stuff"	price="63.00"/>
+			<item units="1" description="Stuff"	price="29.00"/>
+		</body>
+
+		<notes>
+			<note>The original proposal sets out 2 stages.  The first is fixed-price - process the new XML feed end-to-end.  The second phase will be time based - investigations, changes and support as we test the data quality and supervise promotion through to live release in mid-October.</note>
+			<note>We prefer payments via BACS</note>
+			<note>If this is not possible, please make cheques payable to "Wimbledon Europe Ltd" and post to the London address above.</note>
+			<note>Please note that this is due to 14 days.  If payment is not received within 30 days, we will begin to charge interest at 4% above the Bank of England base rate.</note>
+			<note>In case of questions, contact me.</note>
+		</notes>
+
+	</invoice>
+</invoices>

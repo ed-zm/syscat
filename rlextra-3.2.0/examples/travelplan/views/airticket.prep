@@ -1,0 +1,91 @@
+{{script}}
+import travel 
+from rlextra.radxml.xmlutils import xml2doctree
+tickets=dictionary.get('tickets')
+step=dictionary.get('step')
+def displayLocation(location):
+	city = str(location.city)
+	airport = str(location.airport)
+	terminal=str(location.terminal)
+	display = city+'('+airport+')'
+	if terminal is not '':
+		display=display+'<br/>Terminal '+terminal
+	return display
+def getlogo(flight):
+	airlineLogo=str(flight.airlineLogo)
+	src=app.getRsrcUrl(airlineLogo)
+	return src
+{{endscript}}
+<script type='text/javascript'>
+function submitflight(ticket_id){
+	var	f = document.forms['flights']
+	f.ticket_id.value=ticket_id
+	f.submit()
+}
+</script>
+<!--p>I am in airticket.prep</p-->
+{{for ticket in tickets.getNamedChildren('airTicket')}}
+<table class="ticketTable">
+<tbody>
+<tr>
+	<th>Date</th>
+	<th>From</th>
+	<th>To</th>
+	<th>Depart</th>
+	<th>Arrive</th>
+	<th>Duration</th>
+	<th>Airline &amp; Flight</th>
+</tr>
+{{script}}
+def TR(flight,dateInfo=''):
+	tds = ['<td>'+dateInfo+'</td>']
+	tds.append('<td>'+displayLocation(flight.depart)+'</td>')
+	tds.append('<td>'+displayLocation(flight.arrive)+'</td>')
+	tds.append('<td>'+str(flight.depart.time)+'</td>')
+	tds.append('<td>'+str(flight.arrive.time)+'</td>')
+	tds.append('<td>'+str(flight.duration).replace(' ','&nbsp;')+'</td>')
+	tds.append('<td><img src='+getlogo(flight)+' alt="airline logo"/>'+flight.id.replace('_','')+'</td>')
+	if dateInfo=='': return '<tr>'+'\n'.join(tds)+'</tr>'
+	else: return '<tr>'+'\n'+'\n'.join(tds)+'\n'+'</tr>'
+def displayTrip(trip,dateInfo):
+    result=[]
+    flights = trip.getNamedChildren('flight')
+    for flight in flights:
+        if flight is flights[0]: result.append(TR(flight,dateInfo))
+        else: result.append(TR(flight))
+    return '\n'.join(result)
+departureDateInfo = "out<img src=" +app.getRsrcUrl('flyout.gif')+">"+str(ticket.departureDate)
+returnDateInfo = "in&nbsp;&nbsp;<img src="+app.getRsrcUrl('flyin.gif')+">"+str(ticket.returnDate)
+{{endscript}}
+<!--display oneway ticket-->
+{{if str(ticket.isRoundTrip)=='False'}}
+{{displayTrip(ticket.trip, departureDateInfo)}}
+<!--display roundtrip ticket-->
+{{else}}
+{{for trip in ticket.getNamedChildren('trip')}}
+{{if trip.id=='outbound'}}
+{{displayTrip(trip, departureDateInfo)}}
+{{elif trip.id=='inbound'}}
+{{displayTrip(trip, returnDateInfo)}}
+{{endif}}
+{{endfor}}
+{{endif}}
+{{script}}
+fare = round(float(str(ticket.fare)),2)
+fareTotal = fare*float(numOfAdults)
+{{endscript}}
+<tr>
+<td align="right" colSpan=7>Ticket Class: {{ticket.flightClass}},	Fare: &#163;{{fareTotal}} (&#163;{{fare}}&times;{{numOfAdults}})</td>
+</tr>
+{{if step=='1'}}
+<tr>
+<td colSpan=7 align="right">
+<a href='javascript:submitflight("{{ticket.id}}")'>Choose this flight</a>
+</td>
+</tr>
+{{endif}}
+</tbody>
+</table>
+<br/>
+{{endfor}}
+<!--p>I am out of airticket.prep</p-->

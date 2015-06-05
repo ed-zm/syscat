@@ -1,0 +1,45 @@
+<!-- partName "Before You Start" -->
+<!-- chapterName "Introduction" -->
+
+<!-- sectionName "About RML" -->
+
+<para style="nospace">• Report Markup Language is an XML-style language for describing the layout of documents.</para>
+<para style="nospace">• You define and manipulate any aspect of a document, including the content and the styling, by using tags.  Many of the tags are similar to HTML.</para>
+<para style="nospace">• The PDF document output is generated from the RML using the python module 'rml2pdf'.</para>
+
+<!-- sectionName "About this document" -->
+
+<para>This document is designed to get you up and running with RML quickly. It demonstrates the basics of laying out simple documents and formatting the contents, with examples throughout.  The idea is to show you how to do the stuff you are most likely to want to do, without getting bogged down in complexities; so each example presents a basic concept but doesn't go into too much detail about the niceties - for that, you can use the User Guide and the test documents. Work through this guide from start to finish, and you will cover all the major concepts, and end up with some nice looking pdf output.</para>
+
+<!-- sectionName "Running the examples"-->
+
+<para>You need a text editor and a working ReportLab PLUS setup - if you don't already have this, follow the installation instructions on our website, or ask a Reportlab employee.  At the command line, create a directory where you want to keep your code, and cd into it.  Cut and paste each example from this document into a text file, save it in the directory you just created, then run it through rml2pdf.pyc like this:</para>
+
+<para>UNIX:</para>
+<para style="code">user@computer:~/rml-for-idiots$ python ~/path/to/rml2pdf.pyc example_xx.rml</para>
+<para>WINDOWS:</para>
+<para style="code">C:\rml-for-idiots> C:\path\to\rml2pdf.pyc example_xx.rml</para>
+
+<para>The result should be a document in the same directory called 'example_xx.pdf'.</para>
+
+<para>The python module rml2pdf.pyc can also be used inside python scripts, like any other module.  Import the module, read your RML into a string, and pass it into the 'go' method as follows:</para>
+<codesnippet style="code"><![CDATA[
+    >>> from rlextra.rml2pdf import rml2pdf
+    >>> rml=open('inputfile.rml','r').read()
+    >>> rml2pdf.go(rml,'outputfile.pdf')
+]]>
+</codesnippet>
+
+<para>A pdf named 'outputfile.pdf' will be created in the current directory.</para>
+
+<!-- sectionName "Reference Help" -->
+
+<para style="nospace">• Use the rml2pdf-userguide.pdf located in rlextra/rml2pdf/doc to expand on what is presented here.</para>
+<para style="nospace">• Browse the test cases in rlextra/rml2pdf/test/ for a huge range of examples of RML functionality.</para>
+<para style="nospace">• The ultimate reference document for the RML tags is the Document Type Definition; located in 'rlextra/rml2pdf/rml.dtd'.  This tells you about all the available RML tags, and their required and optional parameters.  See the next section for more details.</para>
+
+<!-- sectionName "Using the DTD" -->
+
+<para>A 'Document Type Definition' is the standard way to define an XML dialect.  It formally sets out the building blocks of an XML document, with a list of legal elements and attributes.  You can find plenty of information on the web about how to read a DTD - a good place to start is http://www.w3schools.com/DTD/default.asp</para>
+
+<para>Every tag available in RML is defined and described in rlextra/rml2pdf/rml.dtd - so if you're unsure about a tag or its parameters, search in this document for the tag name and you will see it's definition.  There's more information about how to read the DTD in the FAQ at the end of this document.</para>

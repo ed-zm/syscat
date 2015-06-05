@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="bug001_lazyParapraphsInTable.pdf"> 
+
+<template>
+	<pageTemplate id="main">
+	<pageGraphics>
+
+	</pageGraphics>
+	<frame id="first" x1="72" y1="72" width="451" height="698"/> 
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<blockTableStyle id="myBlockTableStyle">
+	</blockTableStyle>
+</stylesheet>
+
+<story>
+	<title>Example 11 - lines and alignment in tables</title>
+	<spacer length = "1cm"/>
+
+	<blockTable style="myBlockTableStyle"
+	rowHeights="2cm,2cm"
+	colWidths="4cm,3cm"
+	>
+	<tr><td><para>This <font color="blue">is</font> a <greek>para</greek>... exiting, huh?</para></td>
+	<td>(VA=TOP)</td></tr>
+	<tr><td>1,1</td><td>Cell 1,2</td></tr>
+	</blockTable>
+
+<spacer length = "15"/>
+
+
+<blockTable 
+style="myBlockTableStyle"
+	colWidths="4cm,3cm"
+
+	rowHeights="2cm,2cm"
+    >
+	<tr>
+		<!-- the following is not correct:
+
+		<td>	<para>block <greek>Tabl</greek>e</para>. </td><td>a</td>
+
+		you cannot put any non white text .............^ outside the <para>.
+		At the moment a <td> can contain only string forms (including names and pagenumbers)
+		OR a sequence of flowables.  YOU CAN'T HAVE BOTH IN THE SAME TD.
+
+		I moved the period below:
+		-->
+		
+		<td>	<para>block <greek>Tabl</greek>e.</para> </td><td>a</td>
+
+	</tr>
+	<tr>
+		<td>This</td><td>is</td>
+	</tr>
+</blockTable>
+	
+</story>
+
+</document>

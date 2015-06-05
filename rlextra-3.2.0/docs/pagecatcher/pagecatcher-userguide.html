@@ -1,0 +1,425 @@
+<html>
+<h1>PageCatcher</h1>
+<p>27 August 2001</p>
+
+<blockquote>
+This document provides a basic introduction to using PageCatcher.
+It includes explanations of what PageCatcher does, how it can be used,
+what the current limitations are,
+how to run the demo applications, how to run PageCatcher as a command
+line program, how to use PageCatcher with the RML2PDF application,
+and how to use the PageCatcher programming interface within
+other programs.
+</blockquote>
+
+<h2>What is PageCatcher for?</h2>
+
+<p>PageCatcher is an add-on utility for ReportLab's suite of
+enterprise reporting tools, as well as the most versatile
+tool for batch manipulation of PDF files.  The suite runs on
+all common computing platforms.  
+</p>
+
+<p>The free ReportLab core API
+lets you create PDF files directly using the Python
+scripting language; our commercial RML2PDF Report Markup Language
+product lets you specify printed documents in easy-to-understand
+XML and converts these to PDF.  PageCatcher allows these
+packages to reuse complex designs from existing PDF files
+in dynamically created PDF documents.</p>
+
+<p>Many documents require elements such as fixed form layouts, 
+headers, footers, corporate logos, or other art work which 
+are most cost effectively created by artists or design 
+specialists using visual tools. With Adobe Acrobat, they
+can use any tools they wish and convert it to PDF.  These
+visual elements can then be seamlessly integrated into
+PDF reports using PageCatcher.</p>
+
+<p>In addition, many applications require batch or server-side
+modification of existing PDF documents - adding simple
+annotations, combining documents or printing 2-up or
+4-up.  These can all be scripted trivially with PageCatcher.
+There are many single-purpose programs to append, rearrange
+and extract text from PDFs; PageCatcher's
+simple API and a scripting interface 
+provides the most versatile solution on the market.</p>
+
+
+<h2>Running the demos</h2>
+<p>The demos are for Windows only and are packaged 
+as a zip file.  This creates a subdirectory
+called 'pageCatcher' under the location where
+you unzip it; so you can safely unzip into C:</p>
+
+This distribution consists of:
+<ul>
+<li>00README.txt - starting point
+<li>PageCatchIntro.html - this document
+<li>pageCatcher.exe - executable program
+<li>sample1.pdf - a U.S. government tax form
+<li>sample2.pdf - first ten pages of Psion's 1997 annual report
+<li>sample3.pdf - a custom page backdrop
+<li>five sample scripts (example*.py) to manipulate the examples
+<li>runall.bat - batch file to run all demos at once
+</ul>
+
+When run as a command line program
+PageCatcher has many command line options; the first argument
+is a command.  The general command line usage for PageCatcher
+is
+<pre>
+pageCatcher.exe COMMAND ARGUMENT1 ARGUMENT2 ...
+</pre>
+The COMMAND indicates what action pageCatcher should perform.
+The most general command is the 'exec' command.
+
+<p>
+The 'exec' command runs a Python script that makes
+use of PageCatcher's functionality. In the demo distribution we
+provide five scripts to demonstrate the versatility of
+the API.  Try these commands from a command [MSDOS] prompt:
+<pre>
+pageCatcher.exe exec example1_fillform.py
+pageCatcher.exe exec example2_reverse.py
+pageCatcher.exe exec example3_append.py
+pageCatcher.exe exec example4_fourpage.py
+pageCatcher.exe exec example5_background.py
+</pre>
+<p>Each results in a PDF file being written which begins with 
+'out'; look at these as well as the samples to get an idea
+of the capabilities.  You can also use the batch file
+'runall.bat' to run all five demos in one go.</p>
+
+<h2>How does it work?</h2>
+
+<p>There are two logical steps in using PageCatcher.  First, 
+pages must be <em>extracted</em>
+into a special data file format using the PageCatcher filter script mode.
+Second, the extracted pages may be <em>imported</em> by ReportLab programs.
+In many applications, extraction is a one-off design-time step,
+and the data files produced can then be included in new documents at very high
+speeds.</p>
+
+<p>The commercial product consists of a compiled Python module
+(similar to a Java class file) which can be used in 3 ways:
+<ol>
+<li>as a command line application with many useful options
+<li>as a library within Python scripts
+<li>controlled by tags within RML documents
+</ol></p>
+
+<p>The PageCatcher product
+can either function as a module in a larger Python installation
+(which should include the ReportLab core libraries), or as a
+stand alone executable which contains the ReportLab distribution
+and all other required software components.
+<p>
+In either mode you can write your own
+scripts as well as looking at the ones we provided.
+Please consult
+the first few chapters of the 
+<a href="http://www.reportlab.com/userguide.pdf">Reportlab User Guide</a>,
+and to look at the documentation for 
+the <a href="http://www.python.org/">Python</a> scripting language
+for additional information on using the ReportLab toolkit and the Python
+programming language.
+<p>
+PageCatcher also functions as a add on component to the RML2PDF program
+supported by the <code>catchForms</code> RML tag.
+Please see the RML2PDF userguide for more information on using RML2PDF.
+
+<h2>Known Deficiencies and Caveats</h2>
+
+<p>PageCatcher does not support PDF pages with stream content arrays
+compressed using the LZW compression method.  (Unfortunately this is used in 
+British tax forms). We are working to add this support.
+
+<P>PageCatcher cannot capture pages that contain "Active PDF Form" annotations
+(such as checkboxes or fill-in text areas).
+
+<p>You must supply a user password to process encrypted PDF files
+<pre>
+pageCatcher...  --password MYUSERPASSWORD
+</pre>
+
+<p>Since the preprocessor step for PageCatcher parses the entire PDF file,
+parsing very large files may consume a great amount of computational resources
+even if only one page is extracted from the file.
+
+
+<h2>Workarounds</h2>
+<p>If you have a copy of Adobe's Distiller, you can use it to work around 
+the majority of problems.
+To do this, use Distiller's printer emulation to "print to PDF" and the 
+file created will be 
+digestible by PageCatcher. (One <i>known</i> exception: 
+where the PDF file is encrypted and printing is not 
+permitted).
+
+<h2>Page Extraction</h2>
+
+<p>PageCatcher can extract pages from PDF files into the import data format
+either using a command line or using a function call from within a python
+program or script.  All extraction options may specify a prefix to use
+in the form names and also for other internal purposes.  
+<b>
+It is important that if a generated document uses several PageCatcher data files
+that the data files use <em>different</em> prefixes.
+</b>
+
+
+
+<p>
+<b>Line mode page extraction:</b>
+In script mode PageCatcher prepares the contents of one or more pages of
+a PDF file for use in other PDF files.
+<pre>
+% PageCatcher makeforms pdffile [-s storagefile] [-p prefix]
+     [--password password] [--test pdftestfile] [--all] [pagenumber]*
+</pre>
+This command
+  captures the pages from pdffile and places them in storagefile for later use.
+  If the test option is used then the captured pages are reimported and placed
+  in the test file, overlayed with a centimeter grid.
+<p>
+
+<em>  Note! Pagenumbers start at 0 (zero)
+  (with no necessary relation to the pagenumber shown by a PDF viewer such as Acroread).
+</em>
+  If the pagenumbers are omitted only the first page of the document will be made into
+  a form.
+<p>
+  The "form names" for the forms derived from the pages will be prefix0 for the front page,
+  prefix1 for the following one, prefix2 for the one after that, and so forth.
+<p>
+<b>  For example</b>
+<pre>
+  % pageCatcher makeforms picture.pdf -s pic.data -p pict --test pictest.pdf 0 2
+</pre>
+  extracts the first and third page from picture.pdf, archiving them in pic.data
+  for later use, giving them the form names pict0 and pict2, respectively.
+  The test file pictest.pdf will display the captured forms overlayed with a
+  centimeter grid.
+<p>
+  If the storagefile is omitted it defaults to "storage.data".
+  If the prefix is omitted it defaults to PF (for "page form").
+  If the --all option is used then all pages of the document are captured.
+<p>
+<b>Function call mode page extraction:</b>
+The <code>storeForms</code> function extracts a form from within a
+program or script.
+The Python programming language signature for <code>storeForms</code> is
+<pre>
+storeForms(frompdffile, storagefile, pagenumbers=None, 
+      prefix="PageForms", all=None, verbose=0, password=""):
+</pre>
+The usage of <code>storeForms</code> is analogous to the script usage
+described above, except that there is no option for test output.
+<ul>
+<li><code>frompdffile</code> must provide the name of an existing PDF file
+to use for extracting the forms.
+<li><code>storagefile</code> must provide a name to use for the storage file in
+which to store the formatted form data.
+<li><code>pagenumbers</code> if present should be a Python list of integers
+listing the offsets of the pages
+to store as forms (with the front page of the document at offset 0 and the next
+page at offset 1 and so forth).
+<li><code>prefix</code> when used should be a string to use as the form prefix.
+<li><code>all</code> when used and set specifies that all pages of the PDF file
+should be captured as forms.
+<li><code>verbose</code> if present and set will cause the generation process
+to print verbose commentary on the extraction process (for debugging).
+<li><code>password</code> will be used if the PDF file has been encrypted.
+It should provide the User password for the file (which is the empty string
+if the document is readable without a password).
+</ul>
+The return value of <code>storeForms</code> is a list of strings listing the
+names of the forms stored in the storage file.
+<p>
+<b>  For example</b>
+<pre>
+  names = storeForms("manual.pdf", "manual.data", prefix="fourpage", all=1, verbose=1)
+</pre>
+Stores <em>all</em> pages from <code>manual.pdf</code> in storage file <code>manual.data</code>
+using the prefix <code>fourpage</code>, with verbose commentary printed to standard
+output.
+
+
+<h2>Using Caught Pages</h2>
+
+<p>
+Both the ReportLab RML2PDF product and the ReportLab core Python API can use
+PageCatcher storage files to place captured graphics in generated PDF files.
+In addition, PageCatcher provides several built in demo modes listed below.
+<p>
+<b>Catching Forms in RML:</b>
+If you have production versions of both RML2PDF and PageCatcher you can use
+a special Report Markup Language tag <code>catchForms</code> which imports
+all forms from a PageCatcher storage file for use in an RML document.
+<p>
+<b>For example:</b>
+The following RML code fragment draws a caught form <code>PF0</code>
+(stored in storage file <code>storage.data</code>) onto a
+page backdrop.
+<pre>
+&lt;pageDrawing&gt;
+&lt;catchForms storageFile="storage.data"/&gt;
+&lt;doForm name="PF0"/&gt;
+&lt;/pageDrawing&gt;
+</pre>
+The <code>catchForms</code> tag can occur anywhere where a <code>doForm</code>
+tag can occur.
+<p>
+<b>Catching Forms in Python using the ReportLab core API:</b>
+You can also use PageCatcher caught pages in documents created using
+the ReportLab core API for creating PDF programs.
+The <code>restoreForms</code> function imports forms from a storage file
+into a pdfgen Canvas object.
+<pre>
+def restoreForms(storagefilename, canv, verbose=0):
+</pre>
+<ul>
+<li><code>storagefilename</code> must be the string name of a PageCatcher
+storage file.
+<li><code>canv</code> must be a reportlab.pdfgen.canvas.Canvas object
+<li><code>verbose</code> if used and set instructs the function to
+print verbose progress and diagnostic information to standard output
+(for debugging).
+</ul>
+The  result of the function is the list of names of the forms extracted
+from the storage file.
+<p>
+The following example function extracts all pages from a storage file
+and places them on 4 to a page in a new PDF file.
+<pre>
+def fourPage(storagefile, testfile, scalefactor = 0.5):
+    print "placing forms from", storagefile, "into", testfile, "four to a page"
+    from reportlab.pdfgen import canvas
+    canv = canvas.Canvas(testfile)
+    (width, height) = canv._pagesize
+    names = restoreForms(storagefile, canv, verbose=1)
+    while names:
+        for (xoff, yoff) in [ (0,1), (1,1), (0,0), (1,0) ]:
+            thisname = names[0]
+            print thisname,
+            canv.saveState()
+            (x,y) = (xoff*width/2.0, yoff*height/2.0)
+            canv.translate(x,y)
+            canv.scale(scalefactor, scalefactor)
+            canv.doForm(thisname)
+            canv.restoreState()
+            del names[0]
+            if not names: break
+        canv.showPage()
+        print
+    canv.save()
+    print "wrote", testfile
+</pre>
+The <code>fourPage</code>
+function first creates a canvas, extracts the forms for the canvas
+using <code>restoreForms</code>. Then it iterates over the names of the forms
+placing the first at the upper right part of the page, the second at the
+upper left, the third at the lower right, and the fourth at the lower left.
+Then the function continues this process on the next page with the remaining
+forms until they all the forms have been placed.  Finally the function saves
+the document.  For a detailed explanation of the methods of the canvas object
+please see the ReportLab core API userguide.
+
+<h2>Demo Modes</h2>
+
+The PageCatcher program also includes a number of 
+built in demonstration modes.  These options are provided as an easy
+way of showing some of the capabilities of PageCatcher without requiring
+any programming or the use of RML2PDF.
+<p>
+<b>help:</b>
+<pre>
+ % pageCatcher help
+</pre>
+This mode prints a short explanation of the script options.
+<p>
+<b>note:</b>
+<pre>
+ % pageCatcher note [pdffile]
+</pre>
+     This mode places a text string over the first page of pdffile,
+     storing the result in "annotated.pdf".  The font, size and
+     string are read interactively from the console.
+<p>
+<b>4page:</b>
+<pre>
+ % pageCatcher 4page pdffile [--scale scalefactor]
+                     [--output pdfoutputfilename] [-s storagefilename]
+</pre>
+     This mode rewrites the pages of pdffile with 4 pages of the input
+     on each page of the output ("save the trees" mode).
+<p>
+<b>exec</b>
+<pre>
+ % pageCatcher exec scriptFileName
+</pre>
+This mode executes a python script.  This mode is provided for the case
+where PageCatcher is distributed as a stand alone executable for demonstration
+and evaluation purposes.  It allows evaluation customers to try scripting usage
+without having a Python installation.  <em>Note that not all legal scripts will
+work with the stand alone evaluation version since the executable does not contain all
+standard library modules.</em>
+
+<h2>Additional Feature -- Copying and Appending PDF files</h2>
+
+<p>There are a number of additional features in PageCatcher beyond
+the fundamental operation of capturing pages from one document and
+embedding them in another.  These features are available when using
+"exec scriptname" form or when importing the licensed pageCatcher component
+into another program.  <em>These features do not require
+a PageCatcher license to work in production mode.</em></p>
+
+<pre>
+copyPages(frompdffile, tocanvas, withoutline=1)
+</pre>
+
+<p>
+The function <code>copyPages</code> will copy all pages of a PDF file into a ReportLab document
+(the document that is being created using the <code>canvas</code>
+object).  
+The pages will be copied without changes.
+For example the following script will append any number
+of pdf files together into a new pdf document.
+</p>
+<pre>
+try:
+    from rlextra.pageCatcher.pageCatcher import copyPages
+except ImportError:
+    pass # running inside pageCatcher module?
+
+from reportlab.pdfgen import canvas
+
+def doappend(topdffile, frompdffilelist):
+    canv = canvas.Canvas(topdffile)
+    for frompdffile in frompdffilelist:
+        print "copying", frompdffile
+        copyPages(frompdffile, canv)
+    print "\n\nnow writing", topdffile
+    canv.save()
+
+if __name__=="__main__":
+    # edit this
+    doappend("out8_directcopy.pdf", ["sample1.pdf", "sample2.pdf", "sample3.pdf"])
+</pre>
+
+<p>If you do not want to include the outline from the copied document in the result
+unset the parameter <em>withoutline=0</em>.</p>
+
+<p>Note that copyPages may currently be used without purchasing a PageCatcher 
+license.  This functionality was included to assist some open source users of our product
+who were urgently in need of this function. We do not, however, promise to keep this free 
+in future versions.
+</p>
+
+<h2>Feedback</h2>
+We need and welcome feedback to help make this into a great product!  Email 
+info@reportlab.com, or join our group of 200+ existing users by emailing
+reportlab-users@reportlab.com.  Enjoy!
+
+</html>

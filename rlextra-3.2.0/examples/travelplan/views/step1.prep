@@ -1,0 +1,84 @@
+{{script}}
+import travel 
+from rlextra.radxml.xmlutils import xml2doctree
+params = request.params
+orig = params['orig']
+dest = params['dest']
+oDay = params['oDay']
+customerName = ' '.join([params['title'],params['firstName'],params['surname']])
+tripTitle = params['tripTitle']
+subtitle = params['subtitle']
+oMonYear = params['oMonYear']
+def getYMD(MMYYYY,DD):
+	return MMYYYY[2:6]+'-'+MMYYYY[0:2]+'-'+DD
+oYMD = getYMD(oMonYear,oDay)
+rDay = params['rDay']
+rMonYear = params['rMonYear']
+rYMD = getYMD(rMonYear,rDay)
+flightClass = params['flightClass']
+numOfAdults = params['numOfAdults']
+if rDay == '00' and rMonYear == '000000':
+	isRoundTrip = False
+else: isRoundTrip = True
+presaleXML = travel.getPresaleXML(tripTitle,subtitle,customerName,orig, dest,oYMD,rYMD,flightClass,isRoundTrip)
+presale=xml2doctree(presaleXML,0)
+tickets=presale.tickets
+hotels=presale.hotels
+#debug
+if 1:
+	open('latest_sample.xml','w').write(presaleXML)
+{{endscript}}
+{{app.doHeader(onload="")}}
+	<div id="main">
+		<div id="main2"><h2>Flights</h2>
+			<form name="flights">				
+				<input type="hidden" name="action" value="step2"/>				
+				<input type="hidden" name="tripTitle" value="{{tripTitle}}"/>				
+				<input type="hidden" name="subtitle" value="{{subtitle}}"/>				
+				<input type="hidden" name="customerName" value="{{customerName}}"/>				
+				<input type="hidden" name="orig" value="{{orig}}"/>				
+				<input type="hidden" name="dest" value="{{dest}}"/>				
+				<input type="hidden" name="oYMD" value="{{oYMD}}"/>				
+				<input type="hidden" name="rYMD" value="{{rYMD}}"/>				
+				<input type="hidden" name="numOfAdults" value="{{numOfAdults}}"/>				
+				<input type="hidden" name="ticket_id" value=""/>{{include('views/airticket.prep',dictionary=dictionary, tickets=tickets, step='1')}}
+			</form><h2>Hotels</h2>
+{{include('views/hotelbooking.prep',dictionary=dictionary, hotels=hotels, step='1')}}
+			<form name='pdf'>				
+<!--{{oDay}}-->
+				<input type="hidden" name="action" value="makepdf"/>
+				<!--input type="hidden" name="action" value="echo"/-->				
+				<input type="hidden" name="tripTitle" value="{{tripTitle}}"/>				
+				<input type="hidden" name="subtitle" value="{{subtitle}}"/>				
+				<input type="hidden" name="customerName" value="{{customerName}}"/>				
+				<input type="hidden" name="orig" value="{{orig}}"/>				
+				<input type="hidden" name="dest" value="{{dest}}"/>				
+				<input type="hidden" name="oYMD" value="{{oYMD}}"/>				
+				<input type="hidden" name="rYMD" value="{{rYMD}}"/>				
+				<input type="hidden" name="flightClass" value="{{flightClass}}"/>				
+				<input type="hidden" name="isRoundTrip" value="{{isRoundTrip}}"/>
+				<input type="hidden" name="numOfAdults" value="{{numOfAdults}}"/>
+				<input type="submit" value="Make pre-sale PDF">
+                <p>This button will create a PDF containing ALL of your options.  To create a specific
+                holiday brochure in a post-booking style, choose a flight above instead.</p>
+			</form>
+		</div>
+	</div>
+	<div id="sidebar">	<!-- Begin .box -->
+		<div class="box">
+			<div class="box2">
+				<div class="box3"><h2 class="sidebar-title">Step 1 - Selection</h2>
+                <p>This screen displays some flight and hotel selections for the location
+                and dates given.  You can use this demo in two modes:</p>
+                <ul>
+                    <li>- you can define a specific holiday which will result in an in-depth
+                    post-booking brochure.  To go this way, choose a specific flight using
+                    the 'choose this flight' links on the lower right of each one. You'll then be
+                    offered more options on subsequent steps</li>
+                    <li>- you can just click 'Make presale PDF' at the bottom.  All the flight and hotel 
+                    options will then appear in your tailor-made brochure</li>
+                </ul>
+				</div>
+			</div>
+		</div>	<!-- End .box -->
+	</div>	{{app.doFooter()}}

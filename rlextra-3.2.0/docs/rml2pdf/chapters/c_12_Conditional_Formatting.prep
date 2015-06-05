@@ -1,0 +1,182 @@
+<!-- chapterName "Conditional Formatting" -->
+
+<!-- sectionName "Introduction" -->
+
+<para>WARNING - this is an advanced topic, intended for programmers trying to deal
+with difficult layout cases.  The tags documented here have the potential to
+cause hard-to-understand exceptions if not used correctly!</para>
+
+<para>Conditional formatting allows you to include expressions in your RML text which are evaluated
+or executed when the pdf is actually being built.  This means that you can vary the content of your
+document depending on conditions (such as where you are on the page) which you do not know in advance.
+</para>
+
+<para>
+For instance, you may be including dynamic content in your document which is likely to be of
+variable length.  You could use the value of one of the document's internal formatting variables to include or
+exclude certain content, based on the remaining height of a page or the current page number.
+One common use is in the case of creating documents for printing: these could be 'padded out' with optional content,
+to make sure that they are always a 4-page spread.  Another useful application would be deciding whether there is
+space to include a large image or diagram in the present location.
+</para>
+
+<para>A working example using all of these tags can be found in rlextra/rml2pdf/test/test_039_doc_programming.rml.</para>
+
+<para>Basic programming primitives (assignment, loop, if, while etc.) have been made
+available as tags.  These can be given expressions which can use your own variables,
+as well as built-in ones available during rendering.  All expressions must be valid
+python literal expressions.</para>
+
+<para>The following internal variables are available to use as conditions:</para>
+
+<para><font face="Courier">availableWidth</font> and <font face="Courier">availableHeight</font> give you the remaining height and width of the current frame.</para>
+<para><font face="Courier">doc.frame.id</font> returns the id of the current frame</para>
+<para><font face="Courier">doc.pageTemplate.id</font> returns the id of the current page template</para>
+<para><font face="Courier">doc.page </font>returns the current page number.</para>
+
+<!-- sectionName "Tags" -->
+
+<para>The <font face="Courier">&lt;docIf&gt;</font>, <font face="Courier">&lt;docElse&gt;</font> and
+<font face="Courier">&lt;docWhile&gt;</font> tags allow you to control which content is included and excluded - while,  or if, a
+condition is true or false.</para>
+
+<para>The <font face="Courier">&lt;docPara&gt;</font> tag allows you to include the value of an expression
+in the output text.  This is useful for debugging document layouts
+(e.g. temporarily inserting paragraphs like "you are [3] inches down
+the [left] frame of the [chapter_first_page] template on page [19]"),
+but you can also use it to display facts you stored earlier.
+The value can be formatted using Python format strings - see the test case above for details.</para>
+
+<para><font face="Courier">&lt;docAssign&gt;</font> assigns a value to a variable, and
+<font face="Courier">&lt;docExec&gt;</font> executes a statement or expression.</para>
+
+<para>The <font face="Courier">&lt;docAssert&gt;</font> tag allows you to test an expression
+and raise an exception if it is not true.  This can be a useful quality assurance technique.
+As with the docPara example for debugging, you can include assertions like "I should now be
+at the top of page 3" or "I should now be in the footer frame".  </para>
+
+<!-- sectionName "Operators" -->
+
+<para>When using docIf or docWhile tags, you can use the following operators to evaluate your conditions:</para>
+<para><font face="Courier">= < <= > => % </font></para>
+<para>However, bear in mind that the 'greater than' and 'less than' operators must be
+written in RML as <![CDATA[&gt;]]> and <![CDATA[&lt;]]>
+</para>
+
+<!-- sectionName "Examples" -->
+
+<para>Some sample code demonstrating several of the conditional formatting tags:</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<docAssign var='i' expr="3"/>
+<docIf cond='i&gt;2'>
+    <para style="normal">The value of i is greater than 2</para>
+    <docElse/>
+    <para style="normal">The value of i is less than or equal to 2</para>
+</docIf>
+<docWhile cond='i'>
+    <docPara expr='i' format='The value of i is %(__expr__)d'/>
+    <docExec stmt='i-=1'/>
+</docWhile>
+]]>
+
+</codesnippet>
+
+<para>results in the output:</para>
+
+<para style="programListing">The value of i is greater than 2</para>
+<para style="programListing">The value of i is 3</para>
+<para style="programListing">The value of i is 2</para>
+<para style="programListing">The value of i is 1</para>
+
+<para></para>
+
+<para>As an example of a practical use of conditional formatting, supposing you wanted all your
+documents to be a certain number of pages.
+You could use the value of doc.page to decide whether to include or exclude an external
+'filler' pdf in your output, and so pad the size of your document:</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<docIf cond="doc.page == 3">
+    <includePdfPages filename="fillerpage.pdf" pages="1" leadingFrame="yes"/>
+</docIf>
+]]>
+
+</codesnippet>
+
+
+<!-- sectionName "Reference" -->
+
+<para>Conditional formatting is implemented with the following tags:</para>
+
+<para style="nospace">
+<font face="Courier">&lt;docAssign var='' expr=''&gt;</font>
+</para>
+
+<para style="bulletList" bulletText="">
+assigns the value of 'expr' to 'var', eg to make i=3 :
+<font face="Courier">&lt;docAssign var='i' expr='3'/&gt;</font>
+</para>
+
+<para style="nospace">
+<font face="Courier">&lt;docExec stmt=''&gt;</font>
+</para>
+
+<para style="bulletList" bulletText="">
+executes the statement 'stmt', eg to subtract 1 from the value of i :
+<font face="Courier">&lt;docExec stmt='i-=1'/&gt;</font>
+</para>
+
+<para style="nospace">
+<font face="Courier">&lt;docPara expr='' format='' style=''&gt;</font>
+</para>
+
+<para style="bulletList" bulletText="">
+creates a paragraph containing the value of 'expr'.
+</para>
+
+<para style="bulletList" bulletText="">
+'format' is an optional attribute which can contain the value of 'expr' using the Python string formatting conventions, eg "%(__expr__)s".
+</para>
+<para style="bulletList" bulletText="">
+The 'style' attribute is optional.
+</para>
+<para style="bulletList" bulletText="">
+eg: <font face="Courier">&lt;docPara expr='i' format='The value of i is %(__expr__)d' style="style.txt"/&gt;</font>
+</para>
+<para style="bulletList" bulletText="">
+So if i=2, this results in the text "The value of i is 2"
+</para>
+
+<para style="nospace">
+<font face="Courier">&lt;docAssert cond='' format=''&gt;</font>
+</para>
+<para style="bulletList" bulletText="">
+raises an error containing the value of 'format' if 'cond' is false, eg:
+</para>
+<para style="bulletList" bulletText="">
+eg: <font face="Courier">&lt;docAssert cond='val', format="val is false" /&gt;</font>
+</para>
+
+
+<para style="nospace"><font face="Courier">&lt;docWhile cond=''&gt;</font></para>
+<para style="nospace"><font face="Courier">&lt;docIf cond=''&gt;</font></para>
+<para style="nospace"><font face="Courier">&lt;docElse&gt;</font></para>
+<para style="bulletList" bulletText="">
+these tags allow flow control while or if the 'cond' attribute evaluates to true.  See the example above.
+</para>
+
+
+
+<!--
+<nextFrame/>
+
+<condPageBreak height="144"/>
+
+<h1>Part III - Tables</h1>
+<namedString id="Part III - Tables"><pageNumber/></namedString>
+
+-->
+

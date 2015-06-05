@@ -1,0 +1,61 @@
+{{script}}
+import travel
+from rlextra.radxml.xmlutils import xml2doctree
+params = request.params
+ticket_id = params['ticket_id']
+roomBooking_id = params['roomBooking_id']
+numOfAdults = params['numOfAdults']
+itineraryXML = travel.getStep4XML(tripTitle,subtitle,customerName,ticket_id, roomBooking_id)
+open('itinerary.xml','w').write(itineraryXML)
+itinerary=xml2doctree(itineraryXML)
+tickets = itinerary.tickets
+ticket = tickets.airTicket
+hotels = itinerary.hotels
+hotel = hotels.hotel
+{{endscript}}
+{{app.doHeader()}}
+	<div id="main">
+		<div id="main2">
+<h2>Ticket</h2>
+<p>Your chosen ticket:</p>
+{{include('views/airticket.prep', dictionary=dictionary, tickets=tickets, step='4')}}
+<h2>Hotel</h2>
+<p>Your hotel booking.</p>
+<input type="hidden" name="action" value="step4">
+<input type="hidden" name="tripTitle" value="{{tripTitle}}"/>				
+<input type="hidden" name="subtitle" value="{{subtitle}}"/>				
+<input type="hidden" name="customerName" value="{{customerName}}"/>				
+<input type="hidden" name="ticket_id" value="{{ticket_id}}">
+<input type="hidden" name="numOfAdults" value="{{numOfAdults}}">
+<input type="hidden" name="roomBooking_id" value="{{roomBooking_id}}">
+{{include('views/hotelbooking.prep', dictionary=dictionary, hotels=hotels, step='4')}}
+<form name='pdf'>
+<input type="hidden" name="action" value="makeitinerarypdf">
+<input type="hidden" name="tripTitle" value="{{tripTitle}}"/>				
+<input type="hidden" name="subtitle" value="{{subtitle}}"/>				
+<input type="hidden" name="customerName" value="{{customerName}}"/>				
+<input type="hidden" name="ticket_id" value="{{ticket_id}}">
+<input type="hidden" name="numOfAdults" value="{{numOfAdults}}">
+<input type="hidden" name="roomBooking_id" value="{{roomBooking_id}}">
+<input type="submit" value="make pdf">
+</form>
+		</div>
+	</div>
+	<div id="sidebar">	<!-- Begin .box -->
+		<div class="box">
+			<div class="box2">
+				<div class="box3"><h2 class="sidebar-title">Step 4 - confirmation</h2>
+                <p>This is the last step for now.</p>
+                <p>Soon we'll be offering you choices for things like in-depth location info, car hire,
+                what's on when you get there, maps and directions - drawn from industry-standard online
+                data sources.  Your customer will be able to build and print off their own
+                fully personalised guidebook for their chosen holiday, carrying both your brand and
+                much genuinely useful information with them!  </p>
+
+                <p>For now, we're ready to make your booking confirmation. Just click
+                the button at the bottom...and start counting!  We make that PDF pretty quickly.</p>
+				</div>
+			</div>
+		</div>	<!-- End .box -->
+	</div>
+{{app.doFooter()}}

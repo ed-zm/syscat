@@ -1,0 +1,58 @@
+<!-- chapterName "Lesson 7: Tables" -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_07.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+
+            <pageGraphics>
+                <place x="300" y="500" width="250" height="250">
+                    <blockTable>
+                        <tr>
+                             <td>A block </td><td>table</td>
+                        </tr>
+                        <tr>
+                             <td>inside </td><td>a place tag.</td>
+                        </tr>
+                    </blockTable>
+                </place>
+            </pageGraphics>
+
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story> 
+        
+        <blockTable>
+            <tr>
+                <td>A block</td>
+                <td>table</td>
+            </tr>
+            <tr>
+                <td>inside </td>
+                <td>the story tag.  This is a long string of text
+                    which won't wrap by default.</td>
+            </tr>
+        </blockTable>
+
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>Tables are drawn in RML using the &lt;blockTable&gt; tag.  They are very similar to HTML tables.</para>
+
+<para>An important thing to note is that by default, the text in a cell will not wrap.  The output from the example above probably doesn't look like you'd expect: that's because the table in the &lt;story&gt; has a long string of text, and the entire table is centred inside the containing frame.  To make the table fit inside the frame, you have to set the width of the columns in the &lt;blockTable&gt; tag (see lesson 10).</para>
+
+<para>This example also introduces the &lt;place&gt; tag.  This tag allows you to insert a 'flowable' section inside the pageTemplate section, (it is the converse of the &lt;illustration&gt; tag, which allows you to include static elements in the 'flowable' section).  To use a table, or other flowable element like a &lt;para&gt;, inside the pageTemplate section, wrap it inside a &lt;place&gt; tag; the contents of the &lt;place&gt; tag are then treated like a single block inside which elements will be 'flowable'.</para>
+
+<para>Now you know the basics of tables and how to place them.</para>

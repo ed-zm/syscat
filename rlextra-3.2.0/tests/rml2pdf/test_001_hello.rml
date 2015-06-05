@@ -1,0 +1,72 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_001_hello.pdf" invariant="1">
+
+<template pageSize="a4" leftMargin="72" showBoundary="1"
+    author="A.N. Author"
+    subject="My subject"
+    title="My title"
+    creator="My creator"
+	displayDocTitle="1"
+	lang="en-US"
+    >
+	<pageTemplate id="main" pageSize="a4">
+	<pageGraphics>
+	<setFont name="Helvetica-Bold" size="18"/>
+    	    <drawString x="35" y="783">RML Example 3: Hello</drawString>
+            <setFont name="Helvetica-Oblique" size="12" />
+    		<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<textAnnotation><param name="Rect">0,0,1,1</param><param name="F">3</param><param name="escape">6</param>X::PDF
+PX(S)
+MT(PINK)
+</textAnnotation>
+	</pageGraphics>
+	<frame id="1" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-BoldOblique" fontSize="16" leading="12" spaceAfter="16"/>
+	<paraStyle name="italic" fontName="Helvetica-Oblique" fontSize="10" leading="12"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" leading="12"/>
+	<paraStyle name="spaced" fontName="Helvetica" fontSize="12" leading="12" 
+		spaceBefore="12" spaceAfter="12"/>
+		<paraStyle 
+        name="intro" 
+        fontName="Helvetica" 
+        fontSize="12" 
+        leading="12"
+        spaceAfter="12"/>
+</stylesheet>
+
+<story>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color="(0,0.99,0.97,0.0)"/>
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1"/>
+</illustration>
+</storyPlace>
+<para style="h1">Flowing text (heading)</para>
+<para style="italic">This is flowing text inside a frame, which is set in the page template. The template lays out the static parts of the page, such as the logo and footer image, and defines a location and size for the flowing content frame. The frame border is visible because of the attribute showBoundary="1" on the template tag.</para>
+	<para style="normal">I have now started a new paragraph with a new &lt;para&gt; tag; note that because there was no spaceAfter attribute on the previous paragraph, there is no gap between these blocks of text. I have also assigned a new paragraph style which is no longer in italics. <font color="red">Here is some red text enclosed by &lt;font&gt; tags, which can set special styles within a paragraph.</font> Donec metus velit, varius et facilisis non, facilisis a metus. Aliquam erat volutpat. Maecenas hendrerit mollis diam a volutpat. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Ut vitae velit nec sem rhoncus porttitor ac at lectus. Suspendisse fringilla ante ut lorem dignissim sed placerat neque tincidunt. Praesent quis lectus leo, non egestas nulla. Sed posuere elementum ullamcorper. 
+	</para>
+	<para style="spaced">This paragraph has a new para style assigned whose font size is larger and whose spaceAfter and spaceBefore attributes are 12pts. There should be 12 points before and after this paragraph.</para>
+	<para style="normal">Sed pretium sollicitudin lacinia. Maecenas eget neque sit amet urna commodo vehicula. Fusce sed felis a lorem semper luctus. Duis congue metus eget nulla gravida placerat. Praesent arcu libero, gravida vitae commodo at, pharetra et tellus. Suspendisse pulvinar nulla nec massa convallis scelerisque in sed lacus. Donec sed orci est, sed congue neque. In hac habitasse platea dictumst. 
+	</para>
+<ol>
+<li>
+	<para>
+	</para>
+</li>
+</ol>
+	
+</story>
+
+</document>

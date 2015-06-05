@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_016_pdf_missing_error.pdf"> 
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+
+<pageTemplate id="main">
+	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="14" leading="17" spaceBefore="28"/>
+	<paraStyle name="body" fontName="Helvetica" fontSize="12" leading="14" spaceBefore="14"/>
+	<paraStyle name="code" fontName="Courier" fontSize="10" leading="12" spaceBefore="0" leftIndent="36" textColor="navy"/>
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+
+
+<story>
+<includePdfPages filename="missing.pdf" pages="1" outlineText="crasher"/>
+</story>
+</document>

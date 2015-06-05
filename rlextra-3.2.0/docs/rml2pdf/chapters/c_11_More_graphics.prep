@@ -1,0 +1,1173 @@
+<!-- chapterName "More graphics" -->
+
+<!-- sectionName "curves" -->
+
+<para>
+We have seen how you can use the <font face="Courier">&lt;lines&gt;</font> tag to create a
+number of straight lines with one command. Not all the lines you want to draw will be straight,
+which is why we have the <font face="Courier">&lt;curves&gt;</font> tag.
+</para>
+
+<para>
+Like <font face="Courier">&lt;lines&gt;</font>, <font face="Courier">&lt;curves&gt;</font> must appear
+in the <font face="Courier">pageGraphics</font> section of your <font face="Courier">template</font>.
+Unlike <font face="Courier">lines</font>, you need to specify 4 points as X-Y co-ordinate pairs (i.e. you need to feed
+<font face="Courier">curves</font> sequences of 8 numbers at a time, rather than the 4 you need for
+<font face="Courier">lines</font>).
+</para>
+
+<para>
+The <font face="Courier">curves</font> tag produces a <i>Bezier curve</i>.
+Bezier curves are named after the French mathematician, Pierre Bézier, and are curves that
+utilize at least three points to define a curve. RML curves use the two endpoints (or "anchor
+points") and two "nodes".
+</para>
+
+<illustration width="450" height="286">
+<image file="images/Bezier_1.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: A Bezier Curve
+</para>
+
+
+<para>
+In RML, if you give a curve 4 control points (which we shall call (x1,y1), (x2,y2), (x3,y3), and (x4, y4)),
+the start point of the curve will be specified by (x1,y1) and the endpoint specified by (x4,y4).
+The line segment from (x1,y1) to (x2,y2) forms a tangent to the curve. The line segment from (x3,y3) to
+(x4,y4) also forms a tangent to the curve. If you look at an illustration of a Bezier curve, you will
+see that the curve is entirely contained within the convex figure with its vertices at the control points.
+</para>
+<para>
+Example:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<template>
+    <pageTemplate id="main">
+        <pageGraphics>
+            <curves>
+                198 560
+                198 280
+                396 280
+                396 560
+            </curves>
+        </pageGraphics>
+        <frame id="first" x1="0.5in" y1="0.5in" width="20cm" height="28cm"/>
+    </pageTemplate>
+</template>
+
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<!-- sectionName "paths" -->
+
+<para>
+To connect lines and curves you need to use the <font face="Courier">&lt;path&gt;</font>
+tag. This allows you to make complex figures.
+</para>
+
+<para>
+Like the other graphics in RML, <font face="Courier">&lt;path&gt;</font> lives in the
+<font face="Courier">&lt;pageGraphics&gt;</font> section at the start of the document.
+</para>
+
+<para>
+Initially, you must give a <font face="Courier">&lt;path&gt;</font> tag
+<font face="Courier">x</font> and <font face="Courier">y</font>
+attributes to tell it the co-ordinates for the point where this path is going to start. You may
+also at the same time give it attributes called <font face="Courier">stroke</font> and
+<font face="Courier">fill</font> (which do the same as their
+counterparts for the basic shapes such as <font face="Courier">rect</font> and
+<font face="Courier">circle</font>), and an additional one called <font face="Courier">close</font>.
+If the close attribute is set to "yes" or "1", then once the <font face="Courier">path</font> is
+completed, the <font face="Courier">stroke</font> is finished off by painting a line from the last point given
+to the first point, enclosing the figure.
+</para>
+
+<para>
+The <font face="Courier">&lt;path&gt;</font> tag has its paired <font face="Courier">&lt;/path&gt;</font>
+tag. Between these two tags, you can have a number of things.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+You can have a list of pairs of X-Y co-ordinates.
+</para>
+<para style="bulletList" bulletText="">
+If this is the case, a straight line is drawn to each point in turn.
+</para>
+<para style="bulletNospace" bulletText="l">
+You can have a paired <font face="Courier">&lt;moveto&gt;&lt;/moveto&gt;</font> tag.
+</para>
+<para style="bulletList" bulletText="">
+If this is the case, you need to give an x-y co-ordinate pair between these two tags.
+The "pen" or "brush" then moves to this point, and any further points or instructions
+given after this (while still inside the <font face="Courier">&lt;path&gt;</font> tag)
+continue onwards from this new point.
+</para>
+
+<para style="bulletNospace" bulletText="l">
+You can have a paired <font face="Courier">&lt;curvesto&gt;&lt;/curvesto&gt;</font> tag.
+</para>
+<para style="bulletList" bulletText="">
+This is similar to both the <font face="Courier">&lt;curves&gt;</font> tag and the
+<font face="Courier">&lt;moveto&gt;</font> tag discussed above. Inside the pair
+of <font face="Courier">&lt;curvesto&gt;</font> tags, you need to give rml2pdf sets of
+<i>3</i> pairs of X-Y co-ordinates at a time. Like <font face="Courier">&lt;curves&gt;</font>,
+<font face="Courier">&lt;curvesto&gt;</font> creates a Bezier curve. However, since it is inside
+a <font face="Courier">path</font> object, it already knows one of the points - the start point
+is assumed to be the last point in the path before the <font face="Courier">&lt;curvesto&gt;</font>
+tag. In other words, the "pen" or "brush" is already in a position, and this is taken as the first
+point for your Bezier curve.
+</para>
+
+<para>
+Here is an example of how a <font face="Courier">&lt;path&gt;</font> looks in action:
+</para>
+
+<illustration width="374" height="333">
+<image file="images/Example_7b.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: The output from EXAMPLE 7
+</para>
+
+
+<para style="figureCaption">EXAMPLE 7a</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_7a.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+                <fill color="red"/>
+                <stroke color="black"/>
+                <path x="247" y="72" fill="yes" stroke="yes" close="yes">
+                    247 172
+                    147 172
+                    147 272
+                    247 272
+                    247 372
+                    347 372
+                    347 372
+                    347 272
+                    447 272
+                    447 172
+                    347 172
+                    347 72
+                    <!-- This completes the first shape: a red cross.-->
+                    <moveto>267 572</moveto>
+                    <!-- This moves the "pen position"                              -->
+                    <!-- Notice that because we have used a "moveto", the           -->
+                    <!-- final line at the base of the cross is not completed, even -->
+                    <!-- though the "close" attribute of the "path" tag is set to   -->
+                    <!-- "yes"                                                      -->
+                    277 612
+                    <!-- this acts as the start point for the Bezier curves below   -->
+
+                    <curvesto>
+                        147 585
+                        147 687
+                        297 792
+
+                        447 687 447 585 317 612
+                    </curvesto>
+                    327 572
+                    <!-- We don't need to give the last point because close is -->
+                    <!-- set to "yes"                                          -->
+                </path>
+            </pageGraphics>
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <story>
+        <para></para>
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+<spacer length="15"/>
+
+<para>
+This example has used the 'template/stylesheet/story' form of document. But the story is empty,
+and we haven't used the stylesheet at all. The following example shows how we can use the
+'pageDrawing' form.
+</para>
+
+<para style="figureCaption">EXAMPLE 7b</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_7b.pdf">
+
+    <stylesheet>
+    </stylesheet>
+
+    <pageDrawing>
+        <fill color="red"/>
+        <stroke color="black"/>
+        <path x="247" y="72" fill="yes" stroke="yes" close="yes">
+            247 172
+            147 172
+            147 272
+            247 272
+            247 372
+            347 372
+            347 372
+            347 272
+            447 272
+            447 172
+            347 172
+            347 72
+            <moveto>267 572</moveto>
+            277 612
+            <curvesto>
+                147 585 147 687 297 792
+                447 687 447 585 317 612
+            </curvesto>
+            327 572
+        </path>
+    </pageDrawing>
+
+</document>
+
+]]></codesnippet>
+
+
+<spacer length="15"/>
+
+<!-- sectionName "grids" -->
+
+<para>
+The <font face="Courier">&lt;grid&gt;</font> is a graphics tag, and hence lives in the
+<font face="Courier">PageGraphics</font> section of your RML document. It produces a grid of lines.
+It takes two arguments - <font face="Courier">xs</font> which is a list of x co-ordinates (separated by commas),
+and <font face="Courier">ys</font> which is a comma-separated list of y co-ordinates. </para>
+
+<para>
+Example:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<grid xs="1cm,2cm,3cm,4cm,5cm,10cm" ys="1cm,2cm,3cm,4cm,5cm,10cm"/>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<!-- sectionName "Translations" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Translate
+</h3>
+-->
+
+<para>
+In a graphic operation (i.e. a <font face="Courier">pageGraphic</font> or an <font face="Courier">illustration</font>),
+<font face="Courier">&lt;translate&gt;</font> moves the origin of the drawing.
+</para>
+<para>
+<font face="Courier">&lt;translate&gt;</font> takes two optional attributes: <font face="Courier">dx</font> and
+<font face="Courier">dy</font>. Both can be given in any unit that RML understands.
+<font face="Courier">dx</font> is the distance that the to be moved in the X axis, and
+<font face="Courier">dy</font> is the distance it is to be moved in the Y axis.
+They are optional to allow you to only give one of the pair - so moving the origin in only one direction.
+</para>
+<para style="nospace">
+Examples:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<translate dx="55" dy="91"/>
+<translate dx="1in"/>
+<translate dy="6.5cm"/>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<para>
+This is what a translation with a <font face="Courier">dx</font> of 50 and a
+<font face="Courier">dy</font> of 50 looks like:
+</para>
+<illustration width="256" height="152">
+<lineMode width="2" cap="square"/>
+<lines>
+16 40 116 40
+16 40 16 140
+
+156 40 256 40
+156 40 156 140
+</lines>
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">Original</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+<fill color="red"/>
+<drawString x="16" y="41">X</drawString>
+<translate dx="142"/>
+
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">dx=50 dy=50</drawCentredString>
+<!-- This is relative to the origin of the black lines in the illustration,
+which is why it doesn't match the actual translate performed:
+it is what the translate would be if the origin was at 15,40  -->
+
+<setFont name="Times-Roman" size="8"/>
+<fill color="grey"/>
+<drawCentredString x="33" y="33">50 pt</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+<fill color="red"/>
+<stroke color="black"/>
+<translate dx="55" dy="91"/>
+<drawString x="0" y="0">X</drawString>
+<lineMode width="1" dash="5,4"/>
+<stroke color="lightgrey"/>
+<lines>
+0 0 0 50
+0 0 50 0
+</lines>
+<translate dx="-50" dy="-50"/>
+<lines>
+50 50 50 0
+8 50 50 50
+</lines>
+
+<fill color="grey"/>
+<setFont name="Times-Roman" size="8"/>
+<rotate degrees="90"/>
+<drawCentredString x="25" y="-6">50 pt</drawCentredString>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: An example of the &lt;translate&gt; tag in use
+</para>
+
+
+<para>
+And this is slightly simplified version of the relevant bit of RML:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<illustration>
+    <lines>
+        16 40 116 40
+        16 40 16 140
+
+        156 40 256 40
+        156 40 156 140
+    </lines>
+    <setFont name="Times-Roman" size="12"/>
+    <fill color="black"/>
+    <drawCentredString x="58" y="12">Original</drawCentredString>
+
+    <setFont name="Helvetica-Bold" size="50"/>
+    <fill color="red"/>
+    <drawString x="16" y="41">X</drawString>
+    <translate dx="142"/>
+
+    <setFont name="Times-Roman" size="8"/>
+    <fill color="lightgray"/>
+    <drawCentredString x="58" y="18">50 pt</drawCentredString>
+
+    <setFont name="Times-Roman" size="12"/>
+    <fill color="black"/>
+    <drawCentredString x="58" y="12">dx=50 dy=50</drawCentredString>
+    <!-- This is relative to the origin of the black lines in the illustration,
+         which is why it doesn't match the actual translate performed:
+         it is what the translate would be if the origin was at 15,40  -->
+
+    <setFont name="Helvetica-Bold" size="50"/>
+    <fill color="red"/>
+    <translate dx="55" dy="91"/>
+    <drawString x="0" y="0">X</drawString>
+
+</illustration>
+]]>
+</codesnippet>
+
+<spacer length="15"/>
+
+<!-- sectionName "scaling" -->
+
+<!--
+
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Scale
+</h3>
+-->
+
+<para>
+<font face="Courier">&lt;scale&gt;</font>, as its name suggests, allows you to stretch or shrink a graphic.
+</para>
+<para>
+The <font face="Courier">&lt;scale&gt;</font> tag takes two optional attributes: <font face="Courier">sx</font>
+and <font face="Courier">sy</font>. <font face="Courier">sx</font> is how much to scale the X axis, and
+<font face="Courier">sy></font> is how much to scale the Y axis. The scaling does not have to be
+proportional - omitting one allows you to change the scaling in one direction only. And you can shrink
+the shape as well as scale it up - an <font face="Courier">sx</font> or <font face="Courier">sy</font> of
+"2" doubles the size of it, but an <font face="Courier">sx</font> or <font face="Courier">sy</font> of "0.5" halves it.
+</para>
+<para>
+Scale factors can also be negative. Using an <font face="Courier">sx</font> of -1 and an
+<font face="Courier">sy</font> of 1 produces a mirror image.
+</para>
+<para style="nospace">
+Examples:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<scale sx="2" sy="0.25"/>
+<scale sx="2"/>
+<scale sy="0.5"/>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<para>
+This is what a scale with a <font face="Courier">sx</font> of 2 and an <font face="Courier">sy</font> of 2 looks like:
+</para>
+<illustration width="256" height="152">
+<lineMode width="2" cap="square"/>
+<lines>
+16 40 116 40
+16 40 16 140
+
+156 40 256 40
+156 40 156 140
+</lines>
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">Original</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+<fill color="red"/>
+<drawString x="16" y="41">X</drawString>
+<translate dx="142"/>
+
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">sx=2 sy=2</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+
+<fill color="red"/>
+<stroke color="black"/>
+<scale sx="2" sy="2"/>
+<drawString x="8" y="20.5">X</drawString>
+
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: An example of the &lt;scale&gt; tag in use
+</para>
+
+<!-- sectionName "rotations" -->
+
+<!--
+
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Rotate
+</h3>
+-->
+
+<para>
+The <font face="Courier">&lt;rotate&gt;</font> tag allows allows you to rotate a graphic.</para>
+<para>
+<font face="Courier">&lt;rotate&gt;</font> takes one mandatory attributes called
+<font face="Courier">degrees</font>, which is the number of degrees to rotate
+the object. A positive number for degrees rotates it <i>anti-clockwise</i>, a
+negative number rotates it clockwise.
+</para>
+<para>
+When using <font face="Courier">&lt;rotate&gt;</font>, objects are rotated around the
+<i>current origin</i>. If you want to rotate a specific element of a
+<font face="Courier">pageGraphic</font> or <font face="Courier">illustration</font>,
+you will have to use a <font face="Courier">translate</font> to move the origin before
+you do the <font face="Courier">rotate</font>.
+</para>
+<para>
+If you <font face="Courier">translate</font> to the middle of the page, rotate by 90 degrees
+and then draw the string "hello", the "hello" will appear starting in the middle of the page
+going upwards.
+</para>
+<para style="nospace">
+Examples:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<rotate degrees="90"/>   <!-- ANTI-clockwise -->
+<rotate degrees="-90"/>  <!-- clockwise -->
+]]>
+</codesnippet>
+<spacer length="15"/>
+<para>
+This is what a <font face="Courier">&lt;rotate&gt;</font> looks like with
+<font face="Courier">degrees</font> set to 45 and -45:
+</para>
+<illustration width="256" height="152">
+<lineMode width="2" cap="square"/>
+<lines>
+16 40 116 40
+16 40 16 140
+
+156 40 256 40
+156 40 156 140
+</lines>
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">Original</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+<fill color="red"/>
+<drawString x="56" y="41">P</drawString>
+<translate dx="142"/>
+
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">degrees=45</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+
+<fill color="red"/>
+<stroke color="black"/>
+<translate dx="52" dy="41"/>
+<fill color="red"/>
+<setFont name="Helvetica-Bold" size="50"/>
+<rotate degrees="45"/>
+<drawString x="0" y="0">P</drawString>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: A rotate with a positive value for degrees.
+</para>
+
+
+<illustration width="256" height="152">
+<lineMode width="2" cap="square"/>
+<lines>
+16 40 116 40
+16 40 16 140
+
+156 40 256 40
+156 40 156 140
+</lines>
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">Original</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+<fill color="red"/>
+<drawString x="56" y="41">P</drawString>
+<translate dx="142"/>
+
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">degrees=- 45</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+
+<fill color="red"/>
+<stroke color="black"/>
+<translate dx="62" dy="41"/>
+<fill color="red"/>
+<setFont name="Helvetica-Bold" size="50"/>
+<rotate degrees="-45"/>
+<drawString x="0" y="0">P</drawString>
+
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: A rotate with a negative value for degrees.
+</para>
+
+<!-- sectionName "Skew" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Skew
+</h3>
+-->
+
+<para>
+<font face="Courier">&lt;skew&gt;</font> is a transform which distorts both axes of a graphic. It is non-orthagonal - in
+other words, it is a transformation that does not preserve right angles.
+</para>
+<para>
+<font face="Courier">&lt;skew&gt;</font> has two mandatory attributes: <font face="Courier">alpha</font> and
+<font face="Courier">beta</font>. Both are angles - look at the example below to see how they work.
+</para>
+<para style="nospace">
+Example:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<skew alpha="10" beta="10"/>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+
+<para>
+This is what a <font face="Courier">skew</font> with an <font face="Courier">alpha</font> of 10 and a
+<font face="Courier">beta</font> of 30 looks like:
+</para>
+<illustration width="256" height="152">
+<lineMode width="2" cap="square"/>
+<lines>
+16 40 116 40
+16 40 16 140
+
+156 40 256 40
+156 40 156 140
+</lines>
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">Original</drawCentredString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+<fill color="red"/>
+<drawString x="16" y="41">X</drawString>
+<translate dx="142"/>
+
+<setFont name="Times-Roman" size="12"/>
+<fill color="black"/>
+<drawCentredString x="58" y="12">alpha=10 beta=30</drawCentredString>
+
+
+<translate dy="42" dx="15"/>
+<fill color="gray"/>
+<setFont name="Times-Roman" size="8"/>
+<drawString x="55" y="2">alpha</drawString>
+<drawString x="5" y="50">beta</drawString>
+
+<setFont name="Helvetica-Bold" size="50"/>
+
+<fill color="red"/>
+<stroke color="black"/>
+<skew alpha="10" beta="30"/>
+<lineMode width="1" dash="5,4"/>
+<stroke color="lightgrey"/>
+<lines>
+0 0 0 50
+0 0 50 0
+</lines>
+<drawString x="0" y="0">X</drawString>
+
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: An example of the &lt;skew&gt; tag in use.
+</para>
+
+<!-- sectionName "Generic affine transforms" -->
+<!--
+
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Transform
+</h3>
+-->
+
+<para>
+A transform allows the coordinate space to be
+filtered through a general two dimensional affine transform.  All
+the other coordinate transformations can be defined in terms of
+a transform.  A transform requires 6 numbers <i>a, b, c, d, e,</i> and <i>f</i> to
+define the transformation.
+</para>
+<para style="figureCaption">
+x' = ax + cy + e
+</para>
+<para style="figureCaption">
+y' = bx + dy + f
+</para>
+<para>
+For example to specify a=1, b=1.2, c=1.3, d=1.4, e=1.5 and f=1.6 write
+</para>
+<codesnippet language="xml" style="code">
+<![CDATA[
+<transform>1 1.2 1.3 1.4 1.5 1.6</transform>
+
+]]></codesnippet>
+
+<spacer length="10"/>
+<!-- <!ELEMENT transform  (#PCDATA )> -->
+
+<para>[<b>NOTE</b>: All the examples from this section are gathered together in the file example_8.rml].</para>
+
+<!-- sectionName "About scale, rotate, and skew" -->
+
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Things to consider when doing <font face="Courier">transform</font>,
+<font face="Courier">scale</font>,
+<font face="Courier">rotate</font> and
+<font face="Courier">skew</font> operations.
+</h3>
+-->
+
+<para style="bulletList" bulletText="l">
+It is very easy to move objects "off the page". If you are doing a <font face="Courier">&lt;translate&gt;</font>
+as a <font face="Courier">&lt;pageGraphic&gt;</font>, it is possible to put the origin off the visible area
+of the page. If you are doing a <font face="Courier">&lt;translate&gt;</font>
+in an <font face="Courier">&lt;illustration&gt;</font>, no checks are performed about whether an object is
+inside the limits of the <font face="Courier">&lt;illustration&gt;</font> or not, so it is still possible to
+put it outside the limits of the page and lose it.
+If you expect to see a diagram and all you get is a blank page, this is the most common cause.
+</para>
+
+<para style="bulletList" bulletText="l">
+Scaling has its own version of the same problem. It is possible to <font face="Courier">&lt;scale&gt;</font> an object so
+that most or all of it is off the page, but it is also possible to <font face="Courier">&lt;scale&gt;</font> something to
+such a small size that it "shrinks to nothing". Be especially careful when doing scaling with large factors. Something
+that may have been a small error without the scaling may put your object off the page entirely once you
+have performed the <font face="Courier">&lt;scale&gt;</font>.
+</para>
+
+<para style="bulletList" bulletText="l">
+The scaling operation scales everything - including line widths. If you are taking a huge diagram and
+scaling it down, the lines may be scaled out of existence. Conversely, if you take something microscopic
+and enlarge it, you may end up just getting a blob due to the width of the lines being scaled up as well.
+</para>
+
+<para style="bulletList" bulletText="l">
+Another thing to remember is that these transformations are <i>incremental</i> - in a series of transforms,
+each one will modify the output of the one before it. So the order you carry the operations out in is
+very important. The result of the sequence "<font face="Courier">translate, rotate, scale</font>" is very different to that of
+"<font face="Courier">scale, rotate, translate</font>".
+</para>
+
+<para style="bulletList" bulletText="l">
+If performing multiple operations, use the order "<font face="Courier">translate -&gt; rotate -&gt; scale or skew</font>"
+whenever possible. Using a different order may result in the axes being distorted or other results that lead to an ugly
+output that isn't what you were trying to do.
+</para>
+
+
+<!-- sectionName "Bitmapped images" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+&lt;image&gt; - using bitmapped images
+</h3>
+-->
+
+<para>
+RML also allows you to insert pre-existing images into your PDF files. If you have a graphic file in either the
+.gif or .jpg format, you can use the <font face="Courier">&lt;image&gt;</font> tag to insert it into your document.
+</para>
+
+<para>
+The <font face="Courier">&lt;image&gt;</font> tag goes in the <font face="Courier">&lt;pageGraphics&gt;</font> section at the
+head of your RML document. It has 5 attributes, 3 of which are mandatory and two of which are optional. The
+<font face="Courier">file</font> attribute tells rml2pdf the name of the input file that you want to incorporate
+into your document, the <font face="Courier">x</font> and <font face="Courier">y</font> attributes give the
+co-ordinates for the bottom left hand corner of where the image will be placed on the page. The optional
+<font face="Courier">width</font> and <font face="Courier">height</font> attributes allow you to specify
+how big it should be on the page - this means that you can over-ride the normal size of the file and display
+it at any size that is appropriate. (The <font face="Courier">x</font>, <font face="Courier">y</font>,
+<font face="Courier">width</font> and <font face="Courier">height</font> attributes can all be gives in
+points, mm, cm or inches).
+</para>
+
+<para>
+Be very careful when using the <font face="Courier">width</font> and <font face="Courier">height</font> attributes. If
+misused, these attributes can lead to you having a distorted, ugly and out of proportion picture in your final document.
+Whenever possible, you should use a paint application (e.g. Paintshop Pro, Photoshop, Graphics Converter, GIMP)
+to save the file at the correct size, and use the correct <font face="Courier">height</font> and
+<font face="Courier">width</font> attributes to the <font face="Courier">&lt;image&gt;</font> tag. Using larger
+files and re-sizing inside RML will also lead to the output PDF file being bloated and larger than it needs to be.
+</para>
+
+<para>
+This example shows how these tags look in action:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<pageGraphics>
+    <image file="myFile.gif" x="72" y="72"/>
+    <image file="myFile.gif" x="369" y="72" width="80" height="80"/>
+    <image file="myFile2.jpg" x="72" y="493"/>
+    <image file="myFile2.jpg" x="369" y="493" width="80" height="80"/>
+</pageGraphics>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<!-- sectionName "Text Fields" -->
+<para>To allow the creation of forms we have a graphics tag that allows us to specify that the page should display an entry box.</para>
+<para>The
+<font face="Courier">&lt;textField&gt;</font>
+tag goes in the <font face="Courier">&lt;pageGraphics&gt;</font> section at the
+at the start of the RML document. It has the following optional attributes:
+<font face="Courier">id</font> (the field name),
+<font face="Courier">value</font> (the field initial value),
+<font face="Courier">x</font> (the field x coordinate),
+<font face="Courier">y</font> (the field y coordinate),
+<font face="Courier">width</font> (the field width),
+<font face="Courier">height</font> (the field height),
+<font face="Courier">maxlen</font> (maximum allowd number of field characters) &amp;
+<font face="Courier">multiline</font> (whether the field may contain more than one line).</para>
+<para>As a convenience the attributes may instead be specified using
+<font face="Courier">&lt;param&gt;</font>
+tags within the body of the
+<font face="Courier">&lt;textField&gt;</font>
+tag. The
+<font face="Courier">name</font>
+attribute of the
+<font face="Courier">&lt;param&gt;</font>
+tag should be one of the above attribute names. If no
+<font face="Courier">value</font> attribute or
+<font face="Courier">&lt;param&gt;</font> is seen then the contents of the
+<font face="Courier">&lt;textField&gt;</font> becomes the initial value of the field.</para>
+
+<para>It is an error to define an attribute more than once</para>
+
+
+<condPageBreak height="144"/>
+<!-- sectionName "place, illustration &amp; graphicsMode" -->
+
+<para><b>place</b></para>
+
+<para>
+We have seen how graphics and flowables do not mix in RML. The only exceptions
+to this are the <font face="Courier">&lt;place&gt;</font> tag, and the
+<font face="Courier">&lt;illustration&gt;</font> tag. <font face="Courier">&lt;place&gt;</font>
+allows you to put a flowable inside a <font face="Courier">pageGraphic</font> or
+<font face="Courier">illustration</font>. You can include a paragraph inside a
+<font face="Courier">grid</font>, or a table inside a <font face="Courier">path</font>.
+</para>
+
+<para>
+<font face="Courier">&lt;place&gt;</font> takes 4 attributes, all of which are required.
+<font face="Courier">x</font>, and <font face="Courier">y</font> are the x and y
+co-ordinates for where you want the flowable placed. <font face="Courier">width</font> and
+<font face="Courier">height</font> are the width and height of the flowable.
+</para>
+
+<para>
+Example:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<pageGraphics>
+    <place x="10.5cm" y="10.5cm" width="9cm" height="9cm">
+        <para>Your flowables would go here.</para>
+    </place>
+</pageGraphics>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<para><b>illustration</b></para>
+<para>
+You can think of an <font face="Courier">&lt;illustration&gt;</font> as like one of
+the illustrations in a book. It is a "box" of space on the page which can contain
+any of the graphics that you would normally expect to find in a
+<font face="Courier">&lt;pageGraphics&gt;</font> tag. The position of this box
+depends purely on its place in the story, which means that it can appear anywhere
+on the page depending on the paragraphs and other flowables around it. This is in
+contrast to the <font face="Courier">pageGraphics</font> which are always placed
+in a specific place (measured from the origin).
+</para>
+
+<para><b>graphicsMode</b></para>
+<para>
+You can think of a
+<font face="Courier">&lt;graphicsMode&gt;</font> tag
+as 
+an <font face="Courier">&lt;illustration&gt;</font> without a size. 
+It allows you to insert arbitrary graphics operations into a story
+without using up any space. The 
+<font face="Courier">&lt;graphicsMode&gt;</font> tag takes an
+<font face="Courier">origin</font> attribute which can take the values
+<font face="Courier"><i>local</i></font>,
+<font face="Courier"><i>frame</i></font> or
+<font face="Courier"><i>page</i></font>
+to specify the coordinate origin to be used. 
+Value <font face="Courier"><i>local</i></font> means relative to the position where the 
+<font face="Courier">&lt;graphicsMode&gt;</font> tag is in the current frame,
+<font face="Courier"><i>frame</i></font> means relative to the frame it is in
+and <font face="Courier"><i>page</i></font> means relative to the page (ie absolute).
+</para>
+
+<para>
+Example:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<illustration width="90" height="90">
+    <fill color="red"/>
+    <circle x="45" y="45" radius="30" fill="yes"/>
+    <setFont name="Times-Roman" size="8"/>
+    <drawString x="0" y="0">
+        Any graphics could go here.
+    </drawString>
+</illustration>
+]]>
+</codesnippet>
+<spacer length="15"/>
+
+<illustration width="345" height="333">
+<image file="images/Example_9b.gif" x="0" y="12"/>
+<setFont name="Times-Bold" size="8"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output from EXAMPLE 9
+</para>
+
+
+<para>
+Notice the symmetry: the <font face="Courier">&lt;place&gt;</font> tag lets you use flowables within a
+<font face="Courier">&lt;pageGraphic&gt;</font>; the <font face="Courier">&lt;illustration&gt;</font>
+tag lets you do graphics operations in a box within the flow of the <font face="Courier">&lt;story&gt;</font>
+(or any story-like context such as a table cell).
+</para>
+
+<para>
+The following example shows the use of both <font face="Courier">place</font> and <font face="Courier">illustration</font>:
+</para>
+
+<para style="figureCaption">EXAMPLE 9</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_9.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <pageGraphics>
+                <grid xs="1cm,2cm,3cm,4cm,5cm,10cm,20cm" ys="1cm,2cm,3cm,4cm,5cm,10cm,20cm"/>
+                <place x="10.5cm" y="10.5cm" width="9cm" height="9cm">
+                    <title>This is a use of <i>place</i></title>
+                    <spacer length="15"/>
+                    <para>
+                        This is a flowable. In this case, it is in a &lt;para&gt;
+                        tag, but it could be any flowable. It has been placed
+                        inside a grid, but you could put it inside any graphic or
+                        pageGraphics. Using the place tag, you can have complete
+                        control over where you want your flowables to appear.
+                    </para>
+                    <spacer length="12"/>
+                    <para>
+                        You can include Greek: <greek>abgd</greek>.
+                    </para>
+                    <spacer length="12"/>
+                    <blockTable>
+                        <tr>
+                            <td>Or</td><td>even</td>
+                        </tr>
+                        <tr>
+                            <td>a</td><td>blockTable.</td>
+                        </tr>
+                    </blockTable>
+                </place>
+            </pageGraphics>
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <paraStyle name="style.Title"
+                   fontName="Courier-Bold"
+                   fontSize="24"
+                   leading="36"
+                   />
+    </stylesheet>
+
+    <!-- The story starts below this comment -->
+
+    <story>
+        <title>Example 9</title>
+        <para>
+            This is a page which shows you how illustrations, grids and the place tag work.
+        </para>
+        <illustration width="90" height="90">
+            <fill color="red"/>
+            <circle x="45" y="45" radius="30" fill="yes"/>
+            <setFont name="Times-Roman" size="8"/>
+            <drawString x="0" y="0">This is an illustration</drawString>
+        </illustration>
+        <para>
+            The red circle you can see is an <i>illustration</i>, not a <i>pageGraphic</i>.
+        </para>
+        <illustration width="75" height="75">
+            <fill color="teal"/>
+            <circle x="30" y="30" radius="30" fill="yes"/>
+            <stroke color="darkslategray"/>
+            <grid xs="15,30,45" ys="5,10,15,20,25,30,35,40,45,50"/>
+        </illustration>
+        <para>
+            So is the teal colored one.
+        </para>
+        <para>
+            These are all flowables in the story.
+        </para>
+
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+
+<spacer length="15"/>
+
+
+<!-- sectionName "spacer" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Spacer
+</h3>
+-->
+
+<para>
+<font face="Courier">&lt;spacer&gt;</font> is another tag which does just what the name suggests. A
+<font face="Courier">&lt;spacer&gt;</font> inserts an empty element into the page
+to force other elements downwards or sideways. The <font face="Courier">spacer</font> tag has two
+attributes - <font face="Courier">length</font> is mandatory and refers to the length down the page,
+and <font face="Courier">width</font> is optional.
+</para>
+<para>
+Example:
+</para>
+<para>
+To produce a spacer 15 points in height and one inch wide, you could do the following:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<spacer length="15" width="72"/>
+]]>
+</codesnippet>
+
+<spacer length="15"/>
+
+
+<!-- sectionName "Form and doForm" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Form and doForm
+</h3>
+-->
+<para>
+A <font face="Courier">&lt;form&gt;</font> is a group of graphical operations,
+stored together and given a name. This allows you to group complex graphics
+together and to re-use them in more than one place with ease.
+To do this, you would use the <font face="Courier">doForm</font> tag.
+</para>
+<para>
+Your form would appear in the <font face="Courier">pageGraphics</font> section of your RML
+document (inside the <font face="Courier">pageTemplate</font>).
+<font face="Courier">&lt;doForm&gt;</font> also appears in the
+<font face="Courier">pageGraphics</font> section.
+</para>
+<para>
+The <font face="Courier">&lt;form&gt;</font> tag has one attribute - a mandatory one called
+<font face="Courier">name</font> which identifies the form.
+</para>
+<para>
+The <font face="Courier">&lt;doForm&gt;</font> tag executes the sequence of graphical operations
+defined with a <font face="Courier">&lt;form&gt;</font> tag.
+It also has only one mandatory attribute called <font face="Courier">name</font>.
+</para>
+
+<para>
+Example:
+</para>
+
+<codesnippet language="xml" style="code">
+    <![CDATA[
+<pageGraphics>
+    <form name="myForm">
+        <drawString x="0" y="24">
+            Your graphic operations would go here.
+        </drawString>
+        <drawString x="0" y="12">
+            There would probably be a lot of them to make up something useful.
+        </drawString>
+    </form>
+    <doForm name="myForm"/>
+</pageGraphics>
+        ]]>
+</codesnippet>
+
+<!-- sectionName "Why use forms?" -->
+<!--
+<condPageBreak height="144"/>
+<h3>
+<getName id="chapterNumber"/>.<seq id="sectionNumber"/>
+Why use forms?
+</h3>
+-->
+
+<para>
+Why use <font face="Courier">form</font>s when you can just cut and paste big chunks of text inside your RML document
+with your favorite text editor or word processor?
+</para>
+<para>
+The benefits are dramatically cut file sizes, reduced production time and apparently even speeding things up on the printer.
+If you are going to be using PDF files in any situation where people will be downloading them, massively reduced file sizes will
+be appreciated by your users. These advantages become even more obvious with multiple similar documents. If you are dealing
+with a run of 5000 repetitive forms - perhaps payslips or single-page invoices - you only need to store the backdrop once
+and simply draw the changing text on each page.
+</para>
+<para>
+<font face="Courier">form</font>s should be used whenever you have a graphic that is used repeatedly. It may be
+something as small as your company logo or some sort of symbol you want to flag interesting bits of text with,
+or something as large as a whole page backdrop. As long as you use it repeatedly, it's worth using a
+<font face="Courier">form</font> to do it.
+</para>
+<para>
+<font face="Courier">form</font>s don't even have to be created in RML. You can use another application
+(such as Adobe Illustrator or Word) and distil the output to PDF. You can then
+use our PageCatcher product to generate the forms, which can then be used
+from RML.
+</para>
+<para>
+Look on our web site for more information on PageCatcher:
+<font color="blue">http://www.reportlab.com/pageCatcher/index.html</font>
+</para>
+

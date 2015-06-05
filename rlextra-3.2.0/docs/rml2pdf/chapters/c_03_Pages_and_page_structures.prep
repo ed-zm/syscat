@@ -1,0 +1,363 @@
+<!-- partName "Part I - The Basics" -->
+<!-- chapterName "Pages and page structures" -->
+
+
+<!-- sectionName "XML syntax and RML" -->
+
+<para>
+As with every XML dialect, RML requires correct XML syntax. If you are
+familiar with HTML, you should pay special attention to the
+differences between XML syntax and some of the more forgiving
+constructs allowed in HTML.
+</para>
+
+<para style="bulletList" bulletText="l">
+Attribute values must be enclosed in quotation marks. (e.g. you would
+have to use
+<font face="Courier">&lt;document filename="outfile.pdf"&gt;,</font>
+since you couldn't get away with
+<font face="Courier">&lt;document filename=outfile.pdf&gt;</font>
+</para>
+<para style="bulletList" bulletText="l">
+A non-empty element must have both an opening and a closing tag.
+(e.g. a <font face="Courier">&lt;document&gt;</font> tag must be matched by a
+matching <font face="Courier">&lt;/document&gt;</font> tag).
+"Empty" elements are those that don't have any content, and are closed
+with a <font face="Courier">"/&gt;"</font> at the end of the <i>same</i> tag rather than having a separate
+closing tag. (e.g. <font face="Courier">&lt;getName id="Header.Title"/&gt;</font>)
+</para>
+<para style="bulletList" bulletText="l">
+Tags must be nested correctly.
+(i.e. "<font face="Courier">&lt;b&gt;&lt;i&gt;text&lt;/b&gt;&lt;/i&gt;</font>" isn't valid,
+but "<font face="Courier">&lt;b&gt;&lt;i&gt;text&lt;/i&gt;&lt;/b&gt;</font>" is.)
+</para>
+<para style="bulletList" bulletText="l">
+On the whole, whitespace is ignored in RML. Except inside strings, you can format
+and indent your RML documents in whatever way you consider most readable.
+(Inside text strings, whitespace is seen as equivalent to a single space and
+line breaks are added automatically as needed during formatting. Other than
+that, what you type is what is displayed on the page).
+</para>
+
+<para style="bulletList" bulletText="l">
+RML is case-sensitive. "Upper Case" is different from "upper case", "UPPER CASE"
+and "UpPeR CaSe". The capitalization in the tag names is important.
+</para>
+
+
+<!-- sectionName "The prolog" -->
+
+<para>
+Every RML document must start with a number of lines:
+</para>
+
+<codesnippet language="xml" style="code">
+<![CDATA[
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+]]>
+
+</codesnippet>
+
+<spacer length="15"/>
+
+<para>
+This is called the prolog - you can think of it as the
+document 'header'.
+</para>
+
+<para style="nospace">
+<font face="Courier">&lt;?xml ... standalone="no" ?&gt;</font>
+</para><para style="bulletList" bulletText="">
+This line is the XML declaration. This is optional, but recommended.
+</para>
+
+<para style="nospace">
+<font face="Courier">version="1.0"</font>
+</para><para style="bulletList" bulletText="">
+This attribute tells the parser which version of XML it
+should use - in this case 1.0.
+</para>
+
+<para style="nospace">
+<font face="Courier">standalone="no"</font>
+</para><para style="bulletList" bulletText="">
+This tells the parser that it needs an external Document Type Definition
+(more on DTDs below).
+</para>
+
+<para style="nospace">
+<font face="Courier">encoding="iso-8859-1"</font>
+</para><para style="bulletList" bulletText="">
+The "encoding" attribute sets the encoding you want the PDF file to use.
+The ISO-8859-1 encoding covers the character set known as "US-ASCII", plus
+things like the accented characters used in most Western European Languages
+and some control characters and graphical characters.  ISO-8859-1 is also
+known as "Latin-1"(or "Latin Alphabet No 1").  Other common encodings are
+<font face="Courier">utf-8</font> (same as US-ASCII for "normal" characters
+like A-Z and 0-9, but also covers the whole Unicode character set) and
+<font face="Courier">cp1252</font> (a Microsoft Windows variant of
+ISO-8859-1).  You may use any encoding you wish with RML, as long as the
+encoding attribute here matches the encoding you actually used to write the
+RML file!
+</para>
+
+<para style="nospace">
+<font face="Courier">&lt;!DOCTYPE... "rml.dtd"&gt;</font>
+</para><para style="bulletList" bulletText="">
+This line tells the parser where the
+Document Type Definition is located. The
+DTD formally specifies the syntax of RML.
+</para>
+
+<para style="bulletList" bulletText="">
+For documents written in RML, the DTD should always be
+the current version of rml.dtd. (The rml DTD should always
+be called rml.dtd.
+</para>
+
+<para style="bulletList" bulletText="">
+Unlike other dialects of XML, RML does <i>not</i> allow you to provide
+relative paths to the DTD, nor a full URL. It must always be the name
+of the DTD, which <i>must</i> live in the same directory as the exe or
+python program rml2pdf.
+</para>
+<para style="bulletList" bulletText="">
+This makes it easy to predict where the RML DTD will be and prevents
+you using an old DTD that happens to be sitting around your disk
+somewhere. It also allows us to make sure that when you create a file with RML,
+the PDF document will be created in the same directory as the RML
+file, and to allow relative pathnames in the document tag.
+</para>
+
+<para>
+The prolog section is common to all XML documents. In addition to
+this, RML requires another line following the prolog:
+</para>
+
+<para style="nospace">
+<font face="Courier">
+"&lt;document filename="outfile.pdf"&gt;"</font>
+</para><para style="bulletList" bulletText="">
+This line gives the name that you want the output PDF file created with. This line
+also starts the document proper - and must be matched by a
+<font face="Courier">&lt;/document&gt;</font> tag as the last line in the document, in the
+same way that an HTML file is bracketed by &lt;HTML&gt; and
+&lt;/HTML&gt;.
+</para>
+
+<para style="bulletList" bulletText="">
+The filename you give can just be a simple filename, a relative path
+(<i>eg</i>
+<font face="Courier">
+..\..\myDoc.pdf
+</font>
+will create it in the directory two levels up from the one your RML
+document is in), or a full pathname (<i>eg</i>
+<font face="Courier">
+C:\output_files\pdf\myProject\myDocument.pdf
+</font> or
+<font face="Courier">
+/tmp/user1/myScratchFile.pdf
+</font>). If you just supply a filename, the output file will be
+created in the same directory as your RML file. (The same principle
+works with anywhere else you may need to give a filename - they are
+relative to where the document lives on your disk, not to where
+rml2pdf is).
+</para>
+<para>The
+<font face="Courier">&lt;document&gt;</font>
+tag has three other attributes.
+<font face="Courier">compression</font>
+specifies whether the produced PDF should be compressed if at all possible. It can take the values
+<font face="Courier">0 | 1 | default</font>
+for off, on or use the site-wide default (as specified in reportlab_rl_config).
+<font face="Courier">invariant</font>
+determines whether the produced PDF should be invariant with respect to the date and the exact contents.
+It can take the values
+<font face="Courier">0 | 1 | default</font>
+for off, on or use the site-wide default (as specified in reportlab_rl_config).
+<font face="Courier">debug</font>
+determines whether debugging/logging mode should be used during document production.
+It can take the values
+<font face="Courier">0 | 1</font>
+for off or on.</para>
+
+
+
+
+<nextPage/>
+<!-- sectionName "Document forms: stylesheet/pageDrawing vs template/stylesheet/story" -->
+
+<para>
+There are two possible valid structures for your document
+to have, depending on how simple you want it to be.
+</para>
+
+<para>
+For very simple documents, you need the prolog, followed by a
+stylesheet and any number of <font face="Courier">pageDrawing</font>s. A <font face="Courier">pageDrawing</font> is a
+graphical element on the page, or simple text string (i.e. it is just
+placed onto the page in the location you specify, and no attempt is
+made to check if it flows off the page).
+</para>
+
+<para style="figureCaption">EXAMPLE 1</para>
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_1.pdf">
+
+    <stylesheet>
+    </stylesheet>
+
+    <pageDrawing>
+        <drawCentredString x="4.1in" y="5.8in">
+            Hello World.
+        </drawCentredString>
+    </pageDrawing>
+
+</document>
+]]></codesnippet>
+
+
+<spacer length="15"/>
+
+<para>
+(All the examples given in this tutorial can be found as *.rml files
+in the same directory as this tutorial.)
+</para>
+
+<illustration width="350" height="333">
+<image file="images/Example_1b.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure  <seq id="figureNumber"/>: Output from EXAMPLE 1
+</para>
+
+<para>
+This is the most basic RML document you can get. It is the traditional
+"Hello World". All it does is place the string of text "Hello World"
+into the middle of your A4 page. Not very useful in the real world,
+but enough to show you how simple RML can be.
+</para>
+
+<para>
+Notice how it does have a <font face="Courier">stylesheet</font>, but it is empty. <font face="Courier">Stylesheet</font>s are
+mandatory, but they don't need to actually contain anything. Also
+notice how in the <font face="Courier">drawCenteredString</font> tag, the co-ordinates are
+enclosed in quotation marks - they are attributes, and so need to live
+inside quotes. And if you look at the <font face="Courier">drawCenteredString</font> tag, these
+attributes are <i>inside</i> the tag (actually inside the angle
+brackets), then the content of the string comes after it, then the tag
+is closed by its matching <font face="Courier">
+&lt;/drawCenteredString&gt;</font> tag. All tags with
+content need their matching closing tag - the <font
+face="Courier">&lt;document&gt;</font> and <font
+face="Courier">&lt;stylesheet&gt;</font> tags are also parts of
+matching pairs.
+</para>
+
+<para>
+One last thing to notice is the DOCTYPE line - for all these examples,
+we are assuming that the DTD is in the same directory as the example
+file itself. This may not always be the case.
+</para>
+
+<para>
+For a more complex RML document, you can use the more powerful
+template/stylesheet/story form of document. In this, a file contains
+the following three sections:
+</para>
+<para style="bulletNospace" bulletText="l">
+a template
+</para>
+<para style="bulletNospace" bulletText="l">
+a stylesheet
+</para>
+<para style="bulletList" bulletText="l">
+a story
+</para>
+
+<para>
+The <i>template</i> tells rml2pdf what should be on the page: headers,
+footers, any graphic elements you use as a background.
+</para>
+
+<para>
+The <i>stylesheet</i> is where the styles for a document are set. This
+tells the parser what fonts to use for paragraphs and paragraph
+headers, how to format tables and other things of that nature.
+</para>
+
+<para>
+The <i>story</i> is where the "meat" of the document is. Just like in
+a newspaper, the story is the bit you want people to read, as opposed
+to design elements or page markup. As such, this is where headers,
+paragraphs and the actual text is contained.
+</para>
+
+<illustration width="494" height="89">
+<image file="images/Example_2b.gif" x="0" y="12"/>
+</illustration>
+
+<para style="figureCaption">
+Figure <seq id="figureNumber"/>: Output from EXAMPLE 2
+</para>
+
+
+<para style="figureCaption">EXAMPLE 2</para>
+<codesnippet language="xml" style="code"><![CDATA[
+
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_2.pdf">
+
+    <template>
+        <pageTemplate id="main">
+            <frame id="first" x1="72" y1="72" width="451" height="698"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+    </stylesheet>
+
+    <!-- The story starts below this comment -->
+
+    <story>
+        <para>
+            This is the "story". This is the part of the RML document where
+            your text is placed.
+        </para>
+        <para>
+            It should be enclosed in "para" and "/para" tags to turn it into
+            paragraphs.
+        </para>
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+<spacer length="15"/>
+
+<para>
+The <font face="Courier">&lt;pageTemplate&gt;</font>, <font face="Courier">&lt;pageGraphics&gt;</font>,
+<font face="Courier">&lt;frame&gt;</font> and <font face="Courier">&lt;paraStyle&gt;</font>
+tags will all be covered in more detail later on in this guide.
+</para>
+
+<para>
+Paragraphs start with a <font face="Courier">&lt;para&gt;</font> tag and are closed with a
+<font face="Courier">&lt;/para&gt;</font> tag. Their appearance can be controlled with the
+<font face="Courier">&lt;paraStyle&gt;</font> tag.
+</para>
+
+<para>
+RML allows you to use comments in the RML code. These are not
+displayed in the output PDF file. Just like in HTML, they start with a
+"<font face="Courier">&lt;!--</font>" and are terminated with a "<font
+face="Courier">--&gt;</font>". Unlike other tags, comments cannot
+be nested. In fact, you can't even have the characters "--" inside the <font face="Courier">
+&lt;!-- --&gt;</font> section.
+</para>
+

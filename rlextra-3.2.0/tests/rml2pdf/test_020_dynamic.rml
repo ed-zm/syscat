@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!-- edited with XMLSPY v2004 rel. 3 U (http://www.xmlspy.com) by Andy Robinson (ReportLab Europe Ltd.) -->
+<!DOCTYPE document SYSTEM "../dynamic_rml.dtd">
+<document filename="test_020_dynamic.pdf">
+	<!-- this needs to be driven by the preprocessor...-->
+	<acquire>
+		<xmlData name="data" fileName="test_020_sampledata.xml"/>
+	</acquire>
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+	<pageTemplate id="main" pageSize="(595,842)">
+			<pageGraphics>
+				<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 21: Dynamic</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+				<setFont name="Helvetica" size="10"/>
+				<drawCenteredString x="297" y="25">Page <pageNumber/>
+				</drawCenteredString>
+			</pageGraphics>
+			<frame id="second" x1="35" y1="45" width="525" height="590"/>
+		</pageTemplate>
+		<pageTemplate id="main2" pageSize="(595,842)">
+			<pageGraphics>
+				<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 21: Dynamic</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+				<setFont name="Helvetica" size="10"/>
+				<drawCenteredString x="297" y="25">Page <pageNumber/>
+				</drawCenteredString>
+			</pageGraphics>
+			<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+		</pageTemplate>
+	</template>
+	<stylesheet>
+		<initialize>
+			<alias id="style.normal" value="style.Normal"/>
+		</initialize>
+		<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="12" spaceBefore="12" leading="15"/>
+		<paraStyle name="normal" fontName="Helvetica" fontSize="10" spaceBefore="6" leading="12"/>
+		<paraStyle name="code" fontName="Courier" fontSize="8" leading="10" textColor="navy" leftIndent="36" rightIndent="36"/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+	</stylesheet>
+	<story>
+	<setNextTemplate name="main2"/>
+	<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+		<assign_b name="author" value="Andy Robinson"/>
+		<para style="h1">Dynamic RML</para>
+		<para style="normal">This adds dynamic capabilities.  Say that again a few times with a LOOP tag..</para>
+		<spacer length="8"/>
+		<loop_b var="i" in="range(5)">
+			<para style="code">pass <expr>i</expr>: this adds dynamic capabilities</para>
+		</loop_b>
+		<para style="normal">The author's name was assigned earlier, and it is:  <expr>author</expr>.  Here is the system path:</para>
+		<script_b>import sys</script_b>
+		<spacer length="8"/>
+		<loop_b var="dirName" in="sys.path">
+			<pre style="code"><expr>dirName</expr></pre>
+		</loop_b>
+		<para style="h1">Data acquisition</para>
+		<para style="normal">This document uses a data tag to slurp in a source XML document in  "sample_invoice.xml".  The source is here...(in fact, this could
+    be useful once I have the escaping sorted out....)</para>
+<xpre style="code">
+<expr escape="off" encoding="iso-8859-1">open('test_020_sampledata.xml','rb').read()</expr>
+</xpre>
+		<para style="normal">This can be referred to with the dynamic tags.  Let's pull out the customer name from a node in the file: <b>
+				<expr>data.invoice.customerDetails.customerName</expr>
+			</b>.  Now let's do a loop over some elements...</para>
+		<spacer length="8"/>
+		<blockTable colWidths="100,50,50,50">
+			<blockTableStyle id="grid">
+				<lineStyle kind="GRID" colorName="black"/>
+			</blockTableStyle>
+			<tr>
+				<td>Description</td>
+				<td>Unit Price</td>
+				<td>Qty</td>
+				<td>Line Price</td>
+			</tr>
+			<loop_t var="line" in="data.invoice.lines">
+				<tr>
+					<td>
+						<expr>line</expr>
+					</td>
+					<td>
+						<expr>line.unitPrice</expr>
+					</td>
+					<td>
+						<expr>line.qty</expr>
+					</td>
+					<td>etc</td>
+				</tr>
+			</loop_t>
+		</blockTable>
+
+		<nextPage/>
+		<para style="h1">Doclets</para>
+		<para>This is a test of doclets.  Doclets are a new part of the framework in 2005 and aim to allow creation
+		of smart "reusable objects" which know how to render themselves at a lower level.</para>
+
+		<para>Doclets know how to pull data from a data model, and draw themselves in response.</para>
+		
+		<para>A simple doclet is provided in the class rlextra.rml2pdf.doclet.TestReverseDoclet.  This draws a little table with a string (which is the data passed in) and the same string reversed.  We can pass it a single (quoted) string in an attribute:</para>
+
+		<doclet module="rlextra.rml2pdf.doclet" class="TestReverseDoclet" data="'Cowabunga!'"/>
+		
+		<para>The key thing is that the data parameter is a variable name in the dynamic RML namespace.  If absent, the doclet sees
+		the whole namespace.  So we can use doclets inside loops and conditionals and pass through actual variables
+		to them - not just flattened-out strings. This example shows dynamic use; it should generate reverse doclets for each 
+		inner planet name:	</para>
+		
+		<loop_b var="planet" in="'Mercury Venus Earth Mars'.split()">
+			<doclet module="rlextra.rml2pdf.doclet" class="TestReverseDoclet" data="planet"/>
+			<spacer length="6"/>
+		</loop_b>
+
+		<para>"Yeah, right, big deal", I hear you say.  But consider that the doclet might know how to connect to
+		a customer database in a fund manager and plot a table and chart of the investor's holdings, given just
+		a customer ID and an open database connectionas parameters.:	</para>
+		
+
+	</story>
+</document>

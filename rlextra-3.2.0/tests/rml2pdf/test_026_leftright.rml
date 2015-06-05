@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "../dynamic_rml.dtd"> 
+<!--  To save b loating up the test case, I have used the dynamic_rml DTD and a simple
+loop to spit out paragraphs-->
+<document filename="test_026_leftright.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+	<pageTemplate id="cover">
+		<pageGraphics>
+			<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 27: LeftRight</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		</pageGraphics>
+		<frame id="F1" x1="10%" y1="10%" width="80%" height="80%"/>
+	</pageTemplate>
+	<pageTemplate id="plain">
+		<pageGraphics>
+		
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="482" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<setFont name="Helvetica-Bold" size="14"/>
+			<drawRightString x="523" y="800">A plain(ish) page template with everything centered</drawRightString>
+		</pageGraphics>
+		<frame id="F1" x1="10%" y1="10%" width="80%" height="80%"/>
+	</pageTemplate>
+	
+	<pageTemplate id="left">
+		<pageGraphics>
+		
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="482" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<setFont name="Helvetica-Bold" size="14"/>
+			<drawCenteredString x="297" y="800">A page template for the left side of a book</drawCenteredString>
+			<fill color="gray"/>
+			<rect x="20" y="50" width="20" height="742" fill="1"/>
+			<circle x="550" y="300" radius="10" fill="1"/>
+			<circle x="550" y="542" radius="10" fill="1"/>
+		</pageGraphics>
+		<frame id="F1" x1="10%" y1="10%" width="70%" height="80%"/>
+	</pageTemplate>
+
+	<pageTemplate id="right">
+		<pageGraphics>
+		
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="482" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+			<setFont name="Helvetica-Bold" size="14"/>
+			<drawCenteredString x="297" y="800">A page template for the right side of a book</drawCenteredString>
+			<fill color="gray"/>
+			<rect x="555" y="50" width="20" height="742" fill="1"/>
+			<circle x="45" y="300" radius="10" fill="1"/>
+			<circle x="45" y="542" radius="10" fill="1"/>
+		</pageGraphics>
+		<frame id="F1" x1="20%" y1="10%" width="70%" height="80%"/>
+	</pageTemplate>
+
+
+</template>
+
+<stylesheet>
+	<initialize>
+		<alias id="bt" value="style.BodyText" />
+	</initialize>
+	<paraStyle
+		name="h1nopb"
+		parent="style.Normal"
+		fontName="Times-Bold"
+		fontSize="18"
+		leading="22"
+		spaceAfter="6"
+		keepWithNext="1"
+		/>
+	<paraStyle
+		name="h1"
+		parent="h1nopb"
+		pageBreakBefore="yes"
+		/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+</stylesheet>
+
+
+<story>
+<setNextTemplate name="left,right"/>
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+<storyPlace x="35" y="500" width="525" height="143" origin="page">
+
+		<para style="h1nopb">Demonstration of left and right alternating pages.</para>
+
+		<para style="bt">
+			We start off using our standard cover page template.
+			We then put a template into the story which alternates left and right. The templates
+			have mock staple-holes and other furniture so you can see which is which.
+		</para>
+		<para style="bt">
+		For this exercise we defined four page templates - cover, left, right and plain - and
+		use a tag like this in a nextTemplate instruction to set up the cycle:
+		</para>
+				<xpre>
+&lt;setNextTemplate name="left,right"/&gt;</xpre>
+		</storyPlace>
+
+		
+		
+
+		<para style="h1">This should be on a left-side page, with alternating templates until countermanded.</para>
+		<loop_b var="i" in="range(20)">
+		<para style="bt">
+			To characterize a linguistic level L,
+			this selectionally introduced contextual
+			feature delimits the requirement that
+			branching is not tolerated within the
+			dominance scope of a complex
+			symbol. Notice, incidentally, that the
+			notion of level of grammaticalness
+			does not affect the structure of the
+			levels of acceptability from fairly high
+			(e.g. (99a)) to virtual gibberish (e.g.
+			(98d)). Suppose, for instance, that a
+			subset of English sentences interesting
+			on quite independent grounds appears
+			to correlate rather closely with an
+			important distinction in language use.
+			Presumably, this analysis of a
+			formative as a pair of sets of features is
+			not quite equivalent to the system of
+			base rules exclusive of the lexicon. We
+			have already seen that the appearance
+			of parasitic gaps in domains relatively
+			inaccessible to ordinary extraction
+			does not readily tolerate the strong
+			generative capacity of the theory.
+		</para>
+		<spacer length="36"/>
+		</loop_b>
+
+		<setNextTemplate name="plain"/>
+		<para style="h1">This should back on a plain page. More Chomsky...</para>
+		<para style="bt">
+Note that the descriptive power of the base component is not subject to
+the levels of acceptability from fairly high (e.g. (99a)) to virtual
+gibberish (e.g. (98d)).  However, this assumption is not correct, since
+most of the methodological work in modern linguistics is, apparently,
+determined by an abstract underlying order.  Nevertheless, a subset of
+English sentences interesting on quite independent grounds does not
+affect the structure of a stipulation to place the constructions into
+these various categories.  Note that most of the methodological work in
+modern linguistics raises serious doubts about a parasitic gap
+construction.  To characterize a linguistic level L, the systematic use
+of complex symbols is to be regarded as an abstract underlying order.
+		</para>
+
+		<para style="bt">
+		Use a tag like this in a nextTemplate instruction to set up the cycle left,right,right,.....:
+		</para>
+		<xpre>
+&lt;setNextTemplate name="left,*,right"/&gt;</xpre>
+		<setNextTemplate name="left,*,right"/>
+		<para style="h1">This should be on a left-side page, followed by right until countermanded.</para>
+		<loop_b var="i" in="range(20)">
+		<para style="bt">
+I suggested that these results would follow from the assumption that the
+appearance of parasitic gaps in domains relatively inaccessible to
+ordinary extraction is to be regarded as a parasitic gap construction.
+In the discussion of resumptive pronouns following (81), a subset of
+English sentences interesting on quite independent grounds may remedy
+and, at the same time, eliminate the traditional practice of
+grammarians.  If the position of the trace in (99c) were only relatively
+inaccessible to movement, a descriptively adequate grammar does not
+affect the structure of the ultimate standard that determines the
+accuracy of any proposed grammar.  Suppose, for instance, that any
+associated supporting element is, apparently, determined by the strong
+generative capacity of the theory.  On our assumptions, most of the
+methodological work in modern linguistics is unspecified with respect to
+a stipulation to place the constructions into these various categories.
+		</para>
+		<spacer length="36"/>
+		</loop_b>
+
+		<setNextTemplate name="plain"/>
+		<para style="h1">This should back on a plain page. More Chomsky...</para>
+		<para style="bt">
+We have already seen that most of the methodological work in modern
+linguistics suffices to account for the extended c-command discussed in
+connection with (34).  It must be emphasized, once again, that the
+speaker-hearer's linguistic intuition is not to be considered in
+determining an abstract underlying order.  Thus any associated
+supporting element is to be regarded as a general convention regarding
+the forms of the grammar.  However, this assumption is not correct,
+since the theory of syntactic features developed earlier is unspecified
+with respect to nondistinctness in the sense of distinctive feature
+theory.  Furthermore, the natural general principle that will subsume
+this case is, apparently, determined by the ultimate standard that
+determines the accuracy of any proposed grammar.
+		</para>
+
+</story>
+
+</document>

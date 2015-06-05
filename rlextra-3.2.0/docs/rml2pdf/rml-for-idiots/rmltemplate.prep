@@ -1,0 +1,603 @@
+<!DOCTYPE document SYSTEM "rml.dtd">
+{{def(data, options)}}
+{{script}}
+import datetime
+
+DATE = datetime.date.today().isoformat()
+{{endscript}}
+{{script}}
+def circular(data, illustration=1, radius=3, segments=12, xcenter=297):
+    (minu, minv) = (maxu, maxv) = center = (0,0)
+    from math import sin, cos, pi
+    unitradians = 2*pi/segments
+    unitrho = radius/3.0
+    L = []
+    x,y = 0,0
+    for i in range(segments):
+        for (dx, dy) in data:
+            x = x+dx
+            y = y+dy
+            theta = x*unitradians
+            rho = radius*0.5 + 2*unitrho*y
+            u = rho*sin(theta)
+            v = rho*cos(theta)
+            #print "theta, rho", theta, rho
+            if not L: L = ['<path x="%scm" y="%scm" fill="1" stroke="1"> <curvesto>' %(u,v)]
+            L.append("%scm %scm" % (u,v))
+            maxu = max(u, maxu)
+            maxv = max(v, maxv)
+            minu = min(u, minu)
+            minv = min(v, minv)
+    L.append("</curvesto></path>")
+    path = "\n".join(L)
+    #path = """
+    #<fill color="darkolivegreen"/>
+    #<stroke color="black"/>
+    #<lineMode width="5"/>
+    #%s
+    #""" % path
+    if not illustration:
+        return path
+    illustration = """
+    <illustration height="%scm" width="0cm">
+    <translate dx="%s" dy="%s"/>
+    %s
+    </illustration>""" % ((maxv-minv), xcenter, -minv, path)
+    return illustration
+
+
+
+{{endscript}}
+
+
+<document filename="rml-for-idiots.pdf">
+  <!-- THIS RML FILE WAS AUTOMATICALLY GENERATED FROM A PREPPY PREPROCESSOR SOURCE. -->
+  <!-- DO NOT EDIT THE GENERATED RML DIRECTLY. -->
+
+	<docinit useCropMarks="no">
+		<cropMarks markColor="green" markWidth="0.5" markLength="18" borderWidth="36"/>
+		<!--here is how to set values for the first template to see -->
+		<name id="chapterColor" value="grey"/>
+		<name id="title" value="Examples of long document features"/>
+		<!-- now we register font -->
+		<registerTTFont faceName="Vera" fileName="Vera.ttf" />
+		<registerTTFont faceName="VeraBold" fileName="VeraBd.ttf" />
+		<startIndex/>
+
+	</docinit>
+
+  <template pageSize="(595, 842)"
+			leftMargin="72"
+			showBoundary="0"
+			title="RML for Idiots"
+			author="Reportlab Inc"
+			>
+
+	<pageTemplate id="cover">
+	  <pageGraphics>
+		{{if options.DULL}}
+		<setFont name="Times-Bold" size="48"/>
+		{{else}}
+		<fill color="darkred"/>
+		<setFont name="Helvetica-BoldOblique" size="48"/>
+		<fill color="indigo"/>
+		{{endif}}
+		<drawCentredString x="297" y="516">RML for Idiots</drawCentredString>
+		<setFont name="Times-Bold" size="14"/>
+		<drawCentredString x="297" y="434">An easy introduction to</drawCentredString>
+		<setFont name="Times-Bold" size="16"/>
+		<drawCentredString x="297" y="414">Report Markup Language</drawCentredString>
+
+		{{if not options.DULL}}
+		<fill color="firebrick"/>
+		{{endif}}
+
+		<lines>
+		  72 132 523 132
+		</lines>
+
+		<image file="images/replogo.gif" x="155" y="626"/>
+
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="110">ReportLab Europe Ltd.</drawString>
+		<drawString x="72" y="98">Thornton House</drawString>
+		<drawString x="72" y="86">Thornton Road</drawString>
+		<drawString x="72" y="74">Wimbledon</drawString>
+		<drawString x="72" y="62">London SW19 4NG, UK</drawString>
+		{{if not options.DULL}}
+		<translate dx="297" dy="273"/>
+		<scale sx="2.0" sy="1.0"/>
+		<fill color="goldenrod"/>
+		<circle x="0" y="0" radius="3cm" fill="1" stroke="0"/>
+		<fill color="darkorange"/>
+		<stroke color="indianred"/>
+		{{ circular([(1, 0), (0,1), (-1, 0), (0,-1),
+		(1, 0), (0,1), (-1, 0), (0,-1),
+		(1, 0), (0,1), (-1, 0), (0,-1),
+		(1, 0), (0,1), (-1, 0), (0,-1),
+		(1,0)], illustration=0) }}
+		{{endif}}
+	  </pageGraphics>
+	  <frame id="first" x1="72" y1="72" width="451" height="698"/>
+	</pageTemplate>
+
+	<pageTemplate id="contents">
+	  <pageGraphics>
+	  </pageGraphics>
+	  <frame id="first" x1="72" y1="72" width="451" height="698"/>
+	</pageTemplate>
+
+	<pageTemplate id="inside">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">{{DATE}}</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/></drawCentredString>
+	  </pageGraphics>
+	  <frame id="first" x1="72" y1="72" width="451" height="698"/>
+	</pageTemplate>
+
+	<pageTemplate id="ColorsAppendix">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">{{DATE}}</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/></drawCentredString>
+	  </pageGraphics>
+	  <frame id="title" x1="72" y1="717" width="451" height="66"/>
+	  <frame id="columnOne" x1="72" y1="72" width="212" height="641"/>
+	  <frame id="columnTwo" x1="311" y1="72" width="212" height="641"/>
+	</pageTemplate>
+
+	<pageTemplate id="ColorsAppendixTwo">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">{{DATE}}</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/></drawCentredString>
+	  </pageGraphics>
+	  <frame id="columnOne" x1="72" y1="72" width="212" height="707"/>
+	  <frame id="columnTwo" x1="311" y1="72" width="212" height="707"/>
+	</pageTemplate>
+
+
+	<pageTemplate id="GreekAppendix">
+	  <pageGraphics>
+		<lines>
+		  72 796 523 796
+		</lines>
+		<setFont name="Times-Roman" size="10"/>
+		<drawString x="72" y="808">RML for Idiots</drawString>
+		<drawRightString x="523" y="808">{{DATE}}</drawRightString>
+		<drawCentredString x="297.5" y="60">Page <pageNumber/> </drawCentredString>
+	  </pageGraphics>
+	  <frame id="title" x1="72" y1="747" width="451" height="36"/>
+	  <frame id="columnOne" x1="45" y1="72" width="106" height="671"/>
+	  <frame id="columnTwo" x1="151" y1="72" width="106" height="671"/>
+	  <frame id="columnThree" x1="281" y1="72" width="106" height="671"/>
+	  <frame id="columnFour" x1="387" y1="72" width="106" height="671"/>
+	</pageTemplate>
+
+  </template>
+
+  <stylesheet>
+	<initialize>
+	  <name id="RMLVersionNumber" value="&RMLVersionNumber;"/>
+	  <name id="RMLDTDFileName" value="&RMLDTDFileName;"/>
+	  <name id="RMLVersionString" value="&RMLVersionString;"/>
+	  <alias id="style.normal" value="style.Normal"/>
+	  <alias id="pre.defaultStyle" value="preStyle"/>
+	</initialize>
+
+    <blockTableStyle id="tocTableStyle">
+      <blockTopPadding length="3"/>
+      <blockBottomPadding length="3"/>
+      <blockLeftPadding length="0"/>
+      <blockRightPadding length="0"/>
+      <blockFont name="VeraBold" size="12"/>
+      <blockTextColor colorName="black"/>
+	  <blockValign value="MIDDLE"/>
+    </blockTableStyle>
+
+	<blockTableStyle id="colorsTableStyle">
+	  <blockValign value="TOP" stop="(1,89)"/>
+	  <blockAlignment value="LEFT" stop="1,89"/>
+	  <blockFont name="Courier" size="8" leading="1"/>
+	  <blockLeading length="1" start="(1,1)" stop="(1,1)"/>
+	  <blockFont name="Courier-Bold" size="12" leading="12" start="(0, 0)" stop="(1, 0)"/>
+	  <blockFont name="Courier-Bold" size="12" leading="12" start="(0, 45)" stop="(1, 45)"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="colorsTableStylePageTwo">
+	  <blockValign value="TOP" stop="(1,27)"/>
+	  <blockAlignment value="LEFT" stop="1,27"/>
+	  <blockFont name="Courier" size="8" leading="1"/>
+	  <blockLeading length="1" start="(1,1)" stop="(1,1)"/>
+	  <blockFont name="Courier-Bold" size="12" leading="12" start="(0, 0)" stop="(1, 0)"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="simpleStyle">
+	  <lineStyle kind="GRID" colorName="black"/>
+	  <blockAlignment value="LEFT"/>
+	  <blockValign value="TOP"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="myBlockTableStyle1">
+	  <!-- Used in Example 10                                      -->
+	  <!-- for comments look in the annotated version later in doc -->
+	  <blockFont name="Courier-Bold" start="0,1" stop="-1,-1"/>
+	  <blockFont name="Helvetica-BoldOblique" size="24" start="0,0" stop="3,0"/>
+	  <blockTextColor colorName="black"/>
+	  <blockTextColor colorName="white" start="0,0" stop="3,0"/>
+	  <blockTextColor colorName="blue" start="1,1" stop="1,6"/>
+	  <blockBackground colorName="red" start="0,0" stop="3,0"/>
+	  <blockBackground colorName="cornsilk" start="0,1" stop="-1,-1"/>
+	  <blockBackground colorName="lightcoral" start="3,3" stop="3,3"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="myBlockTableStyle2">
+	  <!-- This is for EXAMPLE 11 -->
+	  <blockFont name="Courier-Bold" size="10" start="0,1" stop="-1,-1"/>
+	  <blockFont name="Helvetica-BoldOblique" size="10" start="0,0" stop="3,0"/>
+	  <blockTextColor colorName="black"/>
+	  <blockTextColor colorName="green" start="2,2" stop="3,3"/>
+	  <blockAlignment value="CENTER"/>
+	  <blockAlignment value="RIGHT" start="3,0" stop="3,-1"/>
+	  <blockAlignment value="LEFT" start="0,1" stop="0,-1"/>
+	  <blockValign value="TOP" start="0,0" stop="-1,0"/>
+	  <blockValign value="MIDDLE" start="2,2" stop="3,3"/>
+	  <lineStyle kind="GRID" colorName="silver"/>
+	  <lineStyle kind="LINEBELOW" colorName="orangered" start="0,0" stop="-1,0" thickness="5"/>
+	  <lineStyle kind="LINEAFTER" colorName="maroon" start="1,1" stop="1,6" thickness="1"/>
+	</blockTableStyle>
+
+	<blockTableStyle id="myBlockTableStyle3">
+	  <!-- For use with EXAMPLE 12 -->
+	  <blockBackground colorName="silver" start="0,0" stop="-1,0"/>
+	  <blockBackground colorName="darkslategray" start="0,1" stop="-1,1"/>
+	  <blockBackground colorName="silver" start="0,2" stop="-1,2"/>
+	  <blockBackground colorName="darkslategray" start="0,3" stop="-1,3"/>
+	  <blockBackground colorName="silver" start="0,4" stop="-1,4"/>
+	  <blockBackground colorName="darkslategray" start="0,5" stop="-1,5"/>
+	  <blockAlignment value="CENTER"/>
+	  <blockValign value="MIDDLE"/>
+	  <blockFont name="Helvetica-BoldOblique" size="10"/>
+	  <blockLeftPadding length="20" start="0,0" stop="0,-1"/>
+	  <blockRightPadding length="20" start="2,0" stop="2,-1"/>
+	  <blockBottomPadding length="40" start="0,0" stop="-1,0"/>
+	  <blockTopPadding length="40" start="0,2" stop="-1,2"/>
+	  <blockBottomPadding length="40" start="-1,4" stop="-1,4"/>
+	  <blockTopPadding length="40" start="0,4" stop="0,4"/>
+	  <lineStyle kind="GRID" colorName="darkblue"/>
+	</blockTableStyle>
+
+
+	<boxStyle name="special1"
+			  labelFontName="Helvetica"
+			  fontSize="10"
+			  alignment="RIGHT"
+			  textColor="red"
+			  fontName="Helvetica"
+			  labelFontSize="10"
+			  labelAlignment="RIGHT"
+			  labelTextColor="blue"
+			  boxStrokeColor="red"
+			  boxFillColor="pink"/>
+
+	<boxStyle name="special2"
+			  parent="special1"
+			  fontName="Courier"
+			  fontSize="11"
+			  textColor="green"
+			  labelFontName="Courier"
+			  labelFontSize="11"
+			  labelTextColor="green"
+			  boxFillColor="yellow"
+			  boxStrokeColor="red"/>
+
+	<paraStyle name="style.h1"
+			   fontName="Times-Bold"
+			   fontSize="20"
+			   leading="36"
+			   />
+
+	<paraStyle name="style.h2"
+			   fontName="Times-Bold"
+			   fontSize="20"
+			   leading="36"
+			   />
+
+	<paraStyle name="style.h3"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   leading="15"
+			   />
+
+	<paraStyle name="contents"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   />
+
+	<paraStyle name="contents2"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="20"
+			   />
+
+	<paraStyle name="contents2a"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="20"
+			   spaceAfter="12"
+			   />
+
+	<paraStyle name="contents2h"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   leftIndent="20"
+			   />
+
+	<paraStyle name="contents3"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="40"
+			   />
+
+	<paraStyle name="contents3a"
+			   fontName="Times-Roman"
+			   fontSize="12"
+			   leftIndent="40"
+			   spaceAfter="12"
+			   />
+
+	<paraStyle name="contents3h"
+			   fontName="Times-Bold"
+			   fontSize="12"
+			   leftIndent="40"
+			   />
+
+	<paraStyle name="style.Normal"
+			   fontName="Times-Roman"
+			   fontSize="10"
+			   leading="12"
+			   spaceAfter="12"
+			   firstLineIndent="0"
+			   />
+
+	<paraStyle name="programListing"
+			   parent="style.Normal"
+			   fontName="Courier-Bold"
+			   fontSize="8"
+			   leading="10"
+			   spaceBefore="0"
+			   spaceAfter="0"
+			   textColor="darkblue"
+			   leftIndent="1.2cm"
+			   />
+
+	<paraStyle name="programListingConventionLabel"
+			   parent="programListing"
+			   spaceAfter="0"
+			   leftIndent="0"
+			   />
+
+	<paraStyle name="bulletList"
+			   parent="style.Normal"
+			   bulletFontName="ZapfDingbats"
+			   bulletFontSize="5"
+			   bulletIndent="20"
+			   leftIndent="35"
+			   spaceAfter="6"
+			   />
+
+	<paraStyle name="bulletNospace"
+			   parent="bulletList"
+			   spaceAfter="0"
+			   />
+
+	<paraStyle name="nospace"
+			   spaceAfter="0"
+			   parent="style.Normal"
+			   />
+
+	<paraStyle name="preStyle"
+			   parent="style.Code"
+			   firstLineIndent="35"
+			   leftIndent="35"
+			   spaceBefore="10"
+			   spaceAfter="10"
+			   />
+
+	<paraStyle name="figureCaption"
+			   spaceBefore="0"
+			   spaceAfter="15"
+			   alignment="CENTER"
+			   fontSize="8"
+			   fontName="Times-Italic"
+			   />
+
+	<paraStyle name="GreekPara"
+			   parent="style.normal"
+			   alignment="CENTER"
+			   />
+
+	<paraStyle name="paddingTableStyle"
+			   fontName="Helvetica-BoldOblique"
+			   fontSize="10"
+			   textColor="white"
+			   alignment="CENTER"
+			   />
+
+	<paraStyle name="code"
+			   fontName="Courier"
+			   fontSize="8"
+			   textColor="blue"
+			   backColor="cornsilk"
+			   borderColor="gray"
+			   borderPadding="6"
+			   borderWidth="1"
+			   spaceBefore="12"
+			   spaceAfter="12"
+			   />
+
+  </stylesheet>
+
+  <story>
+
+	<namedString id="LASTPAGENO"><pageNumber/></namedString>
+	<namedString id="chapterNumber"><pageNumber/></namedString>
+	<setNextTemplate name="inside"/>
+		<namedString id="title">Table of Contents</namedString>
+		<nextFrame/>
+		<outlineAdd>Table of Contents</outlineAdd>
+		<spacer length="10"/>    
+		
+		<!-- for the master table of contents, we make a first pass -->
+		<!-- creating a table with a row for each section.  This will have -->
+		<!-- 3 columns:  number, name, color,  page  -->
+		<blockTable style="tocTableStyle" colWidths="10%,27%,60%,5%">
+
+			{{for (id, title, part, sections) in data['chapters']}}
+			{{ if part }}
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_part_{{part['id']}}"></td>
+				<td destination="bookmark_part_{{part['id']}}">{{part['name']}}</td>
+				<td destination="bookmark_part_{{part['id']}}">
+				</td>
+				<td destination="bookmark_part_{{part['id']}}" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_part_{{part['id']}}"/>
+					</illustration>
+				</td>
+			</tr>
+			
+			{{ endif }}
+			<tr>
+				<!-- each table cell acts like a big hyperlink to the -->
+				<!-- corresponding part of the document - the bookmark attribute. -->
+				<td destination="bookmark_chapter_{{id}}">{{id}}.</td>
+				<td destination="bookmark_chapter_{{id}}">{{title}}</td>
+				<td destination="bookmark_chapter_{{id}}">
+				</td>
+				<td destination="bookmark_chapter_{{id}}" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_chapter_{{id}}"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			{{for (sec_title, sec_id, sec_num) in sections}}
+			
+			<tr>
+				<td destination="bookmark_section_{{sec_id}}">{{id}}.{{sec_num}}.</td>
+				<td destination="bookmark_section_{{sec_id}}">{{sec_title}}</td>
+				<td destination="bookmark_section_{{sec_id}}">
+				</td>
+				<td destination="bookmark_section_{{sec_id}}" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_section_{{sec_id}}"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			{{endfor}}
+			{{endfor}}
+
+			{{for (appendix_title, appendix_id) in data['appendixes']}}
+
+			<tr>
+				<td destination="bookmark_appendix_{{appendix_id}}"></td>
+				<td destination="bookmark_appendix_{{appendix_id}}">{{appendix_title}}</td>
+				<td destination="bookmark_appendix_{{appendix_id}}">
+				</td>
+				<td destination="bookmark_appendix_{{appendix_id}}" align="right">
+					<illustration width="30" height="10">
+						<doForm name="pagenum_appendix_{{appendix_id}}"/>
+					</illustration>
+					
+				</td>
+			</tr>
+			{{endfor}}
+
+		</blockTable>
+
+		{{ for chapter in data['chapters_content'] }}
+		<nextPage/>
+
+		{{ if chapter['part'] }}
+		<outlineAdd level="0" closed="1">{{chapter['part']['name']}}</outlineAdd>
+		<bookmark  name="bookmark_part_{{chapter['part']['id']}}"/>		
+		<illustration width="0" height="0">
+			<form name="pagenum_part_{{chapter['part']['id']}}">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		{{ endif }}
+
+ 		<namedString id="chapterName">{{chapter['name']}}</namedString>
+
+		<outlineAdd level="1">{{chapter['name']}}</outlineAdd>
+		<bookmark name="bookmark_chapter_{{chapter['num']}}"/>		
+		
+		<!--draw an 'invisible form' with the current page number-->
+		<illustration width="0" height="0">
+			<form name="pagenum_chapter_{{chapter['num']}}">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+
+		<h2>{{chapter['name']}}</h2>
+
+		{{if chapter['content']}}
+		{{chapter['content']}}
+		{{endif}}
+		{{ for section in chapter['sections'] }}
+		<bookmark name="bookmark_section_{{section['id']}}"/>		
+		<outlineAdd level="2">{{section['name']}}</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_section_{{section['id']}}">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>{{section['name']}}</h3>
+		{{if section['content']}}
+		{{section['content']}}
+		{{endif}}
+
+		{{endfor}}
+
+		{{ endfor }}
+		{{ for appendix in data['appendixes_content'] }}
+		<bookmark name="bookmark_appendix_{{appendix['id']}}"/>		
+		<outlineAdd level="0">{{appendix['name']}}</outlineAdd>
+		<illustration width="0" height="0">
+			<form name="pagenum_appendix_{{appendix['id']}}">
+				<setFont name="Helvetica" size="9"/>
+				<drawString x="0" y="0"><pageNumber countingFrom="2"/></drawString>
+			</form>
+		</illustration>
+		<h3>{{appendix['name']}}</h3>
+		{{if appendix['content']}}
+		{{appendix['content']}}
+		{{endif}}
+
+		{{endfor}}
+
+  </story>
+
+</document>

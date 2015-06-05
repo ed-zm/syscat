@@ -1,0 +1,1374 @@
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 0 0 236 253
+%%Title: ()
+%%DocumentProcessColors: black
+%%DocumentCustomColors: (FidelityBlue)
+%%+ (FidelityLightBlue)
+%%CMYKCustomColor: .6 .4 0 .2 (FidelityBlue)
+%%+ .121568 .082353 0 .039216 (FidelityLightBlue)
+%%DocumentFonts: Helvetica-Bold
+%%+ Helvetica
+
+%%CreationDate: (03/Jun/2015) (13:23:26 GMT)
+%%Creator: ReportLab+renderPS_SEP 1.01
+%%For: () ()
+%%Extensions: CMYK
+%%EndComments
+%%BeginProlog
+
+%%BeginResource: procset sep_ops 1.03 0
+%%Title: (Separation Procs)
+%%Version: 1.03 0
+userdict /sep_ops 50 dict dup begin put
+/bdef {bind def} bind def
+/xdef {exch def} bdef
+/colorimagebuffer { % helper proc called by customcolorimage
+	0 1 2 index length 1 sub {
+	dup 2 index exch get 255 exch sub 2 index 3 1 roll put
+	}for
+}bdef
+
+/addprocs { % {proc1} {proc2} addprocs {{proc1}exec {proc2} exec}
+	[ 3 1 roll
+	/exec load
+	dup 3 1 roll
+	] cvx
+} bdef
+
+/L1? {
+	/languagelevel where {
+	pop languagelevel 2 lt
+	}{
+		true
+	} ifelse
+} bdef
+
+/colorexists { % tests to see if printing on color device
+	statusdict /processcolors known {
+		statusdict /processcolors get exec
+	}{ % processcolors not present
+		/deviceinfo where { % check for dps environment
+			pop deviceinfo /Colors known {
+				deviceinfo /Colors get % get color value from DPS
+				statusdict /processcolors {% add processcolors entry
+					deviceinfo /Colors known {
+						deviceinfo /Colors get
+						}{
+					1
+				} ifelse
+			} put
+		}{
+		1
+	} ifelse
+}{ % not in dps environment, assume monochrome
+1
+} ifelse
+} ifelse
+1 gt % return true for color devices, false for B&W
+} bdef
+/MakeReadOnlyArray { % size => [array]
+/packedarray where {
+pop packedarray
+}{
+array astore readonly
+} ifelse
+} bdef
+/findcmykcustomcolor where {
+pop
+}{
+/findcmykcustomcolor {% c m y k name findcmykcustomcolor array
+5 MakeReadOnlyArray
+} bdef
+} ifelse
+/setoverprint where {
+pop
+}{
+/setoverprint {% boolean setoverprint -
+pop
+} bdef
+} ifelse
+/setcustomcolor where {
+pop
+}{
+L1? {
+/setcustomcolor { % array tint setcustomcolor -
+exch
+aload pop pop
+4 { 4 index mul 4 1 roll } repeat
+5 -1 roll pop
+setcmykcolor
+} bdef
+}{
+/setcustomcolor { % customcolorarray tint
+exch
+[ exch /Separation exch dup 4 get exch /DeviceCMYK exch
+0 4 getinterval
+[ exch /dup load exch cvx {mul exch dup}
+/forall load /pop load dup] cvx
+] setcolorspace setcolor
+} bdef
+} ifelse
+} ifelse
+% initialize variables to avoid unintentional early binding
+/ik 0 def /iy 0 def /im 0 def /ic 0 def
+/imagetint {% converts cmyk to grayscale equiv w/red book formula
+% called by setcmykcolor and customcolorimage procs.
+ic .3 mul
+im .59 mul
+iy .11 mul
+ik add add add dup
+1 gt{pop 1}if
+} bdef
+/setcmykcolor where {
+pop
+}{
+% setcmykcolor not supported, call setgray instead
+/setcmykcolor { % c m y k setcmykcolor --
+/ik xdef /iy xdef /im xdef /ic xdef
+imagetint
+1 exch sub setgray
+} bdef
+} ifelse
+/customcolorimage where {
+pop
+}{
+L1? {
+/customcolorimage{ % w h bps matrix proc array
+gsave
+colorexists {
+aload pop pop
+/ik xdef /iy xdef /im xdef /ic xdef
+currentcolortransfer
+{ik mul ik sub 1 add} addprocs
+4 1 roll {iy mul iy sub 1 add} addprocs
+4 1 roll{im mul im sub 1 add} addprocs
+4 1 roll{ic mul ic sub 1 add} addprocs
+4 1 roll setcolortransfer
+/magentabuf 0 string def
+/yellowbuf 0 string def
+/blackbuf 0 string def
+{
+colorimagebuffer dup length magentabuf length ne{
+dup length dup dup
+/magentabuf exch string def
+/yellowbuf exch string def
+/blackbuf exch string def
+}if
+dup magentabuf copy yellowbuf copy
+blackbuf copy pop
+} addprocs
+{magentabuf}{yellowbuf}{blackbuf} true 4 colorimage
+}{ % non-color device
+aload pop pop /ik xdef /iy xdef /im xdef /ic xdef
+/tint imagetint def
+currenttransfer
+{tint mul 1 tint sub add} addprocs settransfer image
+}ifelse
+grestore
+} bdef
+}{ % Level 2 environment
+/customcolorimage { % w h bps matrix proc array
+gsave
+[ exch /Separation exch dup 4 get exch /DeviceCMYK exch
+0 4 getinterval
+[ exch /dup load exch cvx {mul exch dup}
+/forall load /pop load dup] cvx
+] setcolorspace
+10 dict begin
+/ImageType 1 def
+/DataSource exch def
+/ImageMatrix exch def
+/BitsPerComponent exch def
+/Height exch def
+/Width exch def
+/Decode [1 0] def
+currentdict end
+image
+grestore
+} bdef
+} ifelse
+} ifelse
+/setseparationgray where {
+pop
+}{
+L1? {
+/setseparationgray {
+1 exch sub dup dup dup setcmykcolor
+} bdef
+}{
+/setseparationgray {
+[/Separation /All /DeviceCMYK
+{dup dup dup}] setcolorspace 1 exch sub setcolor
+} bdef
+} ifelse
+} ifelse
+/separationimage where {
+pop
+}{
+/separationimage {
+gsave
+1 1 1 1 (All)
+findcmykcustomcolor customcolorimage
+grestore
+} bdef
+} ifelse
+currentdict readonly pop end
+%%EndResource
+
+
+%%EndProlog
+%%BeginSetup
+sep_ops begin
+50 dict begin % temp dict for variable definitions
+%%EndSetup
+
+/pgsave save def
+/m {moveto} def
+/l {lineto} def
+/c {curveto} bind def
+
+
+/RE { %def
+  findfont begin
+  currentdict dup length dict begin
+ { %forall
+   1 index /FID ne { def } { pop pop } ifelse
+ } forall
+ /FontName exch def dup length 0 ne { %if
+   /Encoding Encoding 256 array copy def
+   0 exch { %forall
+     dup type /nametype eq { %ifelse
+       Encoding 2 index 2 index put
+       pop 1 add
+     }{ %else
+       exch pop
+     } ifelse
+   } forall
+ } if pop
+  currentdict dup end end
+  /FontName get exch definefont pop
+} bind def
+
+/WinAnsiEncoding [
+  39/quotesingle 96/grave 128/euro 130/quotesinglbase/florin/quotedblbase
+  /ellipsis/dagger/daggerdbl/circumflex/perthousand
+  /Scaron/guilsinglleft/OE 145/quoteleft/quoteright
+  /quotedblleft/quotedblright/bullet/endash/emdash
+  /tilde/trademark/scaron/guilsinglright/oe/dotlessi
+  159/Ydieresis 164/currency 166/brokenbar 168/dieresis/copyright
+  /ordfeminine 172/logicalnot 174/registered/macron/ring
+  177/plusminus/twosuperior/threesuperior/acute/mu
+  183/periodcentered/cedilla/onesuperior/ordmasculine
+  188/onequarter/onehalf/threequarters 192/Agrave/Aacute
+  /Acircumflex/Atilde/Adieresis/Aring/AE/Ccedilla
+  /Egrave/Eacute/Ecircumflex/Edieresis/Igrave/Iacute
+  /Icircumflex/Idieresis/Eth/Ntilde/Ograve/Oacute
+  /Ocircumflex/Otilde/Odieresis/multiply/Oslash
+  /Ugrave/Uacute/Ucircumflex/Udieresis/Yacute/Thorn
+  /germandbls/agrave/aacute/acircumflex/atilde/adieresis
+  /aring/ae/ccedilla/egrave/eacute/ecircumflex
+  /edieresis/igrave/iacute/icircumflex/idieresis
+  /eth/ntilde/ograve/oacute/ocircumflex/otilde
+  /odieresis/divide/oslash/ugrave/uacute/ucircumflex
+  /udieresis/yacute/thorn/ydieresis
+] def
+
+WinAnsiEncoding /Helvetica-Bold /Helvetica-Bold RE
+WinAnsiEncoding /Helvetica /Helvetica RE
+
+0 0 0 1 setcmykcolor false setoverprint
+2 setlinecap
+0 setlinejoin
+1 setlinewidth
+gsave
+1 1 translate
+.6 .4 0 .2 (FidelityBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0 237.3 m
+234 237.3 l
+234 251.3 l
+0 251.3 l
+closepath
+eofill
+0 0 0 0 setcmykcolor false setoverprint
+(Helvetica-Bold) findfont 8 scalefont setfont
+57.432 242.3 m (Fid FIF Special Situations Fund) show 
+0 0 0 1 setcmykcolor false setoverprint
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gsave
+0 197.8 translate
+.121568 .082353 0 .039216 (FidelityLightBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0 17 m
+234 17 l
+234 39.5 l
+0 39.5 l
+closepath
+eofill
+0 0 0 1 setcmykcolor false setoverprint
+
+gsave
+0 32 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+10.248 1 m (Maximum) show 
+
+grestore
+grestore
+gsave
+0 26.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+5.12025 1 m (Initial Charges) show 
+
+grestore
+grestore
+gsave
+0 21 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+4.6185 1 m (inside ISA/PEP) show 
+
+grestore
+grestore
+gsave
+40.25 32 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+10.248 1 m (Maximum) show 
+
+grestore
+grestore
+gsave
+40.25 26.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+5.12025 1 m (Initial Charges) show 
+
+grestore
+grestore
+gsave
+40.25 21 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.12 1 m (outside ISA/PEP) show 
+
+grestore
+grestore
+gsave
+80.5 29.25 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+1.99975 1 m (Annual) show 
+
+grestore
+grestore
+gsave
+80.5 23.75 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+.62275 1 m (Charges) show 
+
+grestore
+grestore
+gsave
+98.75 29.25 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.62425 1 m (Other) show 
+
+grestore
+grestore
+gsave
+98.75 23.75 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+.62275 1 m (Charges) show 
+
+grestore
+grestore
+gsave
+117 26.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+4.2475 1 m (Yield) show 
+
+grestore
+grestore
+gsave
+135.25 32 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+11.625 1 m (Effect of) show 
+
+grestore
+grestore
+gsave
+135.25 26.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.8715 1 m (Deductions p.a.) show 
+
+grestore
+grestore
+gsave
+135.25 21 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+4.6185 1 m (inside ISA/PEP) show 
+
+grestore
+grestore
+gsave
+175.5 32 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+11.625 1 m (Effect of) show 
+
+grestore
+grestore
+gsave
+175.5 26.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.8715 1 m (Deductions p.a.) show 
+
+grestore
+grestore
+gsave
+175.5 21 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.12 1 m (outside ISA/PEP) show 
+
+grestore
+grestore
+gsave
+215.75 32 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+.62275 1 m (Charges) show 
+
+grestore
+grestore
+gsave
+215.75 26.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.24625 1 m (levied) show 
+
+grestore
+grestore
+gsave
+215.75 21 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+1.74775 1 m (against) show 
+
+grestore
+grestore
+gsave
+0 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+14.24625 1 m (3.50%) show 
+
+grestore
+grestore
+gsave
+40.25 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+14.24625 1 m (3.50%) show 
+
+grestore
+grestore
+gsave
+80.5 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.24625 1 m (1.50%) show 
+
+grestore
+grestore
+gsave
+98.75 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.24625 1 m (0.19%) show 
+
+grestore
+grestore
+gsave
+117 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+3.24625 1 m (0.35%) show 
+
+grestore
+grestore
+gsave
+135.25 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+5.24625 1 m (From 7.00% to) show 
+
+grestore
+grestore
+gsave
+135.25 4 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+4.866 1 m (4.84% per year) show 
+
+grestore
+grestore
+gsave
+175.5 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+5.24625 1 m (From 6.00% to) show 
+
+grestore
+grestore
+gsave
+175.5 4 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+4.866 1 m (3.86% per year) show 
+
+grestore
+grestore
+gsave
+215.75 9.5 translate
+gsave
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+1.74775 1 m (Income) show 
+
+grestore
+grestore
+gsave
+1 setlinecap
+1 setlinejoin
+.6 .4 0 .2 (FidelityBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0.75 setlinewidth
+0 39.5 m 234 39.5 l stroke
+0 0 m 234 0 l stroke
+0 0 m 0 39.5 l stroke
+234 0 m 234 39.5 l stroke
+0 17 m 234 17 l stroke
+40.25 0 m 40.25 39.5 l stroke
+80.5 0 m 80.5 39.5 l stroke
+98.75 0 m 98.75 39.5 l stroke
+117 0 m 117 39.5 l stroke
+135.25 0 m 135.25 39.5 l stroke
+175.5 0 m 175.5 39.5 l stroke
+215.75 0 m 215.75 39.5 l stroke
+grestore
+
+
+grestore
+gsave
+0 179.8 translate
+.121568 .082353 0 .039216 (FidelityLightBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0 9 m
+234 9 l
+234 18 l
+0 18 l
+closepath
+eofill
+0 0 0 1 setcmykcolor false setoverprint
+(Helvetica-Bold) findfont 5 scalefont setfont
+42.11 12 m (ACD/Manager) show 
+152.855 12 m (Depositary/Trustee) show 
+(Helvetica) findfont 5 scalefont setfont
+18.6275 3 m (Fidelity Investment Services Limited) show 
+115.895 3 m (J.P.Morgan Trustee and Depository Company Limited) show 
+gsave
+1 setlinecap
+1 setlinejoin
+.6 .4 0 .2 (FidelityBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0.75 setlinewidth
+0 18 m 117 18 l stroke
+0 0 m 117 0 l stroke
+0 0 m 0 18 l stroke
+117 0 m 117 18 l stroke
+117 18 m 234 18 l stroke
+117 0 m 234 0 l stroke
+117 0 m 117 18 l stroke
+234 0 m 234 18 l stroke
+0 9 m 234 9 l stroke
+grestore
+
+grestore
+gsave
+117 174.8 translate
+grestore
+gsave
+0 168.2 translate
+gsave
+0 0 0 1 setcmykcolor false setoverprint
+(Helvetica) findfont 5.5 scalefont setfont
+5 1.1 m (An example of the effect of charges and expenses on an ISA/PEP investment into the fund) show 
+
+grestore
+grestore
+gsave
+117 163.2 translate
+grestore
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gsave
+4 116.2 translate
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+gsave
+-1 40.5 translate
+gsave
+22.25025 1 m (At end) show 
+grestore
+grestore
+gsave
+-1 35 translate
+gsave
+21.87225 1 m (of year) show 
+grestore
+grestore
+gsave
+55.5 40.5 translate
+gsave
+17.37225 1 m (Investment) show 
+grestore
+grestore
+gsave
+55.5 35 translate
+gsave
+21.8745 1 m (to date) show 
+grestore
+grestore
+gsave
+112 40.5 translate
+gsave
+20.25 1 m (Effect of) show 
+grestore
+grestore
+gsave
+112 35 translate
+gsave
+8.99775 1 m (Deductions to date) show 
+grestore
+grestore
+gsave
+168.5 40.5 translate
+gsave
+8.3745 1 m (What you might get) show 
+grestore
+grestore
+gsave
+168.5 35 translate
+gsave
+14.49225 1 m (back at 7.00%) show 
+grestore
+grestore
+
+gsave
+-1 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+27.721 1 m (1) show 
+
+grestore
+grestore
+gsave
+55.5 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.8405 1 m (\243) show 
+23.8985 1 m (1,000) show 
+
+grestore
+grestore
+gsave
+112 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+24.663 1 m (\243) show 
+27.721 1 m (54) show 
+
+grestore
+grestore
+gsave
+168.5 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.8405 1 m (\243) show 
+23.8985 1 m (1,010) show 
+
+grestore
+grestore
+gsave
+-1 18 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+27.721 1 m (3) show 
+
+grestore
+grestore
+gsave
+55.5 18 translate
+grestore
+gsave
+112 18 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+23.134 1 m (\243) show 
+26.192 1 m (100) show 
+
+grestore
+grestore
+gsave
+168.5 18 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.8405 1 m (\243) show 
+23.8985 1 m (1,120) show 
+
+grestore
+grestore
+gsave
+-1 9.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+27.721 1 m (5) show 
+
+grestore
+grestore
+gsave
+55.5 9.5 translate
+grestore
+gsave
+112 9.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+23.134 1 m (\243) show 
+26.192 1 m (157) show 
+
+grestore
+grestore
+gsave
+168.5 9.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.8405 1 m (\243) show 
+23.8985 1 m (1,240) show 
+
+grestore
+grestore
+gsave
+-1 1 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+26.192 1 m (10) show 
+
+grestore
+grestore
+gsave
+55.5 1 translate
+grestore
+gsave
+112 1 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+23.134 1 m (\243) show 
+26.192 1 m (362) show 
+
+grestore
+grestore
+gsave
+168.5 1 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.8405 1 m (\243) show 
+23.8985 1 m (1,600) show 
+
+grestore
+grestore
+gsave
+1 setlinecap
+1 setlinejoin
+.6 .4 0 .2 (FidelityBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0.75 setlinewidth
+0 47 m 226 47 l stroke
+0 34 m 226 34 l stroke
+0 34 m 0 47 l stroke
+226 34 m 226 47 l stroke
+0 0 m 0 34 l stroke
+226 0 m 226 34 l stroke
+0 0 m 226 0 l stroke
+grestore
+
+
+grestore
+gsave
+117 114.7 translate
+grestore
+gsave
+0 94.9 translate
+gsave
+(Helvetica) findfont 5.5 scalefont setfont
+0 0 0 1 setcmykcolor false setoverprint
+5 14.3 m (The) show 
+16.32394 14.3 m (last) show 
+26.72938 14.3 m (line) show 
+37.13482 14.3 m (in) show 
+43.26126 14.3 m (the) show 
+52.75371 14.3 m (table) show 
+66.52515 14.3 m (shows) show 
+83.95959 14.3 m (that) show 
+94.98103 14.3 m (over) show 
+107.526 14.3 m (10) show 
+115.4894 14.3 m (years) show 
+130.7844 14.3 m (the) show 
+140.2768 14.3 m (effect) show 
+155.5772 14.3 m (of) show 
+162.0117 14.3 m (total) show 
+174.2541 14.3 m (charges) show 
+195.6651 14.3 m (could) show 
+210.6575 14.3 m (amount) show 
+5 7.7 m (to) show 
+12.76886 7.7 m (\243) show 
+14.174 7.7 m (362.) show 
+28.05886 7.7 m (Putting) show 
+48.36221 7.7 m (it) show 
+54.29407 7.7 m (another) show 
+76.12643 7.7 m (way,) show 
+90.61629 7.7 m (this) show 
+102.3561 7.7 m (would) show 
+119.904 7.7 m (have) show 
+135.0099 7.7 m (the) show 
+145.8367 7.7 m (effect) show 
+162.4716 7.7 m (of) show 
+170.2404 7.7 m (bringing) show 
+192.9858 7.7 m (the) show 
+203.8126 7.7 m (illustrated) show 
+5 1.1 m (investment growth from 7.00% down to 4.84%.) show 
+
+grestore
+grestore
+gsave
+117 89.9 translate
+grestore
+gsave
+117 84.9 translate
+grestore
+gsave
+0 78.3 translate
+gsave
+(Helvetica) findfont 5.5 scalefont setfont
+5 1.1 m (An example of the effect of charges and expenses on an investment directly into the fund) show 
+
+grestore
+grestore
+gsave
+117 73.3 translate
+grestore
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+gsave
+6 26.3 translate
+(Helvetica-Bold) findfont 4.5 scalefont setfont
+gsave
+-1 40.5 translate
+gsave
+21.75025 1 m (At end) show 
+grestore
+grestore
+gsave
+-1 35 translate
+gsave
+21.37225 1 m (of year) show 
+grestore
+grestore
+gsave
+54.5 40.5 translate
+gsave
+16.87225 1 m (Investment) show 
+grestore
+grestore
+gsave
+54.5 35 translate
+gsave
+21.3745 1 m (to date) show 
+grestore
+grestore
+gsave
+110 40.5 translate
+gsave
+19.75 1 m (Effect of) show 
+grestore
+grestore
+gsave
+110 35 translate
+gsave
+8.49775 1 m (Deductions to date) show 
+grestore
+grestore
+gsave
+165.5 40.5 translate
+gsave
+7.8745 1 m (What you might get) show 
+grestore
+grestore
+gsave
+165.5 35 translate
+gsave
+13.99225 1 m (back at 6.00%) show 
+grestore
+grestore
+
+gsave
+-1 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+27.221 1 m (1) show 
+
+grestore
+grestore
+gsave
+54.5 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.3405 1 m (\243) show 
+23.3985 1 m (1,000) show 
+
+grestore
+grestore
+gsave
+110 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+24.163 1 m (\243) show 
+27.221 1 m (53) show 
+
+grestore
+grestore
+gsave
+165.5 26.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.3405 1 m (\243) show 
+23.3985 1 m (1,000) show 
+
+grestore
+grestore
+gsave
+-1 18 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+27.221 1 m (3) show 
+
+grestore
+grestore
+gsave
+54.5 18 translate
+grestore
+gsave
+110 18 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+24.163 1 m (\243) show 
+27.221 1 m (97) show 
+
+grestore
+grestore
+gsave
+165.5 18 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.3405 1 m (\243) show 
+23.3985 1 m (1,090) show 
+
+grestore
+grestore
+gsave
+-1 9.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+27.221 1 m (5) show 
+
+grestore
+grestore
+gsave
+54.5 9.5 translate
+grestore
+gsave
+110 9.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+22.634 1 m (\243) show 
+25.692 1 m (150) show 
+
+grestore
+grestore
+gsave
+165.5 9.5 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.3405 1 m (\243) show 
+23.3985 1 m (1,180) show 
+
+grestore
+grestore
+gsave
+-1 1 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+25.692 1 m (10) show 
+
+grestore
+grestore
+gsave
+54.5 1 translate
+grestore
+gsave
+110 1 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+22.634 1 m (\243) show 
+25.692 1 m (330) show 
+
+grestore
+grestore
+gsave
+165.5 1 translate
+gsave
+(Helvetica-Bold) findfont 5.5 scalefont setfont
+20.3405 1 m (\243) show 
+23.3985 1 m (1,460) show 
+
+grestore
+grestore
+gsave
+1 setlinecap
+1 setlinejoin
+.6 .4 0 .2 (FidelityBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0.75 setlinewidth
+0 47 m 222 47 l stroke
+0 34 m 222 34 l stroke
+0 34 m 0 47 l stroke
+222 34 m 222 47 l stroke
+0 0 m 0 34 l stroke
+222 0 m 222 34 l stroke
+0 0 m 222 0 l stroke
+grestore
+
+
+grestore
+gsave
+117 24.8 translate
+grestore
+gsave
+0 5 translate
+gsave
+(Helvetica) findfont 5.5 scalefont setfont
+0 0 0 1 setcmykcolor false setoverprint
+5 14.3 m (The) show 
+16.32394 14.3 m (last) show 
+26.72938 14.3 m (line) show 
+37.13482 14.3 m (in) show 
+43.26126 14.3 m (the) show 
+52.75371 14.3 m (table) show 
+66.52515 14.3 m (shows) show 
+83.95959 14.3 m (that) show 
+94.98103 14.3 m (over) show 
+107.526 14.3 m (10) show 
+115.4894 14.3 m (years) show 
+130.7844 14.3 m (the) show 
+140.2768 14.3 m (effect) show 
+155.5772 14.3 m (of) show 
+162.0117 14.3 m (total) show 
+174.2541 14.3 m (charges) show 
+195.6651 14.3 m (could) show 
+210.6575 14.3 m (amount) show 
+5 7.7 m (to) show 
+12.76886 7.7 m (\243) show 
+14.174 7.7 m (330.) show 
+28.05886 7.7 m (Putting) show 
+48.36221 7.7 m (it) show 
+54.29407 7.7 m (another) show 
+76.12643 7.7 m (way,) show 
+90.61629 7.7 m (this) show 
+102.3561 7.7 m (would) show 
+119.904 7.7 m (have) show 
+135.0099 7.7 m (the) show 
+145.8367 7.7 m (effect) show 
+162.4716 7.7 m (of) show 
+170.2404 7.7 m (bringing) show 
+192.9858 7.7 m (the) show 
+203.8126 7.7 m (illustrated) show 
+5 1.1 m (investment growth from 6.00% down to 3.86%.) show 
+
+grestore
+grestore
+gsave
+117 0 translate
+grestore
+gsave
+1 setlinecap
+1 setlinejoin
+.6 .4 0 .2 (FidelityBlue) 0
+/tint exch def
+findcmykcustomcolor false setoverprint
+tint 1 exch sub setcustomcolor
+0.75 setlinewidth
+0 251.3 m 234 251.3 l stroke
+0 0 m 234 0 l stroke
+0 0 m 0 251.3 l stroke
+234 0 m 234 251.3 l stroke
+grestore
+
+grestore
+pgsave restore
+showpage
+%%Trailer
+end % temp dictionary
+end % sep_ops
+%%EOF

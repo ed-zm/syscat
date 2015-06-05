@@ -1,0 +1,105 @@
+{{script}}
+import travel 
+from rlextra.radxml.xmlutils import xml2doctree
+hotels=dictionary.get('hotels')
+step=dictionary.get('step')
+def genHotelBookingID(room_id):
+	# i.e. "05062006*09062006*r021*4" means checkin: 05-06-2006, checkout: 09-06-2006, room_id: r021, num of people: 4
+	checkinDate=str(hotels.checkinDate)
+	checkoutDate=str(hotels.checkoutDate)
+	return '*'.join([checkinDate.replace('-',''),checkoutDate.replace('-',''),room_id,numOfAdults])
+def getRoomPrice(room_id,numOfNights,numOfPeople):
+	room=travel.rooms[room_id]
+	pricePerNight=room['price']
+	capacity=room['capacity']
+	numOfRooms = numOfPeople/capacity
+	if numOfPeople%capacity!=0:
+		numOfRooms+=1
+	total = numOfNights*numOfRooms
+	return total, numOfRooms 
+
+{{endscript}}
+<script language='javascript' type='text/javascript'>
+function getYMD(MMYYYY,DD){
+	YMD=MMYYYY.substring(2,6)+'-'+MMYYYY.substring(0,2)+'-'+DD;
+	return YMD;
+}
+function submitRoom(roomBooking_id){
+	var f = document.forms['room'];
+	f.roomBooking_id.value=roomBooking_id;
+	f.submit();
+}
+function submithotel(hotel_id){
+	var	f = document.forms['hotels'];
+	f.chosenHotel.value=hotel_id;
+	f.checkinYMD.value=getYMD(document.getElementById("checkinMonYear").value,document.getElementById("checkinDay").value);
+	f.checkoutYMD.value=getYMD(document.getElementById("checkoutMonYear").value,document.getElementById("checkoutDay").value);
+	inDateObj=getDateObj(f.checkinYMD.value);
+	outDateObj=getDateObj(f.checkoutYMD.value);
+	if (outDateObj<inDateObj) alert('Checkout date must be greater than checkin date!');
+	else f.submit();
+}
+</script>
+<!--p>I am in hotelbooking.prep</p-->
+{{script}}
+dateStr= "Checkin: "+str(hotels.checkinDate)+" Checkout: "+str(hotels.checkoutDate)
+{{endscript}}
+{{for hotel in hotels.getNamedChildren('hotel')}}
+<table class="hotelTable" >
+<tr>
+	<th colspan=2><img src="{{app.getRsrcUrl('hotel_symbol.gif')}}" align="left"/>{{if step=='3' or step=='4'}}{{dateStr}}{{endif}}<br/></th>
+</tr>
+<tr>
+	<td colspan=2><b>{{hotel.displayName}}</b></td>
+</tr>
+<tr>
+	<td>
+			<img src="{{app.getRsrcUrl(str(hotel.image))}}" height=140 width=160/>
+	</td>
+	<td vAlign="top">
+		<p>{{hotel.address}}<br/>
+		Tel: {{hotel.telephone}}<br/></p>
+		<p>{{hotel.description}}</p>
+	</td> 
+</tr>
+<tr>
+	<td colspan=2>
+		<table class="roomTable">
+			<tr>
+				<th>Room type</th>
+				<th>Board Type</th>
+				<th>Average room price</th>
+				{{if step=='4'}}
+				<th>Total</th>
+				{{elif step=='3'}}
+				<th></th>
+				{{endif}}
+			</tr>
+			{{for room in hotel.getNamedChildren('room')}}
+			{{script}}
+			if room.hasBreakfast[0] == 'True': boardType = 'Include Breakfast'
+			else: boardType = 'Room Only'
+			{{endscript}}
+			<tr>
+				<td>{{room.type}}</td>
+				<td>{{boardType}}</td>
+				<td>&#163;{{room.price}}/day</td>
+				{{if step=='3'}}
+				<td><a href='javascript:submitRoom("{{genHotelBookingID(room.id)}}")'>Choose</a></td>
+				{{elif step=='4'}}
+				<td>&#163;{{hotels.cost}}</td>
+				{{endif}}
+			</tr>
+			{{endfor}}
+		</table>
+	</td>
+</tr>
+{{if step=='2'}}
+<tr>
+<td colspan=4 align="right"><a href='javascript:submithotel("{{hotel.id}}")'>Choose this hotel</a></td>
+</tr>
+{{endif}}
+</table>
+<br/>
+{{endfor}}
+<!--p>I am out of hotelbooking.prep</p-->

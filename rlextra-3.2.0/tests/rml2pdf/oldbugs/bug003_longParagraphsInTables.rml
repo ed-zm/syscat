@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="bug003_longParapraphsInTables.pdf"> 
+
+<template>
+	<pageTemplate id="main">
+	<pageGraphics>
+
+	</pageGraphics>
+	<frame id="first" x1="72" y1="72" width="451" height="698"/> 
+	</pageTemplate>
+</template>
+
+<stylesheet>
+	<blockTableStyle id="myBlockTableStyle">
+		<blockBackground colorName="purple" start="(0,0)" stop="(1,1)"/>
+		<blockBackground colorName="green" start="(0,1)" stop="(1,-1)"/>
+		<blockBackground colorName="cyan" start="(1,0)" stop="(-1,1)"/>
+		<blockBackground colorName="yellow" start="(1,1)" stop="(-1,-1)"/>
+	</blockTableStyle>
+</stylesheet>
+
+<story>
+	<title>Bug 003 - Long L<i>ooooo</i>ng paragraphs and strings in tables</title>
+	<para>
+	In my opinion this is not a bug.  The problem is that if you use rowWidths
+	and colHeights you <i>must</i> put elements inside them that fit.
+	</para>
+	<spacer length = "1cm"/>
+
+	<h3>A long string in a table</h3>
+	<blockTable style="myBlockTableStyle"
+	rowHeights="2cm,2cm"
+	colWidths="4cm,3cm"
+	>
+	<tr>
+		<td><para>This is a short paragraph.</para></td>
+		<td><para>This is a short paragraph.</para></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		For sake of illustration, this is an incredibly long text string. 
+		It goes on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on.... </td>
+		</tr>
+	</blockTable>
+<nextFrame/>
+	<h3>A long string in a table WITHOUT ROW HEIGHTS</h3>
+	<blockTable style="myBlockTableStyle"
+	colWidths="4cm,3cm"
+	>
+	<tr>
+		<td><para>This is a short paragraph.</para></td>
+		<td><para>This is a short paragraph.</para></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		For sake of illustration, this is an incredibly long text string. 
+		It goes on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on.... </td>
+		</tr>
+	</blockTable>
+<nextFrame/>
+
+	<h3>A long string in a table WITHOUT ROW HEIGHTS OR COLWIDTHS</h3>
+	<blockTable style="myBlockTableStyle"
+	>
+	<tr>
+		<td>This is a short STRING.</td>
+		<td>This is a short STRING.</td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		For sake of illustration, this is an incredibly long text string. 
+		It goes on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on.... </td>
+		</tr>
+	</blockTable>
+<nextFrame/>
+	
+
+	<h3>A long paragraph in a table</h3>
+	<blockTable style="myBlockTableStyle"
+	rowHeights="2cm,2cm"
+	colWidths="4cm,3cm"
+	>
+	<tr>
+		<td><para>This is a short paragraph.</para></td>
+		<td><para>This is a short paragraph.</para></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		<para>For sake of illustration, this is an incredibly long paragraph. 
+		It goes on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on.... </para></td>
+		</tr>
+	</blockTable>
+<nextFrame/>
+	
+
+
+	<h3>A long paragraph in a table again without ROWHEIGHTS</h3>
+	<blockTable style="myBlockTableStyle"
+	colWidths="4cm,3cm"
+	>
+	<tr>
+		<td><para>This is a short paragraph.</para></td>
+		<td><para>This is a short paragraph.</para></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td>
+		<para>For sake of illustration, this is an incredibly long paragraph. 
+		It goes on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on and on and on and on and 
+		on and on and on and on and on and on.... </para></td>
+		</tr>
+	</blockTable>
+	
+	
+	
+</story>
+
+</document>

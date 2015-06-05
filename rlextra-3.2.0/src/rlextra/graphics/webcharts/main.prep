@@ -1,0 +1,62 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0049)http://server.reportlab.com/cgi-bin/assembler.cgi -->
+<HTML><HEAD><TITLE>ReportLab web charts app</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252"><!--metasnip--><!--metasnip-->
+<STYLE type=text/css>P {
+	FONT-SIZE: 11px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H1 {
+	FONT-SIZE: 14px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H2 {
+	FONT-WEIGHT: bold; FONT-SIZE: 13px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H3 {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+H4 {
+	FONT-SIZE: 12px; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+THEAD {
+	FONT-WEIGHT: bold; BACKGROUND: #e0e0e0; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+TH {
+	FONT-WEIGHT: bold; FONT-SIZE: 11px; BACKGROUND: #19338f; COLOR: white; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif; TEXT-ALIGN: center
+}
+TD {
+	FONT-SIZE: 11px; COLOR: #19338f; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+</STYLE>
+<!--bodysnip-->
+<META content="MSHTML 6.00.2800.1106" name=GENERATOR></HEAD>
+<BODY><!--bodysnip-->
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=white border=0><!--the first row holds the top logo and strapline.  -->
+  <TBODY>
+  <TR bgColor="#4e5688">
+    <TD vAlign=middle align=left>
+      <DIV
+      style="PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 5px"><A
+      href="http://server.reportlab.com/index.html"><img src="{{SCRIPT_NAME}}?action=getLogo" border="0" alt="logo">
+    </A></DIV></TD>
+    <TD
+    style="FONT-WEIGHT: bold; FONT-SIZE: 20px; COLOR: #ffffff; FONT-STYLE: italic; FONT-FAMILY: Arial, sans-serif"
+    vAlign=middle align=center>
+      <DIV
+      style="PADDING-RIGHT: 20px; PADDING-LEFT: 10px; PADDING-BOTTOM: 0px; PADDING-TOP: 0px">ReportLab web charts app</DIV></TD></TR></TBODY></TABLE>
+<P>&nbsp;</P>
+
+<h1>ReportLab web charts app</h1>
+<p>This is a tiny web app which aims to test out our charts
+framework. The idea is to let us test and verify the charts and how they are driven by the data,
+with all parties seeinf instant feedback, so we don't have to wait a few days for packages to be made and installed.   For now only two
+links are provided:</p>
+<p>Click here to see a <a href="{{SCRIPT_NAME}}?action=testImage">standard test chart in PNG format</a>.  This is always the same and is used to verify installed packages work.</p>
+<p>Click here to try out our interactive <a href="{{SCRIPT_NAME}}?action=quickinput">quickChart</a> function.</p>
+<P>&nbsp;</P>
+<TABLE cellSpacing=0 cellPadding=0 width="100%" bgColor=white border=0><!--the first row holds the top logo and strapline.  -->
+  <TBODY>
+  <TR bgColor="#4e5688">
+    <TD
+    style="FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ffffff; FONT-STYLE: italic; FONT-FAMILY: Arial, sans-serif"
+    vAlign=middle align=left>
+      <P><EM>Built by ReportLab for Creo</EM></P><!--logoutsnip--><!--logoutsnip--></TD></TR></TBODY></TABLE></BODY></HTML>

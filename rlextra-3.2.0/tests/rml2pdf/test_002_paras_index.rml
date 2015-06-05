@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="test_002_paras_index.pdf"> 
+<docinit>
+	<startIndex/>
+	<startIndex name="bongoIndex" offset="0" format="ABC"/>
+</docinit>
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<pageGraphics>
+	<setFont name="Helvetica-Bold" size="18"/>
+    	    <drawString x="35" y="783">RML Example 5: Paragraphs and Index</drawString>
+            <setFont name="Helvetica-Oblique" size="12" />
+    		<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		
+		<setFont name="Helvetica" size="10"/>
+		<drawCenteredString x="297" y="36"><pageNumber countingFrom="2"/></drawCenteredString>
+	</pageGraphics>
+	<frame id="1" x1="35" y1="45" width="525" height="575"/>
+	
+	</pageTemplate>
+	
+	<pageTemplate id="main2">
+	<pageGraphics>
+	<setFont name="Helvetica-Bold" size="18"/>
+    	    <drawString x="35" y="783">RML Example 5: Paragraphs and Index</drawString>
+            <setFont name="Helvetica-Oblique" size="12" />
+    		<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		
+		<setFont name="Helvetica" size="10"/>
+		<drawCenteredString x="297" y="36"><pageNumber countingFrom="2"/></drawCenteredString>
+	</pageGraphics>
+	<frame id="1" x1="35" y1="45" width="525" height="680"/>
+	
+	</pageTemplate>
+	
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1"
+	fontName="Courier-Bold"
+	fontSize="12"
+	spaceBefore = "0.5 cm"
+	/>
+	
+	<paraStyle name="style1"
+	fontName="Courier"
+	fontSize="10"
+	/>
+
+	<paraStyle name="style2"
+	parent="style1"
+	leftIndent = "1in"
+	/>
+
+	<paraStyle name="style3"
+	parent="style1"
+	rightIndent = "1in"
+	/>
+
+	<paraStyle name="style4"
+	parent="style1"
+	spaceBefore = "2cm"
+	/>
+
+	<paraStyle name="style5"
+	parent="style1"
+	spaceAfter = "2cm"
+	/>
+
+	<paraStyle name="style6"
+	parent="style1"
+	firstLineIndent = "2cm"
+	/>
+
+	<paraStyle name="style7"
+	parent="style1"
+	leading = "15"
+	/>
+	<!-- NB Leading isn't just the space between lines - it is
+	expressed as the height of the line PLUS the space between
+	lines. This leading of 15 is equal to a space of 5 pts between
+	lines.-->
+
+	<paraStyle name="style8"
+	parent="style1"
+	bulletFontName = "ZapfDingbats"
+	bulletFontSize = "5"
+	/>
+
+	<paraStyle name="style9"
+	parent="style8"
+	bulletFontSize = "10"
+	bulletIndent = "20"
+	/>
+
+	<paraStyle name="style10"
+	parent="style9"
+	bulletIndent = "20"
+	leftIndent = "35"
+	/>
+
+	<paraStyle name="style11"
+	parent="style1"
+	alignment = "left"
+	/>
+
+	<paraStyle name="style12"
+	parent="style1"
+	alignment = "right"
+	/>
+
+	<paraStyle name="style13"
+	parent="style1"
+	alignment = "center"
+	/>
+
+	<paraStyle name="style14"
+	parent="style1"
+	alignment = "justify"
+	/>
+
+	<paraStyle name="style15"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "left"
+	/>
+
+	<paraStyle name="style16"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "right"
+	/>
+
+	<paraStyle name="style17"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "center"
+	/>
+
+	<paraStyle name="style18"
+	parent="style10"
+	bulletFontSize = "5"
+	alignment = "justify"
+	/>
+
+	<paraStyle name="style20"
+	parent="style1"
+	textColor = "red"
+	spaceBefore="1cm"
+	spaceAfter="2cm"
+	/>
+	
+	<paraStyle name="style21"
+	parent="style1"
+	textColor = "green"
+	spaceBefore="1cm"
+	spaceAfter="2cm"
+	/>
+
+	<paraStyle name="style22"
+	parent="style1"
+	textColor = "blue"
+	spaceBefore="1cm"
+	spaceAfter="2cm"
+	/>
+
+	<paraStyle name="autoLeading"
+		parent="style.normal"
+		fontName='Times-Roman'
+		fontSize="12"
+		leading="14.4"
+		/>
+	<paraStyle name="autoLeading_off"
+		parent="autoLeading"
+		autoLeading="off"
+		/>
+	<paraStyle name="autoLeading_min"
+		parent="autoLeading"
+		autoLeading="min"
+		/>
+	<paraStyle name="autoLeading_max"
+		parent="autoLeading"
+		autoLeading="max"
+		/>
+
+
+    <!-- Colours by Hex value -->
+    <!-- NB THIS CURRENTLY DOESN'T WORK! -->
+    <!--
+    <paraStyle name="style23"
+	parent="style1"
+	textColor = "#FF0000"
+	/>
+	
+	<paraStyle name="style24"
+	parent="style1"
+	textColor = "#00FF00"
+	/>
+
+	<paraStyle name="style25"
+	parent="style1"
+	textColor = "#0000FF"
+	/>
+	-->
+
+
+    <!-- Colours by RGB value -->
+    <!-- NB THIS CURRENTLY DOESN'T WORK! -->
+    <!--
+    <paraStyle name="style26"
+	parent="style1"
+	textColor = "1,0,0"
+	/>
+	
+	<paraStyle name="style27"
+	parent="style1"
+	textColor = "0,1,0"
+	/>
+
+	<paraStyle name="style28"
+	parent="style1"
+	textColor = "0,0,1"
+	/>
+	-->
+	<paraStyle name="TTnone"
+	parent="style1"
+	textTransform="none"
+	/>
+	<paraStyle name="TTuppercase"
+	parent="style1"
+	textTransform="uppercase"
+	/>
+	<paraStyle name="TTlowercase"
+	parent="style1"
+	textTransform="lowercase"
+	/>
+	<paraStyle name="TTcapitalize"
+	parent="style1"
+	textTransform="capitalize"
+	/>
+
+	<paraStyle name="bugReport"
+	parent="h1"
+	spaceBefore = "0"
+	textColor = "red"
+	/>
+
+    <paraStyle name="indexstyle"
+		fontName="Courier"
+    	textColor="green"
+		fontSize="20"
+		leading="20"
+		spaceAfter="0"
+		spaceBefore="0"
+    	/>
+    <paraStyle name="bongoIndexstyle"
+		fontName="Courier"
+    	textColor="pink"
+		fontSize="10"
+		leading="12"
+		spaceAfter="0"
+		spaceBefore="0"
+    	/>
+    	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+	<blockTableStyle id="indexTableStyle">
+		<blockAlignment value="left"/>
+		<blockValign value="top"/>
+		<blockBottomPadding length="0" start="0,0" stop="-1,-1"/>
+		<blockLeftPadding length="0" start="0,0" stop="-1,-1"/>
+		<blockTopPadding length="0" start="0,0" stop="-1,-1"/>
+		<blockRightPadding length="0" start="0,0" stop="-1,-1"/>
+		<!--lineStyle kind="GRID" colorName="black"/>
+		<lineStyle kind="OUTLINE" colorName="black" thickness="2"/>
+		<blockBackground colorName="pink" start="0,0" stop="-1,-1"/>
+		<blockBackground colorName="yellow" start="0,0" stop="-1,-1"/-->
+	</blockTableStyle>
+		
+</stylesheet>
+
+
+<story>
+
+
+
+<nextPage suppressFirst="1"/>
+<storyPlace x="35" y="660" width="525" height="73" origin="page" >
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+<para style="h1">Paragraph 1: About this page</para>
+<para style="style1">
+<index item="word_a" offset="-2" format="I"/>
+<index item="word_b" />
+<index item="word_c" />
+<index item="word_d" />
+<index item="word_e" />
+<index item="word_f" />
+<index item="word_g" />
+<index item="word_h" />
+<index item="word_i" />
+<index item="word_j" />
+<index item="word_k" />
+<index item="word_l" />
+<index item="word_m" />
+<index item="word_n" />
+<index item="word_o" />
+<index item="word_p" />
+<index item="word_q" />
+<index item="word_r" />
+<index item="word_s" />
+<index item="word_t" />
+<index item="word_u" />
+<index item="word_v" />
+<index item="word_w" />
+<index item="word_x" />
+<index item="word_y" />
+<index item="word_z" />
+This page tests out a number of attributes of the <b>paraStyle</b><index item="paraStyle"/> tag.
+This paragraph is in a style we have called "style1". It should be a normal<index item="normal"/> paragraph, set in Courier 12 pt.
+It should be a normal<index item="normal, first"/> paragraph, set in Courier (not bold).
+It should be a normal<index item="normal, second,, and so on..."/> paragraph, <index name="bongoIndex" item="set"/>set in Courier 12 pt.</para>
+
+<para style="h1">Paragraph 2: Indent Left</para>
+<para style="style2">This paragraph is in a style we have called "style2". It should be indented on the left. 
+It should be indented on the left by 1 inch. 
+It should be indented on the left. This should be <strike>struck out</strike>.</para>
+
+<para style="h1">Paragraph 3: Indent Right</para>
+<para style="style3">This paragraph is in a style we have called "style3". It should be indented on the right. It should be indented on the right by 1 inch. It should be indented on the right. </para>
+
+<para style="h1">Paragraph 4: Space Before</para>
+<para style="style4">This paragraph is in a style we have called "style4". It should be have a space before it.  It should be have a space before it of 2 centimeters. It should be have a space before it.</para>
+
+<para style="h1">Paragraph 5: Space After</para>
+<para style="style5">This paragraph is in a style we have called "style5". It should be have a space after it.  It should be have a space after it of 2 centimeters. It should be have a space after it.</para>
+
+<para style="h1">Paragraph 6: First Line Indent</para>
+<para style="style6">This paragraph is in a style we have called "style6".It should be have an indented first line.  It should be have an first line indented by 2 centimeters. It should be have an indented first line.</para>
+<para style="h1">Paragraph 7: Leading</para>
+<para style="style7">This paragraph is in a style we have called "style7". It should be using leading. It should have a gap of 5 points between each line. It should be using leading. It should have a gap of 5 pt between each line. It should be using leading. The gap between lines should be half of the height of a line. This paragraph should look like it has a line spacing of "1.5 lines" </para>
+<setNextTemplate name="main2"/>
+
+<para style="h1">Paragraphs 8-12: Simple Bullet Points</para>
+<para style="style8" bulletText="l"><b>Parastyle<index item="paraStyle"/> name="style8" parent="style1" bulletFontName = "ZapfDingbats" bulletFontSize = "5"</b></para>
+<para style="style8" bulletText="l">These paragraphs are in a style we have called "style8"</para>
+<para style="style8" bulletText="l">These five lines should have bullet points.</para>
+<para style="style8" bulletText="l">The bullet font<index item="font"/> is ZapfDingbats.</para>
+<para style="style8" bulletText="l">The bullet size is 5 points</para>
+<para style="style8" bulletText="l">This is a long line to see how multi-line bullets look: These paragraphs are in a style we have called "style8". These four lines should have bullet points. The bullet font<index item="font"/> is ZapfDingbats. The bullet size is 5 points</para>
+
+<para style="h1">Paragraph 13-18: Indented Bullet Points</para>
+<para style="style9" bulletText="*"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "10" bulletIndent = "20"</b></para>
+<para style="style9" bulletText="*">These paragraphs are in a style we have called "style9"</para>
+<para style="style9" bulletText="*">These five lines should have <i>indented</i> bullet points.</para>
+<para style="style9" bulletText="*">Bullet points should look like a pointing hand.</para>
+<para style="style9" bulletText="*">Bullet font<index item="font"/> is still ZapfDingbats, and bullet size is 10 points.</para>
+<para style="style9" bulletText="*">The bullet indent is 20 points</para>
+<para style="style9" bulletText="*">This is a long line to see how multi-line <index name="bongoIndex" item="bullets"/>bullets look: These paragraphs are in a style we have called "style9". These four lines should have <i>indented</i> bullet points. Bullet points should look like a pointing hand. Bullet font<index item="font"/> is still ZapfDingbats, and bullet size is 10 points. The bullet indent is 20 points</para>
+
+<para style="h1">Paragraph 19-24: Indented Bullet Points with a Left Indent for the Text</para>
+<para style="style10" bulletText="*"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "10" bulletIndent = "20" leftIndent = "35"</b></para>
+<para style="style10" bulletText="*">These paragraphs are in a style we have called "style10"</para>
+<para style="style10" bulletText="*">These four lines should have <i>indented</i> bullet points, with the text indented as well.</para>
+<para style="style10" bulletText="*">Bullet points should look like a pointing hand.</para>
+<para style="style10" bulletText="*">Bullet font<index item="font"/> is still ZapfDingbats, and bullet size is 10 points.</para>
+<para style="style10" bulletText="*">The bullet indent is 20 points, and the text indent is 35 points</para>
+<para style="style10" bulletText="*">This is a long line to see how multi-line bullets look: These paragraphs are in a style we have called "style10". These four lines should have <i>indented</i> bullet points, with the text indented as well. Bullet points should look like a pointing hand. Bullet font<index item="font"/> is still ZapfDingbats, and bullet size is 10 points.</para>
+
+<para style="h1">Paragraph 25: Left Justified Paragraphs</para>
+<para style="style11">This paragraph is in a style we have called "style11". It should be left justified. It has an argument which states 'alignment = "left"'. It should be left justified.  It should be aligned to the left. </para>
+
+<para style="h1">Paragraph 26: Right Justified Paragraphs</para>
+<para style="style12">This paragraph is in a style we have called "style12". It should be right justified. It has an argument which states 'alignment = "right"'. It should be right justified.  It should be aligned to the right.</para>
+
+<para style="h1">Paragraph 27: Centered Paragraphs</para>
+<para style="style13">This paragraph is in a style we have called "style13".It should be center justified. It has an argument which states 'alignment = "center"'. It should be centered.  It should be aligned to the center.</para>
+
+<para style="h1">Paragraph 28: Justified Paragraphs</para>
+<para style="style14">This paragraph is in a style we have called "style14". It should be justified. It has an argument which states 'alignment = "justify"'. It should be justified. This paragraph doesn't contain any bold text though.</para>
+<para style="h1">Paragraph 28.1: Justified Paragraphs With Bold Text</para>
+<para style="style14">This paragraph is in a style we have called "style14". It should be <b>justified</b>. It has an argument which states <b>'alignment = "justify"'</b>. It should be justified. This paragraph doesn't contain any bold text though.</para>
+
+<para style="h1">Paragraphs 29-32: Bullets using left align, right align, centered and justify.</para>
+<para style="style15" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "left"</b></para>
+<para style="style15" bulletText="l">This is "style15", bullets with a left alignment. (The bullets in this style are based on "style10")</para>
+<para style="style16" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "right"</b></para>
+<para style="style16" bulletText="l">This is "style16", bullets with a right alignment.(The bullets in this style are based on "style10")</para>
+<para style="style17" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "center"</b></para>
+<para style="style17" bulletText="l">This is "style17", bullets with a center alignment.(The bullets in this style are based on "style10")</para>
+<para style="style18" bulletText="l"><b>bulletFontName = "ZapfDingbats" bulletFontSize = "5" bulletIndent = "20" leftIndent = "35" 	alignment = "justify"</b></para>
+<para style="style18" bulletText="l">This is "style18", bullets with a justified paragraph.(The bullets in this style are based on "style10")</para>
+<para style="style1">These all look wierd, but most people do not actually use these styles because they look so wrong.</para>
+
+<para style="h1">Paragraph 33-35: Using Colours by Colour Name</para>
+<para style="style20">This text should be <b>RED</b></para>
+<para style="style21">This text should be <b>GREEN</b></para>
+<para style="style22">This text should be <b>BLUE</b></para>
+
+<!-- THESE CURRENTLY DON'T WORK - SEE THE STYLES SECTION -->
+<!--
+<para style="h1">Paragraph 36-38: Using Colours by Hex Value</para>
+<para style="style23">This text should be <b>RED</b></para>
+<para style="style24">This text should be <b>GREEN</b></para>
+<para style="style25">This text should be <b>BLUE</b></para>
+
+<para style="h1">Paragraph 39-41: Using Colours by RGB Value</para>
+<para style="style26">This text should be <b>RED</b></para>
+<para style="style27">This text should be <b>GREEN</b></para>
+<para style="style28">This text should be <b>BLUE</b></para>
+-->
+
+<para style="bugReport">You <b>SHOULD</b> be able to specify colours
+by all the means available to reportlab.lib.colours. Currently, you
+<b>cannot</b> use RGB or HEX values...</para>
+
+<para style="h1">Last Paragraph: Para Tags and Paragraph Content</para>
+<para style="style1">
+    This should <i>not</i> have any extra spaces at the start of <b>this</b>
+    line (though there should be at the start of the heading). RML should ignore
+    additional whitespace, and you should be able to format the actual paragraphs
+    as you like. <u>This should be underlined</u>.   There should be line break after the colon:<br/>The text in this paragraph starts on a different line to the
+    actual "para" tag.
+</para>
+
+
+<para style="h1">Quoting and escaping</para>
+<para style="style1">
+    This checks for all the possible quotes: &amp;amp; = &amp;, 
+    &amp;lt; = &lt;, &amp;gt; = &gt;, &amp;apos; = &apos;, &amp;quot; = &quot;, 
+    &amp;pound; = &pound;.
+</para>
+<para style="style1">
+	<i>If this is not italic</i>, <b>and this is not bold</b>, even normal<index item="normal"/> angle brackets are broken.
+</para>
+<nextPage/>
+<imageAndFlowables imageName="replogo.gif" imageWidth="141" imageHeight="90">
+<para style="h1">Test imageAndFlowables tag with paras</para>
+<para style="style1">We should have an image on the <b>right</b> side of the paragraphs here. The imageAndFlowables
+tag can take an arbitrarary number of flowables and try to flow them round an image specified by attributes
+<i>imageName</i>
+<i>imageWidth</i>
+<i>imageHeight</i>
+<i>imageMask</i>; other attributes allow for padding and which side the image goes eg
+<i>imageTopPadding</i>
+<i>imageBottomPadding</i>
+<i>imageLeftPadding</i>
+<i>imageRightPadding</i>
+<i>imageSide</i>. Of course we hope that a single paragraph will flow properly round the image and that the <b>leading</b> should not appear to change during the process.
+On our assumptions, this selectionally introduced contextual feature is
+unspecified with respect to irrelevant intervening contexts in
+selectional rules.  To characterize a linguistic level L, a
+descriptively adequate grammar appears to correlate rather closely with
+a descriptive fact.  A consequence of the approach just outlined is that
+a case of semigrammaticalness of a different sort suffices to account
+for the system of base rules exclusive of the lexicon.  A majority  of
+informed linguistic specialists agree that the speaker-hearer's
+linguistic intuition raises serious doubts about the traditional
+practice of grammarians.  For one thing, the descriptive power of the
+base component does not readily tolerate problems of phonemic and
+morphological analysis.
+</para>
+</imageAndFlowables>
+<imageAndFlowables imageName="replogo.gif" imageWidth="141" imageHeight="90" imageSide="left">
+<para style="h1">Test imageAndFlowables tag with paras</para>
+<para style="style1">We should have an image on the <b>right</b> side of the paragraphs here.
+</para>
+<para style="style1">
+Summarizing, then, we assume that the fundamental error of regarding
+functional notions as categorial may remedy and, at the same time,
+eliminate the levels of acceptability from fairly high (e.g. (99a)) to
+virtual gibberish (e.g. (98d)).  This suggests that the theory of
+syntactic features developed earlier delimits a descriptive fact.  We
+have already seen that any associated supporting element is not quite
+equivalent to the traditional practice of grammarians.  From C1, it
+follows that the theory of syntactic features developed earlier can be
+defined in such a way as to impose irrelevant intervening contexts in
+selectional rules.  So far, a descriptively adequate grammar is rather
+different from a general convention regarding the forms of the grammar.
+</para>
+</imageAndFlowables>
+
+
+<imageAndFlowables imageName="internet_access.pdf" imageWidth="50" imageHeight="50" imageSide="left">
+<para style="h1">Test imageAndFlowables tag with PDF image</para>
+<para style="style1">The image on the left is a PDF file, not a bitmap.<br/>
+Summarizing, then, we assume that the fundamental error of regarding
+functional notions as categorial may remedy and, at the same time,
+eliminate the levels of acceptability from fairly high (e.g. (99a)) to
+virtual gibberish (e.g. (98d)).  This suggests that the theory of
+syntactic features developed earlier delimits a descriptive fact.
+</para>
+</imageAndFlowables>
+
+
+
+<para style="h1">Intra-paragraph &lt;br/&gt;</para>
+<para style="style1">
+And now for a break...<br/>
+here we should be one line two. <br/>
+Summarizing, then, we assume that the fundamental error of regarding
+functional notions as categorial may remedy and, at the same time,
+eliminate the levels of acceptability from fairly high (e.g. (99a)) to
+virtual gibberish (e.g. (98d)).  Now let's fake a bullet list:
+<br/>- bullet 1
+<br/>- bullet 2
+<br/>- bullet 3
+<br/>- bullet 4
+<br/>- bullet 15
+
+</para>
+
+<para style="h1">Para autoLeading test 0: No autoLeading</para>
+<para style="autoLeading"><u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> <img src="testimg.gif"/> analysis.
+</para>
+<para style="h1">Para autoLeading test 1: autoLeading="off"</para>
+<para style="autoLeading_off">
+<u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> analysis.
+</para>
+<para style="h1">Para autoLeading test 2: autoLeading="min"</para>
+<para style="autoLeading_min">
+<u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> analysis.
+</para>
+<para style="h1">Para autoLeading test 3: autoLeading="max"</para>
+<para style="autoLeading_max">
+<u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> analysis.
+</para>
+
+<para style="h1">Para autoLeading test 4: &lt;para autoLeading="off"&gt;</para>
+<para style="autoLeading" autoLeading="off">
+<u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> analysis.
+</para>
+<para style="h1">Para autoLeading test 5: &lt;para autoLeading="min"&gt;</para>
+<para style="autoLeading" autoLeading="min">
+<u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> analysis.
+</para>
+<para style="h1">Para autoLeading test 6: &lt;para autoLeading="max"&gt;</para>
+<para style="autoLeading" autoLeading="max">
+<u>AA</u>. Furthermore, a subset of <font size="14">English sentences</font> interesting on quite
+independent grounds is not quite equivalent Why stipulation to place
+the constructions into these various categories.
+<u>AA</u>. We will bring <font size="18">Ugly Things</font> in favor of
+The <index item="'90mm HPPE Elbow ', ' 45&deg; '"/>following thesis:  most of the methodological work in Modern
+linguistics can be defined in such a way as to impose problems of
+phonemic and <u>morphological</u> analysis.
+</para>
+<para style="h1">Simple style textTransform tests</para>
+<para style="TTnone">This should be ORDINARY<index item="ordinary"/> text.</para>
+<para style="style1">This should be ORDINARY<index item="ordinary"/> text.</para>
+<para style="TTlowercase">This should be LOWER text.</para>
+<para style="TTuppercase">This should be upper text.</para>
+<para style="TTcapitalize">This should be cAPITALIZED text.</para>
+<para style="h1">Complex style textTransform tests</para>
+<para style="TTnone">T<i>hi</i>s shoul<font color="red">d b</font>e <b>ORDINARY</b><index item="ordinary"/> text.</para>
+<para style="style1">T<i>hi</i>s shoul<font color="red">d b</font>e <b>ORDINARY<index item="ordinary"/></b> text.</para>
+<para style="TTlowercase">T<i>hi</i>s shoul<font color="red">d b</font>e <b>LOWER</b> text.</para>
+<para style="TTuppercase">T<i>hi</i>s shoul<font color="red">d b</font>e <b>upper</b> text.</para>
+<para style="TTcapitalize">T<i>hi</i>s shoul<font color="red">d b</font>e <b>cAPITALIZED</b> text.</para>
+<nextPage/>
+<showIndex style='indexstyle' dot='.' tableStyle='indexTableStyle' headers='1'/>
+<nextPage/>
+<para style="style1">the bongo index</para>
+<showIndex name="bongoIndex" style='indexstyle' dot='-' tableStyle='indexTableStyle' headers='1'/>
+<para style="style1">the bongo index no dots</para>
+<showIndex name="bongoIndex" style='bongoIndexstyle' tableStyle='indexTableStyle' headers='1'/>
+<para style="style1">the bongo index no dots, or headers</para>
+<showIndex name="bongoIndex" style='bongoIndexstyle' dot='' tableStyle='indexTableStyle' headers='no'/>
+</story>
+
+</document>

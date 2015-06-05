@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{{script}}
+    from reportlab.pdfbase.ttfonts import TTFont
+    from reportlab.pdfbase.pdfmetrics import registerFont, EmbeddedType1Face, registerTypeFace, Font
+    from reportlab.lib import fonts
+    from formatting import formatDate
+
+    faceNormal = EmbeddedType1Face('res/LTe50136.afm','res/LTe50136.pfb')
+    registerTypeFace(faceNormal)
+    registerFont(Font('UniversLT-Light', 'UniversLT-Light', 'WinAnsiEncoding'))
+
+    faceBold = EmbeddedType1Face('res/LTe50140.afm','res/LTe50140.pfb')
+    registerTypeFace(faceBold)
+    registerFont(Font('UniversLT-Bold', 'UniversLT-Bold', 'WinAnsiEncoding'))
+
+    #create the family - italic fonts are not specified yet
+    import reportlab.lib.fonts
+    reportlab.lib.fonts.addMapping('UniversLT', 0, 0, 'UniversLT-Light')
+    reportlab.lib.fonts.addMapping('UniversLT', 1, 0, 'UniversLT-Bold')
+    reportlab.lib.fonts.addMapping('UniversLT', 0, 1, 'UniversLT-Light')
+    reportlab.lib.fonts.addMapping('UniversLT', 1, 1, 'UniversLT-Bold')
+
+    hotelbodyFontName = 'UniversLT-Light'
+    hotelHeadingFontName = 'UniversLT-Bold'
+    GREY = '0x6C6E71'
+    STRONG_GREY = '0x494949'
+    PURPLE ='0x49326C'
+    LIGHT_BLUE = '0xEDF4FE'
+    STRONG_BLUE = '0x141477'
+    BLUE = '0xC2DAFC'
+    YELLOW = '0xFFCC66'
+    ORANGE ='0xF58D1B'
+
+    def displayTrip(trip):
+        result=[]
+        flights = trip.getNamedChildren('flight')
+        for flight in flights:
+            if flight is flights[0]: result.append(TR(flight,trip.id))
+            else: result.append(TR(flight))
+        return '\n'.join(result)
+
+    def TR(flight,trip_id=''):
+        img='''<td><illustration height="14" width="17"><image file="rsrc/%s" x="0" y="0" height="14" width="17"/></illustration></td>'''
+        if trip_id=='outbound': tds=[img %'outbound.gif'] 
+        elif trip_id=='inbound': tds=[img %'inbound.gif'] 
+        else: tds=['\t<td></td>']
+        tdDDay='''
+        <td>
+            <para style="flightBodyFontBold">%s</para>
+            <para style="flightBodyFontBold">&nbsp;%s</para>
+        </td>''' %(formatDate(str(flight.date)), str(flight.id).replace('_',' '))
+        tdDeparture='''
+        <td>
+            <para style="flightBodyFont">%s / %s (%s)
+            </para>
+        </td>''' %(str(flight.depart.time), str(flight.depart.city), str(flight.depart.airport))
+        if flight.depart.terminal:
+            tdDeparture=tdDeparture.replace('</para>',(', Terminal %s</para>' % str(flight.depart.terminal)))
+        tdArrival='''
+        <td>
+            <para style="flightBodyFont">%s / %s (%s)
+            </para>
+        </td>''' %(str(flight.arrive.time), str(flight.arrive.city), str(flight.arrive.airport))
+        if flight.arrive.terminal:
+            tdArrival=tdArrival.replace('</para>',(', Terminal %s</para>' % str(flight.arrive.terminal)))
+        tdDuration='''<td><para style="flightBodyFont">%s</para></td>''' % str(flight.duration)
+        tdPlane='''<td><para style="flightBodyFont">A321</para><para style="flightBodyFont">Non-Stop</para></td>'''
+        tds.append(tdDDay)
+        tds.append(tdDeparture)
+        tds.append(tdArrival)
+        tds.append(tdDuration)
+        tds.append(tdPlane)
+        return '<tr>'+'\n'+''.join(tds)+'\n'+'</tr>'	
+{{endscript}}
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="demo2.pdf">
+	<docinit>
+		<registerTTFont faceName="StoolReg" fileName="res/Stoorg__.ttf"/>
+		<registerTTFont faceName="StoolLightBold" fileName="res/Stoob___.ttf"/>
+		<registerTTFont faceName="StoolLightReg" fileName="res/Stool___.ttf"/>
+		<registerTTFont faceName="StoolLightSmallCaps" fileName="res/Stoolsc_.ttf"/>
+		<registerTTFont faceName="StoolLightItalic" fileName="res/Stooli__.ttf"/>
+		<registerTTFont faceName="BodoniBlack" fileName="res/BOD_BLAR.ttf"/>
+	</docinit>
+
+	<template pageSize="595,842" leftMargin="0" rightMargin="0" showBoundary="0">
+		<pageTemplate id="pageOne">
+			<pageGraphics>
+				<saveState/>
+				<fill color="#F2F2F7"/>
+				<stroke color="#5F659E" width="2"/>
+				<lineMode width="1"/>
+				<lines >60 35 525 35</lines>
+				<setFont name="UniversLT-Light" size="8"/>
+				<fill color="#5F659E"/>
+				<drawString x="80" y="20">For more information about ReportLab e-brochure Capabilities, visit</drawString>
+				<setFont name="UniversLT-Bold" size="9"/>
+				<drawString x="320" y="20">www.reportlab.com/case_hilton_ebro.html</drawString> 
+				<restoreState/>
+
+				<setFont name="StoolLightBold" size="11"/>
+				<fill color="red"/>
+				<image file="rsrc/bluebg.jpg" x="1" y="743" width="594"/>
+				<image file="rsrc/white_airplane.jpg" x="445" y="760" height="80" width="150"/>
+				<fill color="#A30000"/>
+				<setFont name="BodoniBlack" size="19"/>
+				<drawString x="458" y="813">Sky Travel</drawString>
+
+			</pageGraphics>
+			<frame id="pageOneFrameOne" x1="50" y1="50" width="495" height="730"/>
+		</pageTemplate>
+		<pageTemplate id="pageTwo">
+			<pageGraphics>
+				<saveState/>
+				<fill color="#F2F2F7"/>
+				<stroke color="#5F659E" width="2"/>
+				<lineMode width="1"/>
+				<lines >60 35 525 35</lines>
+				<setFont name="UniversLT-Light" size="8"/>
+				<fill color="#5F659E"/>
+				<drawString x="80" y="20">For more information about ReportLab e-brochure Capabilities, visit</drawString>
+				<setFont name="UniversLT-Bold" size="9"/>
+				<drawString x="320" y="20">www.reportlab.com/case_hilton_ebro.html</drawString> 
+				<restoreState/>
+				<image file="rsrc/bluebg.jpg" x="1" y="743" width="594"/>
+				<image file="rsrc/white_airplane.jpg" x="445" y="760" height="80" width="150"/>
+				<fill color="#A30000"/>
+				<setFont name="BodoniBlack" size="19"/>
+				<drawString x="458" y="813">Sky Travel</drawString>
+			</pageGraphics>
+			<frame id="pageTwoFrameOne" x1="50" y1="50" width="495" height="710"/>
+		</pageTemplate>
+	</template>
+
+	<stylesheet>
+		<paraStyle name="tripTitle" fontName="UniversLT-Bold" fontSize="17" leading="20.4" alignment="center" textColor="{{ORANGE}}"/>
+		<paraStyle name="subtitle" fontName="UniversLT-Bold" fontSize="12" leading="20.4" alignment="center" textColor="{{PURPLE}}"/>
+		<paraStyle name="h1" fontName="UniversLT-Bold" fontSize="17" leading="20.4" textColor="{{PURPLE}}"/>
+		<paraStyle name="h2" fontName="StoolLightBold" fontSize="15" leading="16" textColor="{{ORANGE}}"/>
+		<paraStyle name="h3" fontName="StoolLightReg" fontSize="11" leading="10" textColor="{{GREY}}"/>
+		<paraStyle name="roomTableDetails" fontName="Helvetica-Bold" fontSize="9"/>
+		<paraStyle name="bold" fontName="StoolReg" fontSize="10" leading="11"/>
+		<paraStyle name="bodyFont" fontName="{{hotelbodyFontName}}" fontSize="8" leading="9.6" textColor="{{GREY}}"/>
+		<paraStyle name="flightBodyFont" fontName="{{hotelbodyFontName}}" fontSize="8" leading="9.6" textColor="{{GREY}}"/>
+		<paraStyle name="flightBodyFontBold" parent="flightBodyFont" fontName="{{hotelHeadingFontName}}" textColor="{{STRONG_GREY}}"/>
+		<paraStyle name="bodyFontBold" parent="bodyFont" textColor="{{STRONG_GREY}}"/>
+		<paraStyle name="hot_heading" fontName="{{hotelHeadingFontName}}" fontSize="11" leading="13.2" textColor="{{STRONG_BLUE}}"/>
+		<paraStyle name="room_prices_heading" fontName="StoolLightBold" fontSize="10" leading="11"/>
+
+		<blockTableStyle id="red">
+			<!--lineStyle kind="GRID" colorName="red"/-->
+			<blockLeftPadding length="0" start="0,0" stop="-1,-1"/>
+			<blockRightPadding length="0" start="0,0" stop="-1,-1"/>
+			<blockTopPadding length="0" start="0,0"	stop="-1,-1"/>
+			<blockBottomPadding length="0" start="0,0" stop="-1,-1"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="blue" parent="red">
+			<!--lineStyle kind="GRID" colorName="blue"/-->
+			<blockBackground colorName="{{BLUE}}" start="0,0" stop="-1,0"/>
+			<blockBackground colorName="{{LIGHT_BLUE}}" start="0,1" stop="-1,1"/>
+			<blockLeftPadding length="6" start="0,0" stop="3,-1"/>
+			<blockValign value="middle" start="0,0" stop="3,-1"/>
+			<blockValign value="top" start="0,2" stop="-1,-1"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="black" parent="red">
+			<!--lineStyle kind="GRID" colorName="black"/-->
+		</blockTableStyle>
+		
+		<blockTableStyle id="blackSpan" parent="red">
+			<lineStyle kind="GRID" colorName="blue"/>
+			<!--blockLeftPadding length="0" start="0,0" stop="-1,-1"/-->
+		</blockTableStyle>
+
+		<blockTableStyle id="hotels">
+			<blockSpan start="0,0" stop="0,1"/>									<!-- span 2 rows for hotel picture 1 -->
+			<blockSpan start="0,2" stop="0,4"/>									<!-- span 3 rows for hotel picture 2 -->
+			<blockSpan start="1,1" stop="2,1"/>									<!-- span 2 cols for hotel description -->
+			<blockSpan start="1,2" stop="1,3"/>									<!-- span 2 rows for room description --> 
+			<blockSpan start="2,2" stop="2,4"/>									<!-- span 3 rows for room prices table -->
+			<blockBottomPadding length="0" start="1,4" stop="1,4"/>				<!-- no bottom padding for icons -->
+			<blockBottomPadding length="0" start="1,0" stop="-1,0"/>			<!-- no bottom padding for hotel name & ratings -->
+			<blockBottomPadding length="0" start="1,2" stop="1,3"/>				<!-- no bottom padding for room description cell -->
+			<blockLeftPadding length="0" start="1,0" stop="1,-1"/>				<!-- not left padding for text data in column 2 -->
+			<blockLeftPadding length="4" start="0,0" stop="0,-1"/>				<!-- adjust pictures left padding -->
+			<blockLeftPadding length="0" start="2,2" stop="2,-1"/>				<!-- remove left padding for room prices table cell -->
+			<blockRightPadding length="-3" start="2,0" stop="2,0"/>				<!-- reduce rating stars right padding -->
+			<blockTopPadding length="0" start="1,1" stop="1,1"/>				<!-- no top padding for hotel descriptions cell -->
+			<blockTopPadding length="0" start="1,4" stop="1,4"/>				<!-- no top padding for cell containing icons -->
+			<blockTopPadding length="4" start="1,2" stop="1,2"/>				<!-- adjust top padding for room description cell-->
+			<blockValign value="middle" start="0,0" stop="0,-1"/>				<!-- middle vertical align for cells pictures -->
+			<blockValign value="top" start="1,1" stop="1,-1"/>					<!-- top vertical align for icons cell -->
+			<blockAlignment value="right" start="2,0" stop="2,0"/>				<!-- align rating stars on the right -->
+			<lineStyle kind="BOX" thickness="1" colorName="#FFCC66" start="0,0" stop="-1,-1"/>	<!-- add fancy background -->
+			<blockBackground colorName="#FFFFF0" start="0,0" stop="-1,-1"/>		<!-- add fancy table outline -->
+		</blockTableStyle>
+
+		<blockTableStyle id="room_prices">
+			<blockAlignment value="right" start="1,0" stop="-1, -1"/>
+			<blockAlignment value="left" start="0,0" stop="0, -1"/>
+			<blockBackground colorName="#F2F9FF" start="0,0" stop="-1,-1"/>
+			<blockFont name="StoolLightBold" size="9" leading="10.8" start="0,0" stop="-1,-1"/>
+			<blockFont name="StoolLightBold" size="10" leading="11" start="0,0" stop="-1,0"/>
+			<blockFont name="StoolLightItalic" size="8" leading="9.6" start="0,5" stop="-1,5"/>
+			<blockTextColor colorName="{{GREY}}" start="1,1" stop="-1,-1"/>
+			<blockLeftPadding length="1" start="0,0" stop="0,-1"/>
+			<blockRightPadding length="3" start="1,0" stop="-1,-1"/>
+			<blockBottomPadding length="1" start="0,5" stop="-1,5"/>
+			<blockSpan start="0,5" stop="-1,5"/>
+			<lineStyle kind="LINEBELOW" colorName="#000000" thickness="0.7" start="0,0" stop="-1,0"/>
+			<lineStyle kind="LINEBELOW" colorName="#000000" thickness="0.9" start="0,4" stop="-1,4"/>
+		</blockTableStyle>
+
+
+
+		<blockTableStyle id="flight">
+			<!--lineStyle kind="GRID" colorName="blue" start="0,0" stop="-1, -1"/-->
+			<!--lineStyle kind="LINEBELOW" colorName="silver" thickness="0.5" start="1,2" stop="5, 2"/>
+			<lineStyle kind="LINEBELOW" colorName="silver" thickness="0.5" start="1,4" stop="5, 4"/-->
+			<blockFont name="UniversLT-Bold" size="9" leading="10.8" start="0,0" stop="-1,0"/>
+			<blockTextColor colorName="white" start="0,0" stop="-1,0"/>
+			<blockValign value="top" start="0,0" stop="-1, -1"/>
+			<blockAlignment value="center" start="0,0" stop="-1, 0"/>
+			<blockAlignment value="center" start="0,1" stop="0,-1"/>
+			<blockLeftPadding length="10" start="4,1" stop="4,-1"/>
+			<blockBackground colorName="{{GREY}}" start="1,0" stop="-1,0"/>
+			<blockBackground colorName="orange" start="0,0" stop="0,0"/>
+			<!--blockBackground colorName="#FFFFEA" start="0,3" stop="-1,-2"/-->
+			<blockLeftPadding length="0" start="1, 1" stop="1, -1"/>
+			<blockTopPadding length="5" start="1, 1" stop="-1, 1"/>
+			<!--blockTopPadding length="5" start="1, 3" stop="-1, 3"/-->
+			<blockTopPadding length="8" start="0, 1" stop="0, -2"/>
+			<blockValign value="middle" start="5,1" stop="5, -1"/>
+			<blockValign value="middle" start="4,1" stop="4, -1"/>
+			<blockSpan start="0,-1" stop="-1,-1"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="payment">
+			<!--lineStyle kind="BOX" thickness="0.5" colorName="blue" start="0,0" stop="-1, -1"/-->
+			<lineStyle kind="LINEBELOW" colorName="silver" thickness="0.5" start="0,4" stop="-1, 4"/>
+			<blockFont name="UniversLT-Bold" size="9" leading="10.8" start="0,0" stop="-1,0"/>
+			<blockFont name="UniversLT-Bold" size="8" leading="9.6" start="0,1" stop="-1,1"/>
+			<blockFont name="UniversLT-Light" size="8" leading="9.6" start="0,2" stop="-1,-1"/>
+			<blockFont name="UniversLT-Bold" size="9" leading="10.8" start="3,5" stop="3,5"/>
+			<blockAlignment value="center" start="1,1" stop="1, -1"/>
+			<blockAlignment value="right" start="2,1" stop="-1, -1"/>
+			<blockBackground colorName="{{GREY}}" start="0,0" stop="-1,0"/>
+			<blockBackground colorName="#F0F0F0" start="0,1" stop="-1,1"/>
+			<blockTextColor colorName="white" start="0,0" stop="-1,0"/>
+
+		</blockTableStyle>
+
+		<blockTableStyle id="city_intro">
+			<!--lineStyle kind="GRID" colorName="blue" start="0,0" stop="-1, -1"/-->
+			<lineStyle kind="LINEABOVE" colorName="{{YELLOW}}" thickness="2" cap="round" start="0,0" stop="-1, 0"/>
+			<blockSpan start="0,0" stop="1,0"/>
+			<blockSpan start="0,1" stop="1,1"/>
+			<blockTopPadding length="10" start="0,0" stop="-1, 0"/>
+			<blockTopPadding length="15" start="0,0" stop="0, 0"/>
+			<blockLeftPadding length="0" start="2,0" stop="2,0"/>
+			<blockLeftPadding length="-60" start="2,1" stop="2,1"/>
+			<blockValign  value="center" start="2,1" stop="2, 1"/>
+		</blockTableStyle>
+	</stylesheet>
+
+	<story>
+			<para style="tripTitle">{{data.tripTitle}}</para>
+			<para style="subtitle">{{data.subtitle}}</para>
+			<para style="h2">Dear {{data.customerName}},</para>
+					<spacer length="15"/>
+			<para>Thank you for using our travel plan application. Listed below are all the possible flights, hotels plus the information on the city you are traveling to.</para>
+					<spacer length="15"/>
+			<para style="h1">Flights</para>
+					<spacer length="15"/>
+					<!-- Table holding the flight details -->
+					{{for ticket in data.tickets}}
+					{{script}}
+					f1=len(ticket.getNamedChildren('trip')[0].getNamedChildren('flight'))
+					if str(ticket.isRoundTrip)=='False':
+						if f1==1: rowHeights="16,33,35"
+						elif f1==2: rowHeights="16,33,30,35"
+					else:
+						f2=len(ticket.getNamedChildren('trip')[1].getNamedChildren('flight'))
+						if f1==1 and f2==1: rowHeights="16,33,33,35"
+						elif f1==1 and f2==2: rowHeights="16,33,33,30,35"
+						elif f1==2 and f2==1: rowHeights="16,33,30,33,35"
+						elif f1==2 and f2==2: rowHeights="16,33,30,33,30,35"
+					{{endscript}}
+					<blockTable style="flight" rowHeights="{{rowHeights}}" colWidths="4%, 19%, 24%, 24%, 10%, 11%">
+						<tr>
+							<td></td>
+							<td>Day/Flight</td>
+							<td>Departure</td>
+							<td>Arrival</td>
+							<td>Duration</td>
+							<td>Airplane</td>
+						</tr>
+							<!--display oneway ticket-->
+							{{if str(ticket.isRoundTrip)=='False'}}
+							{{displayTrip(ticket.trip)}}
+							<!--display roundtrip ticket-->
+							{{else}}
+							{{for trip in ticket.getNamedChildren('trip')}}
+							{{if trip.id=='outbound'}}
+							{{displayTrip(trip)}}
+							{{elif trip.id=='inbound'}}
+							{{displayTrip(trip)}}
+							{{endif}}
+							{{endfor}}
+							{{endif}}
+						<tr>
+								<td align="right" fontName="UniversLT-Bold" fontSize="8" vAlign="top">Ticket Class: {{ticket.flightClass}}, Fare: &#163;{{round(float(str(ticket.fare)),2)}}</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+						</tr>
+					</blockTable><!-- end of flight details table -->
+					{{endfor}}
+					<spacer length="10"/>
+
+		<spacer length="10"/>
+		<blockTable style="city_intro" colWidths="30%,29%,41%" rowHeights="220, 80">
+			<tr>
+				<td vAlign="top">
+					<keepInFrame onOverflow="shrink" id="city_intro">
+						<para style="h1">{{data.city.name}}</para>
+						<para style="h2">{{data.city.intro}}</para>
+						<spacer length="5"/>
+						<para style="h3">{{data.city.description}}</para>
+					</keepInFrame>
+				</td>
+				<td></td>
+				<td>
+					<illustration height="209" width="204">
+							<image file={{'"rsrc/'+str(data.city.img)+'"'}} x="0" y="0" height="198" width="203"/>
+					</illustration>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<illustration height="70" width="210">
+						<image file="rsrc/rainfall.gif" x="0" y="0" height="70" width="100"/>
+						<image file="rsrc/temperature.gif" x="110" y="0" height="70" width="100"/>
+					</illustration>
+				</td>
+				<td>
+				</td>
+				<td>
+						<para style="h3">{{data.city.weatherInfo}}</para>
+				</td>
+			</tr>
+		</blockTable>
+
+<!-- Start the new page with new Frame -->
+		<setNextTemplate name="pageTwo"/>
+		<nextFrame/>
+		<para><font face="UniversLT-Bold" size="14">Hotels and Apartments</font></para>
+		<spacer length="15"/>
+		{{for hotel in data.hotels.getNamedChildren('hotel')}}
+		<!-- Hotel stuff -->
+		<blockTable colWidths="100%" style="red">
+			<tr>
+				<td>
+	
+					<!-- Table holding ONE hotel -->
+
+					<blockTable style="hotels" rowHeights="15, 72,8, 60,19" colWidths="108, 239, 147">
+						<tr>
+							<td>
+								<illustration height="81" width="101">
+									<image file={{'"rsrc/'+str(hotel.image)+'"'}} x="0" y="0" height="80" width="100"/>
+								</illustration>
+							</td>
+							<td><para  style="hot_heading">{{hotel.displayName}}</para></td>
+							<td>				
+								<illustration height="18" width="51">
+										<image file={{'"res/rating_%sstars.gif"' %str(hotel.starRating)}} x="0" y="0" height="13" width="45"/>
+								</illustration>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+									<para style="bodyFontBold">{{hotel.address}}</para>
+								<spacer length="0"/>
+								<para style="bodyFontBold">Tel: {{hotel.telephone}}</para>
+								<spacer length="1.5"/>
+								<keepInFrame onOverflow="shrink" id="room_desc">
+										<para style="bodyFont">{{hotel.description}}</para>
+								</keepInFrame>
+							</td>
+							<td>tea</td>
+						</tr>
+						<tr>
+							<td>
+								<illustration height="81" width="101">
+									<image file={{'"rsrc/'+str(hotel.roomImg)+'"'}} x="0" y="0" height="80" width="100"/>
+								</illustration>
+							</td>
+							<td>
+								<keepInFrame onOverflow="shrink" id="room_desc">
+										<para style="bodyFont">{{hotel.roomDesc}}</para>
+								</keepInFrame>
+							</td>
+							<td>	
+								<!--   ROOM PRICES TABLE   -->
+								<blockTable style="room_prices" rowHeights="15,12,10,10,10,10" colWidths="80, 20, 20, 23">
+									<tr><td>Price per room (£)</td><td>Single</td><td>Twin</td><td>Triple</td></tr>
+									<tr><td>01 Apr 06 - 15 Jun 06</td><td>£120</td><td>£134</td><td>£146</td></tr>
+									<tr><td>16 Jun 06 - 15 Sep 06</td><td>£145</td><td>£156</td><td>£167</td></tr>
+									<tr><td>16 Sep 06 - 15 Dec 06</td><td>£115</td><td>£116</td><td>£117</td></tr>
+									<tr><td>16 Dec 06 - 31 Jan 07</td><td>£126</td><td>£137</td><td>£141</td></tr>
+									<tr><td>Price based on Standard Room</td><td></td><td></td><td></td></tr>
+								</blockTable>
+							</td>
+						</tr>
+						<tr><td></td><td></td><td></td></tr>
+						<tr>
+							<td></td>
+							<td>				
+								<illustration height="15" width="115">
+									<image file="res/icon_pool.gif" x="0" y="1" height="14" width="15"/>
+									<image file="res/icon_business_ctr.gif" x="16" y="1" height="14" width="15"/>
+									<image file="res/icon_fitness.gif" x="32" y="1" height="14" width="15"/>
+									<image file="res/icon_handicap.gif" x="48" y="1" height="14" width="15"/>
+									<image file="res/icon_roomsrv.gif" x="64" y="1" height="14" width="15"/>
+									<image file="res/icon_restaurant.gif" x="80" y="1" height="14" width="15"/>
+								</illustration>
+							</td>
+							<td></td>
+						</tr>
+					</blockTable>
+				
+					
+				</td>
+			</tr>
+		</blockTable>
+		<spacer length="6"/>
+	{{endfor}}
+	<!--nextFrame/-->
+	</story>
+</document>

@@ -31,6 +31,18 @@ class Users:
 			print ("No se pudo encontrar Numero")
 			return False
 	
+	def find_pago(self, iden):
+		try:
+			u = None
+			u = self.pagos.find_one({"numero_inscripcion" : iden})
+			if u['numero_inscripcion'] == iden:
+				return True, u
+			else:
+				return False , None
+		except:
+			print ("No se pudo encontrar Numero")
+			return False
+
 	def update_document(self, ano, inscripcion, trimestre, ahora):
 			if trimestre == "primero":
 				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.primero.fecha' : ahora}})

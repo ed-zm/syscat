@@ -1,0 +1,77 @@
+<!-- chapterName "Lesson 10: Table Styles - pt. 3: fixed columns and rows" -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_10.pdf">
+
+    <template showBoundary="1">
+        <pageTemplate id="main">
+
+            <pageGraphics>
+            </pageGraphics>
+            <frame id="first" x1="200" y1="400" width="150" height="400"/>
+
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+        <blockTableStyle id="blocktablestyle4">
+            <!-- show a grid: this also comes in handy for debugging your tables.-->
+            <lineStyle kind="GRID" colorName="green" thickness="1" start="0,0" stop="-1,-1" />
+        </blockTableStyle>
+        <paraStyle name="textstyle1" fontName="Helvetica" fontSize="9" textColor="blue"/>
+    </stylesheet>
+
+    <story> 
+        
+        <blockTable style="blocktablestyle4">
+            <tr>
+                <td>This is </td>
+                <td>a table with</td>
+                <td>three columns</td>
+            </tr>
+            <tr>
+                <td>demonstrating how automatic </td>
+                <td>cell sizes </td>
+                <td>work</td>
+            </tr>
+            <tr>
+                <td>Have a look </td>
+                <td>at blocktablestyle4</td>
+                <td><para style="textstyle1">to see how it works. This is yet more long text to
+                demonstrate wrapping etc. And supercalifragilistic is a long word</para></td>
+            </tr>
+        </blockTable>
+        <spacer length="1cm"/>
+        <para>Below is the same table, with fixed row heights and column widths.</para>
+        <spacer length="1cm"/>
+        
+        <blockTable style="blocktablestyle4" rowHeights="2cm,2cm,2cm" colWidths="2cm,2cm,2cm">
+            <tr>
+                <td>This is </td>
+                <td>another table </td>
+                <td>with three columns</td>
+            </tr>
+            <tr>
+                <td>demonstrating how </td>
+                <td>rowHeight and colWidth</td>
+                <td>affect the cells.</td>
+            </tr>
+            <tr>
+                <td>Have a look </td>
+                <td>at lesson 10</td>
+                <td><para style="textstyle1">to see how it works. This is yet more long text to
+                demonstrate wrapping etc. And supercalifragilistic is a long word</para></td>
+            </tr>
+        </blockTable>
+
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>Now you know how to add a table, and style the cell contents and gridlines.  But what about column and row sizes?  Up until now, these have been automatic.  If you dont use any &lt;para&gt; tags in any of the cells in a column, then the width of the column will expand to fit the longest piece of text in the column.  If any cell in a column does have a &lt;para&gt; tag, (which causes text in the cell to wrap), then the column will expand to the width of whichever is longer - the longest piece of text which isn't in a &lt;para&gt; tag, or the longest word in a column with &lt;para&gt; tags.</para>
+
+<para>You can also fix the row heights and column widths using rowHeights and colWidths elements in the &lt;blockTable&gt; tag.  You will get an error if you add more rows or columns than are declared.  Text in fixed rows and columns will simply overflow if it doesn't fit.</para>

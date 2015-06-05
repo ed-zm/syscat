@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="test_016_orientations.pdf"> 
+	<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+		<pageTemplate id="portrait">
+			<pageGraphics>
+				<setFont name="Helvetica-Bold" size="18"/>
+				<drawString x="36" y="788">RML Example 16 Orientations</drawString>
+				<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="730" width="72" height="72"/>
+				<image file="strapline.png" preserveAspectRatio="1" x="36" y="0" width="523" />
+				<fill color="purple"/>
+				<setFont name="Helvetica-BoldOblique" size="18"/>
+				<drawCenteredString x="297" y="25">Page <pageNumber/></drawCenteredString>
+			</pageGraphics>
+			<frame id="only" x1="36" y1="36" width="523" height="690"/>
+		</pageTemplate>
+		<pageTemplate id="landscape" pageSize="(842,595)">
+			<pageGraphics>
+				<setFont name="Helvetica-Bold" size="18"/>
+				<drawString x="36" y="541">RML Example 16 Orientations</drawString>
+				<image file="logo_no_bar.png" preserveAspectRatio="1" x="735" y="483" width="72" height="72"/>
+				<image file="strapline.png" preserveAspectRatio="1" x="36" y="0" width="770" />
+				<fill color="purple"/>
+				<setFont name="Helvetica-BoldOblique" size="18"/>
+				<drawCenteredString x="421" y="25">Page <pageNumber/></drawCenteredString>
+			</pageGraphics>
+			<frame id="only" x1="36" y1="36" width="770" height="443"/>
+		</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+		<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+	<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="12" spaceBefore="12" leading="15"/>
+	<paraStyle name="normal" fontName="Helvetica" fontSize="10" spaceBefore="6" leading="12"/>
+</stylesheet>
+<story>
+	<h1>Portrait</h1>
+	<setNextTemplate name="landscape"/>
+	<nextPage/>
+	<h1>Landscape</h1>
+</story>
+</document>

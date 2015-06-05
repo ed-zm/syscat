@@ -1,0 +1,93 @@
+<!-- chapterName "Lesson 11: Controlling the flow" -->
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_11.pdf">
+
+    <template showBoundary="1"> 
+        <pageTemplate id="Layout1">
+            <!-- three frames are defined here: -->
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+            <frame id="second" x1="300" y1="400" width="150" height="200"/>
+            <frame id="third" x1="100" y1="100" width="150" height="200"/>
+            <frame id="fourth" x1="300" y1="100" width="150" height="200"/>
+        </pageTemplate>
+
+    </template>
+
+    <stylesheet>
+        <!-- empty...-->
+    </stylesheet>
+
+    <story>
+        
+        <nextFrame name="second"/>
+        
+        <para>
+             ..this text will appear in the second frame, even though the first frame isn't full yet.
+        </para>
+        <para>
+            It also appears first in the RML file, before the text in the frame on the left.
+        </para>
+        <para>
+             Don't forget that you would normally see output without borders around the frames.
+             This has been set to appear just to clarify where the frames are.
+        </para>
+        <para>
+            When I use the &lt;nextFrame&gt; tag without specifying a frame name....
+        </para>
+        
+        <nextFrame/>
+        
+        <para>
+            ...we just move into the next frame listed in the &lt;pageTemplate&gt; section.
+        </para>
+        
+        <nextFrame name="first"/>
+        
+        <para>
+             Welcome to RML.
+        </para>
+        <para>
+             This is a paragraph of 'flowing' text.  
+        </para>
+        <para>
+             I've used the &lt;nextFrame&gt; tag to force this text to appear in this frame, by 
+             specifying the frame id.
+        </para>
+        
+        <!-- use <keepInFrame> to force text to stay in a particular frame. -->
+        <!-- In this case, it's set to shrink the text to fit. -->
+        <keepInFrame frame="fourth" onOverflow="shrink">
+            <para>
+                 This frame demonstrates how to force text to stay inside a frame.  Use the 
+                 &lt;keepInFrame&gt; tag to either shrink the text to fit, truncate it,
+                 overflow the frame, or raise an error.
+            </para>
+            <para>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </para>
+            <para>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
+                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </para>
+        </keepInFrame>
+        
+    </story>
+</document>
+
+]]></codesnippet>
+
+
+<para>You can force flowable text to flow into particular frames as you wish.  Use the &lt;nextFrame&gt; tag, in between your paragraphs, to force the text to move into the next frame.  This doesn't have to be the next frame listed in the &lt;pageTemplate&gt; ; use the name="" element to specify the id of the frame you want to use.</para>
+
+<para>You can also force text to stay inside a particular frame - and then shrink it to fit, let it overflow, truncate it, or raise an error (to see how to do each one, look up the tag in the DTD).  Use &lt;keepInFrame&gt; tags to surround the relevant text.</para>

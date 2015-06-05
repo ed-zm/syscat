@@ -1,0 +1,191 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>RPARSEXML PRIMER</title>
+	<style type="text/css">
+	<!--
+	P, TD, DD, UL, LI, OL, H1, H2, H3 {font-family:Verdana; font-weight: normal; font-size: 9pt;} 
+	DT {font-family:Verdana; font-weight: normal; font-size: 9pt; font-style: italic;}
+	H1 {color: 310063; font-weight: normal; font-size: 18pt; line-height:18pt;margin-top:18pt;}
+	H2 {color: 006600; font-weight: normal; font-size: 15pt; margin-top:30pt;}
+	H3 {color: 006600; font-weight: normal; font-size: 12pt; margin-top:30pt;}
+	PRE {font-family:Courier; color: navy; font-weight: normal; font-size: 8pt; margin-left:18pt}
+	BLOCKQUOTE {font-family:Verdana; font-weight: normal; font-size: 8pt; margin-left:18pt} 
+	-->
+	</style>
+</head>
+
+<body>
+<h1><font face=courier>RPARSEXML</font> Primer</h1>
+
+<hr>
+
+<h3>Goals:</h3>
+<p>RPARSEXML is a simple tool for transforming an XML document into a Python 
+datastructure.</p>
+<h3>Installation and Dependency:</h3>
+<p>RPARSEXML requires the following Python libraries to be available for import:<br>
+string, pyRXP, types, time, pprint</p>
+
+<hr>
+
+<h1><font face=courier>RPARSEXML </font>Primer</h1>
+<p><font face=courier>RPARSEXML 
+</font>is a simple tool for transforming an XML document into a Python 
+datastructure.</p>
+
+<p>
+The programmer interface to the parser is
+</p>
+<pre>
+	import rparsexml
+	parsedstructure = rparsexml.parsexml(text)
+</pre>
+<p>
+Where text is a string containing the XML markup to be parsed.
+</p>
+
+<p>
+The top level structure returned by <code>parsexml</code> always looks
+like this (for consistency with the structures shown below)
+</p>
+<pre>
+	("", list, None, None)
+</pre>
+<p>
+The list will usually contain just one tag, corresponding to the top level tag of the xml text. 
+</p>
+<p><font face=courier>RPARSEXML</font> transforms a tag of form</p>
+<pre>	&lt;NAME ATTRIBUTES&gt;CONTENT&lt;/NAME&gt;
+</pre>
+<p>into a python tuple of form</p>
+<pre>
+	(name_string, attributes_dictionary, list_of_content_fragments, miscellaneous)
+</pre>
+<p>
+The miscellaneous slot does not now contain anything useful.  It is provided for
+future featurization (such as line number annotations).</p>
+<p>
+The attributes dictionary maps string names of attributes to their string values.
+The attributes dictionary may be <code>None</code> if there are no attributes.
+</p>
+<p>
+If there are no tags in the content, then the content 
+fragment list will just contain the content string. 
+Otherwise, if there are tags in the content then the 
+contents list will be made up of the string fragments that 
+don't contain tags intermixed with the tuple structures for 
+the parsed tags. The strings and tuples in the list will be 
+in the same order as they were in the content. For a tag 
+with content, the content may be an empty list if the 
+content is empty, but will never be None (as it is for the 
+tag form shown below)
+</p>
+<p>A tag of form
+</p>
+<pre>	&lt;NAME ATTRIBUTES/&gt;
+</pre>
+<p>transform into a python tuple of form</p>
+<pre>
+	(name_string, attributes_dictionary, list_of_content_fragments, miscellaneous)
+</pre>
+<p>Where the list of contents is <code>None</code>.</p>
+
+<p>
+When the <font face=courier>pyXRP</font> extension module is available 
+<font face=courier>RPARSEXML</font> is a <em>validating</em> parser, 
+and therefore must be able to locate any DTD (Document Type Definition) 
+required and will report errors on any validation failure.
+</p>
+
+<p>
+Here is a simple program that parses a small XML text in the RML (Report
+Markup Language) format.
+</p>
+
+<pre>
+text = """\
+&lt;?xml version="1.0" encoding="iso-8859-1" standalone="no" ?&gt;
+&lt;!DOCTYPE document SYSTEM "rml.dtd"&gt;
+&lt;document filename="outfile.pdf"&gt;
+    &lt;template pagesize="(595, 842)" leftMargin="1in"&gt;
+        &lt;pagetemplate id="main"&gt;
+            &lt;frame id="main" x1="0.5in" y1="5.5in" width="6in" height="4.3in"/&gt;
+	&lt;/pagetemplate&gt;
+    &lt;/template&gt;
+    &lt;stylesheet&gt;
+    &lt;/stylesheet&gt;
+    &lt;story&gt;
+        &lt;para style="h1">hello world&lt;/para&gt;
+    &lt;/story&gt;
+&lt;/document&gt;"""
+
+import rparsexml, pprint
+
+parsed = rparsexml.parsexml(text)
+
+pprint.pprint(parsed)
+</pre>
+
+<p>
+And here is its output (which simple dumps the parsed structure
+indented nicely).
+</p>
+
+<pre>
+('',
+ None,
+ [('document',
+   {'filename': 'outfile.pdf'},
+   ['\012    ',
+    ('template',
+     {'author': '(unauthored)',
+      'leftMargin': '1in',
+      'pagesize': '(595, 842)',
+      'title': '(untitled)'},
+     ['\012        ',
+      ('pagetemplate',
+       {'id': 'main'},
+       ['\012            ',
+        ('frame',
+         {'height': '4.3in',
+          'id': 'main',
+          'width': '6in',
+          'x1': '0.5in',
+          'y1': '5.5in'},
+         None,
+         None),
+        '\012\011'],
+       None),
+      '\012    '],
+     None),
+    '\012    ',
+    ('stylesheet', None, ['\012    '], None),
+    '\012    ',
+    ('story',
+     None,
+     ['\012        ',
+      ('para', {'style': 'h1'}, ['hello world.'], None),
+      '\012    '],
+     None),
+    '\012'],
+   None)],
+ None)
+</pre>
+<p>
+Note that whitespace isn't trimmed out - all fragments such 
+as "\012" (a 'newline' character) are included in the 
+content fragments.
+</p>
+<p>
+Normally, the output of this program will be further processed 
+by another program (one that is not part of this package). This 
+external program will need to understand the structure of the 
+XML but will not need to handle any actual parsing.
+</p>
+
+<hr>
+
+</body>
+<html>

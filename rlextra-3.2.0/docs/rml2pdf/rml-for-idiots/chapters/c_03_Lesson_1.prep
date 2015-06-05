@@ -1,0 +1,58 @@
+<!-- partName "Lessons" -->
+<!-- chapterName "Lesson 1: Hello World : One simple frame on a page" -->
+
+
+<codesnippet language="xml" style="code"><![CDATA[
+<!DOCTYPE document SYSTEM "rml.dtd">
+<document filename="example_01.pdf">
+
+    <template>  
+        <!--this section contains elements of the document -->
+        <!--which are FIXED into position.                 -->
+        <pageTemplate id="main">
+            <frame id="first" x1="100" y1="400" width="150" height="200"/>
+        </pageTemplate>
+    </template>
+
+    <stylesheet>
+        <!--this section contains the STYLE information for            -->
+        <!--the document, but there isn't any yet.  The tags still     -->
+        <!--have to be present, however, or the document won't compile.-->
+    </stylesheet>
+
+    <story> 
+            <!--this section contains the FLOWABLE elements of the -->
+            <!--document.  These elements will fill up the frames  -->
+            <!--defined in the <template> section above.           -->
+        <para>
+            Welcome to RML!
+        </para>
+        <para>
+             This is the "story". This is the part of the RML document where
+             your text is placed.
+        </para>
+        <para>
+             It should be enclosed in "para" and "/para" tags to turn it into
+             paragraphs.
+        </para>
+    </story>
+
+</document>
+
+]]></codesnippet>
+
+
+<para>Run the above example as outlined in the section above called 'Running the examples'.  Open the output file ('example_01.pdf') and you will see a basic document with some text in the middle of the page.  Note the following about the RML:</para>
+
+<para>The &lt;template&gt; section is where the layout is defined.  In this case it defines one &lt;frame&gt; by giving it an id ("main"), followed by the x and y coordinates of the bottom left corner of the frame, and then its width and height.</para>
+
+<para>All these values are specified in points, which is the default unit of measurement in RML, but you can mix and match mm, cm, inches and points like this:
+&lt;x="10mm" y="2cm" width="5in" height="50"&gt;.</para>
+
+<para>This frame is the fixed 'box' into which the text from the &lt;story&gt; section will flow.  Remember, coordinates in RML refer to the bottom left corner of the element.  However, the text starts flowing from the top of the frame, so if you change the height of the frame, the text will start further up the page.</para>
+
+<para>As it says in the comments, the &lt;stylesheet&gt; section is empty.  It has to be there because the document won't compile without it.</para>
+
+<para>The &lt;story&gt; section contains three paragraphs, each of which is contained inside &lt;para&gt; tags.  Note that the whitespace is ignored in the PDF output.</para>
+
+<para>So for a basic bit of text on a page, you define a frame in a position you like, and then the text in the &lt;story&gt; section fills up the frame.</para>

@@ -1,0 +1,222 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>MAPXML Primer</title>
+	<STYLE TYPE="text/css">
+	<!--
+	P, TD, DD, UL, LI, OL, H1, H2, H3 {font-family:Verdana; font-weight: normal; font-size: 9pt;} 
+	DT {font-family:Verdana; font-weight: normal; font-size: 9pt; font-style: italic;}
+	H1 {color: 310063; font-weight: normal; font-size: 18pt; line-height:18pt;margin-top:18pt;}
+	H2 {color: 006600; font-weight: normal; font-size: 15pt; margin-top:30pt;}
+	H3 {color: 006600; font-weight: normal; font-size: 12pt; margin-top:30pt;}
+	PRE {font-family:Courier; color: navy; font-weight: normal; font-size: 8pt; margin-left:18pt}
+	BLOCKQUOTE {font-family:Verdana; font-weight: normal; font-size: 8pt; margin-left:18pt} 
+	-->
+	</STYLE>
+</head>
+
+<h1>MAPXML Primer</h1>
+
+<hr>
+
+<body>
+<h3>Goals:</h3>
+<p>MAPXML is a programmers tool for mapping XML source
+into other formats.</p>
+<h3>Installation and Dependency:</h3>
+<p>MAPXML requires the following Python libraries to be available for import:<br>
+types, string, rparsexml, time</p>
+
+<hr>
+
+<h1>MAPXML Primer</h1>
+<p>
+MAPXML is a programmers tool for mapping XML source
+into other formats.  It is similar in some respects to XSL 
+(the <a href="http://www.w3.org/TR/xsl/">Extensible Stylesheet Language </a>) 
+or XSLT (<a href="http://www.w3.org/TR/xslt">XSL Transformations</a>).
+The top level interface to specifying a mapping is a MapController
+instance. A MapController maps one XML format to another by recursive tag
+translation.
+
+<h1>
+BASIC USAGE
+</h1>
+
+<p>
+In basic usage initialize a Map Controller
+</p>
+<pre>
+    M = MapController()
+</pre>
+<p>
+and assign substitution strings or MapNodes for each tag. 
+(These subsitutions are covered in more detail in the sections below). 
+</p>
+<p>
+Then process text using
+</p>
+<pre>
+    translatedtext = M.process(originaltext)
+</pre>
+<p>
+The number of XML tags in originaltext should match the 
+number of assigned substitution strings or MapNodes for M.
+If they don't, you will get errors.
+</p>
+
+<h1>
+THE TOP LEVEL SUBSTITUTION
+</h1>
+
+<p>
+Every MapController must have a top level substitution which
+defines a substitution location for "%(__content__)s", for
+example as in
+<p><pre>
+    M[''] = ''' &lt;html&gt;
+         %(__content__)s
+         &lt;/BODY&gt;
+         &lt;/html&gt;
+         '''
+</pre><p>
+Here the empty tag <font face=courier>''</font> signifies the top level.  In this particular
+example the start of the &lt;BODY&gt; tag might be introduced in the translation
+of another tag (like &lt;DOCUMENTTITLE&gt;).</p>
+
+<h1>
+SUBSTITUTION STRINGS:
+</h1>
+<p>
+You can either assign a substitution string to a tag name (for
+tags with content) or assign a MapNode for tags which either do
+not have content or require other special handling (such as
+attribute defaults and transforms).
+</p><p>
+<b>FOR TAGS WITH CONTENT</b>, you can directly assign a string (which
+internally is converted into a MapNode), for example
+<p><pre>
+    M["H1"] = "&lt;br&gt;&lt;br&gt;&lt;font size=+3&gt;&lt;b&gt;%(__content__)s&lt;/b&gt;&lt;/font&gt;&lt;br&gt;"
+</pre><p>
+In this case the H1 tag has content (&lt;H1&gt;this is the content&lt;/H1&gt;) but
+no attributes that effect the translation.  Note that the marker
+"%(__content__)s" indicates the location of the recursively translated content. Also note the use of "%" and "s" in this 
+marker - these are important, and easy to miss out (the "%" is a format operator, and the "s" is an indicator that it is a string). </p><pre>
+    &lt;H1&gt;This is the content&lt;/H1&gt;
+</pre><p>
+translates to
+</p><pre>
+    &lt;br&gt;&lt;br&gt;&lt;font size=+3&gt;&lt;b&gt;This is the content&lt;/b&gt;&lt;/font&gt;&lt;br&gt;
+</pre><p>
+<b>FOR TAGS WITHOUT CONTENT</b> or which require special handling assign
+an explicit MapNode
+</p><pre>
+    M["AUTHOR"] = MapNode(None, "&lt;em&gt;Aaron Watters&lt;/em&gt;")
+</pre><p>
+the AUTHOR tag has no content and no attributes that effect translation.
+</p><pre>
+    &lt;AUTHOR/&gt;
+</pre><p>
+translates to
+</p><pre>
+    &lt;em&gt;Aaron Watters&lt;/em&gt;
+</pre><p>
+<p><b>
+CONTAINED TAGS ARE RECURSIVELY TRANSLATED.</b>  Using the translations
+declared above
+</p><pre>
+    &lt;H1&gt;&lt;AUTHOR/&gt;&lt;/H1&gt;
+</pre><p>
+becomes
+</p><pre>
+    &lt;br&gt;&lt;br&gt;&lt;font size=+3&gt;&lt;b&gt;&lt;em&gt;Aaron Watters&lt;/em&gt;&lt;/b&gt;&lt;/font&gt;&lt;br&gt;
+</pre><p>
+<b>FOR TAGS WITH ATTRIBUTES</b> include the appropriate attributes in the substitution
+string, as required.  For example,
+</p><pre>
+    M["RETIRED"] = "&lt;em&gt;%(TITLE)s&lt;/em&gt; &lt;b&gt;%(__content__)s&lt;/b&gt; &lt;em&gt;Emeritas&lt;/em&gt;"
+</pre><p>
+The RETIRED tag has content and one attribute (TITLE) which is
+required and effects translation.
+</p><pre>
+    &lt;RETIRED TITLE="Dr."&gt;Carl Fungus&lt;/RETIRED&gt;
+</pre><p>
+becomes
+</p><pre>
+    &lt;em&gt;Dr.&lt;/em&gt; &lt;b&gt;Carl Fungus&lt;/b&gt; &lt;em&gt;Emeritas&lt;/em&gt;
+</pre><p>
+For
+</p><pre>
+    M["EXCLAMATION"] = "&lt;FONT COLOR="RED"&gt;&lt;B&gt;%(TEXT)&lt;/B&gt;, &lt;EM&gt;%(RECIPIENT)s&lt;/EM&gt;&lt;/FONT&gt;"
+</pre><p>
+EXCLAMATION has no content and two attributes (TEXT and RECIPIENT) which are required
+and effect formatting.
+</p><pre>
+    &lt;EXCLAMATION TEXT="Holy rusty metal" RECIPIENT="Batman"/&gt;
+</pre><p>
+becomes
+</p><pre>
+    &lt;FONT COLOR="RED"&gt;&lt;B&gt;Holy rusty metal&lt;/B&gt;, &lt;EM&gt;Batman&lt;/EM&gt;&lt;/FONT&gt;
+</pre><p>
+ATTRIBUTE DEFAULTS can be assigned using a MapNode assigned to a tag.
+For example an alternate RETIRED tag might assign "Dr." as the default
+value of Title.
+</p><pre>
+    R = MapNode("&lt;em&gt;%(TITLE)s&lt;/em&gt; &lt;b&gt;%(__content__)s&lt;/b&gt; &lt;em&gt;Emeritas&lt;/em&gt;")
+    R.default["TITLE"] = "Dr."
+    M["RETIRED"] =  R
+</pre><p>
+Then using AUTHOR and RETIRED
+</p><pre>
+    &lt;RETIRED&gt;&lt;AUTHOR/&gt;&lt;/RETIRED&gt;
+</pre><p>
+becomes
+</p><pre>
+    &lt;em&gt;Dr.&lt;/em&gt; &lt;b&gt;&lt;em&gt;Aaron Watters&lt;/em&gt;&lt;/b&gt; &lt;em&gt;Emeritas&lt;/em&gt;
+</pre><p>
+(Note the default "Dr." substitution).  I wish ;(.
+</p><p>
+ATTRIBUTE TRANSFORMS can be assigned using a MapNode.  For
+example to uppercase the titles of all retirees:
+</p><pre>
+    R = MapNode("&lt;em&gt;%(TITLE)s&lt;/em&gt; &lt;b&gt;%(__content__)s&lt;/b&gt; &lt;em&gt;Emeritas&lt;/em&gt;")
+    from string import upper
+    R.addTransform(TITLE, upper)
+    M["RETIRED"] =  R
+</pre><p>
+Then
+</p><pre>
+    &lt;RETIRED TITLE="Dr."&gt;Carl Fungus&lt;/RETIRED&gt;
+</pre><p>
+becomes
+</p><pre>
+    &lt;em&gt;DR.&lt;/em&gt; &lt;b&gt;Carl Fungus&lt;/b&gt; &lt;em&gt;Emeritas&lt;/em&gt;
+</pre><p>
+The MapNode.transformContent(transform) will perform a transformation
+on the recursively generated content of a tag (be careful when using
+this one!)
+</p><p>
+MapNodes can alter the translation definitions for tags encountered
+in their content.  For example
+</p><pre>
+    M["Title"] = "&lt;H1&gt;%(__content__)s&lt;/H1&gt;"
+    ...
+    C = MapNode("&lt;hr&gt;Chapter&lt;hr&gt; %(__content__)s")
+    C["Title"] = "&lt;H3&gt;%(__content__)s&lt;/H3&gt;"
+    M["Chapter"] = C
+</pre><p>
+Then a title outside of the Chapter context defaults to H1 but
+a title inside a Chapter context defaults to H3.
+</p><p>
+"TAG NAME" OF None provides a "default" substitution
+to apply to unknown tags, as in
+</p><pre>
+    M[None] = "" # erase unknown tags
+    M[None] = "%(__content__)s" # echo content for unknown tags
+</pre>
+
+<hr>
+
+</body>
+</html>

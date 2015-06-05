@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no" ?> 
+<!DOCTYPE document SYSTEM "rml_1_0.dtd"> 
+<document filename="bug004_inconsistentIndents.pdf"> 
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+	<pageTemplate id="main">
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+</template>
+
+<stylesheet>
+
+	<paraStyle name="h1"
+	fontName="Courier-Bold"
+	fontSize="12"
+	spaceBefore = "0.5 cm"
+	/>
+</stylesheet>
+
+
+<story>
+<para style="h1">Last Paragraph: Para Tags and Paragraph Content</para>
+
+<para style="h1">
+Last Paragraph: Para Tags and Paragraph Content</para>
+
+<para style="h1">
+Last Paragraph: Para Tags and Paragraph Content
+</para>
+
+<spacer length="15"/>
+
+<para>
+The only way the above paras differ is in the placement of carriage
+returns in the source code. They should be identical, but aren't.
+</para>
+
+
+
+</story>
+
+</document>

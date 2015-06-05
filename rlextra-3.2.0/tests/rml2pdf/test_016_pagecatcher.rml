@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_016_pagecatcher.pdf"> 
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="0">
+
+<pageTemplate id="main">
+	<pageGraphics>
+	<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="760">RML Example 17: Pagecatcher</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="730" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+        <fill color="purple"/>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		
+        <rect x="36" y="800" width="524" height="10" fill="1"/>
+        <rect x="36" y="50" width="524" height="10" fill="1"/>
+        <drawCenteredString x="297" y="25">Page <pageNumber/></drawCenteredString>
+	</pageGraphics>
+	<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+	<pageTemplate id="landscape" pageSize="(842,595)">
+		<frame id="second" x1="35" y1="45" width="525" height="590"/>
+	</pageTemplate>
+	<pageTemplate id="bare" pageSize="(595,842)">
+		<frame id="second" x1="72" y1="72" width="451" height="3in"/>
+	</pageTemplate>
+	
+	<pageTemplate id="main2">
+	<pageGraphics>
+	
+        <fill color="purple"/>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		
+        <rect x="36" y="800" width="524" height="10" fill="1"/>
+        <rect x="36" y="50" width="524" height="10" fill="1"/>
+        <drawCenteredString x="297" y="25">Page <pageNumber/></drawCenteredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate><pageTemplate id="landscape" pageSize="(842,595)">
+		<frame id="first" x1="1in" y1="1in" height="6.27in" width="9.69in"/>
+	</pageTemplate>
+
+	<pageTemplate id="alt">
+	<pageGraphics>
+        <fill color="cyan"/>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="820">RML2PDF Test Suite - Test #17</drawRightString>
+        <rect x="36" y="800" width="524" height="10" fill="1"/>
+        <rect x="36" y="50" width="524" height="10" fill="1"/>
+        <drawCenteredString x="297" y="25">Page <pageNumber/></drawCenteredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+
+	<pageTemplate id="maskout">
+    <pageGraphics/>
+	<pageGraphics>
+        <fill color="white"/>
+        <rect x="0" y="800" width="595" height="42" fill="1" stroke="0"/>
+        <rect x="0" y="0" width="595" height="50" fill="1" stroke="0"/>
+        <fill color="cyan"/>
+		<setFont name="Helvetica-BoldOblique" size="18"/>
+		<drawRightString x="523" y="820">RML2PDF Test Suite - Test #17</drawRightString>
+        <rect x="36" y="800" width="524" height="10" fill="1"/>
+        <rect x="36" y="50" width="524" height="10" fill="1"/>
+        <drawCenteredString x="297" y="25">Page <pageNumber/></drawCenteredString>
+	</pageGraphics>
+	<frame id="first" x1="1in" y1="1in" width="6.27in" height="9.69in"/>
+	</pageTemplate>
+
+    
+    
+</template>
+
+<stylesheet>
+	<initialize>
+	<alias id="style.normal" value="style.Normal"/>
+	</initialize>
+
+	<paraStyle name="h1" fontName="Helvetica-Bold" fontSize="14" leading="17" spaceBefore="28"/>
+
+	<paraStyle name="body" fontName="Helvetica" fontSize="12" leading="14" spaceBefore="14"/>
+    
+	<paraStyle name="code" fontName="Courier" fontSize="10" leading="12" spaceBefore="0" leftIndent="36" textColor="navy"/>
+	
+	<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+
+		
+</stylesheet>
+
+
+<story>
+
+<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+
+<setNextTemplate name="main2"/>
+<outlineAdd>Front Page</outlineAdd>
+<para style="h1">PageCatcher integration tests</para>
+<para style="body">This page tests out a number of tags added to make it
+easier to use PageCatcher templates. </para>
+
+<para style="body">It is important to see how these interact with the page template.
+So, this document has a purple stripe and text at top and bottom which is part of
+the template. </para>
+
+
+<para style="body">First and foremost is <font face="Courier" color="navy">&lt;includePdfPages filename="filename.pdf" pages="1,2,7-12"/&gt;</font>. This tag slurps in PDF pages into the current document.  It begins by
+outputting a page break, and leaves you "on the final page" it draws.</para>
+
+<para style="body">By default the imported PDF file will probably be drawn "over the top" 
+of the current page template.  So, if you have a header or footer defined in a page template, and
+the imported page does too, the imported one will draw over it and not vice versa. See the 
+examples on the next few pages.</para>
+
+<para style="body">However, if your page template defines TWO pagegraphics sections
+instead of one, the second one will be drawn AFTER any flowing content, which includes
+the imported pages.  So, you can use a second pageGraphics section to mask out
+headers and footers in the imported forms if you really need to.</para>
+
+
+<para style="body">The engine will output a page break BEFORE the first new
+page, and leave you on the same page as the last imported one.  
+This behaviour was chosen carefully to facilitate template switching.  Commonly one has a standard
+header or footer running through a document, but may want to suppress or change it
+when including pages from other applications.  You can precede includePages with a template
+change action, for example, 
+<font face="Courier" color="navy">&lt;setNextTemplate name="alt"&gt;</font>.
+This will mean that your new template is used for each page on which an included
+PDF is drawn.  If you don't want one, define a template called 'blank' with one
+frame for content and no decorations.</para>
+
+<para style="body">After including pages, you will be left "at the top of" the last
+PDF page.  You could therefore flow paragraphs over the top of it if you want.
+However, the most common use is simply to follow 
+  <font face="Courier" color="navy">&lt;includePdfPages&gt;</font>
+with 
+  <font face="Courier" color="navy">&lt;nextFrame&gt;</font>
+to move to the next page.  Or, with 
+<font face="Courier" color="navy">&lt;setNextTemplate&gt;</font>
+and then <font face="Courier" color="navy">&lt;nextFrame&gt;</font>
+to change back to your original page template for the next page.
+</para>
+
+<para style="body">The "pages" attribute can be omitted to import all pages,
+or can take strings like "<font face="Courier" color="navy">1</font>", 
+"<font face="Courier" color="navy">1,2,3-5</font>" etc. </para>
+
+<para style="body">The next two pages show a UK Inland Revenue form,
+and also show switching to a different cyan-coloured template.</para>
+
+
+<setNextTemplate name="alt"/>
+<includePdfPages filename="ir684.pdf" pages="1-2" outlineText="IR684 with both pages"/>
+
+<setNextTemplate name="main2"/>
+<nextFrame/>
+
+<para>The preceding 2 pages should have been the tax form.  And I should now be on page <pageNumber/>!
+Let's add the same one again to check it does not complain:
+</para>
+<includePdfPages filename="ir684.pdf" pages="1" outlineText="IR684 again, one page"/>
+<para>Now we add page 1 at 90 180 and 270
+</para>
+<includePdfPages filename="ir684.pdf" pages="1" outlineText="IR684 again, one page orientation=90" orientation="90" template="landscape"/>
+<includePdfPages filename="ir684.pdf" pages="1" outlineText="IR684 again, one page orientation=180" orientation="180" template="main2"/>
+<includePdfPages filename="ir684.pdf" pages="1" outlineText="IR684 again, one page orientation=270" orientation="270" template="landscape"/>
+<setNextTemplate name="main2"/>
+<nextFrame/>
+
+<para>Finally, we will show how the use of a second pageGraphics tags lets us mask
+over annoying headers and footers. Compare the mess at the bottom of page 5 with
+the cleaner version on page 7.
+</para>
+<setNextTemplate name="maskout"/>
+<includePdfPages filename="ir684.pdf" pages="1" outlineText="IR684 again, masked"/>
+<setNextTemplate name="bare"/>
+<includePdfPages filename="cropped-media.pdf" pages="1" outlineText="cropped-media naked"/>
+<para>Most of the interesting stuff should be off in the hills.</para>
+<includePdfPages filename="cropped-media.pdf" pages="1" pdfBoxType="cropbox" outlineText="cropped-media box=cropbox not cropped"/>
+<para>With pdfBoxType=cropbox specified not cropped.</para>
+<includePdfPages filename="cropped-media.pdf" pages="1" pdfBoxType="cropbox" autoCrop="true" outlineText="cropped-media box=cropbox autoCrop=True"/>
+<para>With pdfBoxType=cropbox specified autoCrop=True.</para>
+<includePdfPages filename="cropped-media.pdf" pages="1" pdfBoxType="cropbox" autoCrop="true" pageSize="set" outlineText="cropped-media box=cropbox autoCrop=True pageSize=set"/>
+<para>With pdfBoxType=cropbox specified autoCrop=True pageSize=set.</para>
+<includePdfPages filename="ir684.pdf" pages="1" outlineText="IR684 again, to check pageSize is again A4"/>
+<para>Is pageSize A4 again?</para>
+<includePdfPages filename="cropped-media.pdf" pages="1" pdfBoxType="cropbox" autoCrop="true" pageSize="orthofit" outlineText="cropped-media box=cropbox autoCrop=True pageSize=orthofit"/>
+<para>With pdfBoxType=cropbox specified autoCrop=True pageSize=orthofit.</para>
+<includePdfPages filename="cropped-media.pdf" pages="1" pdfBoxType="cropbox" autoCrop="true" pageSize="fit" outlineText="cropped-media box=cropbox autoCrop=True pageSize=fit"/>
+<para>With pdfBoxType=cropbox specified autoCrop=True pageSize=orthofit.</para>
+<includePdfPages filename="cropped-media.pdf" pages="1" pdfBoxType="cropbox" autoCrop="true" pageSize="center" outlineText="cropped-media box=cropbox autoCrop=True pageSize=center"/>
+<para>With pdfBoxType=cropbox specified autoCrop=True pageSize=center.</para>
+</story>
+</document>

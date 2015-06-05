@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="iso-8859-1" standalone="no"?>
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="test_005_fonts.pdf">
+	<docinit>
+		<registerType1Face afmFile="DarkGardenMK.afm" pfbFile="DarkGardenMK.pfb"/>
+		<registerFont name="DarkGardenMK" faceName="DarkGardenMK" encName="WinAnsiEncoding"/>
+
+		<registerTTFont faceName="Vera" fileName="Vera.ttf"/>
+		<registerTTFont faceName="VeraBold" fileName="VeraBd.ttf"/>
+		<registerTTFont faceName="VeraBoldItalic" fileName="VeraBI.ttf"/>
+		<registerTTFont faceName="VeraItalic" fileName="VeraIt.ttf"/>
+		<registerFontFamily
+				normal="Vera"
+				bold="VeraBold"
+				italic="VeraItalic"
+				boldItalic="VeraBoldItalic"
+				/>
+
+
+	</docinit>
+	<template>
+		<pageTemplate id="main">
+		
+		<pageGraphics>
+		    <setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">RML Example 10: Fonts</drawString>
+			<image file="logo_no_bar.png" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+    		<image file="strapline.png" preserveAspectRatio="1" x="35" y="0" width="525" />
+		</pageGraphics>
+		
+			<frame id="second" x1="35" y1="45" width="525" height="590"/>
+		</pageTemplate>
+	</template>
+	<stylesheet>
+		<paraStyle name="robot" fontName="DarkGardenMK" fontSize="12" spaceBefore="0.5 cm"/>
+		<paraStyle name="Vera" fontName="Vera" fontSize="12" spaceBefore="0.5 cm"/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="12" leading="12" spaceAfter="12"/>
+	</stylesheet>
+	<story>
+	<storyPlace x="35" y="660" width="525" height="73" origin="page">
+<para style="intro">RML (Report Markup Language) is ReportLab's own language for specifying the appearance of a printed page, which is converted into PDF by the utility rml2pdf.</para>
+<hr color="white" thickness="8pt"/>
+<para style="intro">These RML samples showcase techniques and features for generating various types of ouput and are distributed within our commercial package as test cases. Each should be self explanatory and stand alone.</para>
+<illustration height="3" width="525" align="center">
+<fill color= "(0,0.99,0.97,0.0)" />
+<rect x="0" y = "-12" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+</illustration>
+</storyPlace>
+		<para>
+		This paragraph is an ordinary font style, but switches font.
+		<font face="DarkGardenMK">This is in a custom font</font>
+		and <font face="Vera">this is in a custom TTF font</font>.
+			<!-- doesn't work <font face="DarkGardenMK"> -->
+<!--        Yahoo! Rooms
+.  Asian Markets - Discuss the latest market activity.
+.  Biotechnology - Discuss the latest research and advances in this field.
+.  Bond Market - Come here to chat live about the bond market!
+.  Career Corner - Find career tips and advice at http://careers.yahoo.com/
+.  Small Business - Where professionals meet. Visit http://smallbusiness.yahoo.com/
+.  StockWatch - Discuss the latest on Wall St. Visit http://finance.yahoo.com/  -->
+<!-- </font> -->
+		</para>
+		<para style="robot">This is a whole paragraph in the robot style.</para>
+		<para style="Vera">This is a whole paragraph using the Vera font,
+		an open source font included in your ReportLab distro which may be
+		freely redistributed.
+		I should see <b>bold</b>, <i>italic</i> and <b><i>bold italic</i></b>
+		variants in this sentence.
+		</para>
+		<illustration height="100" width="1">
+			<setFont name="DarkGardenMK" size="25"/>
+			<drawString x="25" y="25">DarkGardenMK</drawString>
+			<setFont name="Vera" size="25"/>
+			<drawString x="25" y="50">Vera</drawString>
+			<setFont name="Helvetica" size="16"/>
+			<drawString x="25" y="75">This is drawn directly in an illustration</drawString>
+		</illustration>
+    <para>
+
+        <font face="Helvetica" size="9">This is Helvetica (plain).</font>
+        <font face="Helvetica" size="9"><i>This is Helvetica + italics.</i></font>
+		<font face="Helvetica-Oblique" size="9">This is Helvetica-Oblique.</font>
+		<font face="Helvetica-Oblique" size="9"><b>This is Helvetica-Oblique + BOLD.</b></font>
+    </para>
+
+    <para>
+        <i>This is plain text (no font face given) + italic.</i>
+    </para>
+	</story>
+</document>
