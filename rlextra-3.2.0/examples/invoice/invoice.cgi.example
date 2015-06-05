@@ -1,8 +1,0 @@
-#!c:\python\python -u
-
-#change the above line to wherever your python.exe
-#lives. It is assumed your project files live under
-#/Python/rlextra/ers/examples/invoice directory
-if __name__=="__main__":
-	from rlextra.ers.controller import main
-	main(1,APPDIR="C:/Python/rlextra/ers/examples/invoice",SCRIPT_PFX="invoice")

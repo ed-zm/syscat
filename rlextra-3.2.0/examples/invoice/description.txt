@@ -1,1 +1,0 @@
-This project creates an invoice as an ers example.
