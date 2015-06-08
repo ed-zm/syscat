@@ -8,6 +8,7 @@ class Users:
 		self.users = self.db.users
 		self.ficha_catastral = self.db.ficha_catastral
 		self.pagos = self.db.pagos
+		self.ficha = self.db.ficha
 	def find_user(self, usuario_login, password_login):
 		try: 
 			u = None
@@ -22,7 +23,7 @@ class Users:
 	def find_document(self, iden):
 		try:
 			u = None
-			u = self.ficha_catastral.find_one({"numero_inscripcion" : iden})
+			u = self.ficha.find_one({"numero_inscripcion" : iden})
 			if u['numero_inscripcion'] == iden:
 				return True, u
 			else:
@@ -58,3 +59,22 @@ class Users:
 				return True
 			else:
 				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.segundo.status' : "Solvente", 'trimestre.tercero.status' : "Solvente", 'trimestre.cuarto.status' : "Solvente"}})
+
+
+	def insertar_registro(self, dicc):
+		try:
+			r = self.ficha.insert_one(dicc)
+			return True
+		except Exception as e:
+			return e
+	def insertar_pago(self, f):
+		try:
+			p = self.pagos.insert_one(f)
+			return True
+		except Exception as e:
+			return e
+
+
+	def count(self):
+		c = self.ficha.count()
+		return c

@@ -195,7 +195,7 @@
 	<para style="pago">2015</para>
 </storyPlace>
 <storyPlace x="7.5cm" y="9cm" width="10cm" height="6cm" origin="page">
-	<para style="h2pago">Trimestre : </para>
+	<para style="h1pago">Trimestre : </para>
 </storyPlace>
 <storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
 	<para style="pago">Primero</para>

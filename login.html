@@ -4,6 +4,7 @@
 	<title>SYSCAT</title>
 		<meta charset="utf-8">
         {% load static from staticfiles %}
+        <link href="{% static "img/tax.png" %}" rel="icon" type = "image/png"/>
         <link href="{% static "css/bootstrap.min.css" %}" rel='stylesheet' type='text/css' />
 		<link href="{% static "css/style.css" %}" rel='stylesheet' type='text/css' />
 		<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,11 +21,12 @@
 						<img src="{% static "img/user.png" %}" alt=""/>
 					</div>
 				<form method="post" action="/auth/">
-					{%if active%}
-					 <div class="alert alert-danger">
-                    	<strong>Usuario inválido, Por favor Ingrese Nuevamente.</strong>
-                	</div>
-                	{%endif%}
+					{%if invalido == false%}
+					{% else %}
+						<div class="alert alert-danger">
+							<strong>Usuario inválido, Por favor Ingrese Nuevamente.</strong>
+						</div>
+					{% endif %}
 						<input id = "usuario" name="usuario" type="text" class="text" placeholder= "ingrese su usuario" >
 						<input id = "pass" name="pass" type="password" Placeholder="Ingrese su contraseña" >
 						<div class="submit">

@@ -14,7 +14,8 @@ from reportlab.pdfgen import canvas
 
 
 
-global active
+global active, invalido
+invalido = False
 active = False
 users = Users()
 def admin(request):
@@ -39,10 +40,10 @@ def auth(request):
 		else:
 			global active
 			active = False
-			return HttpResponse("Usuario Inválido")
-	else: 
-		return HttpResponse('Error Pagina no encontrada')
-	
+			invalido = True
+			return render_to_response('login.html', {"invalido" : invalido})
+	else:
+		return HttpResponseRedirect('/login')
 def busqueda(request):
 	if active == True:
 		return render_to_response('static/templates/busqueda.html', {"usuario" : user})
@@ -61,8 +62,15 @@ def confirmar_pago(request):
 	else:
 		return HttpResponseRedirect('/login')
 
+def editar(request):
+	if active == True:
+		return render_to_response('static/templates/editar.html')
+	else:
+		return HttpResponseRedirect('/login')
+
 def exitoso(request):
 	if active == True:
+		print (request.POST)
 		return render_to_response('static/templates/exitoso.html', {"usuario" : user})
 
 def home(request): 
@@ -79,13 +87,15 @@ def logout(request):
 	if active == False:
 	 	return HttpResponseRedirect('/login')
 	else: 
-	 	return HttpResponse('página no encontrada')
+	 	return HttpResponseRedirect('/admin')
 
 def pagos(request):
 	if active == True:
 		return render_to_response('static/templates/pagos.html', {"usuario" : user})
 	else: 
 		return HttpResponseRedirect('/login')
+
+
 def pagoexitoso(request):
 	if active == True:
 		if request.method == 'POST':
@@ -105,7 +115,45 @@ def registro(request):
 		return HttpResponseRedirect('/login')
 
 def registro_guardar(request):
-	return HttpResponseRedirect('/exitoso')
+	if active == True:
+		if request.method == 'POST':
+			try:
+				dicc = {}
+				f = {}
+				copy = request.POST.copy()
+				req = copy.keys()
+				post = copy
+				cont = users.count()
+				cont = cont +1
+				post['_id'] = cont
+				for p in req:
+					dicc[p] = post[p]
+					post[p]
+				registro = users.insertar_registro(dicc)
+				f['numero_inscripcion'] = copy['numero_inscripcion']
+				f['ciudad_inmueble'] = copy['localidad']
+				f['direccion_inmueble_op'] = copy['direccion_inmueble_op']
+				f['direccion_inmueble'] = copy['direccion_inmueble']
+				f['direccion_inmueble_entre'] = copy['direccion_inmueble_entre']
+				f['direccion_inmueble_entre_op'] = copy['direccion_inmueble_entre_op']
+				f['direccion_inmueble_y'] = copy['direccion_inmueble_y']
+				f['direccion_inmueble_y_op'] = copy['direccion_inmueble_y_op']
+				f['razon_social_propietario'] = copy['nombres_apellidos_o_razon_social_propietario']
+				f['cedula_o_rif_propietario'] = copy['cedula_o_rif_propietario']
+				f['valoracion_economica_construccion'] = copy['valoracion_economica_construccion']
+				f['valoracion_economica_inmueble'] = copy['valoracion_economica_inmueble']
+				f['trimestre']= {"primero": {"status": "Pendiente"}, "segundo":  {"status": "Pendiente"}, "tercero": {"status": "Pendiente"}, "cuarto": {"status": "Pendiente"}}
+				hoy = datetime.now()
+				ahora = hoy.strftime("%d/%m/%Y")
+				ano = request.POST['ano']
+				f['ano'] = ano
+				ins = users.insertar_pago(f)
+				print (ins)
+				return HttpResponseRedirect('/exitoso')
+			except Exception as e:
+				return HttpResponse(e)
+	else: 
+		return HttpResponseRedirect('/login')
 
 def resultado(request):
 	if active == True:
@@ -128,7 +176,6 @@ def resultado_pago(request):
 		b = []
 		if request.method == 'POST':
 			iden = request.POST['texto_pago']
-			print (iden)
 			connection_string = "mongodb://localhost"
 			connection = pymongo.MongoClient(connection_string)
 			db = connection.syscat
@@ -149,14 +196,11 @@ def resultado_pago(request):
 			if ac == True:
 				ano_ultimo = datetime.strptime(ultimo_ano, "%Y")
 				an = ano_ultimo.year
-				#print (an, ano_actual)
 				while(ano_actual>an):
-					pagos.insert
 					an = an + 1
-					#print (an)
 				for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",-1):
 					b.append(p)
-				return render_to_response ('static/templates/resultado_pago.html', {"resultados" : b, "usuario" : user, "direccion" : d, "numero_inscripcion": ni, "iden" : iden})
+				return render_to_response ('static/templates/resultado_pago.html', {"resultados" : b, "usuario" : user})
 			else: 
 				return render_to_response('static/templates/noencontropago.html', {"usuario" : user})
 		else: 
@@ -171,7 +215,7 @@ def reporte(request):
 
 
 def generar_reporte(request):
-	if request.method == 'GET':
+	if active == True:
 		from rlextra.rml2pdf import rml2pdf
 		a = 0 
 		b = []
@@ -194,24 +238,27 @@ def generar_reporte(request):
 		response['Content-Disposition'] = 'attachment; filename="test_001_hello.pdf"'
 		return response
 	else:
-		return HttpResponse("No ha pasado nada")
+		return HttpResponseRedirect('/login')
 
 def orden_pago(request):
-	if request.method == 'POST':
-		iden = request.POST['texto_pago']
-		from rlextra.rml2pdf import rml2pdf
-		print (iden)
-		buscar_pago = users.find_pago(iden)
-		formu = buscar_pago[1]
-		t = get_template('orden_pago.rml')
-		c = Context({"formu" : formu})
-		rml = t.render(c)
-		r = rml.encode('utf8')
-		buf = BytesIO()
-		rml2pdf.go(r, outputFileName = buf)
-		pdfData = buf.getvalue()
-		response = HttpResponse(content_type='application/pdf')
-		response.write(pdfData)
-		response['Content-Disposition'] = 'attachment; filename="orden_de_pago.pdf"'
-		return response
+	if active == True:
+		if request.method == 'POST':
+			iden = request.POST['texto_pago']
+			from rlextra.rml2pdf import rml2pdf
+			print (iden)
+			buscar_pago = users.find_pago(iden)
+			formu = buscar_pago[1]
+			t = get_template('orden_pago.rml')
+			c = Context({"formu" : formu})
+			rml = t.render(c)
+			r = rml.encode('utf8')
+			buf = BytesIO()
+			rml2pdf.go(r, outputFileName = buf)
+			pdfData = buf.getvalue()
+			response = HttpResponse(content_type='application/pdf')
+			response.write(pdfData)
+			response['Content-Disposition'] = 'attachment; filename="orden_de_pago.pdf"'
+			return response
+	else:
+		return HttpResponseRedirect('/login')
 

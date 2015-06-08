@@ -24,5 +24,6 @@ urlpatterns = patterns('',
     url(r'^pagoexitoso/', 'app.views.pagoexitoso', name = "pagoexitoso"), 
     url(r'^confirmar_pago/', 'app.views.confirmar_pago', name = "confirmar_pago"),
     url(r'^orden_pago/', 'app.views.orden_pago', name = "orden_pago"),
+    url(r'^editar/', 'app.views.editar', name = "editar"),
     #url(r'^admin/', include(admin.site.urls)),
 )

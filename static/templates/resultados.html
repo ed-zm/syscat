@@ -1,42 +1,159 @@
 {% extends "static/templates/busqueda.html" %}
 {% block resultados %}
 	<div class="form-group">
-		<p><h2>Datos Generales: </h2></p>
 		<p><label>Número de Inscripción :</label>
 			{{datos.numero_inscripcion}}</p>
-		<p><label>Cedula o Rif :</label>
-			{{datos.datos_propietario.cedula_o_rif}}</p>
-		<p><label>Nombre o Razón Social :</label>
-			{{datos.datos_propietario.nombre_o_razon}}</p>
-		<p><label>Dirección del Propietario :</label>
-			{{datos.datos_propietario.direcccion_propietario}}</p>
-		<p><label>Dirección del Inmueble:</label>
-			{{datos.ubicacion_del_inmueble.direccion}}
-		</p>
-		<!--<p><label>Tamaño :</label>
-			{{datos.ubicación_del_inmueble.tamaño}}
-		</p>-->
+		<p><h2>Datos Generales: </h2></p>
+		<p><label>Control Archivo :</label>
+			{{datos.control_archivo}}</p>
+		<p><label>Ficha Catastral N° :</label>
+			{{datos.ficha_catastral}}</p>
+		<p><label>Fecha :</label>
+			{{datos.fecha_inscripcion}}</p>
+		<p><label>Código Catastral :</label>
+			{{datos.codigo_catastral}}</p>
+		<p><h2>Dirección del Inmueble: </h2></p>
+		<p><label>Parroquia :</label>
+			{{datos.Parroquia}}</p>
+		<p><label>Ciudad :</label>
+			{{datos.ciudad}}</p>
+		<p><label>Localidad :</label>
+			{{datos.localidad}}</p>
+		<p><label>Urbanización :</label>
+			{{datos.urbanizacion}}</p>
+		<p><label>Conjunto Residencial :</label>
+			{{datos.conjunto_residencial}}</p>
+		<p><label>Barrio :</label>
+			{{datos.barrio}}</p>
+		<p><label>Sector :</label>
+			{{datos.sector}}</p>
+		<p><label>Direccion :</label>
+			{{datos.direccion_inmueble_op}}&nbsp;{{datos.direccion_inmueble}}</p>
+		<p><label>Entre :</label>
+			{{datos.direccion_inmueble_entre_op}}&nbsp;{{datos.direccion_inmueble_entre}}</p>
+		<p><label>Y :</label>
+			{{datos.direccion_inmueble_y_op}}&nbsp;{{datos.direccion_inmueble_y}}</p>
+		<p><label>Tipo de Inmueble :</label>
+			{{datos.tipo_inmueble_op}}, {{datos.tipo_inmueble}}</p>
+		<p><label>Número Cívico :</label>
+			{{datos.numero_civico}}</p>
+		<p><label>Punto de Referencia :</label>
+			{{datos.punto_referencia_inmueble}}</p>
+		<p><h2>Datos del Ocupante: </h2></p>
+		<p><label>Razón Social :</label>
+			{{datos.nombres_apellidos_o_razon_social_ocupante}}</p>
+		<p><label>Tipo de Persona :</label>
+			{{datos.tipo_persona_ocupante}}</p>
+		<p><label>Cédula o RIF :</label>
+			{{datos.cedula_o_rif_ocupante}}</p>
+		<p><label>Ciudad/Localidad :</label>
+			{{datos.ciudad_o_localidad_ocupante}}</p>
+		<p><label>Tipo de Localidad :</label>
+			{{datos.tipo_localidad_ocupante}}</p>
+		<p><h2>Datos del Propietario: </h2></p>
+		<p><label>Razón Social :</label>
+			{{datos.nombres_apellidos_o_razon_social_propietario}}</p>
+		<p><label>Tipo de Persona :</label>
+			{{datos.tipo_persona_propietario}}</p>
+		<p><label>Cédula o RIF :</label>
+			{{datos.cedula_o_rif_propietario}}</p>
+		<p><label>Ciudad/Localidad :</label>
+			{{datos.ciudad_o_localidad_propietario}}</p>
+		<p><label>Tipo de Localidad :</label>
+			{{datos.tipo_localidad_propietario}}</p>
+		<p><label>Direccion :</label>
+			{{datos.direccion_propietario_op}}&nbsp;{{datos.direccion_propietario}}</p>
+		<p><label>Entre :</label>
+			{{datos.direccion_propietario_entre_op}}&nbsp;{{datos.direccion_propietario_entre}}</p>
+		<p><label>Y :</label>
+			{{datos.direccion_propietario_y_op}}&nbsp;{{datos.direccion_propietario_y}}</p>
+		<p><label>Tipo de Inmueble :</label>
+			{{datos.tipo_inmueble_op}}, {{datos.tipo_inmueble}}</p>
+		<p><label>Número Cívico :</label>
+			{{datos.numero_civico_propietario}}</p>
+		<p><label>Punto de Referencia :</label>
+			{{datos.punto_referencia_propietario}}</p>
 		<p><h2>Datos del Registro Público: </h2></p>
-		<p><label>Doc :</label>
-			{{datos.datos_Registro_publico.doc}}
-		</p>
-		<p><label>Año :</label>
-			{{datos.datos_Registro_publico.ano}}
-		</p>
-		<p><label>Trimestre :</label>
-			{{datos.datos_Registro_publico.trimestre}}
-		</p>
-		<p><label>Protocolo :</label>
-			{{datos.datos_Registro_publico.protocolo}}
-		</p>
-		<p><label>Tomo :</label>
-			{{datos.datos_Registro_publico.tomo}}
+		<p><label>Número :</label>
+			{{datos.datos_registro_publico_numero}}
 		</p>
 		<p><label>Folio :</label>
-			{{datos.datos_Registro_publico.folio}}
+			{{datos.datos_registro_publico_folio}}
+		</p>
+		<p><label>Tomo :</label>
+			{{datos.datos_registro_publico_tomo}}
+		</p>
+		<p><label>Protocolo :</label>
+			{{datos.datos_registro_publico_protocolo}}
 		</p>
 		<p><label>Fecha :</label>
-			{{datos.datos_Registro_publico.fecha}}
+			{{datos.datos_registro_publico_fecha}}
 		</p>
- 	</div>
+		<p><label>Área del Terreno :</label>
+			{{datos.datos_registro_publico_area_terreno}}Mts2
+		</p>
+		<p><label>Área de la Construcción :</label>
+			{{datos.datos_registro_publico_area_construccion}}Mts2
+		</p>
+		<p><label>Monto :</label>
+			{{datos.datos_registro_publico_monto}}
+		</p>
+		<p><h2>Valoración Económica del Terreno: </h2></p>
+		<p><label>Área :</label>
+			{{datos.valoracion_economica_terreno_area}}Mts2
+		</p>
+		<p><label>Valor Unitario :</label>
+			{{datos.valoracion_economica_terreno_valor_unitario}}Bs/Mts2
+		</p>
+		<p><label>Sector :</label>
+			{{datos.valoracion_economica_terreno_sector}}
+		</p>
+		<p><label>Factor de ajuste área :</label>
+			{{datos.valoracion_economica_terreno_factor_ajuste_area}}
+		</p>
+		<p><label>Factor de ajuste forma :</label>
+			{{datos.valoracion_economica_terreno_factor_ajuste_forma}}
+		</p>
+		<p><label>Valor Ajustado :</label>
+			{{datos.valoracion_economica_terreno_valor_ajustado}}Bs/Mts2
+		</p>
+		<p><label>Valor Total:</label>
+			{{datos.valoracion_economica_terreno_valor_total}}
+		</p>
+		<p><label>Área Total:</label>
+			{{datos.valoracion_economica_area_total}}
+		</p>
+		<p><label>Valor total de la Construccion:</label>
+			{{datos.valoracion_economica_construccion}}
+		</p>
+		<p><label>Valor Total del Inmueble:</label>
+			{{datos.valoracion_economica_inmueble}}
+		</p>
+		<p><label>Observaciones de la valoración económica:</label>
+			{{datos.valoracion_economica_observaciones}}
+		</p>
+		<p><h2>Datos de Ubicación: </h2></p>
+		<p><label>Lindero Norte:</label>
+			{{datos.lindero_norte}}
+		</p>
+		<p><label>Lindero Sur:</label>
+			{{datos.lindero_sur}}
+		</p>
+		<p><label>Lindero Este:</label>
+			{{datos.lindero_este}}
+		</p>
+		<p><label>Lindero Oeste:</label>
+			{{datos.lindero_oeste}}
+		</p>
+		<div align = "center" class = "col-lg-9">
+			<p><h2>Observaciones Generales: </h2></p>
+			<p>
+				{{datos.observaciones_generales}}
+			</p>
+		</div><br><br><br><br>
+		<div align = "right" class = "col-lg-9">
+		<form action = "/editar/">
+			<button class="btn btn-danger" type="submit" name = "editar">Editar</button>
+		</form>
+		</div>
 {% endblock %}
