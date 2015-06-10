@@ -138,9 +138,11 @@ def pagoexitoso(request):
 			ano = request.POST['ano']
 			inscripcion = request.POST['inscripcion']
 			trimestre = request.POST['trimestre']
-			documento = users.update_document(ano, inscripcion, trimestre, ahora)
-			print (documento)
+			numero_factura = request.POST['numero_factura']
+			documento = users.update_document(ano, inscripcion, trimestre, ahora, numero_factura)
 			if documento:
+				e = users.contando_pagos()
+				print (e)
 				return render_to_response('static/templates/pagoexitoso.html', {"usuario" : user})
 			else: 
 				return HttpResponse("nada")
@@ -208,7 +210,6 @@ def registro_guardar(request):
 				#ano = request.POST['ano']
 				f['ano'] = ano
 				ins = users.insertar_pago(f)
-				print (ins, registro)
 				if registro and ins:
 					return HttpResponseRedirect('/exitoso')
 				else:
@@ -272,7 +273,8 @@ def generar_reporte(request):
 		t = get_template('reporte.rml')
 		total_dinero = users.contar_pagos() 
 		total_usuarios = users.count()
-		c = Context({"total_dinero" : total_dinero, "total_usuarios" : total_usuarios})  
+		total_pagos = users.total_pagos()
+		c = Context({"total_pagos" : total_pagos, "total_dinero" : total_dinero, "total_usuarios" : total_usuarios, "ahora" : ahora})  
 		rml = t.render(c)
 		r = rml.encode('utf8')
 		buf = BytesIO()
@@ -291,6 +293,7 @@ def generar_reporte(request):
 def orden_pago(request):
 	if active == True:
 		if request.method == 'POST':
+			total = 0
 			ano = request.POST['ano']
 			inscripcion = request.POST['inscripcion']
 			trimestre = request.POST['trimestre']
@@ -307,8 +310,15 @@ def orden_pago(request):
 			total_primero = int(form1['trimestre']['primero']['monto'])
 			total_segundo = int(form1['trimestre']['segundo']['monto'])
 			total_tercero = int(form1['trimestre']['tercero']['monto'])
-			total_cuarto = int(form1['trimestre']['cuarto']['monto']) 
-			total = total_primero+total_segundo+total_tercero+total_cuarto
+			total_cuarto = int(form1['trimestre']['cuarto']['monto'])
+			if form1['trimestre']['primero']['status'] == "Pendiente":
+				total = total+total_primero
+			if form1['trimestre']['segundo']['status'] == "Pendiente":
+				total = total+total_segundo
+			if form1['trimestre']['tercero']['status'] == "Pendiente":
+				total = total+total_tercero
+			if form1['trimestre']['cuarto']['status'] == "Pendiente":
+				total = total+total_cuarto 
 			cedula = form1['cedula_o_rif_propietario']
 			from rlextra.rml2pdf import rml2pdf
 			t = get_template('orden_pago.rml')

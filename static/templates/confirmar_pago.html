@@ -14,15 +14,20 @@
 			<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{formu.inscripcion}}">
 			<input type = "hidden" name = "trimestre" id = "trimestre" value = "{{formu.trimestre}}">
 			<div class="form-group col-lg-6">
-			<label>Adquiriente:</label>
+				<label>Adquiriente:</label>
 				<input class="form-control" id = "adquiriente" name = "adquiriente" required>
 			</div>
 			<div class="form-group col-lg-6">
 				<label>Cédula o RIF del Adquiriente:</label>
 				<input class="form-control" type = "number" id = "cedula_o_rif_adquiriente" name = "cedula_o_rif_adquiriente" onkeypress="return justNumbers(event);" required>
 			</div>
-			<button class="btn btn-primary" type="submit" formaction = "/orden_pago/" name = "cancelar_pago">Orden de Pago</button>
-			<button class="btn btn-default" type="reset" formaction = "/pagos/" name = "cancelar_pago">Limpiar</button>
+			<div class="form-group col-lg-6">
+				<label>Numero de factura:</label>
+				<input class="form-control" type = "number" id = "numero_factura" name = "numero_factura" onkeypress="return justNumbers(event);" required>
+			</div>
+			<div class = "col-lg-9">
+				<button class="btn btn-primary" type="submit" formaction = "/orden_pago/" name = "cancelar_pago">Orden de Pago</button>
+				<button class="btn btn-default" type="reset" formaction = "/pagos/" name = "cancelar_pago">Limpiar</button></div>
 			<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 			<div align = "right">
 				<button class="btn btn-lg btn-danger" type="submit" name = "confirmar_pago"/>Confirmar</button>

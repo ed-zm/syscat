@@ -90,7 +90,7 @@
 		fontSize="9"
 		alignment="right"
 		/>
-		<paraStyle name="intro"  fontName="Helvetica" fontSize="10" leading="12" spaceAfter="12"/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="14" leading="16" spaceAfter="12"/>
 
 	<!--this style used for a tablerow example later on in document-->
 		<blockTableStyle id="simple">
@@ -117,10 +117,14 @@
 
 <story>
 <storyPlace x="2cm" y="18cm" width="20cm" height="6cm" origin = "page">
-<para style="intro">Total de Usuarios Registrados : {{total_usuarios}}</para>
-<para style="intro">Total de Dinero Recaudado : {{total_dinero}}Bs</para>
+<para style="intro">A la fecha [ {{ahora}} ] : </para>
 </storyPlace>
-<storyPlace x="9cm" y="6cm" width="20cm" height="6cm" origin = "page">
+<storyPlace x="2cm" y="17cm" width="20cm" height="6cm" origin = "page">
+<para style="intro">Total de Usuarios Registrados : {{total_usuarios}}</para>
+<para style="intro">Total de Dinero Recaudado : {{total_dinero}}BsF</para>
+<para style="intro">Total de Pagos Realizados : {{total_pagos}}</para>
+</storyPlace>
+<storyPlace x="8cm" y="6cm" width="20cm" height="6cm" origin = "page">
 <para style="intro">DIRECTOR DE CATASTRO.</para>
 <para style="intro">Nombre : Ing. Javier Parra</para>
 <para style="intro">Fecha : _________________</para>

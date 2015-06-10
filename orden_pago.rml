@@ -172,21 +172,21 @@
 </storyPlace>
 <storyPlace x="2cm" y="-1cm" width="20cm" height="6cm" origin="page">
 <para style="intro">Recibido Por: HACIENDA.</para>
-<para style="intro">Nombre : </para>
-<para style="intro">Fecha : </para>
-<para style="intro">Firma : </para>
+<para style="intro">Nombre : ____________</para>
+<para style="intro">Fecha : _____________</para>
+<para style="intro">Firma : _____________</para>
 </storyPlace>
 <storyPlace x="7cm" y="-1cm" width="20cm" height="6cm" origin="page">
 <para style="intro">Entregado Por: SEC. CATASTRO.</para>
 <para style="intro">Nombre : </para>
-<para style="intro">Fecha : </para>
-<para style="intro">Firma : </para>
+<para style="intro">Fecha : {{ahora}}</para>
+<para style="intro">Firma : ________________</para>
 </storyPlace>
 <storyPlace x="14cm" y="-1cm" width="20cm" height="6cm" origin="page">
 <para style="intro">DIRECTOR DE CATASTRO.</para>
 <para style="intro">Nombre : Ing. Javier Parra</para>
-<para style="intro">Fecha : </para>
-<para style="intro">Firma : </para>
+<para style="intro">Fecha : _______________</para>
+<para style="intro">Firma : _______________</para>
 </storyPlace>
 {% if trimestre == "primero" %}
 <storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
@@ -309,6 +309,7 @@
 
 {%if trimestre == "varios"%}
 
+
 <storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
 	<para style="h1pago">Año : </para>
 </storyPlace>
@@ -318,6 +319,7 @@
 <storyPlace x="7.5cm" y="9cm" width="10cm" height="6cm" origin="page">
 	<para style="h1pago">Trimestre : </para>
 </storyPlace>
+{%if formu.trimestre.primero.status == "Pendiente"%}
 <storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
 	<para style="pago">Primero</para>
 </storyPlace>
@@ -326,6 +328,8 @@
 		Monto :  {{formu.trimestre.primero.monto}}BsF
 	</para>
 </storyPlace>
+{%endif%}
+{%if formu.trimestre.segundo.status == "Pendiente"%}
 <storyPlace x="9.5cm" y="8cm" width="10cm" height="6cm" origin="page">
 	<para style="pago">Segundo</para>
 </storyPlace>
@@ -334,6 +338,8 @@
 		Monto :  {{formu.trimestre.segundo.monto}}BsF
 	</para>
 </storyPlace>
+{%endif%}
+{%if formu.trimestre.tercero.status == "Pendiente"%}
 <storyPlace x="9.5cm" y="7cm" width="10cm" height="6cm" origin="page">
 	<para style="pago">Tercero</para>
 </storyPlace>
@@ -342,6 +348,8 @@
 		Monto :  {{formu.trimestre.tercero.monto}}BsF
 	</para>
 </storyPlace>
+{%endif%}
+{%if formu.trimestre.cuarto.status == "Pendiente"%}
 <storyPlace x="9.5cm" y="6cm" width="10cm" height="6cm" origin="page">
 	<para style="pago">Cuarto</para>
 </storyPlace>
@@ -350,6 +358,7 @@
 		Monto :  {{formu.trimestre.cuarto.monto}}BsF
 	</para>
 </storyPlace>
+{%endif%}
 <storyPlace x="12cm" y="0.6cm" width="10.5cm" height="6cm" origin="page">
 	<para style="h1pago">
 		Total a Pagar : 

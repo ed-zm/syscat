@@ -1,0 +1,1925 @@
+<!-- $Id$ -->
+<!--
+DTD for Report Markup Language
+*ALWAYS* CHANGE THIS WHEN A NEW VERSION OF THE RML DTD
+IS RELEASED
+-->
+<!-- These are heavily used in the documentatation.         -->
+<!ENTITY % MajorVersionNumber "1">
+<!ENTITY % MinorVersionNumber "1">
+<!ENTITY % VersionNumber "%MajorVersionNumber;.%MinorVersionNumber;">
+<!-- this is an entity for use outside the DTD -->
+<!ENTITY RMLId "$URL$ $Revision$ $Date$">
+<!ENTITY RMLVersionNumber " %VersionNumber;">
+<!ENTITY RMLVersionString "RML Version">
+<!ENTITY RMLDTDFileName "rml.dtd">
+<!ENTITY % RMLDTDFileName "rml.dtd">
+<!-- These entities provide support for including dynamic RML.  In this DTD they evaluate to
+nothing.  In Dynamic RML they are replaced with listings of the logic tags, thereby allowing that
+DTD to inherit this one easily.-->
+<!ENTITY % ACQUIREQM "">
+<!ENTITY % LOGIC_EXPR "">
+<!ENTITY % LOGIC_GRAPHICS "">
+<!ENTITY % LOGIC_BLOCK "">
+<!ENTITY % LOGIC_INLINE "">
+<!ENTITY % LOGIC_TABLE "">
+
+<!ENTITY % LOGTAGS "(log | debug | info | warn | error | critical)*">
+<!ENTITY % STRINGFORMS "(#PCDATA | name | getName | pageNumber | evalString %LOGIC_INLINE;)*">
+
+
+<!ELEMENT document (%ACQUIREQM; docinit?, ((template, stylesheet, story) | (stylesheet, pageInfo?, (pageDrawing)+)))>
+
+<!-- userPass & ownerPass specify encryption
+	 permissions can be blank separated list of values from print copy annotate modify; default is print
+	 encryptionStrenth specifies 40 or 128 bit encryption default 128-->
+<!ATTLIST document
+    filename CDATA #REQUIRED
+    compression (0 | 1 | default) #IMPLIED
+    invariant (0 | 1 | default) #IMPLIED
+    debug (0 | 1) #IMPLIED
+    colorSpace (MIXED | RGB | CMYK | SEP | SEP_BLACK | SEP_CMYK) #IMPLIED
+	userPass CDATA #IMPLIED
+	ownerPass CDATA #IMPLIED
+	permissions CDATA #IMPLIED
+	encryptionStrength CDATA #IMPLIED 
+>
+<!-- pageInfo, used to specify canvas parameters for simple docs -->
+<!ELEMENT pageInfo EMPTY>
+<!ATTLIST pageInfo
+    pageSize CDATA #IMPLIED
+    title CDATA #IMPLIED
+    author CDATA #IMPLIED
+    subject CDATA #IMPLIED
+    creator CDATA #IMPLIED
+    keywords CDATA #IMPLIED
+	displayDocTitle (yes | no | 0 | 1 | true | false | none) "none"
+	lang CDATA #IMPLIED
+>
+<!-- 
+DEPRECATED.  You should use namedString instead.
+-->
+<!ELEMENT name EMPTY>
+<!ATTLIST name
+    id CDATA #REQUIRED
+    value CDATA #REQUIRED
+    type CDATA "string"
+>
+
+
+<!-- namedString differs from name in that it defines an internal 
+variable when it is encountered and used (not when parsed).
+Do not use in <docinit> as it will have no effect. (Can we fix this?)
+
+Typical use: a page template may have dynamic chapter headings,
+images or colour schemes.   Define the value before the page
+break, then <nextPage/> or <nextFrame/> will use the new
+value when the template is drawn.
+
+<namedString> is commonly used in the story.  It has no visible
+effect and consumes no space.
+
+See test_042_longdoc.rml.
+
+-->
+
+<!ELEMENT namedString %STRINGFORMS;>
+<!ATTLIST namedString
+    id CDATA #REQUIRED
+    type CDATA "string"
+    default CDATA #IMPLIED
+>
+
+
+
+<!-- 'alias' creates a new name for an existing object   -->
+<!-- eg can be used to have duplicate names for styles   -->
+<!-- THIS NEEDS SCOPING TO BE REALLY USEFUL              -->
+<!ELEMENT alias EMPTY>
+<!ATTLIST alias
+    id CDATA #REQUIRED
+    value CDATA #REQUIRED
+>
+<!-- This is a generic key-value parameter thingy used in
+several contexts. -->
+<!ELEMENT param (#PCDATA)>
+<!ATTLIST param
+    name CDATA #REQUIRED
+>
+<!-- this yanks information from 'name' -->
+<!ELEMENT getName EMPTY>
+<!ATTLIST getName
+    id CDATA #REQUIRED
+    default CDATA #IMPLIED
+>
+<!ELEMENT color EMPTY>
+<!ATTLIST color
+    id CDATA #REQUIRED
+    RGB CDATA #IMPLIED
+    CMYK CDATA #IMPLIED
+    alias CDATA #IMPLIED
+    spotName CDATA #IMPLIED
+    density CDATA #IMPLIED
+>
+<!ELEMENT length EMPTY>
+<!ATTLIST length
+    id CDATA #REQUIRED
+    value CDATA #REQUIRED
+>
+<!--
+    registerType1Face - read in type 1 font face information for global use
+-->
+<!ELEMENT registerType1Face EMPTY>
+<!ATTLIST registerType1Face
+    afmFile CDATA #REQUIRED
+    pfbFile CDATA #REQUIRED
+>
+<!--
+    registerFont - associate a font name to a face combined with an encoding
+-->
+<!ELEMENT registerFont EMPTY>
+<!ATTLIST registerFont
+    name CDATA #REQUIRED
+    faceName CDATA #REQUIRED
+    encName CDATA #IMPLIED
+>
+<!ELEMENT registerCidFont EMPTY>
+<!ATTLIST registerCidFont
+    faceName CDATA #REQUIRED
+    encName CDATA #IMPLIED
+>
+<!ELEMENT registerTTFont EMPTY>
+<!ATTLIST registerTTFont
+    faceName CDATA #REQUIRED
+    fileName CDATA #REQUIRED
+>
+<!ELEMENT registerFontFamily EMPTY>
+<!ATTLIST registerFontFamily
+    normal CDATA #REQUIRED
+    bold CDATA #IMPLIED
+    italic CDATA #IMPLIED
+    boldItalic CDATA #IMPLIED
+    >
+<!ELEMENT pageNumber EMPTY>
+<!ATTLIST pageNumber
+    countingFrom CDATA #IMPLIED
+>
+
+<!ELEMENT br EMPTY>
+
+
+<!ELEMENT template (pageTemplate*)>
+<!ATTLIST template
+    pageSize CDATA #IMPLIED
+    leftMargin CDATA #IMPLIED
+    rightMargin CDATA #IMPLIED
+    topMargin CDATA #IMPLIED
+    bottomMargin CDATA #IMPLIED
+    showBoundary CDATA #IMPLIED
+    allowSplitting CDATA #IMPLIED
+    firstPageTemplate CDATA #IMPLIED
+
+    title CDATA "(untitled)"
+    author CDATA "(unauthored)"
+    subject CDATA "(unspecified)"
+    creator CDATA "(unspecified)"
+    keywords CDATA #IMPLIED
+	displayDocTitle (yes | no | 0 | 1 | true | false | none) "none"
+	lang CDATA #IMPLIED
+
+    rotation CDATA #IMPLIED
+>
+<!ELEMENT pageTemplate ((pageGraphics, pageGraphics?)?, frame*)>
+<!ATTLIST pageTemplate
+    id CDATA #REQUIRED
+    pageSize CDATA #IMPLIED
+    rotation CDATA #IMPLIED
+    autoNextTemplate CDATA #IMPLIED
+>
+<!-- DRAWINGOPS is for use with pageGraphics -->
+<!--
+###########################################################################
+# Highly experimental stuff:
+# added below:
+#   - textBox
+#   - barCode
+###########################################################################
+-->
+<!ENTITY % DRAWINGOPS "(saveState | restoreState
+	| drawString | drawRightString | drawCentredString | drawCenteredString
+    | ellipse | alias | catchForms | outlineAdd | namedString | bookmarkPage | bookmark
+    | circle | rect | fill | stroke | overprint | setFont | setFontSize | image 
+    | pageGraphics | place | form | doForm | plugInGraphic
+    | scale | translate | rotate | skew | transform
+    | grid | path | lines | curves | lineMode 
+    | textBox | barCode | checkBox | letterBoxes | textAnnotation | textField 
+    | drawIf %LOGIC_GRAPHICS;)*">
+<!-- A form is a stored and named bunch of graphical operations
+     It will only be "evaluated" once, so any page numbers or names
+     in it will become fixed after the first occurrence (if it occurs
+     in another form or in a pageGraphic, for example)
+-->
+<!ELEMENT form %DRAWINGOPS;>
+<!ATTLIST form
+    name CDATA #REQUIRED
+>
+<!-- pageGraphics provide for a graphic backdrop for a WHOLE page-->
+<!ELEMENT pageGraphics %DRAWINGOPS;>
+
+<!ELEMENT path (#PCDATA | moveto | curvesto)*>
+<!ATTLIST path
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    fill CDATA #IMPLIED
+    stroke CDATA #IMPLIED
+    close CDATA #IMPLIED
+    clip CDATA #IMPLIED
+>
+<!ELEMENT moveto (#PCDATA)>
+<!ELEMENT curvesto (#PCDATA)>
+<!ELEMENT rotate EMPTY>
+<!ATTLIST rotate
+    degrees CDATA #REQUIRED
+>
+<!ELEMENT skew EMPTY>
+<!ATTLIST skew
+    alpha CDATA #REQUIRED
+    beta CDATA #REQUIRED
+>
+<!ELEMENT lineMode EMPTY>
+<!ATTLIST lineMode
+    join CDATA #IMPLIED
+    cap CDATA #IMPLIED
+    width CDATA #IMPLIED
+    miterLimit CDATA #IMPLIED
+    dash CDATA #IMPLIED
+>
+<!ELEMENT lines (#PCDATA)>
+<!ELEMENT transform (#PCDATA)>
+<!ELEMENT curves (#PCDATA)>
+<!ELEMENT scale EMPTY>
+<!ATTLIST scale
+    sx CDATA #IMPLIED
+    sy CDATA #IMPLIED
+>
+<!--    catchForms provides direct support for PageCatcher form storage files.
+    It is a drawing operation.  It requires pageCatcher module on the python
+    path.
+
+    Example usage:
+
+    <pageDrawing>
+     <catchForms storageFile="storage.data"/> or <catchForms pdfFile="aaa.pdf" pfx="PF" pages="all"/>
+     <doForm name="PF0"/>
+    </pageDrawing>
+
+    (if storage.data is a pageCatcher storage file containing form "PF0").
+    use pdfFile to restore direct from a pdf file
+    pfx is prefix for pdfFile forms
+    pages is space separated pdfFile pages we use or "all"
+-->
+<!ELEMENT catchForms EMPTY>
+<!ATTLIST catchForms
+    storageFile CDATA #IMPLIED
+    pdfFile CDATA #IMPLIED
+    pfx CDATA #IMPLIED
+    pages CDATA #IMPLIED
+>
+<!-- outlineAdd adds an outline entry.  It may occur in either graphics
+     or in a story.  The level specifies how deep in the outline the
+     entry appears. The default level is 0.
+
+     Note: in order to add a level 3 outline entry the previous outline
+     entry must be at least level 2 (2,3,4...).  That is to say, you can
+     "move back" any number of levels, but you can only "move forward" one level
+     at a time.
+
+     "closed" if set hides any children of this outline entry by default.
+     (boolean).
+
+EXAMPLE:
+
+<outlineAdd>First outline entry</outlineAdd>
+<outlineAdd level="1">sub entry</outlineAdd>
+<outlineAdd closed="true">Second outline entry 2</outlineAdd>
+<outlineAdd level="1">sub entry 2</outlineAdd>
+
+-->
+<!ELEMENT outlineAdd %STRINGFORMS;>
+<!ATTLIST outlineAdd
+    level CDATA #IMPLIED
+    closed CDATA #IMPLIED
+    name CDATA #IMPLIED
+    newBookmark (yes | no | 0 | 1 | none) #IMPLIED
+>
+<!ELEMENT bookmarkPage EMPTY>
+<!ATTLIST bookmarkPage
+    name CDATA #REQUIRED
+    fit (XYZ|Fit|FitH|FitV|FitR) #IMPLIED
+    top CDATA #IMPLIED
+    bottom CDATA #IMPLIED
+    left CDATA #IMPLIED
+    right CDATA #IMPLIED
+    zoom CDATA #IMPLIED
+>
+<!ELEMENT bookmark EMPTY>
+<!ATTLIST bookmark
+    name CDATA #REQUIRED
+    x CDATA #IMPLIED
+    y CDATA #IMPLIED
+>
+<!ELEMENT translate EMPTY>
+<!ATTLIST translate
+    dx CDATA #IMPLIED
+    dy CDATA #IMPLIED
+>
+<!ELEMENT grid EMPTY>
+<!ATTLIST grid
+    xs CDATA #IMPLIED
+    ys CDATA #IMPLIED
+>
+<!ELEMENT join EMPTY>
+<!ATTLIST join
+    type CDATA #REQUIRED
+>
+<!-- if image file is empty then inlineData must be present and vice-versa
+	 alt_file specifies an alternate image file if file specified and is missing
+	 if file is present and is not found then an exception is raised unless required=False
+-->
+<!ELEMENT image (inlineData?)>
+<!ATTLIST image
+    file CDATA #REQUIRED
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
+    inline CDATA #IMPLIED
+    transparency_mask CDATA "auto"
+    preserveAspectRatio (yes | no | 0 | 1) #IMPLIED
+    showBoundary (yes | no | 0 | 1) #IMPLIED
+    anchor (n|ne|e|se|s|sw|w|nw|c) #IMPLIED
+    pdfBoxType (MediaBox | CropBox| TrimBox | BleedBox | ArtBox) #IMPLIED
+    required (yes | no | 0 | 1 | true | false) "true"
+	alt_file CDATA #IMPLIED
+    type (pdf|bitmap)	#IMPLIED
+	pdfPageNumber CDATA "1"
+>
+<!ELEMENT inlineData (#PCDATA)>
+<!--inlineData filters is a space separated list of filters which are applied in order
+	 allowed filters are
+	 base64 | ascii85 | bzip2 | gzip
+	 -->
+<!ATTLIST inlineData
+	filters CDATA #REQUIRED
+	>
+<!ELEMENT setFont EMPTY>
+<!ATTLIST setFont
+    name CDATA #REQUIRED
+    size CDATA #REQUIRED
+    leading CDATA #IMPLIED
+>
+<!ELEMENT setFontSize EMPTY>
+<!ATTLIST setFontSize
+    size CDATA #IMPLIED
+    leading CDATA #IMPLIED
+>
+<!ELEMENT stroke EMPTY>
+<!ATTLIST stroke
+    color CDATA #REQUIRED
+    width CDATA #IMPLIED
+>
+<!ELEMENT fill EMPTY>
+<!ATTLIST fill
+    color CDATA #REQUIRED
+>
+
+<!ELEMENT overprint EMPTY>
+<!ATTLIST overprint
+    mode (overprint | knockout) #REQUIRED
+>
+
+
+<!ELEMENT rect EMPTY>
+<!ATTLIST rect
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #REQUIRED
+    height CDATA #REQUIRED
+    fill CDATA #IMPLIED
+    stroke CDATA #IMPLIED
+    round CDATA #IMPLIED
+    href CDATA #IMPLIED
+    destination CDATA #IMPLIED
+>
+<!ELEMENT circle EMPTY>
+<!ATTLIST circle
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    radius CDATA #REQUIRED
+    fill CDATA #IMPLIED
+    stroke CDATA #IMPLIED
+>
+<!ELEMENT ellipse EMPTY>
+<!ATTLIST ellipse
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #REQUIRED
+    height CDATA #REQUIRED
+    fill CDATA #IMPLIED
+    stroke CDATA #IMPLIED
+>
+
+<!ELEMENT textBox %STRINGFORMS;>
+<!ATTLIST textBox
+    style CDATA ""
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    boxWidth CDATA #REQUIRED
+    boxHeight CDATA #REQUIRED
+    labelFontName CDATA #IMPLIED
+    labelFontSize CDATA #IMPLIED
+    labelTextColor CDATA #IMPLIED
+    labelOffsetX CDATA #IMPLIED
+    labelOffsetY CDATA #IMPLIED
+    boxStrokeColor CDATA #IMPLIED
+    boxFillColor CDATA #IMPLIED
+    textColor CDATA #IMPLIED
+    lineWidth CDATA #IMPLIED
+    fontName CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    align CDATA #IMPLIED
+    vAlign CDATA #IMPLIED
+    shrinkToFit CDATA #IMPLIED
+    label CDATA #IMPLIED
+    borderSpec CDATA #IMPLIED
+>
+<!ELEMENT checkBox EMPTY>
+<!ATTLIST checkBox
+    style CDATA ""
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    label CDATA #IMPLIED
+    labelFontName CDATA #IMPLIED
+    labelFontSize CDATA #IMPLIED
+    labelTextColor CDATA #IMPLIED
+    labelOffsetX CDATA #IMPLIED
+    labelOffsetY CDATA #IMPLIED
+    boxWidth CDATA #IMPLIED
+    boxHeight CDATA #IMPLIED
+    checkStrokeColor CDATA #IMPLIED
+    boxStrokeColor CDATA #IMPLIED
+    boxFillColor CDATA #IMPLIED
+    lineWidth CDATA #IMPLIED
+    line1 CDATA #IMPLIED
+    line2 CDATA #IMPLIED
+    line3 CDATA #IMPLIED
+    checked CDATA #IMPLIED
+    bold CDATA #IMPLIED
+    graphicOn CDATA #IMPLIED
+    graphicOff CDATA #IMPLIED
+>
+<!ELEMENT letterBoxes %STRINGFORMS;>
+<!ATTLIST letterBoxes
+    style CDATA ""
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    count CDATA #REQUIRED
+    label CDATA #IMPLIED
+    labelFontName CDATA #IMPLIED
+    labelFontSize CDATA #IMPLIED
+    labelTextColor CDATA #IMPLIED
+    labelOffsetX CDATA #IMPLIED
+    labelOffsetY CDATA #IMPLIED
+    boxWidth CDATA #IMPLIED
+    boxGap CDATA #IMPLIED
+    boxExtraGaps CDATA #IMPLIED
+    boxHeight CDATA #IMPLIED
+    combHeight CDATA #IMPLIED
+    boxStrokeColor CDATA #IMPLIED
+    boxFillColor CDATA #IMPLIED
+    textColor CDATA #IMPLIED
+    lineWidth CDATA #IMPLIED
+    fontName CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    alignment CDATA #IMPLIED
+    
+>
+
+<!--
+The barCodeFlowable has these parameters
+
+value           -all- value to be displayed
+code            -all- name of the bar code type
+fontName        -all- fontName for humanReadable text
+tracking        USPS_4State tracking value if used
+routing         USPS_4State routing value if used
+barStrokeColor  -all-   color of the bar edges
+barFillColor    -all-   color of the bar fill
+textColor       -all-   color of any human readable text
+barStrokeWidth  -all-   width of bars
+gap             -all-   gap between bars
+ratio           I2of5
+bearers         Codabar Code11 Extended39 I2of5 MSI Standard39
+                whether bearers are to be displayed
+
+barHeight       Codabar Code11 Code128 Extended39 Extended93 FIM
+                I2of5 MSI POSTNET Standard39 Standard93
+                bar height
+barWidth        Codabar Code11 Code128 Extended39 Extended93 FIM
+                I2of5 MSI POSTNET Standard39 Standard93
+fontSize        -all- of human readable text
+spaceWidth      FIM POSTNET gap between bars for these widgets
+widthSize       USPS_4State scale in 0-1 for the width
+heightSize      USPS_4State scale in 0-1 for the height
+
+checksum        Codabar Code11 Extended39 I2of5 MSI Standard39
+quiet           Codabar Code11 Code128 Extended39 Extended93 FIM I2of5 MSI
+                Standard39 Standard93 quiet zones
+lquiet          Codabar Code11 Code128 Extended39 Extended93 FIM I2of5 MSI
+                Standard39 Standard93 left quiet zone
+rquiet          Codabar Code11 Code128 Extended39 Extended93 FIM I2of5 MSI
+                Standard39 Standard93
+humanReadable   -all-   1 for add human readable text
+stop            Codabar Code11 Extended39 Extended93 I2of5 MSI Standard39
+                Standard93 if stop bits are to be used
+-->
+<!ELEMENT barCodeFlowable EMPTY>
+<!ATTLIST barCodeFlowable
+    code (I2of5 | Code128 | Standard93 | Extended93 |
+        Standard39 | Extended39 | MSI | Codabar |
+        Code11 | FIM | POSTNET | USPS_4State | EAN8 | EAN13 | QR) #REQUIRED
+    value CDATA #REQUIRED
+    fontName CDATA #IMPLIED
+    tracking CDATA #IMPLIED
+    routing CDATA #IMPLIED
+
+    barStrokeColor CDATA #IMPLIED
+    barFillColor CDATA #IMPLIED
+    textColor CDATA #IMPLIED
+
+    barStrokeWidth CDATA #IMPLIED
+    gap CDATA #IMPLIED
+    ratio CDATA #IMPLIED
+    bearers CDATA #IMPLIED
+    barHeight CDATA #IMPLIED
+    barWidth CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    spaceWidth CDATA #IMPLIED
+    spaceHeight CDATA #IMPLIED
+    widthSize CDATA #IMPLIED
+    heightSize CDATA #IMPLIED
+
+    
+
+    checksum (-1 | 0 | 1 | 2) #IMPLIED
+    quiet (yes | no | 0 | 1) #IMPLIED
+    lquiet (yes | no | 0 | 1) #IMPLIED
+    rquiet (yes | no | 0 | 1) #IMPLIED
+    humanReadable (yes | no | 0 | 1) #IMPLIED
+    stop (yes | no | 0 | 1) #IMPLIED
+    >
+
+<!ELEMENT barCode %STRINGFORMS;>
+<!--
+The barCode drawing op has the same attributes as the barCodeFlowable and has x and y origin coords as well.
+The contents string is the value to encode. You may use the value attribute as well,
+but not together with content ie
+
+<barCode value="VALUE".../> or <barCode ...>VALUE</barCode>
+
+-->
+<!ATTLIST barCode
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+
+    code (I2of5 | Code128 | Standard93 | Extended93 |
+        Standard39 | Extended39 | MSI | Codabar |
+        Code11 | FIM | POSTNET | USPS_4State | EAN8 | EAN13 | QR) #REQUIRED
+    value CDATA #IMPLIED
+    fontName CDATA #IMPLIED
+    tracking CDATA #IMPLIED
+    routing CDATA #IMPLIED
+
+    barStrokeColor CDATA #IMPLIED
+    barFillColor CDATA #IMPLIED
+    textColor CDATA #IMPLIED
+
+    barStrokeWidth CDATA #IMPLIED
+    gap CDATA #IMPLIED
+    ratio CDATA #IMPLIED
+    bearers CDATA #IMPLIED
+    barHeight CDATA #IMPLIED
+    barWidth CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    spaceWidth CDATA #IMPLIED
+    spaceHeight CDATA #IMPLIED
+    widthSize CDATA #IMPLIED
+    heightSize CDATA #IMPLIED
+
+    
+
+    checksum (-1 | 0 | 1 | 2) #IMPLIED
+    quiet (yes | no | 0 | 1) #IMPLIED
+    lquiet (yes | no | 0 | 1) #IMPLIED
+    rquiet (yes | no | 0 | 1) #IMPLIED
+    humanReadable (yes | no | 0 | 1) #IMPLIED
+    stop (yes | no | 0 | 1) #IMPLIED
+>
+
+
+
+<!-- a plugInGraphic identifies a function (callable) in a module which
+   takes a canvas and a data string as arguments and presumably draws
+   something on the canvas using information in the data string: eg
+
+    <plugInGraphic module="mymodule" function="myfunction>data string</plugInGraphic>
+
+   when executed results in effectively the execution sequence:
+
+    import mymodule
+    mymodule.myfunction(canvas, "data string")
+
+   using the current canvas object
+-->
+<!ELEMENT plugInGraphic %STRINGFORMS;>
+<!ATTLIST plugInGraphic
+    baseDir CDATA #IMPLIED
+    module CDATA #REQUIRED
+    function CDATA #REQUIRED
+>
+<!-- a plugInFlowable identifies a function (callable) in a module which
+   takes a canvas data string as an argument and returns a flowable
+   object (in the platypus sense):
+
+    <plugInFlowable module="mymodule" function="myfunction>data string</plugInGraphic>
+
+   when executed results in effectively the execution sequence:
+
+    import mymodule
+    flowable = mymodule.myfunction("data string")
+    story.append(flowable)
+
+   using the current canvas object
+-->
+<!ELEMENT plugInFlowable %STRINGFORMS;>
+<!ATTLIST plugInFlowable
+    baseDir CDATA #IMPLIED
+    module CDATA #REQUIRED
+    function CDATA #REQUIRED
+>
+<!ELEMENT drawing (caption?, (param | widget)*)>
+<!ATTLIST drawing
+    baseDir CDATA #IMPLIED
+    module CDATA #REQUIRED
+    function CDATA #REQUIRED
+    hAlign CDATA #IMPLIED
+    showBoundary CDATA #IMPLIED
+>
+<!ELEMENT figure (para?, drawing)>
+<!ATTLIST figure
+    showBoundary CDATA #IMPLIED
+    shrinkToFit CDATA #IMPLIED
+    growToFit CDATA #IMPLIED
+    scaleFactor CDATA #IMPLIED
+    showBoundary CDATA #IMPLIED
+    growToFit CDATA #IMPLIED
+    caption CDATA #IMPLIED
+    captionFont CDATA #IMPLIED
+    captionSize CDATA #IMPLIED
+    captionGap CDATA #IMPLIED
+    captionColor CDATA #IMPLIED
+	captionAlign (center|centre|left|right|CENTER|CENTRE|LEFT|RIGHT) #IMPLIED
+	captionPosition (top|bottom) #IMPLIED
+    spaceAfter CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    align (center|centre|left|right|CENTER|CENTRE|LEFT|RIGHT) #IMPLIED
+>
+<!ELEMENT widget (#PCDATA)>
+<!ATTLIST widget
+    baseDir CDATA #IMPLIED
+    module CDATA #REQUIRED
+    function CDATA #REQUIRED
+    name CDATA #IMPLIED
+    initargs CDATA #IMPLIED
+>
+<!-- execute a previously defined form (add translate option?) -->
+<!ELEMENT doForm EMPTY>
+<!ATTLIST doForm
+    name CDATA #REQUIRED
+>
+<!ELEMENT saveState EMPTY>
+<!ELEMENT restoreState EMPTY>
+
+<!-- in the draw/place /Right/Centered/Centred String
+	mode is an integer
+		0 = Fill text
+		1 = Stroke text
+		2 = Fill then stroke
+		3 = Invisible
+		4 = Fill text and add to clipping path
+		5 = Stroke text and add to clipping path
+		6 = Fill then stroke and add to clipping path
+		7 = Add to clipping path
+
+	charSpace is a length to insert bwteen characters
+-->
+<!ELEMENT drawString %STRINGFORMS;>
+<!ATTLIST drawString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+>
+<!ELEMENT drawRightString %STRINGFORMS;>
+<!ATTLIST drawRightString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+>
+<!--for brits -->
+<!ELEMENT drawCentredString %STRINGFORMS;>
+<!ATTLIST drawCentredString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+>
+<!--for americans -->
+<!ELEMENT drawCenteredString %STRINGFORMS;>
+<!ATTLIST drawCenteredString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+>
+<!ELEMENT placeString %STRINGFORMS;>
+<!ATTLIST placeString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+    origin (page | frame | local) #IMPLIED
+>
+<!ELEMENT placeRightString %STRINGFORMS;>
+<!ATTLIST placeRightString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+    origin (page | frame | local) #IMPLIED
+>
+<!--for brits -->
+<!ELEMENT placeCentredString %STRINGFORMS;>
+<!ATTLIST placeCentredString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+    origin (page | frame | local) #IMPLIED
+>
+<!--for americans -->
+<!ELEMENT placeCenteredString %STRINGFORMS;>
+<!ATTLIST placeCenteredString
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	mode CDATA #IMPLIED
+	charSpace CDATA #IMPLIED
+    origin (page | frame | local) #IMPLIED
+>
+<!-- eval string <evalString><pageNumber/> - <getName id="prefixEnd"/></namedString>
+     evaluates to the result of evaluation. (security problem: should be disabled in insecure environment)
+  -->
+<!ELEMENT evalString %STRINGFORMS;>
+<!ATTLIST evalString
+    imports CDATA #IMPLIED
+    default CDATA #IMPLIED
+>
+<!--
+<textAnnotation><param name="Rect">0,0,1,1</param><param name="F">3</param><param name="escape">6</param>This is the contents
+of the text annotation
+</textAnnotation>
+-->
+<!ELEMENT textAnnotation (#PCDATA | param)*>
+<!ELEMENT frame EMPTY>
+<!ATTLIST frame
+    id CDATA #REQUIRED
+    x1 CDATA #REQUIRED
+    y1 CDATA #REQUIRED
+    width CDATA #REQUIRED
+    height CDATA #REQUIRED
+    overlapAttachedSpace (0 | 1) #IMPLIED
+>
+<!ELEMENT textField (#PCDATA | param)*>
+<!--by default we take the values from the attributes which will all have sensible defaults
+but we allow <param> tags to also be used
+
+it is an error to define the attributes twice
+This approach allows us to have expressions inside the param values which may be useful
+-->
+<!ATTLIST textField
+    id CDATA #IMPLIED
+    value CDATA #IMPLIED
+    x CDATA #IMPLIED
+    y CDATA #IMPLIED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
+    maxlen CDATA #IMPLIED
+    multiline CDATA #IMPLIED
+>
+<!ELEMENT stylesheet ((initialize?, (paraStyle | boxStyle | blockTableStyle|listStyle)*)*)>
+<!ELEMENT initialize ((alias | name | color | length)*)>
+<!-- In the following elements, "block" refers to a square or rectangular region of
+a table - not necessarily a single cell. The table is called a "blockTable" to keep
+it consistent with all the tags that deal with what appears inside it -->
+<!ELEMENT blockTableStyle (blockSpan | blockFont | blockLeading | blockTextColor | blockAlignment | blockLeftPadding | blockRightPadding | blockBottomPadding | blockTopPadding | blockBackground | blockValign | lineStyle)*>
+<!ATTLIST blockTableStyle
+    id CDATA #REQUIRED
+    parent CDATA #IMPLIED
+    keepWithNext CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    spaceAfter CDATA #IMPLIED
+>
+<!ELEMENT lineStyle EMPTY>
+<!ATTLIST lineStyle
+    kind CDATA #REQUIRED
+    thickness CDATA #IMPLIED
+    colorName CDATA #REQUIRED
+    cap (butt | round | square) #IMPLIED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+    count CDATA #IMPLIED
+    space CDATA #IMPLIED
+    dash CDATA #IMPLIED
+>
+<!ELEMENT blockFont EMPTY>
+<!ATTLIST blockFont
+    name CDATA #REQUIRED
+    size CDATA #IMPLIED
+    leading CDATA #IMPLIED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockTextColor EMPTY>
+<!ATTLIST blockTextColor
+    colorName CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockLeading EMPTY>
+<!ATTLIST blockLeading
+    length CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockAlignment EMPTY>
+<!ATTLIST blockAlignment
+    value CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockValign EMPTY>
+<!ATTLIST blockValign
+    value CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockLeftPadding EMPTY>
+<!ATTLIST blockLeftPadding
+    length CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockRightPadding EMPTY>
+<!ATTLIST blockRightPadding
+    length CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockBottomPadding EMPTY>
+<!ATTLIST blockBottomPadding
+    length CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockTopPadding EMPTY>
+<!ATTLIST blockTopPadding
+    length CDATA #REQUIRED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockBackground EMPTY>
+<!ATTLIST blockBackground
+    colorName CDATA #IMPLIED
+    colorsByRow CDATA #IMPLIED
+    colorsByCol CDATA #IMPLIED
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT blockSpan EMPTY>
+<!ATTLIST blockSpan
+    start CDATA #IMPLIED
+    stop CDATA #IMPLIED
+>
+<!ELEMENT paraStyle EMPTY>
+<!ATTLIST paraStyle
+    name CDATA #REQUIRED
+    alias CDATA #IMPLIED
+    parent CDATA #IMPLIED
+    fontName CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    leading CDATA #IMPLIED
+    leftIndent CDATA #IMPLIED
+    rightIndent CDATA #IMPLIED
+    firstLineIndent CDATA #IMPLIED
+    alignment CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    spaceAfter CDATA #IMPLIED
+	bulletColor CDATA #IMPLIED
+    bulletFontName CDATA #IMPLIED
+    bulletFontSize CDATA #IMPLIED
+    bulletIndent CDATA #IMPLIED
+    bulletOffsetY CDATA #IMPLIED
+	bulletText CDATA #IMPLIED
+	bulletAnchor (start|middle|end|numeric) #IMPLIED
+    textColor CDATA #IMPLIED
+    backColor CDATA #IMPLIED
+    pageBreakBefore CDATA #IMPLIED
+    frameBreakBefore CDATA #IMPLIED
+    keepWithNext CDATA #IMPLIED
+    wordWrap (normal | CJK) #IMPLIED
+    borderWidth CDATA #IMPLIED
+    borderColor CDATA #IMPLIED
+    borderRadius CDATA #IMPLIED
+    borderPadding CDATA #IMPLIED
+    autoLeading (min|max|off) #IMPLIED 
+    textTransform (none|lowercase|uppercase|capitalize) #IMPLIED
+    allowWidows CDATA #IMPLIED
+    allowOrphans CDATA #IMPLIED 
+    bulletColor CDATA #IMPLIED
+	bulletText CDATA #IMPLIED
+	endDots CDATA #IMPLIED
+	endDotsColor CDATA #IMPLIED
+	endDotsFontName CDATA #IMPLIED
+	endDotsFontSize CDATA #IMPLIED
+	endDotsDy CDATA #IMPLIED
+>
+<!ELEMENT boxStyle EMPTY>
+<!ATTLIST boxStyle
+    name CDATA #REQUIRED
+    alias CDATA #IMPLIED
+    parent CDATA #IMPLIED
+    fontName CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    alignment CDATA #IMPLIED
+    textColor CDATA #IMPLIED
+    labelFontName CDATA #IMPLIED
+    labelFontSize CDATA #IMPLIED
+    labelAlignment CDATA #IMPLIED
+    labelTextColor CDATA #IMPLIED
+    boxFillColor CDATA #IMPLIED
+    boxStrokeColor CDATA #IMPLIED
+    cellWidth CDATA #IMPLIED
+    cellHeight CDATA #IMPLIED
+    borderSpec CDATA #IMPLIED
+>
+<!ENTITY % GENERICFLOWABLES "para | blockTable | title | h1 | h2 | h3 | h4 | h5 | h6 | spacer | ul | ol | dl
+        | illustration | graphicsMode | storyPlace | pre | xpre | codesnippet | plugInFlowable | drawing | outlineAdd | namedString
+		| bookmarkPage | bookmark | name | hr | indent | frameBackground
+        | fixedSize | keepInFrame | imageAndFlowables | imageFigure | figure | barCodeFlowable | keepTogether
+        | docWhile | docIf | docAssign | docExec | docAssert | docPara | showIndex | topPadder
+        | pto | placeString | placeRightString | placeCentredString | placeCenteredString 
+		| placePara | placeXPre
+		%LOGIC_BLOCK;">
+<!--anything which can go in the story-->
+<!ENTITY % TOPLEVEL "( %GENERICFLOWABLES; | alias
+        | nextPage | nextPageIfNotEmpty | nextFrame | setNextFrame | setNextTemplate | switchTemplate | condPageBreak | includePdfPages 
+        | log | warn | debug | info | error | critical)*">
+<!--anything which can go in the story plus raw text - used in table cells-->
+<!ENTITY % TOPLEVEL2 "(#PCDATA %LOGIC_EXPR; | %GENERICFLOWABLES;)*">
+<!-- place places a flowable inside a pageGraphic or illustration -->
+
+<!ENTITY % BORDER_ATTRS "
+    borderStrokeWidth CDATA #IMPLIED
+    borderStrokeColor CDATA #IMPLIED
+    borderFillColor CDATA #IMPLIED
+    borderDash CDATA #IMPLIED"
+    >
+<!ELEMENT place (%GENERICFLOWABLES;)*>
+<!ATTLIST place
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #REQUIRED
+    height CDATA #REQUIRED
+    %BORDER_ATTRS;
+>
+<!ELEMENT storyPlace (%GENERICFLOWABLES;)*>
+<!ATTLIST storyPlace
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+    width CDATA #REQUIRED
+    height CDATA #REQUIRED
+    origin (page | frame | local) #IMPLIED
+    %BORDER_ATTRS;
+>
+<!ELEMENT indent (%TOPLEVEL;)*>
+<!ATTLIST indent
+    left CDATA #IMPLIED
+    right CDATA #IMPLIED
+>
+
+<!ELEMENT frameBackground EMPTY>
+<!ATTLIST frameBackground
+    left CDATA #IMPLIED
+    right CDATA #IMPLIED
+    color CDATA #IMPLIED
+	start (yes | no | 0 | 1) #IMPLIED
+>
+
+<!ELEMENT fixedSize (%TOPLEVEL;)*>
+<!ATTLIST fixedSize
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
+>
+<!ELEMENT keepTogether (%GENERICFLOWABLES;)*>
+<!ATTLIST keepTogether
+    maxHeight CDATA #IMPLIED
+>
+<!ELEMENT keepInFrame (%TOPLEVEL;)*>
+<!ATTLIST keepInFrame
+    frame CDATA #IMPLIED
+    maxWidth CDATA #IMPLIED
+    maxHeight CDATA #IMPLIED
+    mergeSpace CDATA #IMPLIED
+    onOverflow (error | overflow | shrink | truncate) #IMPLIED
+    id CDATA #IMPLIED
+	fakeWidth (yes | no | 0 | 1) #IMPLIED
+>
+<!ELEMENT imageAndFlowables (inlineData?,(%TOPLEVEL;))*>
+<!ATTLIST imageAndFlowables
+    imageName CDATA #REQUIRED
+    imageWidth CDATA #IMPLIED
+    imageHeight CDATA #IMPLIED
+    imageMask CDATA "auto"
+    imageLeftPadding CDATA #IMPLIED
+    imageRightPadding CDATA #IMPLIED
+    imageTopPadding CDATA #IMPLIED
+    imageBottomPadding CDATA #IMPLIED
+    imageSide (left|right) #IMPLIED
+    imageHref CDATA #IMPLIED
+    imageType (pdf|bitmap)	#IMPLIED
+    preserveAspectRatio (yes | no | 0 | 1) #IMPLIED
+    pdfBoxType (MediaBox | CropBox| TrimBox | BleedBox | ArtBox) #IMPLIED
+    required (yes | no | 0 | 1 | true | false) "true"
+	alt_file CDATA #IMPLIED
+	pdfPageNumber CDATA "1"
+>
+<!ELEMENT imageFigure (para?,inlineData?)>
+<!ATTLIST imageFigure
+    imageName CDATA #REQUIRED
+    imageWidth CDATA #IMPLIED
+    imageHeight CDATA #IMPLIED
+    imageMask CDATA "auto"
+    imageType (pdf|bitmap)	#IMPLIED
+    preserveAspectRatio (yes | no | 0 | 1) #IMPLIED
+    pdfBoxType (MediaBox | CropBox | TrimBox | BleedBox | ArtBox) #IMPLIED
+    pdfPageNumber CDATA "1"
+    showBoundary CDATA #IMPLIED
+    shrinkToFit CDATA #IMPLIED
+    growToFit CDATA #IMPLIED
+    caption CDATA #IMPLIED
+    captionFont CDATA #IMPLIED
+    captionSize CDATA #IMPLIED
+    captionGap CDATA #IMPLIED
+    captionColor CDATA #IMPLIED
+	captionAlign (center|centre|left|right|CENTER|CENTRE|LEFT|RIGHT) #IMPLIED
+	captionPosition (top|bottom) #IMPLIED
+    spaceAfter CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    align (center|centre|left|right|CENTER|CENTRE|LEFT|RIGHT) #IMPLIED
+    >
+<!ELEMENT pto_trailer (%TOPLEVEL;)*>
+<!ELEMENT pto_header (%TOPLEVEL;)*>
+<!ELEMENT pto (pto_trailer?, pto_header?, (%TOPLEVEL;)*)>
+<!ELEMENT nextPage EMPTY>
+<!ATTLIST nextPage
+    slow (yes | no | 0 | 1) #IMPLIED
+    suppressFirst (yes | no | 0 | 1) #IMPLIED
+	name CDATA #IMPLIED
+>
+<!ELEMENT nextPageIfNotEmpty EMPTY>
+<!ATTLIST nextPageIfNotEmpty
+    suppressFirst (yes | no | 0 | 1) #IMPLIED
+	name CDATA #IMPLIED
+>
+<!ELEMENT nextFrame EMPTY>
+<!ATTLIST nextFrame name CDATA #IMPLIED>
+<!ELEMENT setNextFrame EMPTY>
+<!ATTLIST setNextFrame name CDATA #REQUIRED>
+
+<!ELEMENT setNextTemplate EMPTY>
+<!ATTLIST setNextTemplate
+    name CDATA #REQUIRED
+>
+<!ELEMENT switchTemplate EMPTY>
+<!ATTLIST switchTemplate
+	name CDATA #REQUIRED
+>
+<!-- conditional page break -->
+<!ELEMENT condPageBreak EMPTY>
+<!ATTLIST condPageBreak
+    height CDATA #REQUIRED
+    suppressFirst (yes | no | 0 | 1) #IMPLIED
+>
+<!-- An illustration differs from pageGraphics in that is is 
+contained by a 'box' of space in the same way that an illustration 
+in a book is. It can be anywhere on a page - unlike pageGraphics 
+which must start at the origin -->
+<!ELEMENT illustration %DRAWINGOPS;>
+<!ATTLIST illustration
+    height CDATA #REQUIRED
+    width CDATA #REQUIRED
+    align CDATA #IMPLIED
+    %BORDER_ATTRS;
+>
+<!-- storyGraphics draws on the page, default origin is 'page' -->
+<!ELEMENT graphicsMode %DRAWINGOPS;>
+<!ATTLIST graphicsMode
+    origin (page | frame | local) #IMPLIED
+    %BORDER_ATTRS;
+>
+<!ELEMENT story %TOPLEVEL;>
+<!ATTLIST story
+    firstPageTemplate CDATA #IMPLIED
+>
+
+<!ELEMENT spacer EMPTY>
+<!ATTLIST spacer
+    length CDATA #REQUIRED
+    width CDATA #IMPLIED
+    isGlue	(yes | no | 0 | 1 | true | false) #IMPLIED
+>
+<!ENTITY % PARASTUFF "(#PCDATA | b | a | u | greek | font | span | sup | super | sub | br | strike
+            | pageNumber | evalString | seq | seqDefault | seqReset | seqFormat | seqChain | img | index
+            | name | getName | i | bullet | unichar | link | setLink | onDraw %LOGIC_INLINE;
+            )*">
+<!ENTITY % PARA_ATTRS "
+    bulletText CDATA #IMPLIED
+    alignment CDATA #IMPLIED
+    bulletColor CDATA #IMPLIED
+    bulletFontName CDATA #IMPLIED
+    bulletFontSize CDATA #IMPLIED
+    bulletIndent CDATA #IMPLIED
+    bulletAnchor (start|middle|end|numeric) #IMPLIED
+    bulletOffsetY CDATA #IMPLIED
+    firstLineIndent CDATA #IMPLIED
+    fontName CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    leading CDATA #IMPLIED
+    leftIndent CDATA #IMPLIED
+    rightIndent CDATA #IMPLIED
+    spaceAfter CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    textColor CDATA #IMPLIED
+    autoLeading (min|max|off) #IMPLIED"
+    >
+<!--
+    orientation one of auto 0 90 180 270 portrait landscape should just work
+                default is do nothing
+	autoCrop true/false for using cropbox
+			 name of a box to use a specific box for cropping
+			 [x0,y0,  x1,y1] for a specified crop area
+			 default don't crop
+	pageSize default None ie leave page size alone
+				'set' adjust page size to incoming box
+				'fit' scale incoming box to fit page size
+				'orthfit' orthogonally scale incoming box to fit
+				'center' or 'centre' center the incoming box in
+				the existing page size
+				or [x0,y0, x1,y1]
+    pdfBoxType MediaBox | CropBox| TrimBox | BleedBox | ArtBox
+				or [x0,y0, x1,y1]
+				default None is don't care about the box at all
+-->
+<!ELEMENT includePdfPages EMPTY>
+<!ATTLIST includePdfPages
+    filename CDATA #REQUIRED
+    pages CDATA #IMPLIED
+    template CDATA #IMPLIED
+    outlineText CDATA #IMPLIED
+    outlineLevel CDATA #IMPLIED
+    outlineClosed CDATA #IMPLIED
+    leadingFrame (yes | no | 0 | 1 | notAtTop) #IMPLIED
+    isdata (yes|no|0|1) #IMPLIED
+    orientation CDATA #IMPLIED
+    sx CDATA #IMPLIED
+    sy CDATA #IMPLIED
+    dx CDATA #IMPLIED
+    dy CDATA #IMPLIED
+    degrees CDATA #IMPLIED
+    pdfBoxType CDATA #IMPLIED
+	autoCrop CDATA #IMPLIED
+	pageSize CDATA #IMPLIED
+>
+<!ELEMENT pre %STRINGFORMS;>
+<!ATTLIST pre
+    style CDATA "pre.defaultStyle"
+    maxLineLength CDATA #IMPLIED
+    splitChars CDATA #IMPLIED
+    newLineChars CDATA #IMPLIED
+>
+<!ELEMENT xpre %PARASTUFF;>
+<!ATTLIST xpre
+    style CDATA "pre.defaultStyle"
+    %PARA_ATTRS;
+>
+
+<!--Code snippets
+If pygments is installed, you can pass in Pygments lexer names
+to get colorised code snippets.
+
+-->
+
+<!ELEMENT codesnippet %STRINGFORMS;>
+<!ATTLIST codesnippet
+    style CDATA #IMPLIED
+    language CDATA #IMPLIED
+    maxLineLength CDATA #IMPLIED
+    splitChars CDATA #IMPLIED
+    newLineChars CDATA #IMPLIED
+>
+<!-- html style list constructs -->
+<!ELEMENT dl ((dt | dd)*)>
+<!-- for now term cannot contain subtags -->
+<!ELEMENT dt ((%GENERICFLOWABLES;)*)>
+<!ELEMENT dd ((%GENERICFLOWABLES;)*)>
+<!ATTLIST dl
+	ddLeftIndent CDATA #IMPLIED
+	ddRightIndent CDATA #IMPLIED
+    >
+<!ENTITY % LIST_MAIN_ATTRS "
+	style			CDATA	#IMPLIED
+	leftIndent		CDATA	#IMPLIED
+	rightIndent		CDATA	#IMPLIED
+	spaceBefore		CDATA	#IMPLIED
+	spaceAfter		CDATA	#IMPLIED
+	bulletAlign		CDATA	#IMPLIED
+    bulletType 		CDATA	#IMPLIED
+    bulletColor 	CDATA	#IMPLIED
+    bulletFontName 	CDATA	#IMPLIED
+    bulletFontSize 	CDATA	#IMPLIED
+    bulletOffsetY 	CDATA	#IMPLIED
+	bulletDedent	CDATA	#IMPLIED
+	bulletDir		CDATA	#IMPLIED
+	bulletFormat	CDATA	#IMPLIED"
+    >
+<!ELEMENT listStyle EMPTY>
+<!ATTLIST listStyle
+    name CDATA #REQUIRED
+    alias CDATA #IMPLIED
+    parent CDATA #IMPLIED
+	start CDATA #IMPLIED
+	%LIST_MAIN_ATTRS;
+	>
+
+<!ELEMENT ul (li*)>
+<!ATTLIST ul
+	start	CDATA	#IMPLIED
+	%LIST_MAIN_ATTRS;
+    >
+<!ELEMENT ol (li*)>
+<!ATTLIST ol
+	start	CDATA	#IMPLIED
+	%LIST_MAIN_ATTRS;
+    >
+<!ELEMENT li ((%GENERICFLOWABLES;)+)>
+<!ATTLIST li
+	value CDATA #IMPLIED
+	%LIST_MAIN_ATTRS;
+    >
+<!ELEMENT para %PARASTUFF;>
+<!ATTLIST para
+    style CDATA "para.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ENTITY % PLACEPARA_ATTRS "
+    %PARA_ATTRS;
+    x CDATA #REQUIRED
+    y CDATA #REQUIRED
+	anchor (
+		nw  | n  | ne  |
+		nwl | nl | nel |
+		nwb | nb | neb |
+
+		e	| c  | w   |
+
+		swt | st | set |
+		swl | sl | sel |
+		sw  | s  | se )	#IMPLIED
+    origin (page | frame | local) #IMPLIED"
+	>
+<!ELEMENT placePara %PARASTUFF;>
+<!ATTLIST placePara
+    style CDATA "para.defaultStyle"
+    width CDATA #REQUIRED
+    %PLACEPARA_ATTRS;
+    >
+<!ELEMENT placeXPre %PARASTUFF;>
+<!ATTLIST placeXPre
+    style CDATA "pre.defaultStyle"
+    width CDATA #IMPLIED
+    %PLACEPARA_ATTRS;
+>
+<!ELEMENT bullet %PARASTUFF;>
+<!ATTLIST bullet
+    bulletColor CDATA #IMPLIED
+    bulletFontName CDATA #IMPLIED
+    bulletFontSize CDATA #IMPLIED
+    bulletIndent CDATA #IMPLIED
+    bulletOffsetY CDATA #IMPLIED
+    bulletAnchor (start|middle|end|numeric) #IMPLIED
+    >
+<!ELEMENT b %PARASTUFF;>
+<!-- u - underline - should add colors etc. -->
+<!ELEMENT u %PARASTUFF;>
+<!-- a href html style linking -->
+<!ELEMENT a %PARASTUFF;>
+<!ATTLIST a
+    color CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    fontName  CDATA #IMPLIED
+    name CDATA #IMPLIED
+    backcolor CDATA #IMPLIED
+    href CDATA #IMPLIED
+    >
+<!-- link - internal pdf link -->
+<!ELEMENT link %PARASTUFF;>
+<!ATTLIST link
+    destination CDATA #REQUIRED
+    color CDATA #IMPLIED
+    >
+<!-- setLink - define the link (Really only set at first point) -->
+<!ELEMENT setLink %PARASTUFF;>
+<!ATTLIST setLink
+    destination CDATA #REQUIRED
+    color CDATA #IMPLIED
+    >
+<!ELEMENT i %PARASTUFF;>
+<!ELEMENT font %PARASTUFF;>
+<!ATTLIST font
+    face CDATA #IMPLIED
+    color CDATA #IMPLIED
+    size CDATA #IMPLIED
+    backcolor CDATA #IMPLIED
+    >
+<!ELEMENT span %PARASTUFF;>
+<!ATTLIST span
+    style CDATA #IMPLIED
+    face CDATA #IMPLIED
+    color CDATA #IMPLIED
+    size CDATA #IMPLIED
+    backcolor CDATA #IMPLIED
+    >
+<!ELEMENT img EMPTY>
+<!ATTLIST img
+    src CDATA #REQUIRED
+    width CDATA #IMPLIED
+    height CDATA #IMPLIED
+    valign CDATA #IMPLIED
+    >
+<!ELEMENT greek %PARASTUFF;>
+<!ELEMENT super %PARASTUFF;>
+<!ELEMENT sup %PARASTUFF;>
+<!ELEMENT sub %PARASTUFF;>
+<!ELEMENT strike %PARASTUFF;>
+
+<!ELEMENT seq EMPTY>
+<!ATTLIST seq
+    id CDATA #IMPLIED
+    template CDATA #IMPLIED
+    inc CDATA #IMPLIED
+    >
+<!-- seqdefault and seqreset are used in paragraph numbering -->
+<!-- or any sequence of consecutive numbers                  -->
+<!ELEMENT seqDefault EMPTY>
+<!ATTLIST seqDefault
+    id CDATA #REQUIRED
+>
+<!ELEMENT seqReset EMPTY>
+<!ATTLIST seqReset
+    id CDATA #IMPLIED
+>
+<!ELEMENT seqChain EMPTY>
+<!ATTLIST seqChain
+    order NMTOKENS #IMPLIED
+>
+<!ELEMENT seqFormat EMPTY>
+<!ATTLIST seqFormat
+    id CDATA #IMPLIED
+    value (1 | i | I | a | A) #IMPLIED
+>
+<!ELEMENT unichar EMPTY>
+<!ATTLIST unichar
+    name CDATA #IMPLIED
+    code CDATA #IMPLIED
+>
+<!ELEMENT onDraw EMPTY>
+<!ATTLIST onDraw
+    name CDATA #IMPLIED
+    label CDATA #IMPLIED
+>
+
+<!ELEMENT title %PARASTUFF;>
+<!ATTLIST title
+    style CDATA "h1.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT h1 %PARASTUFF;>
+<!ATTLIST h1
+    style CDATA "h1.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT h2 %PARASTUFF;>
+<!ATTLIST h2
+    style CDATA "h2.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT h3 %PARASTUFF;>
+<!ATTLIST h3
+    style CDATA "h3.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT h4 %PARASTUFF;>
+<!ATTLIST h4
+    style CDATA "h4.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT h5 %PARASTUFF;>
+<!ATTLIST h5
+    style CDATA "h5.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT h6 %PARASTUFF;>
+<!ATTLIST h6
+    style CDATA "h6.defaultStyle"
+    %PARA_ATTRS;
+    >
+<!ELEMENT hr EMPTY>
+<!ATTLIST hr
+    lineCap (butt | round | square) #IMPLIED
+    width CDATA #IMPLIED
+    thickness CDATA #IMPLIED
+    align CDATA #IMPLIED
+    color CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    spaceAfter CDATA #IMPLIED
+    dash CDATA #IMPLIED
+>
+<!ELEMENT docElse EMPTY>
+<!ELEMENT docIf (((%TOPLEVEL;)*),(docElse,(%TOPLEVEL;)*)?)>
+<!ATTLIST docIf
+    cond CDATA #REQUIRED
+>
+<!ELEMENT docWhile (%TOPLEVEL;)*>
+<!ATTLIST docWhile
+    cond CDATA #REQUIRED
+>
+<!ENTITY % DOCLT "life (page|frame|build|forever) #IMPLIED">
+<!ELEMENT docAssign EMPTY>
+<!ATTLIST docAssign
+    var CDATA #REQUIRED
+    expr CDATA #REQUIRED
+    %DOCLT;
+>
+<!ELEMENT docExec EMPTY>
+<!ATTLIST docExec
+    stmt CDATA #REQUIRED
+    %DOCLT;
+>
+<!ELEMENT docAssert EMPTY>
+<!ATTLIST docAssert
+    cond CDATA #REQUIRED
+    format CDATA #IMPLIED
+>
+<!ELEMENT docPara EMPTY>
+<!ATTLIST docPara
+    expr CDATA #REQUIRED
+    format CDATA #IMPLIED
+    style CDATA #IMPLIED
+    escape (yes | no | 0 | 1) #IMPLIED
+>
+<!-- AND SIMILARLY FOR H2, ETC (LATER) -->
+<!ELEMENT bulkData (#PCDATA)>
+<!ATTLIST bulkData
+    stripBlock (yes | no) #IMPLIED
+    stripLines (yes | no) #IMPLIED
+    stripFields (yes | no) #IMPLIED
+    fieldDelim CDATA #IMPLIED
+    recordDelim CDATA #IMPLIED
+>
+<!ELEMENT excelData EMPTY>
+<!ATTLIST excelData
+       fileName CDATA #REQUIRED
+       sheetName CDATA #REQUIRED
+       range CDATA #IMPLIED
+       rangeName CDATA #IMPLIED
+>
+<!ENTITY % TABLEROWMODEL "(tr %LOGIC_TABLE;)*">
+<!ELEMENT blockTable (blockTableStyle?, (bulkData | excelData | (%TABLEROWMODEL;)*))>
+<!ATTLIST blockTable
+    style CDATA #IMPLIED
+    colWidths CDATA #IMPLIED
+    rowHeights CDATA #IMPLIED
+    splitByRow CDATA #IMPLIED
+    repeatRows CDATA #IMPLIED
+    repeatCols CDATA #IMPLIED
+    align CDATA #IMPLIED
+    vAlign CDATA #IMPLIED
+	htmlSpans CDATA #IMPLIED
+	ident CDATA #IMPLIED
+    spaceBefore CDATA #IMPLIED
+    spaceAfter CDATA #IMPLIED
+	rowSplitRange CDATA #IMPLIED
+>
+<!-- *NB* repeatRows can be a list  eg (1,) to only repeat the second row of
+	 the table (rows are zero based) or an integer eg 2 to indicate the first
+	 two rows should be repeated. -->
+<!ELEMENT tr (td+)>
+<!ATTLIST tr
+    noSplitRowCount CDATA #IMPLIED
+    >
+<!ELEMENT td %TOPLEVEL2;>
+<!ATTLIST td
+    fontName CDATA #IMPLIED
+    fontSize CDATA #IMPLIED
+    fontColor CDATA #IMPLIED
+    leading CDATA #IMPLIED
+    leftPadding CDATA #IMPLIED
+    rightPadding CDATA #IMPLIED
+    topPadding CDATA #IMPLIED
+    bottomPadding CDATA #IMPLIED
+    background CDATA #IMPLIED
+    align CDATA #IMPLIED
+    vAlign CDATA #IMPLIED
+    lineBelowThickness CDATA #IMPLIED
+    lineBelowColor CDATA #IMPLIED
+    lineBelowCap (butt | round | square) #IMPLIED
+    lineBelowCount CDATA #IMPLIED
+    lineBelowSpace CDATA #IMPLIED
+    lineAboveThickness CDATA #IMPLIED
+    lineAboveColor CDATA #IMPLIED
+    lineAboveCap (butt | round | square) #IMPLIED
+    lineAboveCount CDATA #IMPLIED
+    lineAboveSpace CDATA #IMPLIED
+    lineLeftThickness CDATA #IMPLIED
+    lineLeftColor CDATA #IMPLIED
+    lineLeftCap (butt | round | square) #IMPLIED
+    lineLeftCount CDATA #IMPLIED
+    lineLeftSpace CDATA #IMPLIED
+    lineRightThickness CDATA #IMPLIED
+    lineRightColor CDATA #IMPLIED
+    lineRightCap (butt | round | square) #IMPLIED
+    lineRightCount CDATA #IMPLIED
+    lineRightSpace CDATA #IMPLIED
+    href CDATA #IMPLIED
+    destination CDATA #IMPLIED
+    rowspan CDATA #IMPLIED
+    colspan CDATA #IMPLIED
+>
+<!ELEMENT topPadder (%GENERICFLOWABLES;)>
+
+<!-- <!ELEMENT pre  (#PCDATA )> -->
+<!-- pageDrawing is for use with simple documents - 
+it specifies one page at a time -->
+<!ELEMENT pageDrawing %DRAWINGOPS;>
+<!--ENTITIES-->
+<!-- RML should always be used with UTF-8 encoding - the following entities 
+are the only ones that should be neccesary.
+-->
+<!ENTITY Aacute "&#xc1;">
+<!ENTITY aacute "&#xe1;">
+<!ENTITY Acirc "&#xc2;">
+<!ENTITY acirc "&#xe2;">
+<!ENTITY acute "&#xb4;">
+<!ENTITY AElig "&#xc6;">
+<!ENTITY aelig "&#xe6;">
+<!ENTITY Agrave "&#xc0;">
+<!ENTITY agrave "&#xe0;">
+<!ENTITY alefsym "&#x2135;">
+<!ENTITY Alpha "&#x391;">
+<!ENTITY alpha "&#x3b1;">
+<!ENTITY and "&#x2227;">
+<!ENTITY ang "&#x2220;">
+<!ENTITY Aring "&#xc5;">
+<!ENTITY aring "&#xe5;">
+<!ENTITY asymp "&#x2248;">
+<!ENTITY Atilde "&#xc3;">
+<!ENTITY atilde "&#xe3;">
+<!ENTITY Auml "&#xc4;">
+<!ENTITY auml "&#xe4;">
+<!ENTITY bdquo "&#x201e;">
+<!ENTITY Beta "&#x392;">
+<!ENTITY beta "&#x3b2;">
+<!ENTITY brvbar "&#xa6;">
+<!ENTITY bull "&#x2022;">
+<!ENTITY cap "&#x2229;">
+<!ENTITY Ccedil "&#xc7;">
+<!ENTITY ccedil "&#xe7;">
+<!ENTITY cedil "&#xb8;">
+<!ENTITY cent "&#xa2;">
+<!ENTITY Chi "&#x3a7;">
+<!ENTITY chi "&#x3c7;">
+<!ENTITY circ "&#x2c6;">
+<!ENTITY clubs "&#x2663;">
+<!ENTITY cong "&#x2245;">
+<!ENTITY copy "&#xa9;">
+<!ENTITY crarr "&#x21b5;">
+<!ENTITY cup "&#x222a;">
+<!ENTITY curren "&#xa4;">
+<!ENTITY dagger "&#x2020;">
+<!ENTITY Dagger "&#x2021;">
+<!ENTITY darr "&#x2193;">
+<!ENTITY dArr "&#x21d3;">
+<!ENTITY deg "&#xb0;">
+<!ENTITY Delta "&#x2206;">
+<!ENTITY delta "&#x3b4;">
+<!ENTITY diams "&#x2666;">
+<!ENTITY divide "&#xf7;">
+<!ENTITY Eacute "&#xc9;">
+<!ENTITY eacute "&#xe9;">
+<!ENTITY Ecirc "&#xca;">
+<!ENTITY ecirc "&#xea;">
+<!ENTITY Egrave "&#xc8;">
+<!ENTITY egrave "&#xe8;">
+<!ENTITY empty "&#x2205;">
+<!ENTITY emsp "&#x2003;">
+<!ENTITY ensp "&#x2002;">
+<!ENTITY Epsilon "&#x395;">
+<!ENTITY epsilon "&#x3b5;">
+<!ENTITY epsiv "&#x3b5;">
+<!ENTITY equiv "&#x2261;">
+<!ENTITY Eta "&#x397;">
+<!ENTITY eta "&#x3b7;">
+<!ENTITY ETH "&#xd0;">
+<!ENTITY eth "&#xf0;">
+<!ENTITY Euml "&#xcb;">
+<!ENTITY euml "&#xeb;">
+<!ENTITY euro "&#x20ac;">
+<!ENTITY exist "&#x2203;">
+<!ENTITY fnof "&#x192;">
+<!ENTITY forall "&#x2200;">
+<!ENTITY frac12 "&#xbd;">
+<!ENTITY frac14 "&#xbc;">
+<!ENTITY frac34 "&#xbe;">
+<!ENTITY frasl "&#x2044;">
+<!ENTITY Gamma "&#x393;">
+<!ENTITY gamma "&#x3b3;">
+<!ENTITY ge "&#x2265;">
+<!ENTITY harr "&#x2194;">
+<!ENTITY hArr "&#x21d4;">
+<!ENTITY hearts "&#x2665;">
+<!ENTITY hellip "&#x2026;">
+<!ENTITY Iacute "&#xcd;">
+<!ENTITY iacute "&#xed;">
+<!ENTITY Icirc "&#xce;">
+<!ENTITY icirc "&#xee;">
+<!ENTITY iexcl "&#xa1;">
+<!ENTITY Igrave "&#xcc;">
+<!ENTITY igrave "&#xec;">
+<!ENTITY image "&#x2111;">
+<!ENTITY infin "&#x221e;">
+<!ENTITY int "&#x222b;">
+<!ENTITY Iota "&#x399;">
+<!ENTITY iota "&#x3b9;">
+<!ENTITY iquest "&#xbf;">
+<!ENTITY isin "&#x2208;">
+<!ENTITY Iuml "&#xcf;">
+<!ENTITY iuml "&#xef;">
+<!ENTITY Kappa "&#x39a;">
+<!ENTITY kappa "&#x3ba;">
+<!ENTITY Lambda "&#x39b;">
+<!ENTITY lambda "&#x3bb;">
+<!ENTITY lang "&#x2329;">
+<!ENTITY laquo "&#xab;">
+<!ENTITY larr "&#x2190;">
+<!ENTITY lArr "&#x21d0;">
+<!ENTITY lceil "&#xf8ee;">
+<!ENTITY ldquo "&#x201c;">
+<!ENTITY le "&#x2264;">
+<!ENTITY lfloor "&#xf8f0;">
+<!ENTITY lowast "&#x2217;">
+<!ENTITY loz "&#x25ca;">
+<!ENTITY lrm "&#x200e;">
+<!ENTITY lsaquo "&#x2039;">
+<!ENTITY lsquo "&#x2018;">
+<!ENTITY macr "&#xaf;">
+<!ENTITY mdash "&#x2014;">
+<!ENTITY micro "&#xb5;">
+<!ENTITY middot "&#xb7;">
+<!ENTITY minus "&#x2212;">
+<!ENTITY Mu "&#x39c;">
+<!ENTITY mu "&#xb5;">
+<!ENTITY nabla "&#x2207;">
+<!ENTITY Nacute "&#x143;">
+<!ENTITY nacute "&#x144;">
+<!ENTITY nbsp "&#xa0;">
+<!ENTITY ndash "&#x2013;">
+<!ENTITY ne "&#x2260;">
+<!ENTITY ni "&#x220b;">
+<!ENTITY not "&#xac;">
+<!ENTITY notin "&#x2209;">
+<!ENTITY nsub "&#x2284;">
+<!ENTITY Ntilde "&#xd1;">
+<!ENTITY ntilde "&#xf1;">
+<!ENTITY Nu "&#x39d;">
+<!ENTITY nu "&#x3bd;">
+<!ENTITY Oacute "&#xd3;">
+<!ENTITY oacute "&#xf3;">
+<!ENTITY Ocirc "&#xd4;">
+<!ENTITY ocirc "&#xf4;">
+<!ENTITY OElig "&#x152;">
+<!ENTITY oelig "&#x153;">
+<!ENTITY Ograve "&#xd2;">
+<!ENTITY ograve "&#xf2;">
+<!ENTITY oline "&#xf8e5;">
+<!ENTITY Omega "&#x2126;">
+<!ENTITY omega "&#x3c9;">
+<!ENTITY Omicron "&#x39f;">
+<!ENTITY omicron "&#x3bf;">
+<!ENTITY oplus "&#x2295;">
+<!ENTITY or "&#x2228;">
+<!ENTITY ordf "&#xaa;">
+<!ENTITY ordm "&#xba;">
+<!ENTITY Oslash "&#xd8;">
+<!ENTITY oslash "&#xf8;">
+<!ENTITY Otilde "&#xd5;">
+<!ENTITY otilde "&#xf5;">
+<!ENTITY otimes "&#x2297;">
+<!ENTITY Ouml "&#xd6;">
+<!ENTITY ouml "&#xf6;">
+<!ENTITY para "&#xb6;">
+<!ENTITY part "&#x2202;">
+<!ENTITY permil "&#x2030;">
+<!ENTITY perp "&#x22a5;">
+<!ENTITY Phi "&#x3a6;">
+<!ENTITY phi "&#x3d5;">
+<!ENTITY phis "&#x3c6;">
+<!ENTITY Pi "&#x3a0;">
+<!ENTITY pi "&#x3c0;">
+<!ENTITY piv "&#x3d6;">
+<!ENTITY plusmn "&#xb1;">
+<!ENTITY pound "&#xa3;">
+<!ENTITY prime "&#x2032;">
+<!ENTITY Prime "&#x2033;">
+<!ENTITY prod "&#x220f;">
+<!ENTITY prop "&#x221d;">
+<!ENTITY Psi "&#x3a8;">
+<!ENTITY psi "&#x3c8;">
+<!ENTITY radic "&#x221a;">
+<!ENTITY rang "&#x232a;">
+<!ENTITY raquo "&#xbb;">
+<!ENTITY rarr "&#x2192;">
+<!ENTITY rArr "&#x21d2;">
+<!ENTITY rceil "&#xf8f9;">
+<!ENTITY rdquo "&#x201d;">
+<!ENTITY real "&#x211c;">
+<!ENTITY reg "&#xae;">
+<!ENTITY rfloor "&#xf8fb;">
+<!ENTITY Rho "&#x3a1;">
+<!ENTITY rho "&#x3c1;">
+<!ENTITY rlm "&#x200f;">
+<!ENTITY rsaquo "&#x203a;">
+<!ENTITY rsquo "&#x2019;">
+<!ENTITY sbquo "&#x201a;">
+<!ENTITY Scaron "&#x160;">
+<!ENTITY scaron "&#x161;">
+<!ENTITY sdot "&#x22c5;">
+<!ENTITY sect "&#xa7;">
+<!ENTITY shy "&#xad;">
+<!ENTITY Sigma "&#x3a3;">
+<!ENTITY sigma "&#x3c3;">
+<!ENTITY sigmaf "&#x3c2;">
+<!ENTITY sigmav "&#x3c2;">
+<!ENTITY sim "&#x223c;">
+<!ENTITY spades "&#x2660;">
+<!ENTITY sub "&#x2282;">
+<!ENTITY sube "&#x2286;">
+<!ENTITY sum "&#x2211;">
+<!ENTITY sup "&#x2283;">
+<!ENTITY sup1 "&#xb9;">
+<!ENTITY sup2 "&#xb2;">
+<!ENTITY sup3 "&#xb3;">
+<!ENTITY supe "&#x2287;">
+<!ENTITY szlig "&#xdf;">
+<!ENTITY Tau "&#x3a4;">
+<!ENTITY tau "&#x3c4;">
+<!ENTITY there4 "&#x2234;">
+<!ENTITY Theta "&#x398;">
+<!ENTITY theta "&#x3b8;">
+<!ENTITY thetasym "&#x3d1;">
+<!ENTITY thetav "&#x3d1;">
+<!ENTITY thinsp "&#x2009;">
+<!ENTITY THORN "&#xde;">
+<!ENTITY thorn "&#xfe;">
+<!ENTITY tilde "&#x2dc;">
+<!ENTITY times "&#xd7;">
+<!ENTITY trade "&#xf8ea;">
+<!ENTITY Uacute "&#xda;">
+<!ENTITY uacute "&#xfa;">
+<!ENTITY uarr "&#x2191;">
+<!ENTITY uArr "&#x21d1;">
+<!ENTITY Ucirc "&#xdb;">
+<!ENTITY ucirc "&#xfb;">
+<!ENTITY Ugrave "&#xd9;">
+<!ENTITY ugrave "&#xf9;">
+<!ENTITY uml "&#xa8;">
+<!ENTITY upsih "&#x3d2;">
+<!ENTITY Upsilon "&#x3a5;">
+<!ENTITY upsilon "&#x3c5;">
+<!ENTITY Uuml "&#xdc;">
+<!ENTITY uuml "&#xfc;">
+<!ENTITY weierp "&#x2118;">
+<!ENTITY Xi "&#x39e;">
+<!ENTITY xi "&#x3be;">
+<!ENTITY Yacute "&#xdd;">
+<!ENTITY yacute "&#xfd;">
+<!ENTITY yen "&#xa5;">
+<!ENTITY Yuml "&#x178;">
+<!ENTITY yuml "&#xff;">
+<!ENTITY Zeta "&#x396;">
+<!ENTITY zeta "&#x3b6;">
+<!ENTITY zwj "&#x200d;">
+<!ENTITY zwnj "&#x200c;">
+
+<!-- these tags put hooks into Python's logging mechanism -->
+<!ELEMENT logConfig EMPTY>
+<!ATTLIST logConfig
+    level (DEBUG | INFO | WARNING | ERROR | CRITICAL) #IMPLIED
+    format CDATA #IMPLIED
+    filename CDATA #IMPLIED
+    filemode (WRITE | APPEND) #IMPLIED
+    datefmt CDATA #IMPLIED
+>
+
+<!ELEMENT log %STRINGFORMS;>
+<!ATTLIST log level (DEBUG | INFO | WARNING | ERROR | CRITICAL) #IMPLIED>
+
+<!--short for log level="debug" -->
+<!ELEMENT debug %STRINGFORMS;>
+<!ELEMENT info %STRINGFORMS;>
+<!ELEMENT warning %STRINGFORMS;>
+<!ELEMENT error %STRINGFORMS;>
+<!ELEMENT critical %STRINGFORMS;>
+
+<!ELEMENT docinit (
+        alias | 
+        color | 
+        name | 
+        namedString | 
+        outlineAdd | 
+        registerType1Face | 
+        registerFont | 
+        registerCidFont | 
+        registerTTFont |
+        registerFontFamily |
+        logConfig |
+        cropMarks |
+        startIndex
+        )*>
+
+<!ELEMENT cropMarks EMPTY>
+<!ATTLIST cropMarks
+    borderWidth CDATA #IMPLIED
+    markWidth CDATA #IMPLIED
+    markColor CDATA #IMPLIED
+    markLength CDATA #IMPLIED
+    bleedWidth CDATA #IMPLIED
+	markLast CDATA #IMPLIED
+    >
+<!ELEMENT startIndex EMPTY>
+<!ATTLIST startIndex
+    name CDATA #IMPLIED
+    offset CDATA #IMPLIED
+    format (123|I|i|ABC|abc) #IMPLIED
+    >
+<!ELEMENT index EMPTY>
+<!ATTLIST index
+    name CDATA #IMPLIED
+    item CDATA #REQUIRED
+    offset CDATA #IMPLIED
+    format (123|I|i|ABC|abc) #IMPLIED
+	>
+<!ELEMENT showIndex EMPTY>
+<!ATTLIST showIndex
+    name		CDATA #IMPLIED
+    dot			CDATA #IMPLIED
+    style		CDATA #IMPLIED
+    tableStyle	CDATA #IMPLIED
+    headers		(yes | no | 0 | 1 | true | false) #IMPLIED
+    >
+
+<!ATTLIST docinit
+    pageMode (UseNone|UseOutlines|UseThumbs|FullScreen) #IMPLIED
+    pageLayout (SinglePage|OneColumn|TwoColumnLeft|TwoColumnRight) #IMPLIED
+    useCropMarks (yes | no | 0 | 1 | true | false) #IMPLIED
+    >

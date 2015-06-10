@@ -45,24 +45,26 @@ class Users:
 			print ("No se pudo encontrar Numero")
 			return False
 
-	def update_document(self, ano, inscripcion, trimestre, ahora):
-		print (trimestre)
+	def update_document(self, ano, inscripcion, trimestre, ahora, numero_factura):
 		try:
 			if trimestre == "primero":
-				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.primero.fecha' : ahora}}, upsert = True)
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.primero.fecha' : ahora, 'trimestre.primero.factura' : numero_factura}}, upsert = True)
 				return True
 			elif trimestre == "segundo":
-				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.segundo.status' : "Solvente", 'trimestre.segundo.fecha' : ahora}}, upsert = True)
-				print (d)
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.segundo.status' : "Solvente", 'trimestre.segundo.fecha' : ahora, 'trimestre.segundo.factura' : numero_factura}}, upsert = True)
 				return True
 			elif trimestre == "tercero":
-				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.tercero.status' : "Solvente", 'trimestre.tercero.fecha' : ahora}},  upsert = True)
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.tercero.status' : "Solvente", 'trimestre.tercero.fecha' : ahora,'trimestre.tercero.factura' : numero_factura}},  upsert = True)
 				return True
 			elif trimestre == "cuarto":
-				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.cuarto.status' : "Solvente", 'trimestre.cuarto.fecha' : ahora}}, upsert = True)
+				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.cuarto.status' : "Solvente", 'trimestre.cuarto.fecha' : ahora, 'trimestre.cuarto.factura' : numero_factura}}, upsert = True)
 				return True
 			else:
-				d = self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.segundo.status' : "Solvente", 'trimestre.tercero.status' : "Solvente", 'trimestre.cuarto.status' : "Solvente"}}, upsert = True)
+				self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano, 'trimestre.primero.status' : "Pendiente"}, {'$set' : {'trimestre.primero.status' : "Solvente", 'trimestre.primero.fecha' : ahora, 'trimestre.primero.factura' : numero_factura}})
+				self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano, 'trimestre.segundo.status' : "Pendiente"}, {'$set' : {'trimestre.segundo.status' : "Solvente", 'trimestre.segundo.fecha' : ahora, 'trimestre.segundo.factura' : numero_factura}})
+				self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano, 'trimestre.tercero.status' : "Pendiente"}, {'$set' : {'trimestre.tercero.status' : "Solvente", 'trimestre.tercero.fecha' : ahora, 'trimestre.tercero.factura' : numero_factura}})
+				self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano, 'trimestre.cuarto.status' : "Pendiente"}, {'$set' : {'trimestre.cuarto.status' : "Solvente", 'trimestre.cuarto.fecha' : ahora, 'trimestre.cuarto.factura' : numero_factura}})
+				return True
 		except Exception as e:
 			print (e)
 			return False
@@ -94,6 +96,17 @@ class Users:
 		encontrar = self.contador.find_one({"_id" : "1"})
 		e = encontrar['cont']
 		return e
+	def contando_pagos(self):
+		c = self.contador.update_one({"_id": "1"}, {"$inc" : {"cont_pagos" : 1}})
+		encontrar = self.contador.find_one({"_id" : "1"})
+		e = encontrar['cont_pagos']
+		return e
+
+	def total_pagos(self):
+		encontrar = self.contador.find_one({"_id" : "1"})
+		e = encontrar['cont_pagos']
+		#print encontrar
+		return e
 
 	def encontrar_pago(self, iden):
 		b = []
@@ -109,7 +122,7 @@ class Users:
 					datos['direccion_inmueble_op'] = p['direccion_inmueble_op'] 
 					datos['direccion_inmueble'] = p['direccion_inmueble'] 
 					datos['direccion_inmueble_entre'] = p['direccion_inmueble_entre'] 
-					datos['direccion_inmueble_entre_op'] = p['direccion_inmueble_entre'] 
+					datos['direccion_inmueble_entre_op'] = p['direccion_inmueble_entre_op'] 
 					datos['direccion_inmueble_y'] = p['direccion_inmueble_y'] 
 					datos['direccion_inmueble_y_op'] = p['direccion_inmueble_y_op']
 					datos['razon_social_propietario'] = p['razon_social_propietario']
@@ -138,7 +151,6 @@ class Users:
 
 
 	def actualizar_monto(self, ano, valor_total_inmueble, inscripcion):
-		print (inscripcion)
 		try:
 			self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano, "trimestre.primero.status" : "Pendiente"}, {'$set' : {'trimestre.primero.monto' : valor_total_inmueble}})
 			self.pagos.update_one({"numero_inscripcion": inscripcion, "ano" : ano, "trimestre.segundo.status" : "Pendiente"}, {'$set' : {'trimestre.segundo.monto' : valor_total_inmueble}})
@@ -154,6 +166,3 @@ class Users:
 	def count_pagos(self):
 		p = self.pagos.count()
 		return p
-	def count_factura(self):
-		f = self.factura.count()
-		return f
