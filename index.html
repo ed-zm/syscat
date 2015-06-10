@@ -83,8 +83,13 @@
     <!-- /#wrapper -->
     <script src="{% static "js/vendors/jquery.min.js" %}" type="text/javascript"></script>
     <script src="{% static "js/vendors/bootstrap.min.js" %}" type="text/javascript"></script>
-    <script src="{% static "js/vendors/angular.min.js" %}" type="text/javascript"></script>
-    <script src="{% static "js/vendors/angular-route.min.js" %}" type="text/javascript"></script>
-    <script src="{% static "js/router.js" %}" type="text/javascript"></script>
+    <script type="text/javascript">
+    function justNumbers(e){
+        var keynum = window.event ? window.event.keyCode : e.which;
+        if ((keynum == 8) || (keynum == 46))
+        return true;
+     return /\d/.test(String.fromCharCode(keynum));
+    }
+    </script>
 </body>
 </html>

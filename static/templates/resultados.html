@@ -66,7 +66,7 @@
 		<p><label>Entre :</label>
 			{{datos.direccion_propietario_entre_op}}&nbsp;{{datos.direccion_propietario_entre}}</p>
 		<p><label>Y :</label>
-			{{datos.direccion_propietario_y_op}}&nbsp;{{datos.direccion_propietario_y}}</p>
+			{{datos.direccion_y_propietario_op}}&nbsp;{{datos.direccion_y_propietario}}</p>
 		<p><label>Tipo de Inmueble :</label>
 			{{datos.tipo_inmueble_op}}, {{datos.tipo_inmueble}}</p>
 		<p><label>Número Cívico :</label>
@@ -152,7 +152,10 @@
 			</p>
 		</div><br><br><br><br>
 		<div align = "right" class = "col-lg-9">
-		<form action = "/editar/">
+		<form action = "/editar/" method = "post">
+			<input type = "hidden" name = "inscripcion" value = "{{datos.numero_inscripcion}}"></input>
+			<input type = "hidden" name = "valoracion_economica_inmueble" value = "{{datos.valoracion_economica_inmueble}}"></input>
+			<input type = "hidden" name = "observaciones_generales" value = "{{datos.observaciones_generales}}"></input>
 			<button class="btn btn-danger" type="submit" name = "editar">Editar</button>
 		</form>
 		</div>

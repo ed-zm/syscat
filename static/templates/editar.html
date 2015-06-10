@@ -8,15 +8,14 @@
 </div>
 <div class="row">
 	<div class="col-lg-9">
-		<form class="form-group input-group col-lg-6" method="post" action="/resultado/">
-			<p><label>Valor Total del Terreno</label>
-			<input class="form-control" id = "valor_total_terreno" name = "valor_total_terreno"></p>
-			<p><label>Valor Total de la Construccion</label>
-			<input class="form-control" id = "valor_total_construccion" name = "valor_total_construccion"></p>
+		<form class="form-group input-group col-lg-6" method="post" action="/editar_exitoso/">
+			<input type = "hidden" name = "inscripcion" value = "{{inscripcion}}"></input>
+			<p><label>Valor Total del Inmueble</label>
+			<input class="form-control" type = "number" id = "valor_total_terreno" name = "valor_total_terreno" value = "{{valoracion_economica_inmueble}}" onkeypress="return justNumbers(event);"></p>
 			<p><label>Observaciones Generales</label>
-			<textarea class="form-control" rows = "6" id = "valor_total_construccion" name = "observaciones_generales"></textarea></p> <br><br>
-			<p><button class="btn btn-primary" type="submit" formaction = "/exitoso/">Guardar</button>
-			<button class="btn btn-default" type="reset" formaction = "/exitoso/">Limpiar</button></p>
+			<textarea class="form-control" rows = "6" id = "valor_total_construccion" name = "observaciones_generales" value = "{{observaciones_generales}}"></textarea></p> <br><br>
+			<p><button class="btn btn-primary" type="submit">Guardar</button>
+			<button class="btn btn-default" type="reset" >Limpiar</button></p>
 		</form>
 	</div>
 </div>

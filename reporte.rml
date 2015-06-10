@@ -1,0 +1,132 @@
+<!DOCTYPE document SYSTEM "rml_1_0.dtd">
+<document filename="orden_de_pago.pdf" debug="0" invariant="1" compression="1">
+
+
+<template pageSize="(595, 842)" leftMargin="72" showBoundary="1">
+<pageTemplate id="main">
+	<pageGraphics>
+		<setFont name="Helvetica-Bold" size="18"/>
+		    <drawString x="35" y="783">Reporte General de Usuarios Registrados</drawString>
+			<image file="logo_alcaldia.jpg" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
+			<fill color= "(0,0.99,0.97,0.0)" />
+			<rect x="1.3cm" y = "26.5cm" width="525" height="3" round="1" fill="1" stroke = "Yes" />
+
+			<fill color="black"/>
+			<rect x="10" y="0.3cm" width="575" height="0.4cm" fill="yes" stroke="yes"/>
+	</pageGraphics>
+	<frame id="F1" x1="0" y1="0" width="595" height="842"/>
+</pageTemplate>
+</template>
+
+<stylesheet>
+	<initialize>
+		<alias id="bt" value="style.BodyText"/>
+	</initialize>
+	<paraStyle
+		name="h1pago"
+		parent="style.Normal"
+		fontName="Helvetica-Bold"
+		fontSize="10"
+		leading="12"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+		<paraStyle
+		name="total"
+		parent="style.Normal"
+		fontName="Helvetica"
+		fontSize="14"
+		leading="16"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+		<paraStyle
+		name="h2pago"
+		parent="style.Normal"
+		fontName="Helvetica-Bold"
+		fontSize="9"
+		leading="11"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+		<paraStyle
+		name="pago"
+		parent="style.Normal"
+		fontName="Helvetica"
+		fontSize="8"
+		leading="11"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+	<paraStyle
+		name="h1"
+		parent="style.Normal"
+		fontName="Times-Bold"
+		fontSize="14"
+		leading="16"
+		spaceAfter="6"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+
+	<paraStyle
+		name="h2"
+		parent="style.Normal"
+		fontName="Times-Bold"
+		fontSize="12"
+		leading="14"
+		spaceAfter="3"
+		pageBreakBefore="0"
+		keepWithNext="0"
+		/>
+
+	<paraStyle
+		name="keepInFrame"
+		parent="bt"
+		fontSize="9"
+		alignment="right"
+		/>
+		<paraStyle name="intro"  fontName="Helvetica" fontSize="10" leading="12" spaceAfter="12"/>
+
+	<!--this style used for a tablerow example later on in document-->
+		<blockTableStyle id="simple">
+			<blockValign start="0,0" stop="-1,-1" value="TOP"/>
+			<blockFont name="Helvetica" size="10" leading="12"/>
+			<blockBottomPadding length="2"/>
+			<blockTopPadding length="2"/>
+			<lineStyle kind="INNERGRID" colorName="black" start="0,0" stop="-1,-1" thickness="1"/>
+			<lineStyle kind="BOX" colorName="black" start="0,0" stop="-1,-1" thickness="1"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="summary" parent="simple">
+			<blockBackground colorName="cyan"/>
+			<blockFont name="Helvetica-Bold" size="6" leading="7"/>
+		</blockTableStyle>
+
+		<blockTableStyle id="continuation" parent="simple">
+			<blockBackground colorName="silver"/>
+			<blockFont name="Helvetica-Oblique" size="6" leading="7"/>
+		</blockTableStyle>
+
+</stylesheet>
+
+
+<story>
+<storyPlace x="2cm" y="18cm" width="20cm" height="6cm" origin = "page">
+<para style="intro">Total de Usuarios Registrados : {{total_usuarios}}</para>
+<para style="intro">Total de Dinero Recaudado : {{total_dinero}}Bs</para>
+</storyPlace>
+<storyPlace x="9cm" y="6cm" width="20cm" height="6cm" origin = "page">
+<para style="intro">DIRECTOR DE CATASTRO.</para>
+<para style="intro">Nombre : Ing. Javier Parra</para>
+<para style="intro">Fecha : _________________</para>
+<para style="intro">Firma : _________________</para>
+</storyPlace>
+<keepInFrame onOverflow = "shrink" id="ff1">
+</keepInFrame>
+</story>
+</document>

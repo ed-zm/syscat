@@ -7,9 +7,9 @@
 	<pageGraphics>
 		<setFont name="Helvetica-Bold" size="18"/>
 		    <drawString x="35" y="783">Orden de Pago de Impuestos de Inmuebles Urbanos</drawString>
-		    <drawString x="35" y="765">y Rurales #123456789</drawString>
+		    <drawString x="35" y="765">y Rurales #{{numero_orden}}</drawString>
 			<image file="logo_alcaldia.jpg" preserveAspectRatio="1" x="488" y="749" width="72" height="72"/>
-			<barCode x="9cm" y="1cm" barHeight="0.5in" code="Standard39">2</barCode>
+			<barCode x="9cm" y="1cm" barHeight="0.5in" code="Standard39">{{numero_orden}}</barCode>
 			<fill color= "(0,0.99,0.97,0.0)" />
 			<rect x="1.3cm" y = "26.5cm" width="525" height="3" round="1" fill="1" stroke = "Yes" />
 
@@ -25,27 +25,27 @@
 					</tr>
 					<tr>
 						<td>Parroquia N°</td>
-						<td>0</td>
+						<td>{{formu.parroquia}}</td>
 						<td>Norte</td>
-						<td>0</td>
+						<td>{{formu.lindero_norte}}</td>
 					</tr>
 					<tr>
 						<td>Sector N°</td>
-						<td>0</td>
+						<td>{{formu.sector}}</td>
 						<td>Sur</td>
-						<td>0</td>
+						<td>{{formu.lindero_sur}}</td>
 					</tr>
 					<tr>
 						<td>Lote N°</td>
-						<td>0</td>
+						<td></td>
 						<td>Este</td>
-						<td>0</td>
+						<td>{{formu.lindero_este}}</td>
 					</tr>
 					<tr>
 						<td>N° de Manzana</td>
-						<td>0</td>
+						<td></td>
 						<td>Oeste</td>
-						<td>0</td>
+						<td>{{formu.lindero_oeste}}</td>
 					</tr>
 				</blockTable>
 			</place>
@@ -153,19 +153,19 @@
 
 <story>
 <storyPlace x="2cm" y="21cm" width="20cm" height="5cm" origin="page">
-<para style="intro">Lugar : </para>
-<para style="intro">Fecha : </para>
-<para style="intro">Solicitud : </para>
-<para style="intro">Razón Social: </para>
-<para style="intro">Superficie : </para>
+<para style="intro">Lugar : Santa Cruz de Los Taques</para>
+<para style="intro">Fecha : {{ahora}}</para>
+<para style="intro">Solicitud : MT-JCT-III-000-{{ano}}</para>
+<para style="intro">Razón Social: {{formu.razon_social_propietario}}</para>
+<para style="intro">Superficie : {{formu.valoracion_economica_area_total}}Mts2</para>
 </storyPlace>
 <storyPlace x="2cm" y="14.5cm" width="20cm" height="6cm" origin="page">
-<para style="intro">Adquiriente : </para>
-<para style="intro">C.I Adquiriente : </para>
-<para style="intro">Direccíon del Propietario : </para>
-<para style="intro">Cédula del Propietario : </para>
-<para style="intro">Teléfono : </para>
-<para style="intro">Codigo Catastral : </para>
+<para style="intro">Adquiriente : {{adquiriente}}</para>
+<para style="intro">C.I Adquiriente : {{cedula_o_rif_adquiriente}}</para>
+<para style="intro">Direccíon del Propietario :{{formu.direccion_propietario}}</para>
+<para style="intro">Cédula del Propietario : {{formu.cedula_o_rif_propietario}}</para>
+<para style="intro">Teléfono : {{formu.telefono_propietario}}</para>
+<para style="intro">Codigo Catastral : {{formu.codigo_catastral}}</para>
 </storyPlace>
 <storyPlace x="2cm" y="11cm" width="20cm" height="6cm" origin="page">
 <para style="intro">Concepto de Pago : </para>
@@ -188,6 +188,7 @@
 <para style="intro">Fecha : </para>
 <para style="intro">Firma : </para>
 </storyPlace>
+{% if trimestre == "primero" %}
 <storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
 	<para style="h1pago">Año : </para>
 </storyPlace>
@@ -200,7 +201,7 @@
 <storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
 	<para style="pago">Primero</para>
 </storyPlace>
-<storyPlace x="10cm" y="8cm" width="10.5cm" height="6cm" origin="page">
+<storyPlace x="10cm" y="8.5cm" width="10.5cm" height="6cm" origin="page">
 	<para style="pago">
 		Monto :  {{formu.trimestre.primero.monto}}BsF
 	</para>
@@ -212,9 +213,154 @@
 </storyPlace>
 <storyPlace x="14.5cm" y="0.7cm" width="10.5cm" height="6cm" origin="page">
 	<para style="total">
-		365 BsF 
+		{{formu.trimestre.primero.monto}}BsF
 	</para>
 </storyPlace>
+{%endif%}
+{%if trimestre == "segundo"%}
+<storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Año : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">2015</para>
+</storyPlace>
+<storyPlace x="7.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Trimestre : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Segundo</para>
+</storyPlace>
+<storyPlace x="10cm" y="8.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.segundo.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="12cm" y="0.6cm" width="10.5cm" height="6cm" origin="page">
+	<para style="h1pago">
+		Total a Pagar : 
+	</para>
+</storyPlace>
+<storyPlace x="14.5cm" y="0.7cm" width="10.5cm" height="6cm" origin="page">
+	<para style="total">
+		{{formu.trimestre.segundo.monto}}BsF
+	</para>
+</storyPlace>
+{%endif%}
+
+{%if trimestre == "tercero"%}
+
+<storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Año : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">2015</para>
+</storyPlace>
+<storyPlace x="7.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Trimestre : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Tercero</para>
+</storyPlace>
+<storyPlace x="10cm" y="8.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.tercero.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="12cm" y="0.6cm" width="10.5cm" height="6cm" origin="page">
+	<para style="h1pago">
+		Total a Pagar : 
+	</para>
+</storyPlace>
+<storyPlace x="14.5cm" y="0.7cm" width="10.5cm" height="6cm" origin="page">
+	<para style="total">
+		{{formu.trimestre.tercero.monto}}BsF
+	</para>
+</storyPlace>
+{%endif%}
+{%if trimestre == "cuarto"%}
+<storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Año : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">2015</para>
+</storyPlace>
+<storyPlace x="7.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Trimestre : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Cuarto</para>
+</storyPlace>
+<storyPlace x="10cm" y="8.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.cuarto.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="12cm" y="0.6cm" width="10.5cm" height="6cm" origin="page">
+	<para style="h1pago">
+		Total a Pagar : 
+	</para>
+</storyPlace>
+<storyPlace x="14.5cm" y="0.7cm" width="10.5cm" height="6cm" origin="page">
+	<para style="total">
+		{{formu.trimestre.cuarto.monto}}BsF
+	</para>
+</storyPlace>
+{%endif%}
+
+{%if trimestre == "varios"%}
+
+<storyPlace x="8cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Año : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9.5cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">2015</para>
+</storyPlace>
+<storyPlace x="7.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="h1pago">Trimestre : </para>
+</storyPlace>
+<storyPlace x="9.5cm" y="9cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Primero</para>
+</storyPlace>
+<storyPlace x="10cm" y="8.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.primero.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="9.5cm" y="8cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Segundo</para>
+</storyPlace>
+<storyPlace x="10cm" y="7.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.segundo.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="9.5cm" y="7cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Tercero</para>
+</storyPlace>
+<storyPlace x="10cm" y="6.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.tercero.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="9.5cm" y="6cm" width="10cm" height="6cm" origin="page">
+	<para style="pago">Cuarto</para>
+</storyPlace>
+<storyPlace x="10cm" y="5.5cm" width="10.5cm" height="6cm" origin="page">
+	<para style="pago">
+		Monto :  {{formu.trimestre.cuarto.monto}}BsF
+	</para>
+</storyPlace>
+<storyPlace x="12cm" y="0.6cm" width="10.5cm" height="6cm" origin="page">
+	<para style="h1pago">
+		Total a Pagar : 
+	</para>
+</storyPlace>
+<storyPlace x="14.5cm" y="0.7cm" width="10.5cm" height="6cm" origin="page">
+	<para style="total">
+		{{total}}BsF
+	</para>
+</storyPlace>
+{%endif%}
 	<keepInFrame onOverflow = "shrink" id="ff1">
 	</keepInFrame>
 </story>

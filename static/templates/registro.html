@@ -7,7 +7,7 @@
 </div>
 <div class="row">
 	<div class="col-lg-9">
-		<form action ="/registro_guardar/" method = "POST">
+		<form action ="/registro_guardar/" method = "POST" onsubmit="return confirm('Estas Seguro de continuar?');">
 
 			<!-- DATOS GENERALES -->
 			<h2>Datos Generales</h2>
@@ -56,7 +56,7 @@
  			</div>
  			<div class="form-group">
 				<label>N° Registro Mision Vivienda</label>
-				<input class="form-control" id = "numero_mision_vivienda" name = "numero_mision_vivienda">
+				<input class="form-control" type = "number" id = "numero_mision_vivienda" name = "numero_mision_vivienda" onkeypress="return justNumbers(event);">
  			</div>
 
 
@@ -188,11 +188,11 @@
  			</div>
  			<div class="form-group">
 				<label>N° Cívico</label>
-				<input class="form-control" id = "numero_civico" name = "numero_civico">
+				<input class="form-control" type = "number" id = "numero_civico" name = "numero_civico" onkeypress="return justNumbers(event);">
  			</div>
  			<div class="form-group">
 				<label>Teléfono</label>
-				<input class="form-control" id = "telefono_inmueble" name = "telefono_inmueble">
+				<input class="form-control" type = "number" id = "telefono_inmueble" name = "telefono_inmueble" onkeypress="return justNumbers(event);">
  			</div>
  			<div class="form-group">
 				<label>Punto de Referencia</label>
@@ -220,7 +220,7 @@
             </div>
             <div class="form-group">
                 <label>Cedula/RIF(Si es Jurídica)</label>
-                <input class="form-control" id = "cedula_o_rif_ocupante" name = "cedula_o_rif_ocupante">
+                <input class="form-control" type = "number" id = "cedula_o_rif_ocupante" name = "cedula_o_rif_ocupante" onkeypress="return justNumbers(event);">
             </div>
             <div class="form-group">
 				<label>Ciudad/Localidad</label>
@@ -244,7 +244,7 @@
 
             <div class="form-group">
 				<label>Cédula o RIF(Si es Jurídico)</label>
-				<input class="form-control" id = "cedula_o_rif_propietario" name = "cedula_o_rif_propietario">
+				<input class="form-control" type = "number" id = "cedula_o_rif_propietario" name = "cedula_o_rif_propietario" onkeypress="return justNumbers(event);">
  			</div>
  			<div class="form-group">
 				<label>Nombres y Apellidos o Razón Social</label>
@@ -335,7 +335,7 @@
                     <option value = "Cno">Cno</option>
                 </select>
                 <div class="form-group">
-					<input class="form-control" id = "direccion_y_propietario">
+					<input class="form-control" id = "direccion_y_propietario" name = "direccion_y_propietario">
  				</div>
             </div>
             <div class="form-group">
@@ -363,11 +363,11 @@
  			</div>
  			<div class="form-group">
 				<label>N° Cívico</label>
-				<input class="form-control" id = "numero_civico_propietario" name = "numero_civico_propietario">
+				<input class="form-control" type = "number" id = "numero_civico_propietario" name = "numero_civico_propietario" onkeypress="return justNumbers(event);">
  			</div>
  			<div class="form-group">
 				<label>Teléfono</label>
-				<input class="form-control" id = "telefono_propietario" name = "telefono_propietario">
+				<input class="form-control" type = "number" id = "telefono_propietario" name = "telefono_propietario" onkeypress="return justNumbers(event);">
  			</div>
  			<div class="form-group">
 				<label>Punto de Referencia</label>
@@ -1483,36 +1483,36 @@
                                 <tbody>
                                     <tr>
                                         <td>WC</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_wc" name = "baños_numero_wc"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_wc" name = "baños_numero_wc" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                    <tr>
                                         <td>Baño Comunitario</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_baño_comunitario" name = "baños_numero_baño_comunitario"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_baño_comunitario" name = "baños_numero_baño_comunitario" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Ducha</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_ducha" name = "baños_numero_ducha"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_ducha" name = "baños_numero_ducha" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Lavamanos</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_lavamanos" name = "baños_numero_lavamanos"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_lavamanos" name = "baños_numero_lavamanos" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                 </tbody>
                                     <tr>
                                         <td>Bañera</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_bañera" name = "baños_numero_bañera"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_bañera" name = "baños_numero_bañera" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Letrina</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_letrina" name = "baños_numero_letrina"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_letrina" name = "baños_numero_letrina" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Cerámica 1era</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_ceramica_1era" name = "baños_numero_ceramica_1era"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_ceramica_1era" name = "baños_numero_ceramica_1era" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Cerámica 2da</td>
-                                        <td><input type = "number" class="form-control" id = "baños_numero_ceramica_2da" name = "baños_numero_ceramica_2da"></td>
+                                        <td><input type = "number" class="form-control" id = "baños_numero_ceramica_2da" name = "baños_numero_ceramica_2da" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                             </table>
                         </div>
@@ -1532,39 +1532,39 @@
                                 <tbody>
                                     <tr>
                                         <td>Ventanal</td>
-                                        <td><input class="form-control" id = "ventanas_ventanal_a" name = "ventanas_ventanal_a"></td>
-                                        <td><input class="form-control" id = "ventanas_ventanal_h" name = "ventanas_ventanal_h"></td>
-                                        <td><input class="form-control" id = "ventanas_ventanal_m" name = "ventanas_ventanal_m"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_ventanal_a" name = "ventanas_ventanal_a" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_ventanal_h" name = "ventanas_ventanal_h" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_ventanal_m" name = "ventanas_ventanal_m" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Basculante</td>
-                                        <td><input class="form-control" id = "ventanas_basculantes_a" name = "ventanas_basculantes_a"></td>
-                                        <td><input class="form-control" id = "ventanas_basculantes_h" name = "ventanas_basculantes_h"></td>
-                                        <td><input class="form-control" id = "ventanas_basculantes_m" name = "ventanas_basculantes_m"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_basculantes_a" name = "ventanas_basculantes_a" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_basculantes_h" name = "ventanas_basculantes_h" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_basculantes_m" name = "ventanas_basculantes_m" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Batiente</td>
-                                        <td><input class="form-control" id = "ventanas_batiente_a" name = "ventanas_batiente_a"></td>
-                                        <td><input class="form-control" id = "ventanas_batiente_h" name = "ventanas_batiente_h"></td>
-                                        <td><input class="form-control" id = "ventanas_batiente_m" name = "ventanas_batiente_m"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_batiente_a" name = "ventanas_batiente_a" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_batiente_h" name = "ventanas_batiente_h" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_batiente_m" name = "ventanas_batiente_m" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Celosía</td>
-                                        <td><input class="form-control" id = "ventanas_celosia_a" name = "ventanas_celosia_a"></td>
-                                        <td><input class="form-control" id = "ventanas_celosia_h" name = "ventanas_celosia_h"></td>
-                                        <td><input class="form-control" id = "ventanas_celosia_m" name = "ventanas_celosia_m"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_celosia_a" name = "ventanas_celosia_a" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_celosia_h" name = "ventanas_celosia_h" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_celosia_m" name = "ventanas_celosia_m" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Correder</td>
-                                        <td><input class="form-control" id = "ventanas_correder_a" name = "ventanas_correder_a"></td>
-                                        <td><input class="form-control" id = "ventanas_correder_h" name = "ventanas_correder_h"></td>
-                                        <td><input class="form-control" id = "ventanas_correder_m" name = "ventanas_correder_m"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_correder_a" name = "ventanas_correder_a" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_correder_h" name = "ventanas_correder_h" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_correder_m" name = "ventanas_correder_m" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Panorámica</td>
-                                        <td><input class="form-control" id = "ventanas_panoramica_a" name = "ventanas_panoramica_a"></td>
-                                        <td><input class="form-control" id = "ventanas_panoramica_h" name = "ventanas_panoramica_h"></td>
-                                        <td><input class="form-control" id = "ventanas_panoramica_m" name = "ventanas_panoramica_m"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_panoramica_a" name = "ventanas_panoramica_a" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_panoramica_h" name = "ventanas_panoramica_h" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "ventanas_panoramica_m" name = "ventanas_panoramica_m" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -1583,28 +1583,28 @@
                                 <tbody>
                                     <tr>
                                         <td>Metálica</td>
-                                        <td><input type = "number" class="form-control" id = "puerta_numero_metalica" name = "puerta_numero_metalica"></td>
+                                        <td><input type = "number" class="form-control" id = "puerta_numero_metalica" name = "puerta_numero_metalica" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                    <tr>
                                         <td>Madera Cepillada</td>
-                                        <td><input type = "number" class="form-control" id = "puerta_numero_cepillada" name = "puerta_numero_cepillada"></td>
+                                        <td><input type = "number" class="form-control" id = "puerta_numero_cepillada" name = "puerta_numero_cepillada" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Mad. Ent. Econ.</td>
-                                        <td><input type = "number" class="form-control" id = "puerta_numero_mad_ent_econ" name = "puerta_numero_mad_ent_econ"></td>
+                                        <td><input type = "number" class="form-control" id = "puerta_numero_mad_ent_econ" name = "puerta_numero_mad_ent_econ" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Entamborada Fina</td>
-                                        <td><input type = "number" class="form-control" id = "puerta_numero_entamborada_fina" name = "puerta_numero_entamborada_fina"></td>
+                                        <td><input type = "number" class="form-control" id = "puerta_numero_entamborada_fina" name = "puerta_numero_entamborada_fina" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                 </tbody>
                                     <tr>
                                         <td>De seguridad</td>
-                                        <td><input type = "number" class="form-control" id = "puerta_numero_de_seguridad" name = "puerta_numero_de_seguridad"></td>
+                                        <td><input type = "number" class="form-control" id = "puerta_numero_de_seguridad" name = "puerta_numero_de_seguridad" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Otra</td>
-                                        <td><input type = "number" class="form-control" id = "puerta_numero_otra" name = "puerta_numero_otra"></td>
+                                        <td><input type = "number" class="form-control" id = "puerta_numero_otra" name = "puerta_numero_otra" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                             </table>
                         </div>
@@ -1642,27 +1642,27 @@
                             <table class="table table-bordered table-hover">
                                     <tr>
                                         <td>Año de Construcción</td>
-                                        <td><input class="form-control" id = "otros_datos_año_construccion" name = "otros_datos_año_construccion"></td>
+                                        <td><input class="form-control" type = "number" id = "otros_datos_año_construccion" name = "otros_datos_año_construccion" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                    <tr>
                                         <td>% Refacción</td>
-                                        <td><input class="form-control" id = "otros_datos_refaccion" name = "otros_datos_refaccion"></td>
+                                        <td><input class="form-control" type = "number" id = "otros_datos_refaccion" name = "otros_datos_refaccion" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>N° de Niveles</td>
-                                        <td><input class="form-control" id = "otros_datos_niveles" name = "otros_datos_niveles"></td>
+                                        <td><input class="form-control" type = "number" id = "otros_datos_niveles" name = "otros_datos_niveles" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Año de Refacción</td>
-                                        <td><input class="form-control" id = "otros_datos_año_refaccion" name = "otros_datos_año_refaccion"></td>
+                                        <td><input class="form-control" type = "number" id = "otros_datos_año_refaccion" name = "otros_datos_año_refaccion" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>Edad Efectiva</td>
-                                        <td><input class="form-control" id = "otros_datos_edad_efectiva" name = "otros_datos_edad_efectiva"></td>
+                                        <td><input class="form-control" type = "number" id = "otros_datos_edad_efectiva" name = "otros_datos_edad_efectiva" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                                     <tr>
                                         <td>N° de Edificaciones</td>
-                                        <td><input class="form-control" id = "otros_datos_edificaciones" name = "otros_datos_edificaciones"></td>
+                                        <td><input class="form-control" type = "number" id = "otros_datos_edificaciones" name = "otros_datos_edificaciones" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                             </table>
                         </div>
@@ -1698,10 +1698,10 @@
                     </div>
                     <div class="form-group">
                         <label>Fecha</label>
-                        <input type="date" class="form-control" id = "datos_registro_publico_fecha" name = "datos_registro_publico_fecha">
+                        <input type="date" class="form-control" id = "datos_registro_publico_fecha" name = "datos_registro_publico_fecha" placeholder = "dd/mm/aa">
                     </div>
                     <div class="col-lg-6">
-                        <h3>3.- Área(m2)</h3>
+                        <h3>3.- Área(Mts2)</h3>
                         <div class="table-responsive">
                             <table class="table table-bordered table-hover">
                                     <tr>
@@ -1712,15 +1712,15 @@
                                         <td>Construcción</td>
                                     </tr>
                                     <tr>
-                                        <td><input class="form-control" id = "datos_registro_publico_area_terreno" name = "datos_registro_publico_area_terreno"></td>
-                                        <td><input class="form-control" id = "datos_registro_publico_area_construccion" name = "datos_registro_publico_area_construccion"></td>
+                                        <td><input class="form-control" type = "number" id = "datos_registro_publico_area_terreno" name = "datos_registro_publico_area_terreno" onkeypress="return justNumbers(event);"></td>
+                                        <td><input class="form-control" type = "number" id = "datos_registro_publico_area_construccion" name = "datos_registro_publico_area_construccion" onkeypress="return justNumbers(event);"></td>
                                     </tr>
                             </table>
                         </div>
                     </div>
                     <div class="form-group col-lg-12">
                         <label>Monto</label>
-                        <input class="form-control" id = "datos_registro_publico_monto" name = "datos_registro_publico_monto">
+                        <input class="form-control" type = "number" id = "datos_registro_publico_monto" name = "datos_registro_publico_monto" onkeypress="return justNumbers(event);">
                     </div>
 
 
@@ -1735,12 +1735,12 @@
                     <br><br>
 
                     <div class="form-group">
-                        <label>Área(m2)</label>
-                        <input class="form-control" id = "valoracion_economica_terreno_area" name = "valoracion_economica_terreno_area">
+                        <label>Área(Mts2)</label>
+                        <input class="form-control" type = "number" id = "valoracion_economica_terreno_area" name = "valoracion_economica_terreno_area" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
-                        <label>Valor Unitario(Bs/m2)</label>
-                        <input class="form-control" id = "valoracion_economica_terreno_valor_unitario" name = "valoracion_economica_terreno_valor_unitario">
+                        <label>Valor Unitario(Bs/Mts2)</label>
+                        <input class="form-control" type = "number" id = "valoracion_economica_terreno_valor_unitario" name = "valoracion_economica_terreno_valor_unitario" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Sector</label>
@@ -1755,12 +1755,12 @@
                         <input class="form-control" id = "valoracion_economica_terreno_factor_ajuste_forma" name = "valoracion_economica_terreno_factor_ajuste_forma">
                     </div>
                     <div class="form-group">
-                        <label>Valor Ajustado(Bs/m2)</label>
-                        <input class="form-control" id = "valoracion_economica_terreno_valor_ajustado" name = "valoracion_economica_terreno_valor_ajustado">
+                        <label>Valor Ajustado(Bs/Mts2)</label>
+                        <input class="form-control" type = "number" id = "valoracion_economica_terreno_valor_ajustado" name = "valoracion_economica_terreno_valor_ajustado" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Valor Total (BsF)</label>
-                        <input class="form-control" id = "valoracion_economica_terreno_valor_total" name = "valoracion_economica_terreno_valor_total">
+                        <input class="form-control" type = "number" id = "valoracion_economica_terreno_valor_total" name = "valoracion_economica_terreno_valor_total" onkeypress="return justNumbers(event);">
                     </div>
 
                     <br><br>
@@ -1772,36 +1772,36 @@
                         <input class="form-control" id = "valoracion_economica_construccion_tipologia" name = "valoracion_economica_construccion_tipologia">
                     </div>
                     <div class="form-group">
-                        <label>Área(m2)</label>
-                        <input class="form-control" id = "valoracion_economica_construccion_area" name = "valoracion_economica_construccion_area">
+                        <label>Área(Mts2)</label>
+                        <input class="form-control" type = "number" id = "valoracion_economica_construccion_area" name = "valoracion_economica_construccion_area" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
-                        <label>Valor(m2)</label>
-                        <input class="form-control" id = "valoracion_economica_construccion_valor" name = "valoracion_economica_construccion_valor">
+                        <label>Valor(Mts2)</label>
+                        <input class="form-control" type = "number" id = "valoracion_economica_construccion_valor" name = "valoracion_economica_construccion_valor" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>% Depreciación</label>
-                        <input class="form-control" id = "valoracion_economica_construccion_depreciacion" name = "valoracion_economica_construccion_depreciacion">
+                        <input class="form-control" type = "number" id = "valoracion_economica_construccion_depreciacion" name = "valoracion_economica_construccion_depreciacion" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Valor Actual (BsF)</label>
-                        <input class="form-control" id = "valoracion_economica_construccion_valor_actual" name = "valoracion_economica_construccion_valor_actual">
+                        <input class="form-control" type = "number" id = "valoracion_economica_construccion_valor_actual" name = "valoracion_economica_construccion_valor_actual" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Valor Total (BsF)</label>
-                        <input class="form-control" id = "valoracion_economica_construccion_valor_total" name = "valoracion_economica_construccion_valor_total">
+                        <input class="form-control" type = "number" id = "valoracion_economica_construccion_valor_total" name = "valoracion_economica_construccion_valor_total" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
-                        <label>Área Total (m2)</label>
-                        <input class="form-control" id = "valoracion_economica_area_total" name = "valoracion_economica_area_total">
+                        <label>Área Total (Mts2)</label>
+                        <input class="form-control" type = "number" id = "valoracion_economica_area_total" name = "valoracion_economica_area_total" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Valor total Construcción (BSF)</label>
-                        <input class="form-control" id = "valoracion_economica_construccion" name = "valoracion_economica_construccion" required>
+                        <input class="form-control" type = "number" id = "valoracion_economica_construccion" name = "valoracion_economica_construccion" onkeypress="return justNumbers(event);" required>
                     </div>
                     <div class="form-group">
                         <label>Valor total Inmueble (BSF)</label>
-                        <input class="form-control" id = "valoracion_economica_inmueble" name = "valoracion_economica_inmueble" required>
+                        <input class="form-control" type = "number" id = "valoracion_economica_inmueble" name = "valoracion_economica_inmueble" onkeypress="return justNumbers(event);" required>
                     </div>
                     <div class="form-group col-lg-9">
                         <label>Observaciones</label>
@@ -1816,19 +1816,19 @@
                     <h3>Linderos Acutales</h3>
                     <div class="form-group">
                         <label>Norte</label>
-                        <input class="form-control" id = "lindero_norte" name = "lindero_norte">
+                        <input class="form-control" type = "number" id = "lindero_norte" name = "lindero_norte" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Sur</label>
-                        <input class="form-control" id = "lindero_sur" name = "lindero_sur">
+                        <input class="form-control" type = "number" id = "lindero_sur" name = "lindero_sur" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Este</label>
-                        <input class="form-control" id = "lindero_este" name = "lindero_este">
+                        <input class="form-control" type = "number" id = "lindero_este" name = "lindero_este" onkeypress="return justNumbers(event);">
                     </div>
                     <div class="form-group">
                         <label>Oeste</label>
-                        <input class="form-control" id = "lindero_oeste" name = "lindero_oeste">
+                        <input class="form-control" type = "number" id = "lindero_oeste" name = "lindero_oeste" onkeypress="return justNumbers(event);">
                     </div>
                     <h3>Coordenadas UTM(REGVEN)</h3>
                     <div class="form-group">

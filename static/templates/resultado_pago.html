@@ -1,10 +1,20 @@
 {% extends "static/templates/pagos.html" %}
 {% block resultados %}
 	<div class="form-group">
-		<p><label><h3>Dirección : </h3></label>
-			{{direccion}}</p>
-		<p><label><h3>Número de Inscripción : </h3></label>
-			{{numero_inscripcion}}</p>
+		<p><label>Número de Inscripción : </label>
+			{{datos.numero_inscripcion}}</p>
+		<p><label>Ciudad : </label>
+			{{datos.ciudad_inmueble}}</p>
+		<p><label>Dirección : </label>
+			{{datos.direccion_inmueble_op}}. {{datos.direccion_inmueble}}</p>
+		<p><label>Entre : </label>
+			{{datos.direccion_inmueble_entre_op}}. {{datos.direccion_inmueble_entre}}</p>
+		<p><label>Y : </label>
+			{{datos.direccion_inmueble_y_op}}. {{datos.direccion_inmueble_y}}</p>
+		<p><label>Cedula o RIF del propietario : </label>
+			{{datos.cedula_o_rif_propietario}}</p>
+		<p><label>Razon social del propietario : </label>
+			{{datos.razon_social_propietario}}</p>
 		<label><h2>Pagos Realizados:</h2></label>
 			<p>======================================================================================================================</p>
 			
@@ -68,9 +78,9 @@
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
 						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
-						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{datos.numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "primero">
-						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+						<button type="submit" class="btn btn-sm btn-danger">Pagar</button>
 	    			</div>
 				</form>
 			{% endif%}
@@ -87,9 +97,9 @@
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
 						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
-						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{datos.numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "segundo">
-						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+						<button type="submit" class="btn btn-sm btn-danger" >Pagar</button>
 	    			</div>
 				</form>
 				{% endif%}
@@ -107,9 +117,9 @@
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
 						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
-						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{datos.numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "tercero">
-						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+						<button type="submit" class="btn btn-sm btn-danger" >Pagar</button>
 	    			</div>
 				</form>
 			{% endif%}
@@ -126,9 +136,9 @@
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
 						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
-						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{datos.numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "cuarto">
-						<button type="submit" class="btn btn-sm btn-danger" onclick = "pendiente()">Pagar</button>
+						<button type="submit" class="btn btn-sm btn-danger" >Pagar</button>
 	    			</div>
 				</form>
 			{% endif%}
@@ -147,15 +157,15 @@
 					<div class = "form-group col-sm-12">
 						<input type = "hidden" name = "ano" id = "ano" value = "{{resultado.ano}}">
 						<input type = "hidden" name = "iden" id = "iden" value = "{{iden}}">
-						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{numero_inscripcion}}">
+						<input type = "hidden" name = "inscripcion" id = "inscripcion" value = "{{datos.numero_inscripcion}}">
 						<input type = "hidden" name = "trimestre" id = "trimestre" value = "varios">
-						<button type="submit" class="btn btn-lg btn-danger" onclick = "pendiente()">Pagar Todo</button>
+						<button type="submit" class="btn btn-lg btn-danger" >Pagar Todo</button>
 	    			</div>
 				</form>
 			{%else %}
 				<form action = "/pagoexitoso/">
 					<div class = "form-group col-sm-12">
-						<button type="submit" class="btn btn-lg btn-success" onclick = "pendiente()" disabled>Todo Pago</button>
+						<button type="submit" class="btn btn-lg btn-success" disabled>Todo Pago</button>
 	    			</div>
 				</form>
 			{% endif%}
@@ -166,15 +176,4 @@
 
 
  	</div>
- 	<script type = "application/js">
- 		function pendiente(){
- 			var r = confirm("Press a button");
-				if (r == true) {
-    			location.href = "/pagoexitoso"
-			} 
-			else {
-    			x = "Vuelve a Intentarlo";
-			} 
- 		}
- 	</script>
 {% endblock %}

@@ -56,7 +56,6 @@ def confirmar_pago(request):
 		inscripcion = request.POST['inscripcion']
 		trimestre = request.POST['trimestre']
 		texto_pago = request.POST['iden']
-		print (texto_pago)
 		formu = {"ano" : ano, "inscripcion" : inscripcion, "trimestre" : trimestre, "texto_pago" : texto_pago}
 		return render_to_response('static/templates/confirmar_pago.html', {"usuario" : user, "formu" : formu})
 	else:
@@ -64,14 +63,49 @@ def confirmar_pago(request):
 
 def editar(request):
 	if active == True:
-		return render_to_response('static/templates/editar.html')
+		if request.method == 'POST':
+			inscripcion = request.POST['inscripcion']
+			valoracion_economica_inmueble = request.POST['valoracion_economica_inmueble']
+			observaciones_generales = request.POST['observaciones_generales']
+			return render_to_response('static/templates/editar.html',{"usuario" : user, "inscripcion" : inscripcion, "valoracion_economica_inmueble" : valoracion_economica_inmueble, "observaciones_generales" : observaciones_generales})
 	else:
 		return HttpResponseRedirect('/login')
 
+def editar_exitoso(request):
+	if active == True:
+		if request.method == 'POST':
+			inscripcion = request.POST['inscripcion']
+			valor_total_inmueble = request.POST['valor_total_terreno']
+			v = int(valor_total_inmueble)
+			g = v *0.10
+			observaciones_generales = request.POST['observaciones_generales']
+			hoy = datetime.now()
+			ano_actual = hoy.year
+			ano = str(ano_actual)
+			actualizar_monto = users.actualizar_monto(ano, g, inscripcion)
+			busqueda = users.find_document(inscripcion)
+			if busqueda:
+				b = busqueda[1]
+				concat = b["observaciones_generales"]
+			observaciones = concat + " , " + observaciones_generales
+			editar = users.editar(inscripcion, valor_total_inmueble, observaciones)
+			if editar:
+				return render_to_response("static/templates/exitoso.html", {"usuario" : user})
+	else:
+		return HttpResponseRedirect("/login")
+
 def exitoso(request):
 	if active == True:
-		print (request.POST)
 		return render_to_response('static/templates/exitoso.html', {"usuario" : user})
+	else:
+		return HttpResponseRedirect("/login")
+
+def mal(request):
+	if active == True:
+		return render_to_response('static/templates/mal.html', {"usuario" : user})
+	else:
+		return HttpResponseRedirect("/login")
+
 
 def home(request): 
 	global init
@@ -105,7 +139,11 @@ def pagoexitoso(request):
 			inscripcion = request.POST['inscripcion']
 			trimestre = request.POST['trimestre']
 			documento = users.update_document(ano, inscripcion, trimestre, ahora)
-			return render_to_response('static/templates/pagoexitoso.html', {"usuario" : user})
+			print (documento)
+			if documento:
+				return render_to_response('static/templates/pagoexitoso.html', {"usuario" : user})
+			else: 
+				return HttpResponse("nada")
 	else: 
 		return HttpResponseRedirect('/login')
 def registro(request):
@@ -123,6 +161,8 @@ def registro_guardar(request):
 				copy = request.POST.copy()
 				req = copy.keys()
 				post = copy
+				cont_pago = users.count_pagos()
+				cont_pago = cont_pago+1
 				cont = users.count()
 				cont = cont +1
 				post['_id'] = cont
@@ -142,14 +182,37 @@ def registro_guardar(request):
 				f['cedula_o_rif_propietario'] = copy['cedula_o_rif_propietario']
 				f['valoracion_economica_construccion'] = copy['valoracion_economica_construccion']
 				f['valoracion_economica_inmueble'] = copy['valoracion_economica_inmueble']
-				f['trimestre']= {"primero": {"status": "Pendiente"}, "segundo":  {"status": "Pendiente"}, "tercero": {"status": "Pendiente"}, "cuarto": {"status": "Pendiente"}}
+				f['direccion_propietario_op'] = copy['direccion_propietario_op']
+				f['direccion_propietario'] = copy['direccion_propietario']
+				f['direccion_propietario_entre_op'] = copy['direccion_propietario_entre_op']
+				f['direccion_entre_propietario'] = copy['direccion_entre_propietario']
+				f['direccion_y_propietario_op'] = copy['direccion_y_propietario_op']
+				f['direccion_y_propietario'] = copy['direccion_y_propietario']
+				f['sector'] = copy['sector']
+				f['parroquia'] = copy['parroquia']
+				f['lindero_norte'] = copy['lindero_norte']
+				f['lindero_sur'] = copy['lindero_sur']
+				f['lindero_este'] = copy['lindero_este']
+				f['lindero_oeste'] = copy['lindero_oeste']
+				f['telefono_propietario'] = copy['telefono_propietario']
+				f['codigo_catastral'] = copy['codigo_catastral']
+				f['valoracion_economica_area_total'] = copy['valoracion_economica_area_total']
+				ch = int(copy['valoracion_economica_inmueble'])
+				g =  ch* 0.10
+				f['trimestre']= {"primero": {"status": "Pendiente", "monto" : g}, "segundo":  {"status": "Pendiente", "monto" : g}, "tercero": {"status": "Pendiente", "monto" : g}, "cuarto": {"status": "Pendiente", "monto" : g}}
+				f['_id'] = cont_pago
 				hoy = datetime.now()
 				ahora = hoy.strftime("%d/%m/%Y")
-				ano = request.POST['ano']
+				ano_actual = hoy.year
+				ano = str(ano_actual)
+				#ano = request.POST['ano']
 				f['ano'] = ano
 				ins = users.insertar_pago(f)
-				print (ins)
-				return HttpResponseRedirect('/exitoso')
+				print (ins, registro)
+				if registro and ins:
+					return HttpResponseRedirect('/exitoso')
+				else:
+					return HttpResponseRedirect('/mal')
 			except Exception as e:
 				return HttpResponse(e)
 	else: 
@@ -176,35 +239,22 @@ def resultado_pago(request):
 		b = []
 		if request.method == 'POST':
 			iden = request.POST['texto_pago']
-			connection_string = "mongodb://localhost"
-			connection = pymongo.MongoClient(connection_string)
-			db = connection.syscat
-			pagos = db.pagos
-			busqueda = users.find_document(iden)
-			if busqueda is not False:
-				m = busqueda[1]
-				d= m['ubicacion_del_inmueble']['direccion']
-				ni = m['numero_inscripcion']
+			pago = users.encontrar_pago(iden)
 			hoy = datetime.now()
 			ano_actual = hoy.year
-			for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",1):
-				if iden == p['numero_inscripcion']:
-					ac = True
-					ultimo = p
-					ultimo_ano = p['ano']
-
-			if ac == True:
+			"""if ac == True:
 				ano_ultimo = datetime.strptime(ultimo_ano, "%Y")
 				an = ano_ultimo.year
 				while(ano_actual>an):
-					an = an + 1
-				for p in pagos.find({"numero_inscripcion" : iden}).sort("ano",-1):
-					b.append(p)
-				return render_to_response ('static/templates/resultado_pago.html', {"resultados" : b, "usuario" : user})
+					an = an + 1"""
+			if pago:
+				datos = pago[2]
+				pagos = pago[1]
+				return render_to_response ('static/templates/resultado_pago.html', {"resultados" : pagos, "usuario" : user, "datos" : datos, "iden" : iden})
 			else: 
 				return render_to_response('static/templates/noencontropago.html', {"usuario" : user})
-		else: 
-			return HttpResponseRedirect('/login')
+	else: 
+		return HttpResponseRedirect('/login')
 
 def reporte(request):
 	if active == True:
@@ -216,18 +266,13 @@ def reporte(request):
 
 def generar_reporte(request):
 	if active == True:
+		hoy = datetime.now()
+		ahora = hoy.strftime("%d/%m/%Y")
 		from rlextra.rml2pdf import rml2pdf
-		a = 0 
-		b = []
-		connection_string = "mongodb://localhost"
-		connection = pymongo.MongoClient(connection_string)
-		db = connection.syscat
-		ficha_catastral = db.ficha_catastral
-		t = get_template('test_001_hello.rml') 
-		for n in ficha_catastral.find():
-			b.append(n)
-			a = a + 1
-		c = Context({"reporte": b, "total" : a})  
+		t = get_template('reporte.rml')
+		total_dinero = users.contar_pagos() 
+		total_usuarios = users.count()
+		c = Context({"total_dinero" : total_dinero, "total_usuarios" : total_usuarios})  
 		rml = t.render(c)
 		r = rml.encode('utf8')
 		buf = BytesIO()
@@ -235,7 +280,10 @@ def generar_reporte(request):
 		pdfData = buf.getvalue()
 		response = HttpResponse(content_type='application/pdf')
 		response.write(pdfData)
-		response['Content-Disposition'] = 'attachment; filename="test_001_hello.pdf"'
+		salida = "attachment; filename="
+		nombresalida = salida + "reporte_" + ahora + ".pdf"
+		response['Content-Disposition'] = nombresalida
+		#'attachment; filename="orden_de_pago.pdf"'
 		return response
 	else:
 		return HttpResponseRedirect('/login')
@@ -243,13 +291,28 @@ def generar_reporte(request):
 def orden_pago(request):
 	if active == True:
 		if request.method == 'POST':
-			iden = request.POST['texto_pago']
+			ano = request.POST['ano']
+			inscripcion = request.POST['inscripcion']
+			trimestre = request.POST['trimestre']
+			adquiriente = request.POST['adquiriente']
+			cedula_o_rif_adquiriente = request.POST['cedula_o_rif_adquiriente']
+			hoy = datetime.now()
+			ano_actual = hoy.year
+			ano = str(ano_actual)
+			ahora = hoy.strftime("%d/%m/%Y")
+			formu = users.encontrar_pago(inscripcion)
+			form = formu[1]
+			form1 = form[0]
+			contador = users.contar_ordenes()
+			total_primero = int(form1['trimestre']['primero']['monto'])
+			total_segundo = int(form1['trimestre']['segundo']['monto'])
+			total_tercero = int(form1['trimestre']['tercero']['monto'])
+			total_cuarto = int(form1['trimestre']['cuarto']['monto']) 
+			total = total_primero+total_segundo+total_tercero+total_cuarto
+			cedula = form1['cedula_o_rif_propietario']
 			from rlextra.rml2pdf import rml2pdf
-			print (iden)
-			buscar_pago = users.find_pago(iden)
-			formu = buscar_pago[1]
 			t = get_template('orden_pago.rml')
-			c = Context({"formu" : formu})
+			c = Context({"formu" : form1, "ahora" : ahora, "ano": ano, "adquiriente": adquiriente, "cedula_o_rif_adquiriente" : cedula_o_rif_adquiriente, "total" : total, "trimestre" : trimestre, "numero_orden" : contador})
 			rml = t.render(c)
 			r = rml.encode('utf8')
 			buf = BytesIO()
@@ -257,7 +320,10 @@ def orden_pago(request):
 			pdfData = buf.getvalue()
 			response = HttpResponse(content_type='application/pdf')
 			response.write(pdfData)
-			response['Content-Disposition'] = 'attachment; filename="orden_de_pago.pdf"'
+			salida = "attachment; filename="
+			nombresalida = salida + "orden_pago_" + cedula + ".pdf"
+			response['Content-Disposition'] = nombresalida
+			#'attachment; filename="orden_de_pago.pdf"'
 			return response
 	else:
 		return HttpResponseRedirect('/login')
